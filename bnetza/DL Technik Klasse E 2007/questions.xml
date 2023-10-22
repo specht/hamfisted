@@ -708,10 +708,10 @@
     </question>
     <question id="TB805" >
      <textquestion>Wie groß ist die HF-Bandbreite, die bei der Übertragung eines SSB-Signals entsteht?</textquestion>
-     <textanswer correct="true" >Sie entspricht genau der Bandbreite des NFSignals.</textanswer>
+     <textanswer correct="true" >Sie entspricht genau der Bandbreite des NF-Signals.</textanswer>
      <textanswer>Sie entspricht der Hälfte der Bandbreite des NF-Signals.</textanswer>
      <textanswer>Sie entspricht der doppelten Bandbreite des NF-Signals.</textanswer>
-     <textanswer>Sie ist Null, weil bei SSB-Modulation der HFTräger unterdrückt wird.</textanswer>
+     <textanswer>Sie ist Null, weil bei SSB-Modulation der HF-Träger unterdrückt wird.</textanswer>
     </question>
     <question id="TB806" >
      <textquestion>Ein Träger von 3,65 MHz wird mit der NF-Frequenz von 2 kHz in SSB (LSB) moduliert. Welche Frequenz/Frequenzen treten im modulierten HF-Signal hauptsächlich auf?</textquestion>
