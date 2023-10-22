@@ -1,4 +1,4 @@
-package com.example.hamfisted
+package org.nhcham.hamfisted
 
 import io.flutter.embedding.android.FlutterActivity
 
