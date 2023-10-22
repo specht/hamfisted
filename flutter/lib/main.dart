@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 import 'dart:math';
@@ -231,6 +232,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   bool foundCorrect = false;
   int animationPhase = 0;
   bool solvedAll = false;
+  Timer? _timer;
 
   late final AnimationController _animationController = AnimationController(
     duration: const Duration(milliseconds: 500),
@@ -335,6 +337,28 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     });
   }
 
+  void tapAnswer(int i) {
+    if (i == 0) {
+      // answer is correct
+      foundCorrect = true;
+      answerColor[i] = GREEN;
+      if (!guessedWrong) {
+        if (confidenceIndex == 0) {
+          GlobalData.instance
+              .markQuestionSolved(qid!, DateTime.now().millisecondsSinceEpoch);
+        }
+      }
+      if (confidenceIndex == 0) {
+        launchAnimation();
+      }
+    } else {
+      // answer is wrong
+      answerColor[i] = RED;
+      guessedWrong = true;
+      confidenceIndex = 1;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (hid == null) {
@@ -348,8 +372,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     }
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
-    if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A'))
+    if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
       qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
+    }
 
     cards.add(Card(
       child: ListTile(
@@ -357,7 +382,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Html(
             data:
-                "<b>${qidDisplay}</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
+                "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
             style: {'body': Style(margin: Margins.zero)},
           ),
         ),
@@ -399,29 +424,20 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                               offset: offset * constraints.maxWidth,
                               child: Card(
                                 child: InkWell(
+                                  onTapCancel: () => _timer?.cancel(),
+                                  onTapDown: (_) => {
+                                    _timer =
+                                        Timer(Duration(milliseconds: 1500), () {
+                                      setState(() {
+                                        confidenceIndex = 1;
+                                        tapAnswer(i);
+                                      });
+                                    })
+                                  },
                                   onTap: () {
+                                    _timer?.cancel();
                                     setState(() {
-                                      if (i == 0) {
-                                        // answer is correct
-                                        foundCorrect = true;
-                                        answerColor[i] = GREEN;
-                                        if (!guessedWrong) {
-                                          if (confidenceIndex == 0) {
-                                            GlobalData.instance
-                                                .markQuestionSolved(
-                                                    qid!,
-                                                    DateTime.now()
-                                                        .millisecondsSinceEpoch);
-                                          }
-                                        }
-                                        if (confidenceIndex == 0) {
-                                          launchAnimation();
-                                        }
-                                      } else {
-                                        // answer is wrong
-                                        answerColor[i] = RED;
-                                        guessedWrong = true;
-                                      }
+                                      tapAnswer(i);
                                     });
                                   },
                                   child: Container(
@@ -540,8 +556,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
               label: 'Ich bin mir sicher',
             ),
             BottomNavigationBarItem(
-              activeIcon: const Text(
-                "🤔",
+              activeIcon: Text(
+                (confidenceIndex == 1 && foundCorrect) ? "👍" : "🤔",
                 style: TextStyle(fontSize: 24),
               ),
               icon: const Opacity(

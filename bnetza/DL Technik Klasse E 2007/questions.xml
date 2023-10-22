@@ -2515,7 +2515,7 @@
     </question>
     <question id="TI309" >
      <textquestion>Was verstehen Sie unter dem Begriff "Sporadic-E"? Ich verstehe darunter</textquestion>
-     <textanswer correct="true" >die Reflexion an lokal begrenzten Bereichen mit ungewöhnlich hoher Ionisation innerhalb der ESchicht.</textanswer>
+     <textanswer correct="true" >die Reflexion an lokal begrenzten Bereichen mit ungewöhnlich hoher Ionisation innerhalb der E-Schicht.</textanswer>
      <textanswer>kurzfristige plötzliche Inversionsänderungen in der E-Schicht, die Fernausbreitung im VHF-Bereich ermöglichen.</textanswer>
      <textanswer>kurzzeitig auftretende starke Reflexion von VHF-Signalen an Meteorbahnen innerhalb der E-Schicht.</textanswer>
      <textanswer>lokal begrenzten kurzzeitigen Ausfall der Reflexion durch ungewöhnlich hohe Ionisation innerhalb der E-Schicht.</textanswer>
@@ -2757,7 +2757,7 @@
      <textanswer>einer Verringerung der Ausgangsleistung.</textanswer>
     </question>
     <question id="TK204" >
-     <textquestion>Die gesamte Bandbreite einer FMÜbertragung beträgt 15 kHz. Wie nah an der Bandgrenze kann ein Träger übertragen werden, ohne dass Außerbandaussendungen erzeugt werden?</textquestion>
+     <textquestion>Die gesamte Bandbreite einer FM-Übertragung beträgt 15 kHz. Wie nah an der Bandgrenze kann ein Träger übertragen werden, ohne dass Außerbandaussendungen erzeugt werden?</textquestion>
      <textanswer correct="true" >7,5 kHz.</textanswer>
      <textanswer>0 kHz.</textanswer>
      <textanswer>15 kHz.</textanswer>
