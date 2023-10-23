@@ -9,7 +9,7 @@
    id="svg5"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    sodipodi:docname="icon.svg"
-   inkscape:export-filename="/home/michael/programming/amateurfunk/flutter/assets/icon.png"
+   inkscape:export-filename="/home/michael/programming/amateurfunk/flutter/assets/icon_fg.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -29,9 +29,9 @@
      showgrid="false"
      units="px"
      width="512px"
-     inkscape:zoom="2.2832031"
-     inkscape:cx="255.78101"
-     inkscape:cy="264.75962"
+     inkscape:zoom="1.2641088"
+     inkscape:cx="210.42493"
+     inkscape:cy="206.07404"
      inkscape:window-width="2496"
      inkscape:window-height="1369"
      inkscape:window-x="2624"
@@ -71,9 +71,10 @@
        gradientUnits="userSpaceOnUse" />
   </defs>
   <g
-     inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer2"
+     inkscape:label="bg"
+     style="display:none">
     <rect
        style="fill:#006496;fill-opacity:1;stroke:none;stroke-width:10.9589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect2883"
@@ -88,16 +89,22 @@
        height="135.46666"
        x="0"
        y="0" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
     <path
-       style="fill:#ffffff;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;opacity:0.67131524"
+       style="opacity:0.671315;fill:#ffffff;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 51.273577,145.02814 67.73333,86.78333 84.172622,145.8892"
        id="path23398" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2.11666667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:2.11667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 67.733332,86.783332 V 154.51666"
        id="path880" />
     <path
-       style="opacity:0.8;fill:none;stroke:#000000;stroke-width:2.11666654;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11666654, 4.23333308;stroke-dashoffset:0"
+       style="opacity:0.8;fill:none;stroke:#000000;stroke-width:2.11667;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11667, 4.23333;stroke-dashoffset:0"
        id="path970"
        sodipodi:type="arc"
        sodipodi:cx="13.468664"
@@ -111,7 +118,7 @@
        sodipodi:open="true"
        transform="rotate(135)" />
     <path
-       style="opacity:0.6;fill:none;stroke:#000000;stroke-width:2.11666654;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11666654, 4.23333308;stroke-dashoffset:0"
+       style="opacity:0.6;fill:none;stroke:#000000;stroke-width:2.11667;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11667, 4.23333;stroke-dashoffset:0"
        id="path1360"
        sodipodi:type="arc"
        sodipodi:cx="13.468664"
@@ -125,7 +132,7 @@
        sodipodi:open="true"
        transform="rotate(135)" />
     <path
-       style="opacity:0.4;fill:none;stroke:#000000;stroke-width:2.11666654;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11666654, 4.23333308;stroke-dashoffset:0"
+       style="opacity:0.4;fill:none;stroke:#000000;stroke-width:2.11667;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11667, 4.23333;stroke-dashoffset:0"
        id="path1464"
        sodipodi:type="arc"
        sodipodi:cx="13.468664"
@@ -139,7 +146,7 @@
        sodipodi:open="true"
        transform="rotate(135)" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2.11666654;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11666654,4.23333308;stroke-dashoffset:5.0799997"
+       style="fill:none;stroke:#000000;stroke-width:2.11667;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11667, 4.23333;stroke-dashoffset:5.08"
        id="path1568"
        sodipodi:type="arc"
        sodipodi:cx="13.468664"
@@ -173,49 +180,27 @@
        sodipodi:nodetypes="ccccccc"
        inkscape:transform-center-x="-30.643203"
        inkscape:transform-center-y="-53.060281" />
-    <image
-       width="39.158333"
-       height="43.391666"
-       preserveAspectRatio="none"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACkCAYAAABxRgd5AAAABHNCSVQICAgIfAhkiAAABQhJREFU
-eJzt2ktoHHUAx/HffzPpZtWARSoUfBzU9qBCiyLWi9QHFoqCHvTg1TaHQgzYQ0BPgRZ8VG1RRE0F
-TyqIsT1ZwVKLkJ7EoIdUsPhGE2ooKSkl2R0P+2geu8k+ftmZ3Xw/kG6ys7Pzn51v/rOZbcjlcrFS
-IISgOE7FUCSlbzydIpP0AMrSdvDSNp5OkZqgUL8QQtJDqKljg3LNIK0+TxIHN82zZ1uDcr74rudq
-9XmqHdw0zyDrra1BJfWb1e4D3K79XLxf7djH1bZRXpaaU14IYd1elDSfIlqxeL/WYx+XH4/yNqod
-p/Ky1AQVx/G6v5+pFm09v3UbVa3jsdpxSk1QDnEcrxpBtWhXWydtM1snBF4JqhMGW49mIqh3naQD
-a9f2W9lOJajFT1I+NdQ6PSxeVs/31VRbVus+d+y1xlvveg1vR7X3db3/8m3m9WvlNYmuPDLQ0Maw
-QcWlf2JJKkhxLMWF4lehoJ78vHZP/dxd76GQhOIMlQ8Znd5yp6KER4OOFVSOSaH4fUEZZig0Ily7
-DSqFVLotfREU6hOW3a64P0gZZig0bNGpTkEKGUmZymmPoFC/JbNUWPpzKEbFm3Is0dcbaccdt2jk
-+T16fOf2JcumL13WkbEz+vCrcc3MzimO86WZKSOpIIWgoL1D6fp8AYm4qf96DT/7qA4+vbuux1/4
-56L2H/tU3/xwvnhtKi5emyIo6P67btXpwwfUn8s2vO7oqXHtO/pJJSreQ21wA3t26dyRoaZikqQX
-ntiliXeH1bcp4rIBpL0P3K2eTGsZ3HP7Vm25sZ+gID01MqrfpmaaXj+W9NyrH+uP6UuSuuz/Q6E5
-2wcOa34h39S6b315Rp9/N1G6hMCFTUi6Or+gew+81vB6p76f1EujJ5ZclyIoSJLO/zWlZw59VPfj
-f5+e0ZMjo9fuKEVFUKgYG/9RR0+eXfNx8/m8dg6+sfI0yQyF5YY+GNP45K81l+cLBT328nv6b3au
-6nKCwgoPD79TM5iDx0/q7E+/1FyXoLDC/EJe2/YfWnH/8a/P6e0T3666LkGhqouzc9ox+Hrl58k/
-/9W+Y5+tuR5BoaaJC39r8P0vNHvlqu578U3V86EvHw5jTZtvuE4zl6u/p1qOGQprqjcmiaBgRlCw
-IihYERSsCApWBAWrSFu3JT0GdBFmKFgRFKwIClYEBSuCghVBwYqgYEVQsCIoWBEUrAgKVgQFK4KC
-FUHBiqBgRVCwIihYERSsCApWBAUrgoIVQcGKoGBFULAiKFgRFKwIClYEBSuCghVBwYqgYEVQsCIo
-WBEUrAgKVgQFK4KCFUHBiqBgRVCwIihYERSsCApWBAUrgoIVQcGKoGBFULAiKFgRFKwIClYEBSuC
-ghVBwYqgYEVQsCIoWBEUrAgKVgQFK4KCFUHBiqBgRVCwIihYERSsCApWBAWr6JUHb056DOgi0UO3
-bU56DOgiUS6XS3oM6CJRtq8v6TGgi0R9WYKCT5TNZpMeA7pI1LtpU9JjQBeJent7kx4DukjU09OT
-9BjQRQgKVlEmw6cv8IlCCEmPAV2E6QlWBAUrgoIVQcGKoGBFULAiKFgRFKwIClYEBSuCghVBwYqg
-YEVQsCIoWBEUrAgKVgQFK4KCFUHBiqBgRVCwIihYERSsCApWBAUrgoIVQcGKoGBFULAiKFgRFKwI
-ClYEBSuCghVBwYqgYEVQsCIoWBEUrAgKVgQFq/8BR94HhDB1OpEAAAAASUVORK5CYII=
-"
-       id="image2857"
-       x="185.5459"
-       y="87.558548" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:2.11666667;stroke-linecap:round;stroke-linejoin:bevel;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 82.017403,140.09222 67.73333,86.78333 53.83006,138.67104 v 0"
        id="path8424" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 62.5365,107.43233 5.387235,9.2367 -10.039512,8.54043 9.881278,12.98071"
        id="path23789" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 73.31097,107.43233 -5.387235,9.2367 10.039512,8.54043 -9.881278,12.98071"
        id="path24002" />
+    <rect
+       style="opacity:0.671315;fill:none;fill-opacity:1;stroke-width:1.5875;stroke-linecap:square;stroke-linejoin:bevel;stroke-dashoffset:19.2"
+       id="rect7940"
+       width="185.59834"
+       height="185.87459"
+       x="-25.042465"
+       y="-23.343531"
+       inkscape:export-filename="/home/michael/programming/amateurfunk/flutter/assets/icon-fg.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
 </svg>

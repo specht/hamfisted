@@ -5,6 +5,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hamfisted/service_locator.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -1055,8 +1056,27 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   }
 }
 
-class About extends StatelessWidget {
+class About extends StatefulWidget {
   const About({super.key});
+
+  @override
+  State<About> createState() => _AboutState();
+}
+
+class _AboutState extends State<About> {
+  String version = "n/a";
+  void getVersionInfo() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = packageInfo.version;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getVersionInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1069,11 +1089,12 @@ class About extends StatelessWidget {
         data: "<h2>Hamfisted</h2>"
             "<p>App zur Vorbereitung auf die Amateurfunkprüfung</p>"
             "<p>Die Fragen stammen aus der AFUTrainer-App von <a href='http://oliver-saal.de/software/afutrainer/download.php'>Oliver Saal</a>. Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht.</p>"
+            "<p><b>Version:</b> ${version}</p>"
             "<p><b>Quelltext:</b> <a href='https://github.com/specht/hamfisted'>https://github.com/specht/hamfisted</a></p>"
             "<p><b>Kontakt:</b> <a href='mailto:specht@gymnasiumsteglitz.de'>specht@gymnasiumsteglitz.de</a></p>",
         onLinkTap: (url, attributes, element) {
           developer.log(Uri.parse(url!).toString());
-          launchUrl(Uri.parse(url!));
+          launchUrl(Uri.parse(url));
         },
       ),
     );
