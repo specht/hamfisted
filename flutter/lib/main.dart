@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
       title: 'Amateurfunkprüfung',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
@@ -282,12 +283,12 @@ class _OverviewState extends State<Overview> {
                     ),
                   ),
                   Align(
-                    alignment: const Alignment(0.0, 0.3),
+                    alignment: const Alignment(0.0, 1.0),
                     child: LayoutBuilder(builder: (context, constraints) {
                       return Image(
-                        image: const AssetImage('assets/stack_of_books.png'),
-                        width: constraints.maxWidth * 0.7,
-                      );
+                          image: const AssetImage('assets/stack_of_books.png'),
+                          // width: constraints.maxWidth * 0.7,
+                          height: constraints.maxHeight * 0.7);
                     }),
                   ),
                   Align(
