@@ -262,260 +262,267 @@ class _OverviewState extends State<Overview> {
         ),
       ));
     }
-    return IntroductionScreen(
-      rawPages: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
-              flex: 3,
-              child: Stack(
+    return ValueListenableBuilder(
+        valueListenable: GlobalData.questionsNotifier,
+        builder: (_, __, ___) {
+          return IntroductionScreen(
+            rawPages: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color.fromARGB(255, 109, 195, 231),
-                            Color.fromARGB(255, 248, 220, 255)
-                          ]),
+                  Flexible(
+                    flex: 3,
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.fromARGB(255, 109, 195, 231),
+                                  Color.fromARGB(255, 248, 220, 255)
+                                ]),
+                          ),
+                        ),
+                        Align(
+                          alignment: const Alignment(0.0, 1.0),
+                          child: LayoutBuilder(builder: (context, constraints) {
+                            return Image(
+                                image: const AssetImage(
+                                    'assets/stack_of_books.png'),
+                                // width: constraints.maxWidth * 0.7,
+                                height: constraints.maxHeight * 0.7);
+                          }),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: 8,
+                            decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: <Color>[
+                                Color(0x00000000),
+                                Color(0x30000000),
+                              ],
+                            )),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Align(
-                    alignment: const Alignment(0.0, 1.0),
-                    child: LayoutBuilder(builder: (context, constraints) {
-                      return Image(
-                          image: const AssetImage('assets/stack_of_books.png'),
-                          // width: constraints.maxWidth * 0.7,
-                          height: constraints.maxHeight * 0.7);
-                    }),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 8,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: <Color>[
-                          Color(0x00000000),
-                          Color(0x30000000),
+                  Flexible(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Lerne für deine Amateurfunkprüfung",
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child:
+                                Text("Schau dir kurz an, wie es funktioniert."),
+                          ),
                         ],
-                      )),
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-            Flexible(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Lerne für deine Amateurfunkprüfung",
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text("Schau dir kurz an, wie es funktioniert."),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
-              flex: 3,
-              child: SafeArea(
-                child: Stack(
-                  children: [
-                    Container(
-                      color: Color.lerp(PRIMARY, Colors.white, 0.9),
-                      child: SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: Column(
-                          children: getChapterCards(hid: 'TE', demo: true),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 8,
-                        decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Color(0x00000000),
-                            Color(0x30000000),
-                          ],
-                        )),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Flexible(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Kapitel auswählen und üben",
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ),
-                    const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Such dir ein Kapitel aus und beantworte die Fragen.",
-                                  textAlign: TextAlign.center,
-                                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                    flex: 3,
+                    child: SafeArea(
+                      child: Stack(
+                        children: [
+                          Container(
+                            color: Color.lerp(PRIMARY, Colors.white, 0.9),
+                            child: SingleChildScrollView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              child: Column(
+                                children:
+                                    getChapterCards(hid: 'TE', demo: true),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Fortschrittsbalken zeigen dir, wie viele der Fragen du schon korrekt beantwortet hast.",
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Die Fortschrittsbalken verblassen nach und nach.",
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                        )),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
-              flex: 3,
-              child: Container(
-                color: Color.lerp(PRIMARY, Colors.white, 0.9),
-                child: SafeArea(
-                  child: Stack(
-                    children: [
-                      SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: Expanded(
-                          child: Column(
-                            children: cards,
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              height: 8,
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: <Color>[
+                                  Color(0x00000000),
+                                  Color(0x30000000),
+                                ],
+                              )),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height: 8,
-                          decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: <Color>[
-                              Color(0x00000000),
-                              Color(0x30000000),
-                            ],
-                          )),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-            Flexible(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Trainiere die Fragen",
-                        style: Theme.of(context).textTheme.headlineSmall,
+                  Flexible(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Kapitel auswählen und üben",
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ),
+                          const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Such dir ein Kapitel aus und beantworte die Fragen.",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Fortschrittsbalken zeigen dir, wie viele der Fragen du schon korrekt beantwortet hast.",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Die Fortschrittsbalken verblassen nach und nach.",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ],
                       ),
                     ),
-                    const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen.",
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Falls du dir unsicher bist, tippe lang auf eine Antwort. Du kannst dann in Ruhe die richtige Antwort lesen. Du bekommst die Frage später noch einmal gezeigt.",
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ],
-                ),
+                  ),
+                ],
               ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                    flex: 3,
+                    child: Container(
+                      color: Color.lerp(PRIMARY, Colors.white, 0.9),
+                      child: SafeArea(
+                        child: Stack(
+                          children: [
+                            SingleChildScrollView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              child: Expanded(
+                                child: Column(
+                                  children: cards,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                height: 8,
+                                decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: <Color>[
+                                    Color(0x00000000),
+                                    Color(0x30000000),
+                                  ],
+                                )),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Trainiere die Fragen",
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ),
+                          const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen.",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Falls du dir unsicher bist, tippe lang auf eine Antwort. Du kannst dann in Ruhe die richtige Antwort lesen. Du bekommst die Frage später noch einmal gezeigt.",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+            next: const Text("Nächster Tipp"),
+            done: const Text("Los geht's!"),
+            onDone: () {
+              setState(() {
+                GlobalData.box.put('shown_intro', true);
+              });
+            },
+            dotsDecorator: DotsDecorator(
+              size: const Size.square(10.0),
+              activeSize: const Size(20.0, 10.0),
+              activeColor: PRIMARY,
+              color: Colors.black26,
+              spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0)),
             ),
-          ],
-        ),
-      ],
-      next: const Text("Nächster Tipp"),
-      done: const Text("Los geht's!"),
-      onDone: () {
-        setState(() {
-          GlobalData.box.put('shown_intro', true);
+          );
         });
-      },
-      dotsDecorator: DotsDecorator(
-        size: const Size.square(10.0),
-        activeSize: const Size(20.0, 10.0),
-        activeColor: PRIMARY,
-        color: Colors.black26,
-        spacing: const EdgeInsets.symmetric(horizontal: 3.0),
-        activeShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
-      ),
-    );
   }
 
   @override

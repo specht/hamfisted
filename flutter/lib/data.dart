@@ -23,6 +23,7 @@ class GlobalData with ChangeNotifier {
   static Map<String, dynamic>? questions;
 
   final _initMemoizer = AsyncMemoizer<bool>();
+  static var questionsNotifier = ValueNotifier<int>(0);
 
   Future<bool> get launchGlobalData async {
     if (ready) return true;
@@ -36,13 +37,13 @@ class GlobalData with ChangeNotifier {
     await Hive.initFlutter();
     box = await Hive.openBox('settings');
 
-    try {
-      questions =
-          jsonDecode(await rootBundle.loadString("data/questions.json"));
-    } catch (e) {}
+    questions = jsonDecode(await rootBundle.loadString("data/questions.json"));
+    questionsNotifier.value += 1;
 
     ready = true;
     developer.log('[init] GlobalData ready.');
+
+    notifyListeners();
 
     return ready;
   }
