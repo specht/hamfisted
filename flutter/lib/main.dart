@@ -1,12 +1,12 @@
-import 'dart:async';
 import 'dart:developer' as developer;
-import 'dart:io';
-import 'dart:math';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hamfisted/service_locator.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'data.dart';
 
@@ -22,7 +22,7 @@ const List DECAY = [
 ];
 
 class ListWithDecay {
-  ListWithDecay(int this.decay);
+  ListWithDecay(this.decay);
   int decay = 0;
   List<String> entries = [];
 }
@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/overview': (context) => const Overview(),
         '/quiz': (context) => Quiz(),
+        '/about': (context) => About(),
       },
     );
   }
@@ -72,35 +73,32 @@ class Overview extends StatefulWidget {
 }
 
 class _OverviewState extends State<Overview> {
-  void clearProgress() async {
+  Future<void> clearProgress() async {
     await GlobalData.box.clear();
     setState(() {});
   }
 
-  @override
-  Widget build(BuildContext context) {
-    String hid = '';
-    try {
-      if (ModalRoute.of(context) != null) {
-        hid = (ModalRoute.of(context)!.settings.arguments ?? '').toString();
-      }
-    } catch (e) {}
+  List<Widget> getChapterCards({String hid = '', bool demo = false}) {
     List<Widget> cards = [];
-
     int now = DateTime.now().millisecondsSinceEpoch;
     for (var subhid in (GlobalData.questions!['children'][hid] ?? [])) {
       // <1w, <2w, <3w, <4w, rest
       List<int> countForDuration = [0, 0, 0, 0, 0];
-      for (String qid
-          in (GlobalData.questions!['questions_for_hid'][subhid] ?? [])) {
-        int ts = GlobalData.box.get("t/$qid") ?? 0;
-        int diff = now - ts;
-        int slot = 4;
-        if (diff < DECAY[0]) slot = 3;
-        if (diff < DECAY[1]) slot = 2;
-        if (diff < DECAY[2]) slot = 1;
-        if (diff < DECAY[3]) slot = 0;
-        countForDuration[slot] += 1;
+      if (demo) {
+        countForDuration = [10, 13, 9, 2, 28];
+        countForDuration.shuffle();
+      } else {
+        for (String qid
+            in (GlobalData.questions!['questions_for_hid'][subhid] ?? [])) {
+          int ts = GlobalData.box.get("t/$qid") ?? 0;
+          int diff = now - ts;
+          int slot = 4;
+          if (diff < DECAY[0]) slot = 3;
+          if (diff < DECAY[1]) slot = 2;
+          if (diff < DECAY[2]) slot = 1;
+          if (diff < DECAY[3]) slot = 0;
+          countForDuration[slot] += 1;
+        }
       }
       String label = GlobalData.questions!['headings'][subhid];
       cards.add(
@@ -154,6 +152,7 @@ class _OverviewState extends State<Overview> {
             ),
           ),
           onTap: () {
+            if (demo) return;
             if (GlobalData.questions!['children'][subhid] != null) {
               Navigator.of(context)
                   .pushNamed('/overview', arguments: subhid)
@@ -171,20 +170,441 @@ class _OverviewState extends State<Overview> {
         ),
       );
     }
+    return cards;
+  }
+
+  Widget introScreen() {
+    String qid = "TA101E";
+    String qidDisplay = "TA101";
+    List<Widget> cards = [];
+    List<int> answerIndex = [1, 3, 0, 2];
+    List<Color> answerColor = [
+      Colors.transparent,
+      Colors.transparent,
+      Colors.transparent,
+      Colors.transparent
+    ];
+    cards.add(Card(
+      child: ListTile(
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Html(
+            data:
+                "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
+            style: {'body': Style(margin: Margins.zero)},
+          ),
+        ),
+      ),
+    ));
+    cards.add(const Divider());
+
+    for (int ti = 0; ti < 4; ti++) {
+      int i = answerIndex[ti];
+      cards.add(Card(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: answerColor[i],
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Center(
+            child: ListTile(
+              horizontalTitleGap: 0,
+              titleAlignment: ListTileTitleAlignment.top,
+              leading: Transform.translate(
+                offset: const Offset(0, 8),
+                child: CircleAvatar(
+                  backgroundColor: answerColor[i] == Colors.transparent
+                      ? Color.lerp(PRIMARY, Colors.white, 0.8)
+                      : answerColor[i],
+                  radius: 15,
+                  child: answerColor[i] == GREEN
+                      ? const Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 16,
+                        )
+                      : answerColor[i] == RED
+                          ? const Icon(
+                              Icons.clear,
+                              color: Colors.white,
+                              size: 16,
+                            )
+                          : Text(
+                              String.fromCharCode(65 + ti),
+                              style: GoogleFonts.alegreyaSans(
+                                  fontSize: 14,
+                                  color: answerColor[i] == Colors.transparent
+                                      ? Colors.black87
+                                      : Colors.white,
+                                  fontWeight:
+                                      answerColor[i] == Colors.transparent
+                                          ? FontWeight.normal
+                                          : FontWeight.bold),
+                            ),
+                ),
+              ),
+              title: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Html(
+                  data: GlobalData.questions!['questions'][qid]['answers'][i]
+                      .toString()
+                      .replaceAll('*', ' ⋅ '),
+                  style: {'body': Style(margin: Margins.zero)},
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+    }
+    return IntroductionScreen(
+      rawPages: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Flexible(
+              flex: 3,
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromARGB(255, 109, 195, 231),
+                            Color.fromARGB(255, 248, 220, 255)
+                          ]),
+                    ),
+                  ),
+                  Align(
+                    alignment: const Alignment(0.0, 0.3),
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      return Image(
+                        image: const AssetImage('assets/stack_of_books.png'),
+                        width: constraints.maxWidth * 0.7,
+                      );
+                    }),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 8,
+                      decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: <Color>[
+                          Color(0x00000000),
+                          Color(0x30000000),
+                        ],
+                      )),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Lerne für deine Amateurfunkprüfung",
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("Schau dir kurz an, wie es funktioniert."),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Flexible(
+              flex: 3,
+              child: SafeArea(
+                child: Stack(
+                  children: [
+                    Container(
+                      color: Color.lerp(PRIMARY, Colors.white, 0.9),
+                      child: SingleChildScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        child: Column(
+                          children: getChapterCards(hid: 'TE', demo: true),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 8,
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: <Color>[
+                            Color(0x00000000),
+                            Color(0x30000000),
+                          ],
+                        )),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Flexible(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Kapitel auswählen und üben",
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Such dir ein Kapitel aus und beantworte die Fragen.",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Fortschrittsbalken zeigen dir, wie viele der Fragen du schon korrekt beantwortet hast.",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Die Fortschrittsbalken verblassen nach und nach.",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Flexible(
+              flex: 3,
+              child: Container(
+                color: Color.lerp(PRIMARY, Colors.white, 0.9),
+                child: SafeArea(
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        child: Expanded(
+                          child: Column(
+                            children: cards,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          height: 8,
+                          decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: <Color>[
+                              Color(0x00000000),
+                              Color(0x30000000),
+                            ],
+                          )),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Flexible(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Trainiere die Fragen",
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen.",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Falls du dir unsicher bist, tippe lang auf eine Antwort. Du kannst dann in Ruhe die richtige Antwort lesen. Du bekommst die Frage später noch einmal gezeigt.",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+      next: const Text("Nächster Tipp"),
+      done: const Text("Los geht's!"),
+      onDone: () {
+        setState(() {
+          GlobalData.box.put('shown_intro', true);
+        });
+      },
+      dotsDecorator: DotsDecorator(
+        size: const Size.square(10.0),
+        activeSize: const Size(20.0, 10.0),
+        activeColor: PRIMARY,
+        color: Colors.black26,
+        spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+        activeShape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (GlobalData.box.get('shown_intro') != true) {
+      return introScreen();
+    }
+    String hid = '';
+    try {
+      if (ModalRoute.of(context) != null) {
+        hid = (ModalRoute.of(context)!.settings.arguments ?? '').toString();
+      }
+    } catch (e) {}
+
+    var cards = getChapterCards(hid: hid);
+
+    Future<void> _showMyDialog(BuildContext context) async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Fortschritt löschen'),
+            content: const SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Möchtest du deinen gesamten Fortschritt löschen?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Abbrechen'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Löschen'),
+                onPressed: () async {
+                  var shownIntro = GlobalData.box.get('shown_intro');
+                  await clearProgress();
+                  if (shownIntro != null) {
+                    setState(() {
+                      GlobalData.box.put('shown_intro', shownIntro);
+                    });
+                  }
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
         actions: hid.isEmpty
             ? [
-                PopupMenuButton(onSelected: (value) {
+                PopupMenuButton(onSelected: (value) async {
                   if (value == 'clear_progress') {
-                    clearProgress();
+                    _showMyDialog(context);
+                  } else if (value == 'show_intro') {
+                    await GlobalData.box.delete('shown_intro');
+                    setState(() {});
+                  } else if (value == 'about') {
+                    Navigator.of(context).pushNamed('/about');
                   }
                 }, itemBuilder: (itemBuilder) {
-                  return [
-                    PopupMenuItem(
-                        child: Text("Fortschritt löschen"),
-                        value: "clear_progress")
+                  return <PopupMenuEntry>[
+                    const PopupMenuItem<String>(
+                      value: "show_intro",
+                      child: ListTile(
+                          title: Text("Einführung wiederholen"),
+                          leading: Icon(Icons.restart_alt)),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: "clear_progress",
+                      child: ListTile(
+                          title: Text("Fortschritt löschen"),
+                          leading: Icon(Icons.delete)),
+                    ),
+                    const PopupMenuDivider(),
+                    const PopupMenuItem<String>(
+                      value: "about",
+                      child: ListTile(
+                          title: Text("Über diese App"),
+                          leading: Icon(Icons.info)),
+                    ),
                   ];
                 })
               ]
@@ -233,6 +653,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   int animationPhase = 0;
   bool solvedAll = false;
   Timer? _timer;
+  double overallProgress = 0.0;
+  double? overallProgressFirst;
 
   late final AnimationController _animationController = AnimationController(
     duration: const Duration(milliseconds: 500),
@@ -287,11 +709,16 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       if (diff < DECAY[3]) slot = 0;
       candidatesSorted[slot].entries.add(qid);
     }
+    overallProgress = (candidatesSorted[0].entries.length +
+                candidatesSorted[1].entries.length +
+                candidatesSorted[2].entries.length +
+                candidatesSorted[3].entries.length)
+            .toDouble() /
+        candidates.length;
+    overallProgressFirst ??= overallProgress;
+
     candidatesSorted.removeWhere((element) => element.entries.isEmpty);
-    if (candidatesSorted.last.decay == 0) {
-      solvedAll = true;
-      // Navigator.of(context).pop();
-    }
+    solvedAll = (candidatesSorted.last.decay == 0);
     candidates = candidatesSorted.last.entries;
     candidates.shuffle();
     setState(() {
@@ -338,6 +765,12 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   }
 
   void tapAnswer(int i) {
+    if (confidenceIndex == 1 &&
+        foundCorrect &&
+        answerColor[i] != Colors.transparent) {
+      launchAnimation();
+      return;
+    }
     if (i == 0) {
       // answer is correct
       foundCorrect = true;
@@ -356,6 +789,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       answerColor[i] = RED;
       guessedWrong = true;
       confidenceIndex = 1;
+      GlobalData.instance.unmarkQuestionSolved(qid!);
+      solvedAll = false;
     }
   }
 
@@ -370,11 +805,31 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
+
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
     if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
       qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
     }
+
+    cards.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0),
+        child: TweenAnimationBuilder<double>(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeInOutCubic,
+          tween: Tween<double>(
+            begin: overallProgressFirst,
+            end: overallProgress,
+          ),
+          builder: (context, value, _) => LinearProgressIndicator(
+            value: value,
+            backgroundColor: const Color(0x20000000),
+            color: PRIMARY,
+          ),
+        ),
+      ),
+    );
 
     cards.add(Card(
       child: ListTile(
@@ -390,8 +845,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     ));
     cards.add(const Divider());
 
-    for (int _i = 0; _i < 4; _i++) {
-      int i = answerIndex[_i];
+    for (int ti = 0; ti < 4; ti++) {
+      int i = answerIndex[ti];
       cards.add(
         AnimatedBuilder(
             animation: _animationController3,
@@ -411,7 +866,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                               }
                             } else if (animationPhase == 2) {
                               if (i != 0) {
-                                offset = Offset(-1, 0);
+                                offset = const Offset(-1, 0);
                               } else {
                                 offset =
                                     Offset(-1 * _animationController2.value, 0);
@@ -426,8 +881,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                 child: InkWell(
                                   onTapCancel: () => _timer?.cancel(),
                                   onTapDown: (_) => {
-                                    _timer =
-                                        Timer(Duration(milliseconds: 1500), () {
+                                    _timer = Timer(
+                                        const Duration(milliseconds: 1500), () {
                                       setState(() {
                                         confidenceIndex = 1;
                                         tapAnswer(i);
@@ -462,19 +917,38 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                                     PRIMARY, Colors.white, 0.8)
                                                 : answerColor[i],
                                             radius: 15,
-                                            child: Text(
-                                              String.fromCharCode(65 + _i),
-                                              style: GoogleFonts.alegreyaSans(
-                                                  fontSize: 14,
-                                                  color: answerColor[i] ==
-                                                          Colors.transparent
-                                                      ? Colors.black87
-                                                      : Colors.white,
-                                                  fontWeight: answerColor[i] ==
-                                                          Colors.transparent
-                                                      ? FontWeight.normal
-                                                      : FontWeight.bold),
-                                            ),
+                                            child: answerColor[i] == GREEN
+                                                ? const Icon(
+                                                    Icons.check,
+                                                    color: Colors.white,
+                                                    size: 16,
+                                                  )
+                                                : answerColor[i] == RED
+                                                    ? const Icon(
+                                                        Icons.clear,
+                                                        color: Colors.white,
+                                                        size: 16,
+                                                      )
+                                                    : Text(
+                                                        String.fromCharCode(
+                                                            65 + ti),
+                                                        style: GoogleFonts.alegreyaSans(
+                                                            fontSize: 14,
+                                                            color: answerColor[
+                                                                        i] ==
+                                                                    Colors
+                                                                        .transparent
+                                                                ? Colors.black87
+                                                                : Colors.white,
+                                                            fontWeight: answerColor[
+                                                                        i] ==
+                                                                    Colors
+                                                                        .transparent
+                                                                ? FontWeight
+                                                                    .normal
+                                                                : FontWeight
+                                                                    .bold),
+                                                      ),
                                           ),
                                         ),
                                         title: Padding(
@@ -576,6 +1050,31 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       ),
       body: ListView(
         children: cards,
+      ),
+    );
+  }
+}
+
+class About extends StatelessWidget {
+  const About({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
+      appBar: AppBar(
+        title: const Text("Über diese App"),
+      ),
+      body: Html(
+        data: "<h2>Hamfisted</h2>"
+            "<p>App zur Vorbereitung auf die Amateurfunkprüfung</p>"
+            "<p>Die Fragen stammen aus der AFUTrainer-App von <a href='http://oliver-saal.de/software/afutrainer/download.php'>Oliver Saal</a>. Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht.</p>"
+            "<p><b>Quelltext:</b> <a href='https://github.com/specht/hamfisted'>https://github.com/specht/hamfisted</a></p>"
+            "<p><b>Kontakt:</b> <a href='mailto:specht@gymnasiumsteglitz.de'>specht@gymnasiumsteglitz.de</a></p>",
+        onLinkTap: (url, attributes, element) {
+          developer.log(Uri.parse(url!).toString());
+          launchUrl(Uri.parse(url!));
+        },
       ),
     );
   }

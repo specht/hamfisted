@@ -50,4 +50,8 @@ class GlobalData with ChangeNotifier {
   void markQuestionSolved(String qid, int timestamp) {
     GlobalData.box.put("t/$qid", timestamp);
   }
+
+  void unmarkQuestionSolved(String qid) {
+    GlobalData.box.delete("t/$qid");
+  }
 }

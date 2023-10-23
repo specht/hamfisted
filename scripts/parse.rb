@@ -17,10 +17,15 @@ class Parser
     end
 
     def fix_png_path(text)
-        text.gsub(/([a-z0-9]+\.png)/) do |x|
+        result = text.gsub(/([a-z0-9]+\.png)/) do |x|
             match = Regexp.last_match
             'asset:data/' + match[1].sub('.png', @id_suffix + '.png')
         end
+        result = result.gsub(/([a-z0-9]+\.jpg)/) do |x|
+            match = Regexp.last_match
+            'asset:data/' + match[1].sub('.jpg', @id_suffix + '.jpg')
+        end
+        result
     end
 
     def recurse(node, level = 0, prefix = [])
@@ -109,8 +114,10 @@ parser = Parser.new()
     # STDERR.puts path
     parser.parse("#{path}/questions.xml", id_suffix)
     Dir["#{path}/*.png"].each do |path|
-        # STDERR.puts path
         FileUtils.cp(path, "../flutter/data/#{File.basename(path).sub('.png', id_suffix + '.png')}")
+    end
+    Dir["#{path}/*.jpg"].each do |path|
+        FileUtils.cp(path, "../flutter/data/#{File.basename(path).sub('.jpg', id_suffix + '.jpg')}")
     end
 end
 File.open('../flutter/data/questions.json', 'w') do |f|
