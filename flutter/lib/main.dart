@@ -499,7 +499,8 @@ class _OverviewState extends State<Overview> {
         ),
       ],
       next: const Text("Nächster Tipp"),
-      done: const Text("Los geht's!"),
+      done: const Text("Los geht's!",
+          style: TextStyle(fontWeight: FontWeight.bold)),
       onDone: () {
         setState(() {
           GlobalData.box.put('shown_intro', true);
