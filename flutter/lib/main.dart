@@ -176,8 +176,6 @@ class _OverviewState extends State<Overview> {
   }
 
   Widget introScreen() {
-    String qid = "TA101E";
-    String qidDisplay = "TA101";
     List<Widget> cards = [];
     List<int> answerIndex = [1, 3, 0, 2];
     List<Color> answerColor = [
@@ -426,17 +424,15 @@ class _OverviewState extends State<Overview> {
           children: [
             Flexible(
               flex: 3,
-              child: Container(
-                color: Color.lerp(PRIMARY, Colors.white, 0.9),
-                child: SafeArea(
+              child: SafeArea(
+                child: Container(
+                  color: Color.lerp(PRIMARY, Colors.white, 0.9),
                   child: Stack(
                     children: [
                       SingleChildScrollView(
                         physics: const NeverScrollableScrollPhysics(),
-                        child: Expanded(
-                          child: Column(
-                            children: cards,
-                          ),
+                        child: Column(
+                          children: cards,
                         ),
                       ),
                       Align(
@@ -523,6 +519,8 @@ class _OverviewState extends State<Overview> {
 
   @override
   Widget build(BuildContext context) {
+    if (!GlobalData.ready)
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
     if (GlobalData.box.get('shown_intro') != true) {
       return introScreen();
     }
