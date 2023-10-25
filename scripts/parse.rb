@@ -92,6 +92,36 @@ class Parser
         end
     end
 
+    def parse_darc()
+        system("wget -O darc.html \"https://www.darc.de/der-club/referate/ajw/darc-online-lehrgang/\"")
+        File.open('darc.html') do |f|
+            doc = Nokogiri::HTML(f)
+            doc.css('a').each do |a|
+                href = a.attr('href')
+                next unless href.index('https://www.darc.de/der-club/referate/ajw/lehrgang') == 0
+                short = href.sub('https://www.darc.de/der-club/referate/ajw/', '')
+                cat = short.split('/').first
+                suffix = ''
+                if cat == 'lehrgang-bv'
+                elsif cat == 'lehrgang-te'
+                    suffix = 'E'
+                elsif cat == 'lehrgang-ta'
+                    suffix = 'A'
+                else
+                    raise "oops: got #{short}"
+                end
+                qid = short.split('#').last
+                qid += suffix
+                if @questions.include?(qid)
+                    STDERR.puts "Adding hint to #{qid}: #{href}"
+                    @questions[qid][:hint] = href
+                else
+                    STDERR.puts "Unknown qid: #{qid}"
+                end
+            end
+        end
+    end
+
     def dump
         {
             :meta => @meta,
@@ -104,7 +134,7 @@ class Parser
     end
 end
 
-FileUtils::mkpath('../flutter/data')
+FileUtils::mkpath('../data')
 parser = Parser.new()
 ['DL Technik Klasse E 2007', 'DL Technik Klasse A 2007', 'DL Betriebstechnik und Vorschriften 2007'].each do |_path|
     path = File.join('..', 'bnetza', _path)
@@ -114,12 +144,14 @@ parser = Parser.new()
     # STDERR.puts path
     parser.parse("#{path}/questions.xml", id_suffix)
     Dir["#{path}/*.png"].each do |path|
-        FileUtils.cp(path, "../flutter/data/#{File.basename(path).sub('.png', id_suffix + '.png')}")
+        FileUtils.cp(path, "../data/#{File.basename(path).sub('.png', id_suffix + '.png')}")
     end
     Dir["#{path}/*.jpg"].each do |path|
-        FileUtils.cp(path, "../flutter/data/#{File.basename(path).sub('.jpg', id_suffix + '.jpg')}")
+        FileUtils.cp(path, "../data/#{File.basename(path).sub('.jpg', id_suffix + '.jpg')}")
     end
 end
-File.open('../flutter/data/questions.json', 'w') do |f|
+parser.parse_darc()
+
+File.open('../data/questions.json', 'w') do |f|
     f.puts parser.dump.to_json
 end

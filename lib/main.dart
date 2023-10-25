@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: PRIMARY, //Color.fromARGB(255, 5, 70, 123),
+          seedColor: PRIMARY,
         ),
         textTheme: GoogleFonts.alegreyaSansTextTheme(textTheme),
       ),
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/overview': (context) => const Overview(),
         '/quiz': (context) => Quiz(),
-        '/about': (context) => About(),
+        '/about': (context) => const About(),
       },
     );
   }
@@ -78,7 +78,6 @@ class _OverviewState extends State<Overview> {
     List<Widget> cards = [];
     int now = DateTime.now().millisecondsSinceEpoch;
     for (var subhid in (GlobalData.questions!['children'][hid] ?? [])) {
-      // <1w, <2w, <3w, <4w, rest
       List<int> countForDuration = [0, 0, 0, 0, 0];
       if (demo) {
         countForDuration = [10, 13, 9, 2, 28];
@@ -320,7 +319,11 @@ class _OverviewState extends State<Overview> {
                     ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text("Schau dir kurz an, wie es funktioniert."),
+                      child: Text(
+                        "Schau dir kurz an, wie es funktioniert.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
                     ),
                   ],
                 ),
@@ -388,6 +391,7 @@ class _OverviewState extends State<Overview> {
                                 child: Text(
                                   "Such dir ein Kapitel aus und beantworte die Fragen.",
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15),
                                 ),
                               ),
                               Padding(
@@ -395,6 +399,7 @@ class _OverviewState extends State<Overview> {
                                 child: Text(
                                   "Fortschrittsbalken zeigen dir, wie viele der Fragen du schon korrekt beantwortet hast.",
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15),
                                 ),
                               ),
                               Padding(
@@ -402,6 +407,7 @@ class _OverviewState extends State<Overview> {
                                 child: Text(
                                   "Die Fortschrittsbalken verblassen nach und nach.",
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15),
                                 ),
                               ),
                             ],
@@ -473,6 +479,7 @@ class _OverviewState extends State<Overview> {
                                 child: Text(
                                   "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen.",
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15),
                                 ),
                               ),
                               Padding(
@@ -480,6 +487,7 @@ class _OverviewState extends State<Overview> {
                                 child: Text(
                                   "Falls du dir unsicher bist, tippe lang auf eine Antwort. Du kannst dann in Ruhe die richtige Antwort lesen. Du bekommst die Frage später noch einmal gezeigt.",
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 15),
                                 ),
                               ),
                             ],
@@ -493,8 +501,7 @@ class _OverviewState extends State<Overview> {
         ),
       ],
       next: const Text("Nächster Tipp"),
-      done: const Text("Los geht's!",
-          style: TextStyle(fontWeight: FontWeight.bold)),
+      done: const Text("Los geht's!"),
       onDone: () {
         setState(() {
           GlobalData.box.put('shown_intro', true);
@@ -587,21 +594,27 @@ class _OverviewState extends State<Overview> {
                     const PopupMenuItem<String>(
                       value: "show_intro",
                       child: ListTile(
-                          title: Text("Einführung wiederholen"),
-                          leading: Icon(Icons.restart_alt)),
+                        title: Text("Einführung wiederholen"),
+                        visualDensity: VisualDensity.compact,
+                        leading: Icon(Icons.restart_alt),
+                      ),
                     ),
                     const PopupMenuItem<String>(
                       value: "clear_progress",
                       child: ListTile(
-                          title: Text("Fortschritt löschen"),
-                          leading: Icon(Icons.delete)),
+                        title: Text("Fortschritt löschen"),
+                        visualDensity: VisualDensity.compact,
+                        leading: Icon(Icons.delete),
+                      ),
                     ),
                     const PopupMenuDivider(),
                     const PopupMenuItem<String>(
                       value: "about",
                       child: ListTile(
-                          title: Text("Über diese App"),
-                          leading: Icon(Icons.info)),
+                        title: Text("Über diese App"),
+                        visualDensity: VisualDensity.compact,
+                        leading: Icon(Icons.info),
+                      ),
                     ),
                   ];
                 })
@@ -982,6 +995,26 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text(
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
+        actions: [
+          PopupMenuButton(
+            onSelected: (value) async {
+              launchUrl(Uri.parse(
+                  'https://www.darc.de/der-club/referate/ajw/lehrgang-te/e02/#TB202'));
+            },
+            itemBuilder: (itemBuilder) {
+              return <PopupMenuEntry>[
+                const PopupMenuItem<String>(
+                  value: "show_intro",
+                  child: ListTile(
+                    title: Text("Hilfe"),
+                    visualDensity: VisualDensity.compact,
+                    leading: Icon(Icons.help_outline),
+                  ),
+                ),
+              ];
+            },
+          ),
+        ],
       ),
       floatingActionButton: solvedAll
           ? FloatingActionButton.extended(
