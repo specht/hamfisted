@@ -656,14 +656,16 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (quick) {
       animationPhase1 = true;
       animationPhase2 = true;
-      _animationController.animateTo(1.0, curve: Curves.easeOut);
-      _animationController2.animateTo(1.0, curve: Curves.easeOut).then((value) {
+      _animationController.animateTo(1.0, curve: Curves.easeInOutCubic);
+      _animationController2
+          .animateTo(1.0, curve: Curves.easeInOutCubic)
+          .then((value) {
         animationPhase3 = true;
         setState(() {
           pickTask();
         });
         _animationController3
-            .animateTo(1.0, curve: Curves.easeOut)
+            .animateTo(1.0, curve: Curves.easeInOutCubic)
             .then((value) {
           setState(() {
             animationPhase1 = false;
@@ -677,18 +679,20 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       });
     } else {
       animationPhase1 = true;
-      _animationController.animateTo(1.0, curve: Curves.easeOut).then((value) {
+      _animationController
+          .animateTo(1.0, curve: Curves.easeInOutCubic)
+          .then((value) {
         animationPhase1 = false;
         animationPhase2 = true;
         _animationController2
-            .animateTo(1.0, curve: Curves.easeOut)
+            .animateTo(1.0, curve: Curves.easeInOutCubic)
             .then((value) {
           animationPhase3 = true;
           setState(() {
             pickTask();
           });
           _animationController3
-              .animateTo(1.0, curve: Curves.easeOut)
+              .animateTo(1.0, curve: Curves.easeInOutCubic)
               .then((value) {
             setState(() {
               animationPhase1 = false;
@@ -961,7 +965,10 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                     String? url =
                         GlobalData.questions!['questions'][qid]['hint'];
                     developer.log("$url");
-                    if (url != null) launchUrl(Uri.parse(url));
+                    if (url != null) {
+                      setState(() => unsure = true);
+                      launchUrl(Uri.parse(url));
+                    }
                   },
             onSkip: () {
               launchAnimation(quick: true);
@@ -1042,8 +1049,7 @@ class _AboutState extends State<About> {
             "<p><b>Quelltext:</b> <a href='https://github.com/specht/hamfisted'>https://github.com/specht/hamfisted</a></p>"
             "<p><b>Kontakt:</b> <a href='mailto:specht@gymnasiumsteglitz.de'>specht@gymnasiumsteglitz.de</a></p>",
         onLinkTap: (url, attributes, element) {
-          developer.log(Uri.parse(url!).toString());
-          launchUrl(Uri.parse(url));
+          launchUrl(Uri.parse(url!));
         },
       ),
     );
