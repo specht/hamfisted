@@ -9,7 +9,7 @@
    id="svg5"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    sodipodi:docname="icon.svg"
-   inkscape:export-filename="/home/michael/programming/amateurfunk/flutter/assets/icon_fg.png"
+   inkscape:export-filename="/home/michael/programming/hamfisted/assets/icon.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -29,15 +29,15 @@
      showgrid="false"
      units="px"
      width="512px"
-     inkscape:zoom="1.2641088"
-     inkscape:cx="210.42493"
-     inkscape:cy="206.07404"
+     inkscape:zoom="0.93231656"
+     inkscape:cx="327.1421"
+     inkscape:cy="238.65285"
      inkscape:window-width="2496"
      inkscape:window-height="1369"
      inkscape:window-x="2624"
      inkscape:window-y="34"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1">
+     inkscape:current-layer="layer2">
     <inkscape:grid
        type="xygrid"
        id="grid824"
@@ -74,7 +74,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="bg"
-     style="display:none">
+     style="display:inline">
     <rect
        style="fill:#006496;fill-opacity:1;stroke:none;stroke-width:10.9589;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect2883"
@@ -88,21 +88,36 @@
        width="135.46666"
        height="135.46666"
        x="0"
-       y="0" />
+       y="0"
+       inkscape:export-filename="/home/michael/programming/hamfisted/assets/icon-bg.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     style="display:inline">
+     style="display:none">
+    <rect
+       style="opacity:0.671315;fill:none;fill-opacity:1;stroke:none;stroke-width:1.5875;stroke-linecap:square;stroke-linejoin:bevel;stroke-dashoffset:19.2"
+       id="rect7940"
+       width="185.47292"
+       height="185.47292"
+       x="-25.042465"
+       y="-23.343531"
+       inkscape:export-filename="/home/michael/programming/hamfisted/assets/icon-fg.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
     <path
        style="opacity:0.671315;fill:#ffffff;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 51.273577,145.02814 67.73333,86.78333 84.172622,145.8892"
-       id="path23398" />
+       d="M 44.6909,170.24426 67.73333,86.78333 91.156562,172.56355"
+       id="path23398"
+       sodipodi:nodetypes="ccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2.11667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 67.733332,86.783332 V 154.51666"
-       id="path880" />
+       d="M 67.733332,86.783332 V 172.14261"
+       id="path880"
+       sodipodi:nodetypes="cc" />
     <path
        style="opacity:0.8;fill:none;stroke:#000000;stroke-width:2.11667;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.11667, 4.23333;stroke-dashoffset:0"
        id="path970"
@@ -182,7 +197,7 @@
        inkscape:transform-center-y="-53.060281" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 82.017403,140.09222 67.73333,86.78333 53.83006,138.67104 v 0"
+       d="M 91.156562,172.56355 67.609862,85.566304 44.6909,170.24426 v 0"
        id="path8424" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -192,15 +207,15 @@
        style="fill:none;stroke:#000000;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 73.31097,107.43233 -5.387235,9.2367 10.039512,8.54043 -9.881278,12.98071"
        id="path24002" />
-    <rect
-       style="opacity:0.671315;fill:none;fill-opacity:1;stroke-width:1.5875;stroke-linecap:square;stroke-linejoin:bevel;stroke-dashoffset:19.2"
-       id="rect7940"
-       width="185.59834"
-       height="185.87459"
-       x="-25.042465"
-       y="-23.343531"
-       inkscape:export-filename="/home/michael/programming/amateurfunk/flutter/assets/icon-fg.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.5875;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 67.765501,138.19017 84.618577,148.30147 67.41357,162.492"
+       id="path1282"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.5875;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 67.765501,138.19017 50.899738,148.41191 68.117432,162.492"
+       id="path1462"
+       sodipodi:nodetypes="ccc" />
   </g>
 </svg>
