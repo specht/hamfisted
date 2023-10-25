@@ -1,16 +1,28 @@
-# hamfisted
+# Hamfisted
 
-A new Flutter project.
+<p align='center'>
+ <img src='craft/header.png' width='100%' style='height: 200px; object-fit: cover;'/>
+</p>
 
-## Getting Started
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/specht/hamfisted?label=latest%20version&style=flat-square)](https://github.com/mateusz-bak/openreads-android/releases/latest)
+<br/>
 
-This project is a starting point for a Flutter application.
+<a href='https://play.google.com/store/apps/details?id=org.nhcham.hamfisted'><img height=70 alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+<a href='https://github.com/specht/hamfisted'><img height=70 alt='Get it on Github' src='https://raw.githubusercontent.com/mateusz-bak/openreads-android/master/doc/github/get-it-on-github.png'/></a>
 
-A few resources to get you started if this is your first Flutter project:
+<p>
+Mit dieser App kannst du dich auf die Amateurfunkprüfung für die Klassen E und A vorbereiten. Übe alle Fragen der offiziellen Fragenkataloge der Bundesnetzagentur für die Teile "Technik Klasse E", "Technik Klasse A", "Betriebstechnik" sowie "Vorschriften" und behalte den Überblick über deinen Fortschritt.
+</p>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<p align='left'>  
+ <img src='craft/screenshots/android/phone/01.png' width='24%'/>  
+ <img src='craft/screenshots/android/phone/02.png' width='24%'/>  
+ <img src='craft/screenshots/android/phone/03.png' width='24%'/>  
+ <img src='craft/screenshots/android/phone/04.png' width='24%'/>  
+</p>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<br/>
+
+<a href="https://www.buymeacoffee.com/specht"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="60"></a>
+
+<br/>
