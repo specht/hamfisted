@@ -14,11 +14,15 @@
 Mit dieser App kannst du dich auf die Amateurfunkprüfung für die Klassen E und A vorbereiten. Übe alle Fragen der offiziellen Fragenkataloge der Bundesnetzagentur für die Teile "Technik Klasse E", "Technik Klasse A", "Betriebstechnik" sowie "Vorschriften" und behalte den Überblick über deinen Fortschritt.
 </p>
 
-<p align='left'>  
- <img src='craft/screenshots/android/phone/01.png' width='24%'/>  
- <img src='craft/screenshots/android/phone/02.png' width='24%'/>  
- <img src='craft/screenshots/android/phone/03.png' width='24%'/>  
- <img src='craft/screenshots/android/phone/04.png' width='24%'/>  
+<p align='left'>
+ <img src='craft/screenshots/android/phone/01.png' width='32%'/>
+ <img src='craft/screenshots/android/phone/02.png' width='32%'/>
+ <img src='craft/screenshots/android/phone/03.png' width='32%'/>
+</p>
+<p align='left'>
+ <img src='craft/screenshots/android/phone/04.png' width='32%'/>
+ <img src='craft/screenshots/android/phone/05.png' width='32%'/>
+ <img src='craft/screenshots/android/phone/06.png' width='32%'/>
 </p>
 
 <br/>
