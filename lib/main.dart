@@ -169,93 +169,6 @@ class _OverviewState extends State<Overview> {
   }
 
   Widget introScreen() {
-    List<Widget> cards = [];
-    List<int> answerIndex = [1, 3, 0, 2];
-    List<Color> answerColor = [
-      Colors.transparent,
-      Colors.transparent,
-      Colors.transparent,
-      Colors.transparent
-    ];
-    List<String> answers = [
-      '42*10<sup>-3</sup> A.',
-      '42*10<sup>3</sup> A.',
-      '42*10<sup>-2</sup> A.',
-      '42*10<sup>-1</sup> A.',
-    ];
-    cards.add(Card(
-      child: ListTile(
-        title: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Html(
-            data: "<b>TA101</b>&nbsp;&nbsp;&nbsp;&nbsp;0,042 A entspricht",
-            style: {'body': Style(margin: Margins.zero)},
-          ),
-        ),
-      ),
-    ));
-    cards.add(const Divider());
-
-    for (int ti = 0; ti < 4; ti++) {
-      int i = answerIndex[ti];
-      cards.add(Card(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: answerColor[i],
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Center(
-            child: ListTile(
-              horizontalTitleGap: 0,
-              titleAlignment: ListTileTitleAlignment.top,
-              leading: Transform.translate(
-                offset: const Offset(0, 8),
-                child: CircleAvatar(
-                  backgroundColor: answerColor[i] == Colors.transparent
-                      ? Color.lerp(PRIMARY, Colors.white, 0.8)
-                      : answerColor[i],
-                  radius: 15,
-                  child: answerColor[i] == GREEN
-                      ? const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 16,
-                        )
-                      : answerColor[i] == RED
-                          ? const Icon(
-                              Icons.clear,
-                              color: Colors.white,
-                              size: 16,
-                            )
-                          : Text(
-                              String.fromCharCode(65 + ti),
-                              style: GoogleFonts.alegreyaSans(
-                                  fontSize: 14,
-                                  color: answerColor[i] == Colors.transparent
-                                      ? Colors.black87
-                                      : Colors.white,
-                                  fontWeight:
-                                      answerColor[i] == Colors.transparent
-                                          ? FontWeight.normal
-                                          : FontWeight.bold),
-                            ),
-                ),
-              ),
-              title: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Html(
-                  data: answers[i].toString().replaceAll('*', ' ⋅ '),
-                  style: {'body': Style(margin: Margins.zero)},
-                ),
-              ),
-            ),
-          ),
-        ),
-      ));
-    }
     return IntroductionScreen(
       rawPages: [
         Column(
@@ -281,7 +194,6 @@ class _OverviewState extends State<Overview> {
                     child: LayoutBuilder(builder: (context, constraints) {
                       return Image(
                           image: const AssetImage('assets/stack_of_books.png'),
-                          // width: constraints.maxWidth * 0.7,
                           height: constraints.maxHeight * 0.7);
                     }),
                   ),
@@ -419,85 +331,77 @@ class _OverviewState extends State<Overview> {
             ),
           ],
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
-              flex: 3,
-              child: SafeArea(
-                child: Container(
-                  color: Color.lerp(PRIMARY, Colors.white, 0.9),
-                  child: Stack(
-                    children: [
-                      SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: Column(
-                          children: cards,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height: 8,
-                          decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: <Color>[
-                              Color(0x00000000),
-                              Color(0x30000000),
-                            ],
-                          )),
-                        ),
-                      ),
-                    ],
-                  ),
+        const IntroScreenColumn(
+          position: -1,
+          title: "Trainiere die Fragen",
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15),
                 ),
               ),
-            ),
-            Flexible(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Trainiere die Fragen",
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ),
-                    const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Falls du dir unsicher bist, tippe lang auf eine Antwort. Du kannst dann in Ruhe die richtige Antwort lesen. Du bekommst die Frage später noch einmal gezeigt.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
-                  ],
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Falls du dir unsicher bist, tippe auf den Schalter unten links (oder tippe lang auf eine Antwort).",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15),
                 ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Du kannst dann in Ruhe alle Antworten aufdecken, bis du die richtige Antwort gefunden hast. Du bekommst die Frage später noch einmal gezeigt.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const IntroScreenColumn(
+          position: 0,
+          title: "Trainiere die Fragen",
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Zu vielen der Prüfungsfragen gibt es Hilfen auf der DARC-Website. Klicke auf »Hilfe«, wenn du mit einer Frage Probleme hast.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Du wirst dann direkt an die richtige Stelle geleitet (manchmal musst du etwas nach oben scrollen, um eine Erklärung zu finden).",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const IntroScreenColumn(
+          position: 1,
+          title: "Trainiere die Fragen",
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Tippe auf »Frage überspringen«, wenn du eine Frage gerade nicht beantworten kannst oder möchtest.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
       next: const Text("Nächster Tipp"),
@@ -521,21 +425,20 @@ class _OverviewState extends State<Overview> {
 
   @override
   Widget build(BuildContext context) {
-    if (!GlobalData.ready)
-      return Scaffold(body: Center(child: CircularProgressIndicator()));
+    if (!GlobalData.ready) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
     if (GlobalData.box.get('shown_intro') != true) {
       return introScreen();
     }
     String hid = '';
-    try {
-      if (ModalRoute.of(context) != null) {
-        hid = (ModalRoute.of(context)!.settings.arguments ?? '').toString();
-      }
-    } catch (e) {}
+    if (ModalRoute.of(context) != null) {
+      hid = (ModalRoute.of(context)!.settings.arguments ?? '').toString();
+    }
 
     var cards = getChapterCards(hid: hid);
 
-    Future<void> _showMyDialog(BuildContext context) async {
+    Future<void> showMyDialog(BuildContext context) async {
       return showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
@@ -582,7 +485,7 @@ class _OverviewState extends State<Overview> {
             ? [
                 PopupMenuButton(onSelected: (value) async {
                   if (value == 'clear_progress') {
-                    _showMyDialog(context);
+                    showMyDialog(context);
                   } else if (value == 'show_intro') {
                     await GlobalData.box.delete('shown_intro');
                     setState(() {});
@@ -630,7 +533,6 @@ class _OverviewState extends State<Overview> {
           decoration: const BoxDecoration(
               color: Colors.white,
               boxShadow: [BoxShadow(color: Color(0x80000000), blurRadius: 5)]),
-          // color: Colors.white,
           child: TextButton(
             child: Text(
                 "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen üben"),
@@ -647,7 +549,7 @@ class _OverviewState extends State<Overview> {
 }
 
 class Quiz extends StatefulWidget {
-  Quiz({super.key});
+  const Quiz({super.key});
 
   @override
   State<Quiz> createState() => _QuizState();
@@ -656,12 +558,14 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   String? hid;
   String? qid;
-  int confidenceIndex = 0;
+  bool unsure = false;
   List<Color> answerColor = [];
   List<int> answerIndex = [];
   bool guessedWrong = false;
   bool foundCorrect = false;
-  int animationPhase = 0;
+  bool animationPhase1 = false;
+  bool animationPhase2 = false;
+  bool animationPhase3 = false;
   bool solvedAll = false;
   Timer? _timer;
   double overallProgress = 0.0;
@@ -696,7 +600,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   void pickTask() {
     guessedWrong = false;
     foundCorrect = false;
-    confidenceIndex = 0;
+    unsure = false;
     // get all questions for this heading
     List<String> candidates = [];
     for (String x in GlobalData.questions!['questions_for_hid'][hid]) {
@@ -745,40 +649,63 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     });
   }
 
-  void launchAnimation() {
+  void launchAnimation({bool quick = false}) {
     _animationController.reset();
     _animationController2.reset();
     _animationController3.reset();
-    animationPhase = 1;
-    _animationController
-        .animateTo(1.0, curve: Curves.easeInOutQuint)
-        .then((value) {
-      animationPhase = 2;
-      _animationController2
-          .animateTo(1.0, curve: Curves.easeInOutQuint)
-          .then((value) {
-        animationPhase = 3;
+    if (quick) {
+      animationPhase1 = true;
+      animationPhase2 = true;
+      _animationController.animateTo(1.0, curve: Curves.easeOut);
+      _animationController2.animateTo(1.0, curve: Curves.easeOut).then((value) {
+        animationPhase3 = true;
         setState(() {
           pickTask();
         });
         _animationController3
-            .animateTo(1.0, curve: Curves.easeInOutQuint)
+            .animateTo(1.0, curve: Curves.easeOut)
             .then((value) {
           setState(() {
-            animationPhase = 0;
+            animationPhase1 = false;
+            animationPhase2 = false;
+            animationPhase3 = false;
             _animationController.reset();
             _animationController2.reset();
             _animationController3.reset();
           });
         });
       });
-    });
+    } else {
+      animationPhase1 = true;
+      _animationController.animateTo(1.0, curve: Curves.easeOut).then((value) {
+        animationPhase1 = false;
+        animationPhase2 = true;
+        _animationController2
+            .animateTo(1.0, curve: Curves.easeOut)
+            .then((value) {
+          animationPhase3 = true;
+          setState(() {
+            pickTask();
+          });
+          _animationController3
+              .animateTo(1.0, curve: Curves.easeOut)
+              .then((value) {
+            setState(() {
+              animationPhase1 = false;
+              animationPhase2 = false;
+              animationPhase3 = false;
+              _animationController.reset();
+              _animationController2.reset();
+              _animationController3.reset();
+            });
+          });
+        });
+      });
+    }
   }
 
   void tapAnswer(int i) {
-    if (confidenceIndex == 1 &&
-        foundCorrect &&
-        answerColor[i] != Colors.transparent) {
+    if (unsure && foundCorrect && answerColor[i] != Colors.transparent) {
       launchAnimation();
       return;
     }
@@ -787,19 +714,19 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       foundCorrect = true;
       answerColor[i] = GREEN;
       if (!guessedWrong) {
-        if (confidenceIndex == 0) {
+        if (!unsure) {
           GlobalData.instance
               .markQuestionSolved(qid!, DateTime.now().millisecondsSinceEpoch);
         }
       }
-      if (confidenceIndex == 0) {
+      if (!unsure) {
         launchAnimation();
       }
     } else {
       // answer is wrong
       answerColor[i] = RED;
       guessedWrong = true;
-      confidenceIndex = 1;
+      unsure = true;
       GlobalData.instance.unmarkQuestionSolved(qid!);
       solvedAll = false;
     }
@@ -842,151 +769,164 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       ),
     );
 
-    cards.add(Card(
-      child: ListTile(
-        title: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Html(
-            data:
-                "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
-            style: {'body': Style(margin: Margins.zero)},
+    cards.add(
+      Card(
+        child: ListTile(
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Html(
+              data:
+                  "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
+              style: {'body': Style(margin: Margins.zero)},
+            ),
           ),
         ),
       ),
-    ));
+    );
+
     cards.add(const Divider());
 
     for (int ti = 0; ti < 4; ti++) {
       int i = answerIndex[ti];
       cards.add(
-        AnimatedBuilder(
-            animation: _animationController3,
-            builder: (context, child) {
-              return AnimatedBuilder(
-                  animation: _animationController2,
-                  builder: (context, child) {
-                    return AnimatedBuilder(
-                        animation: _animationController,
-                        builder: (context, child) {
-                          return LayoutBuilder(builder: (context, constraints) {
-                            Offset offset = Offset.zero;
-                            if (animationPhase == 1) {
-                              if (i != 0) {
-                                offset =
-                                    Offset(-1 * _animationController.value, 0);
+        Padding(
+          padding:
+              ti == 3 ? const EdgeInsets.only(bottom: 90) : EdgeInsets.zero,
+          child: AnimatedBuilder(
+              animation: _animationController3,
+              builder: (context, child) {
+                return AnimatedBuilder(
+                    animation: _animationController2,
+                    builder: (context, child) {
+                      return AnimatedBuilder(
+                          animation: _animationController,
+                          builder: (context, child) {
+                            return LayoutBuilder(
+                                builder: (context, constraints) {
+                              Offset offset = Offset.zero;
+                              if (animationPhase1) {
+                                if (i != 0) {
+                                  offset = Offset(
+                                      -1 * _animationController.value, 0);
+                                }
                               }
-                            } else if (animationPhase == 2) {
-                              if (i != 0) {
-                                offset = const Offset(-1, 0);
-                              } else {
-                                offset =
-                                    Offset(-1 * _animationController2.value, 0);
+                              if (animationPhase2) {
+                                if (i != 0 && !animationPhase1) {
+                                  offset = const Offset(-1, 0);
+                                } else {
+                                  offset =
+                                      Offset(-_animationController2.value, 0);
+                                }
                               }
-                            } else if (animationPhase == 3) {
-                              offset =
-                                  Offset(1.0 - _animationController3.value, 0);
-                            }
-                            return Transform.translate(
-                              offset: offset * constraints.maxWidth,
-                              child: Card(
-                                child: InkWell(
-                                  onTapCancel: () => _timer?.cancel(),
-                                  onTapDown: (_) => {
-                                    _timer = Timer(
-                                        const Duration(milliseconds: 1500), () {
+                              if (animationPhase3) {
+                                offset = Offset(
+                                    1.0 - _animationController3.value, 0);
+                              }
+                              return Transform.translate(
+                                offset: offset * constraints.maxWidth,
+                                child: Card(
+                                  child: InkWell(
+                                    onTapCancel: () => _timer?.cancel(),
+                                    onTapDown: (_) => {
+                                      _timer = Timer(
+                                          const Duration(milliseconds: 1500),
+                                          () {
+                                        setState(() {
+                                          unsure = true;
+                                          tapAnswer(i);
+                                        });
+                                      })
+                                    },
+                                    onTap: () {
+                                      _timer?.cancel();
                                       setState(() {
-                                        confidenceIndex = 1;
                                         tapAnswer(i);
                                       });
-                                    })
-                                  },
-                                  onTap: () {
-                                    _timer?.cancel();
-                                    setState(() {
-                                      tapAnswer(i);
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: answerColor[i],
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Center(
-                                      child: ListTile(
-                                        horizontalTitleGap: 0,
-                                        titleAlignment:
-                                            ListTileTitleAlignment.top,
-                                        leading: Transform.translate(
-                                          offset: const Offset(0, 8),
-                                          child: CircleAvatar(
-                                            backgroundColor: answerColor[i] ==
-                                                    Colors.transparent
-                                                ? Color.lerp(
-                                                    PRIMARY, Colors.white, 0.8)
-                                                : answerColor[i],
-                                            radius: 15,
-                                            child: answerColor[i] == GREEN
-                                                ? const Icon(
-                                                    Icons.check,
-                                                    color: Colors.white,
-                                                    size: 16,
-                                                  )
-                                                : answerColor[i] == RED
-                                                    ? const Icon(
-                                                        Icons.clear,
-                                                        color: Colors.white,
-                                                        size: 16,
-                                                      )
-                                                    : Text(
-                                                        String.fromCharCode(
-                                                            65 + ti),
-                                                        style: GoogleFonts.alegreyaSans(
-                                                            fontSize: 14,
-                                                            color: answerColor[
-                                                                        i] ==
-                                                                    Colors
-                                                                        .transparent
-                                                                ? Colors.black87
-                                                                : Colors.white,
-                                                            fontWeight: answerColor[
-                                                                        i] ==
-                                                                    Colors
-                                                                        .transparent
-                                                                ? FontWeight
-                                                                    .normal
-                                                                : FontWeight
-                                                                    .bold),
-                                                      ),
-                                          ),
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: answerColor[i],
+                                          width: 2,
                                         ),
-                                        title: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 4),
-                                          child: Html(
-                                            data: GlobalData
-                                                .questions!['questions'][qid]
-                                                    ['answers'][i]
-                                                .toString()
-                                                .replaceAll('*', ' ⋅ '),
-                                            style: {
-                                              'body':
-                                                  Style(margin: Margins.zero)
-                                            },
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Center(
+                                        child: ListTile(
+                                          horizontalTitleGap: 0,
+                                          titleAlignment:
+                                              ListTileTitleAlignment.top,
+                                          leading: Transform.translate(
+                                            offset: const Offset(0, 8),
+                                            child: CircleAvatar(
+                                              backgroundColor: answerColor[i] ==
+                                                      Colors.transparent
+                                                  ? Color.lerp(PRIMARY,
+                                                      Colors.white, 0.8)
+                                                  : answerColor[i],
+                                              radius: 15,
+                                              child: answerColor[i] == GREEN
+                                                  ? const Icon(
+                                                      Icons.check,
+                                                      color: Colors.white,
+                                                      size: 16,
+                                                    )
+                                                  : answerColor[i] == RED
+                                                      ? const Icon(
+                                                          Icons.clear,
+                                                          color: Colors.white,
+                                                          size: 16,
+                                                        )
+                                                      : Text(
+                                                          String.fromCharCode(
+                                                              65 + ti),
+                                                          style: GoogleFonts.alegreyaSans(
+                                                              fontSize: 14,
+                                                              color: answerColor[
+                                                                          i] ==
+                                                                      Colors
+                                                                          .transparent
+                                                                  ? Colors
+                                                                      .black87
+                                                                  : Colors
+                                                                      .white,
+                                                              fontWeight: answerColor[
+                                                                          i] ==
+                                                                      Colors
+                                                                          .transparent
+                                                                  ? FontWeight
+                                                                      .normal
+                                                                  : FontWeight
+                                                                      .bold),
+                                                        ),
+                                            ),
+                                          ),
+                                          title: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 4),
+                                            child: Html(
+                                              data: GlobalData
+                                                  .questions!['questions'][qid]
+                                                      ['answers'][i]
+                                                  .toString()
+                                                  .replaceAll('*', ' ⋅ '),
+                                              style: {
+                                                'body':
+                                                    Style(margin: Margins.zero)
+                                              },
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
+                              );
+                            });
                           });
-                        });
-                  });
-            }),
+                    });
+              }),
+        ),
       );
     }
 
@@ -995,92 +935,71 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text(
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
-        actions: [
-          PopupMenuButton(
-            onSelected: (value) async {
-              launchUrl(Uri.parse(
-                  'https://www.darc.de/der-club/referate/ajw/lehrgang-te/e02/#TB202'));
+      ),
+      body: Stack(
+        children: [
+          ListView(
+            children: cards,
+          ),
+          BottomMenu(
+            qid: qid!,
+            feelingUnsureWidget: Switch(
+              value: unsure,
+              activeColor: Colors.red[900],
+              onChanged: (value) {
+                if (!unsure) {
+                  setState(() => unsure = value);
+                }
+              },
+            ),
+            onFeelingUnsure: () {
+              unsure = true;
             },
-            itemBuilder: (itemBuilder) {
-              return <PopupMenuEntry>[
-                const PopupMenuItem<String>(
-                  value: "show_intro",
-                  child: ListTile(
-                    title: Text("Hilfe"),
-                    visualDensity: VisualDensity.compact,
-                    leading: Icon(Icons.help_outline),
-                  ),
-                ),
-              ];
+            onHelp: GlobalData.questions!['questions'][qid]['hint'] == null
+                ? null
+                : () {
+                    String? url =
+                        GlobalData.questions!['questions'][qid]['hint'];
+                    developer.log("$url");
+                    if (url != null) launchUrl(Uri.parse(url));
+                  },
+            onSkip: () {
+              launchAnimation(quick: true);
             },
           ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Opacity(
+              opacity: solvedAll ? 1.0 : 0.0,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 100, right: 10),
+                child: ElevatedButton.icon(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    ),
+                    elevation: MaterialStateProperty.all(4),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10000)),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.check),
+                  label: const Text(
+                    "Alle Fragen beantwortet!",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
-      ),
-      floatingActionButton: solvedAll
-          ? FloatingActionButton.extended(
-              backgroundColor: PRIMARY,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: Icon(Icons.check),
-              label: Text("Alle Fragen beantwortet!"))
-          : null,
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            boxShadow: [BoxShadow(color: Color(0x80000000), blurRadius: 5)]),
-        child: BottomNavigationBar(
-          currentIndex: confidenceIndex,
-          selectedItemColor: Colors.black,
-          selectedFontSize: 14,
-          unselectedFontSize: 14,
-          onTap: (value) {
-            setState(() {
-              if (confidenceIndex == 1 && value == 1 && foundCorrect) {
-                launchAnimation();
-              } else {
-                if (!guessedWrong) {
-                  confidenceIndex = value;
-                }
-              }
-            });
-          },
-          items: <BottomNavigationBarItem>[
-            const BottomNavigationBarItem(
-              activeIcon: Text(
-                "😀",
-                style: TextStyle(fontSize: 24),
-              ),
-              icon: Opacity(
-                opacity: 0.5,
-                child: Text(
-                  "😀",
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-              label: 'Ich bin mir sicher',
-            ),
-            BottomNavigationBarItem(
-              activeIcon: Text(
-                (confidenceIndex == 1 && foundCorrect) ? "👍" : "🤔",
-                style: TextStyle(fontSize: 24),
-              ),
-              icon: const Opacity(
-                opacity: 0.5,
-                child: Text(
-                  "🤔",
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-              label: (confidenceIndex == 1 && foundCorrect)
-                  ? 'Ok, weiter'
-                  : 'Ich bin mir unsicher',
-            ),
-          ],
-        ),
-      ),
-      body: ListView(
-        children: cards,
       ),
     );
   }
@@ -1128,5 +1047,360 @@ class _AboutState extends State<About> {
         },
       ),
     );
+  }
+}
+
+class BottomMenu extends StatefulWidget {
+  final Function? onFeelingUnsure;
+  final Widget feelingUnsureWidget;
+  final Function? onHelp;
+  final Function? onSkip;
+  final String qid;
+
+  const BottomMenu(
+      {super.key,
+      required this.qid,
+      required this.feelingUnsureWidget,
+      this.onFeelingUnsure,
+      this.onSkip,
+      this.onHelp});
+
+  @override
+  State<BottomMenu> createState() => _BottomMenuState();
+}
+
+class _BottomMenuState extends State<BottomMenu> {
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              boxShadow: [BoxShadow(color: Color(0x80000000), blurRadius: 5)],
+              color: Colors.white,
+            ),
+            child: Material(
+              child: LayoutBuilder(builder: (context, constraints) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: constraints.maxWidth / 3,
+                      child: InkWell(
+                        onTap: widget.onFeelingUnsure == null
+                            ? null
+                            : () {
+                                widget.onFeelingUnsure!();
+                              },
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 8, left: 8, right: 8, bottom: 12),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height: 30,
+                                child: widget.feelingUnsureWidget,
+                              ),
+                              const Text(
+                                "Ich bin mir\nunsicher",
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: constraints.maxWidth / 3,
+                      child: InkWell(
+                        onTap: widget.onHelp == null
+                            ? null
+                            : () {
+                                widget.onHelp!();
+                              },
+                        child: Opacity(
+                          opacity: GlobalData.questions!['questions']
+                                      [widget.qid]['hint'] ==
+                                  null
+                              ? 0.5
+                              : 1.0,
+                          child: const Padding(
+                            padding: EdgeInsets.only(
+                                top: 8, left: 8, right: 8, bottom: 12),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                    height: 30,
+                                    child: Icon(Icons.help_outline)),
+                                Text(
+                                  "Hilfestellung\nzu dieser Frage",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: constraints.maxWidth / 3,
+                      child: InkWell(
+                        onTap: widget.onSkip == null
+                            ? null
+                            : () {
+                                widget.onSkip!();
+                              },
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                              top: 8, left: 8, right: 8, bottom: 12),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                  height: 30,
+                                  child: Icon(Icons.skip_next_outlined)),
+                              Text(
+                                "Frage\nüberspringen",
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path
+      ..addOval(Rect.fromCircle(
+          center: Offset(size.width / 2, size.height / 2), radius: 55))
+      ..close();
+
+    return Path.combine(
+        PathOperation.difference,
+        Path()
+          ..addRRect(
+              RRect.fromLTRBR(0, 0, size.width, size.height, Radius.zero)),
+        path);
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+}
+
+class IntroScreenColumn extends StatelessWidget {
+  const IntroScreenColumn(
+      {super.key,
+      required this.position,
+      required this.title,
+      required this.child});
+  final int position;
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> cards = [];
+    List<int> answerIndex = [1, 3, 0, 2];
+    List<Color> answerColor = [
+      Colors.transparent,
+      Colors.transparent,
+      Colors.transparent,
+      Colors.transparent
+    ];
+    List<String> answers = [
+      '42*10<sup>-3</sup> A.',
+      '42*10<sup>3</sup> A.',
+      '42*10<sup>-2</sup> A.',
+      '42*10<sup>-1</sup> A.',
+    ];
+    cards.add(Card(
+      child: ListTile(
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Html(
+            data: "<b>TA101</b>&nbsp;&nbsp;&nbsp;&nbsp;0,042 A entspricht",
+            style: {'body': Style(margin: Margins.zero)},
+          ),
+        ),
+      ),
+    ));
+    cards.add(const Divider());
+
+    for (int ti = 0; ti < 4; ti++) {
+      int i = answerIndex[ti];
+      cards.add(Card(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: answerColor[i],
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Center(
+            child: ListTile(
+              horizontalTitleGap: 0,
+              titleAlignment: ListTileTitleAlignment.top,
+              leading: Transform.translate(
+                offset: const Offset(0, 8),
+                child: CircleAvatar(
+                  backgroundColor: answerColor[i] == Colors.transparent
+                      ? Color.lerp(PRIMARY, Colors.white, 0.8)
+                      : answerColor[i],
+                  radius: 15,
+                  child: answerColor[i] == GREEN
+                      ? const Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 16,
+                        )
+                      : answerColor[i] == RED
+                          ? const Icon(
+                              Icons.clear,
+                              color: Colors.white,
+                              size: 16,
+                            )
+                          : Text(
+                              String.fromCharCode(65 + ti),
+                              style: GoogleFonts.alegreyaSans(
+                                  fontSize: 14,
+                                  color: answerColor[i] == Colors.transparent
+                                      ? Colors.black87
+                                      : Colors.white,
+                                  fontWeight:
+                                      answerColor[i] == Colors.transparent
+                                          ? FontWeight.normal
+                                          : FontWeight.bold),
+                            ),
+                ),
+              ),
+              title: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Html(
+                  data: answers[i].toString().replaceAll('*', ' ⋅ '),
+                  style: {'body': Style(margin: Margins.zero)},
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+    }
+    return LayoutBuilder(builder: (context, constraints) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+            height: constraints.maxHeight / 5 * 3,
+            child: Stack(
+              children: [
+                SafeArea(
+                  child: Container(
+                    color: Color.lerp(PRIMARY, Colors.white, 0.9),
+                    child: SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: Column(
+                        children: cards,
+                      ),
+                    ),
+                  ),
+                ),
+                BottomMenu(
+                  qid: 'TA101E',
+                  feelingUnsureWidget: Switch(
+                    value: false,
+                    activeColor: Colors.red[900],
+                    onChanged: (value) {},
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    return Transform.translate(
+                      offset: Offset(position * constraints.maxWidth / 3, 72),
+                      child: ClipPath(
+                        clipper: MyClipper(),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              // color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(200),
+                              gradient: const RadialGradient(
+                                colors: [Color(0x40000000), Colors.transparent],
+                                stops: [0.5, 0.7],
+                              ),
+                            ),
+                            width: 200,
+                            height: 200),
+                      ),
+                    );
+                  }),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 8,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: <Color>[
+                          Color(0x00000000),
+                          Color(0x30000000),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.white,
+            child: SizedBox(
+              height: constraints.maxHeight / 5 * 2,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          title,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(width: double.maxFinite, child: child),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
