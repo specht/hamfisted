@@ -1,0 +1,1 @@
+With this app you can prepare for the German HAM radio exam for the classes E and A. Practice all questions of the official question catalogs of the Federal Network Agency for the parts "Technology Class E", "Technology Class A", "Operating Technology" and "Regulations" and keep track of your progress.
