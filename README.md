@@ -1,7 +1,7 @@
 # Hamfisted
 
 <p align='center'>
- <img src='craft/header.png' width='100%' style='height: 200px; object-fit: cover;'/>
+ <img src='craft/header.png' width='100%'/>
 </p>
 
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/specht/hamfisted?label=latest%20version&style=flat-square)](https://github.com/mateusz-bak/openreads-android/releases/latest)
