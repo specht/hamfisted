@@ -1,0 +1,54 @@
+name: Hamfisted
+description: Trainiere für die Amateurfunkprüfung
+publish_to: 'none'
+
+version: 0.0.7+7
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  async: ^2.11.0
+  cupertino_icons: ^1.0.2
+  flutter_html: ^3.0.0-beta.2
+  get_it: ^7.6.4
+  google_fonts: ^6.1.0
+  hive_flutter: ^1.1.0
+  introduction_screen: ^3.1.12
+  package_info_plus: ^4.2.0
+  provider: ^6.0.5
+  path_provider: ^2.1.1
+  url_launcher: ^6.1.14
+
+dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - data/
+    - assets/
+  fonts:
+    - family: AlegreyaSans
+      fonts:
+        - asset: fonts/AlegreyaSans-Regular.ttf
+        - asset: fonts/AlegreyaSans-Bold.ttf
+          weight: 700
+        - asset: fonts/AlegreyaSans-Italic.ttf
+          style: italic
+        - asset: fonts/AlegreyaSans-BoldItalic.ttf
+          style: italic
+          weight: 700
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path: "assets/icon.png"
+  remove_alpha_ios: true
+  adaptive_icon_foreground: "assets/icon-fg.png"
+  adaptive_icon_background: "#69bde6"

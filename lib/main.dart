@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hamfisted/service_locator.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -31,11 +30,6 @@ class ListWithDecay {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await setupServiceLocator();
-  // LicenseRegistry.addLicense(() async* {
-  //   final license = await rootBundle.loadString('fonts/OFL.txt');
-  //   yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-  // });
   await GlobalData.instance.launchGlobalData;
   runApp(ChangeNotifierProvider<GlobalData>.value(
       value: GlobalData.instance, child: const MyApp()));
