@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -107,6 +108,16 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     duration: const Duration(milliseconds: 500),
     vsync: this,
   );
+  late final AnimationController _animationControllerSpotShift1 =
+      AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
+  late final AnimationController _animationControllerSpotShift2 =
+      AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
 
   @override
   void initState() {
@@ -121,6 +132,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     _animationControllerOverview.dispose();
     _animationControllerQuiz.dispose();
     _animationControllerSpotSize.dispose();
+    _animationControllerSpotShift1.dispose();
+    _animationControllerSpotShift2.dispose();
     super.dispose();
   }
 
@@ -131,6 +144,11 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     oldPage = 0;
     _animationControllerHeading.value = 0.0;
     _animationControllerCat.value = 1.0;
+    _animationControllerOverview.value = 0.0;
+    _animationControllerQuiz.value = 0.0;
+    _animationControllerSpotSize.value = 0.0;
+    _animationControllerSpotShift1.value = 0.0;
+    _animationControllerSpotShift2.value = 0.0;
   }
 
   Future<void> clearProgress() async {
@@ -141,11 +159,12 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
   List<Widget> getChapterCards({String hid = '', bool demo = false}) {
     List<Widget> cards = [];
     int now = DateTime.now().millisecondsSinceEpoch;
+    Random r = Random(0);
     for (var subhid in (GlobalData.questions!['children'][hid] ?? [])) {
       List<int> countForDuration = [0, 0, 0, 0, 0];
       if (demo) {
         countForDuration = [10, 13, 9, 2, 28];
-        countForDuration.shuffle();
+        countForDuration.shuffle(r);
       } else {
         for (String qid
             in (GlobalData.questions!['questions_for_hid'][subhid] ?? [])) {
@@ -324,79 +343,64 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       return Stack(
         children: [
           Container(color: PRIMARY),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: INTRO_BOTTOM + 64),
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color.fromARGB(255, 109, 195, 231),
-                            Color.fromARGB(255, 248, 220, 255)
-                          ]),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: LayoutBuilder(builder: (context, constraints) {
-                      return AnimatedBuilder(
+          SafeArea(
+            child: Container(
+              color: Color.lerp(PRIMARY, Colors.white, 0.9),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: INTRO_BOTTOM + 64),
+                  child: Stack(
+                    children: [
+                      AnimatedBuilder(
                           animation: _animationControllerCat,
                           builder: (context, child) {
-                            return Transform.translate(
-                              offset: Offset(
-                                  0,
-                                  (1.0 - _animationControllerCat.value) *
-                                      constraints.maxHeight),
-                              child: Image(
-                                  image: const AssetImage(
-                                      'assets/stack_of_books.png'),
-                                  height: constraints.maxHeight * 0.7),
-                            );
-                          });
-                    }),
-                  ),
-                  Material(
-                    color: Colors.transparent,
-                    child: AnimatedBuilder(
-                        animation: _animationControllerOverview,
-                        builder: (context, child) {
-                          return Transform.translate(
-                            offset: Offset(
-                                0,
-                                -(1.0 - _animationControllerOverview.value) *
-                                    constraints.maxHeight),
-                            child: SafeArea(
+                            return Opacity(
+                              opacity: _animationControllerCat.value,
                               child: Container(
-                                color: Color.lerp(PRIMARY, Colors.white, 0.9),
-                                child: SingleChildScrollView(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  child: Column(
-                                    children:
-                                        getChapterCards(hid: 'TE', demo: true),
-                                  ),
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color.fromARGB(255, 109, 195, 231),
+                                        Color.fromARGB(255, 248, 220, 255)
+                                      ]),
                                 ),
                               ),
-                            ),
-                          );
+                            );
+                          }),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: LayoutBuilder(builder: (context, constraints) {
+                          return AnimatedBuilder(
+                              animation: _animationControllerCat,
+                              builder: (context, child) {
+                                return Transform.translate(
+                                  offset: Offset(
+                                      0,
+                                      (1.0 - _animationControllerCat.value) *
+                                          constraints.maxHeight),
+                                  child: Image(
+                                      image: const AssetImage(
+                                          'assets/stack_of_books.png'),
+                                      height: constraints.maxHeight * 0.7),
+                                );
+                              });
                         }),
-                  ),
-                  AnimatedBuilder(
-                      animation: _animationControllerQuiz,
-                      builder: (context, child) {
-                        return Stack(
-                          children: [
-                            Transform.translate(
-                              offset: Offset(
-                                  0,
-                                  (1.0 - _animationControllerQuiz.value) *
-                                      constraints.maxHeight),
-                              child: Material(
-                                color: Colors.transparent,
+                      ),
+                      Material(
+                        color: Colors.transparent,
+                        child: AnimatedBuilder(
+                            animation: _animationControllerOverview,
+                            builder: (context, child) {
+                              return Transform.translate(
+                                offset: Offset(
+                                    0,
+                                    -(1.0 -
+                                            _animationControllerOverview
+                                                .value) *
+                                        constraints.maxHeight),
                                 child: SafeArea(
                                   child: Container(
                                     color:
@@ -405,92 +409,155 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       child: Column(
-                                        children: cards,
+                                        children: getChapterCards(
+                                            hid: 'TE', demo: true),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Transform.translate(
-                              offset: Offset(0,
-                                  (1.0 - _animationControllerQuiz.value) * 120),
-                              child: BottomMenu(
-                                qid: 'TA101E',
-                                feelingUnsureWidget: Switch(
-                                  value: false,
-                                  activeColor: Colors.red[900],
-                                  onChanged: (value) {},
+                              );
+                            }),
+                      ),
+                      AnimatedBuilder(
+                          animation: _animationControllerQuiz,
+                          builder: (context, child) {
+                            return Stack(
+                              children: [
+                                Transform.translate(
+                                  offset: Offset(
+                                      0,
+                                      (1.0 - _animationControllerQuiz.value) *
+                                          constraints.maxHeight),
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: SafeArea(
+                                      child: Container(
+                                        color: Color.lerp(
+                                            PRIMARY, Colors.white, 0.9),
+                                        child: SingleChildScrollView(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          child: Column(
+                                            children: cards,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Transform.translate(
-                              offset: Offset(0,
-                                  (1.0 - _animationControllerQuiz.value) * 120),
-                              child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: LayoutBuilder(
-                                    builder: (context, constraints) {
-                                  return Transform.translate(
-                                    offset: Offset(
-                                        -1 * constraints.maxWidth / 3, 72),
-                                    child: AnimatedBuilder(
-                                        animation: _animationControllerSpotSize,
-                                        builder: (context, child) {
-                                          return Opacity(
-                                            opacity:
-                                                _animationControllerSpotSize
-                                                    .value,
-                                            child: Transform.scale(
-                                              scale: 4.0 -
-                                                  3.0 *
-                                                      _animationControllerSpotSize
-                                                          .value,
-                                              child: ClipPath(
-                                                clipper: MyClipper(),
-                                                child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      gradient:
-                                                          const RadialGradient(
-                                                        colors: [
-                                                          Color(0x40000000),
-                                                          Colors.transparent
-                                                        ],
-                                                        stops: [0.5, 0.7],
-                                                      ),
-                                                    ),
-                                                    width: 200,
-                                                    height: 200),
-                                              ),
-                                            ),
-                                          );
-                                        }),
-                                  );
-                                }),
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 8,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: <Color>[
-                          Color(0x00000000),
-                          Color(0x30000000),
-                        ],
-                      )),
-                    ),
+                                Transform.translate(
+                                  offset: Offset(
+                                      0,
+                                      (1.0 - _animationControllerQuiz.value) *
+                                          120),
+                                  child: BottomMenu(
+                                    qid: 'TA101E',
+                                    feelingUnsureWidget: Switch(
+                                      value: false,
+                                      activeColor: Colors.red[900],
+                                      onChanged: (value) {},
+                                    ),
+                                  ),
+                                ),
+                                Transform.translate(
+                                  offset: Offset(
+                                      0,
+                                      (1.0 - _animationControllerQuiz.value) *
+                                          120),
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: LayoutBuilder(
+                                        builder: (context, constraints) {
+                                      return Transform.translate(
+                                        offset: Offset(
+                                            -1 * constraints.maxWidth / 3, 72),
+                                        child: AnimatedBuilder(
+                                            animation:
+                                                _animationControllerSpotShift2,
+                                            builder: (context, child) {
+                                              return AnimatedBuilder(
+                                                  animation:
+                                                      _animationControllerSpotShift1,
+                                                  builder: (context, child) {
+                                                    return AnimatedBuilder(
+                                                        animation:
+                                                            _animationControllerSpotSize,
+                                                        builder:
+                                                            (context, child) {
+                                                          return Opacity(
+                                                            opacity:
+                                                                _animationControllerSpotSize
+                                                                    .value,
+                                                            child: Transform
+                                                                .translate(
+                                                              offset: Offset(
+                                                                  constraints
+                                                                          .maxWidth /
+                                                                      3 *
+                                                                      (_animationControllerSpotShift1
+                                                                              .value +
+                                                                          _animationControllerSpotShift2
+                                                                              .value),
+                                                                  0),
+                                                              child: Transform
+                                                                  .scale(
+                                                                scale: 4.0 -
+                                                                    3.0 *
+                                                                        _animationControllerSpotSize
+                                                                            .value,
+                                                                child: ClipPath(
+                                                                  clipper:
+                                                                      MyClipper(),
+                                                                  child: Container(
+                                                                      decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(1000),
+                                                                        gradient:
+                                                                            const RadialGradient(
+                                                                          colors: [
+                                                                            Color(0x80000000),
+                                                                            Color(0x00000000),
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      width: 200,
+                                                                      height: 200),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        });
+                                                  });
+                                            }),
+                                      );
+                                    }),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          height: 8,
+                          decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: <Color>[
+                              Color(0x00000000),
+                              Color(0x30000000),
+                            ],
+                          )),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
@@ -603,172 +670,16 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                   curve: Curves.easeInOutCubic);
               _animationControllerSpotSize.animateTo((page >= 3) ? 1.0 : 0.0,
                   curve: Curves.easeInOutCubic);
+              _animationControllerSpotShift1.animateTo((page >= 4) ? 1.0 : 0.0,
+                  curve: Curves.easeInOutCubic);
+              _animationControllerSpotShift2.animateTo((page >= 5) ? 1.0 : 0.0,
+                  curve: Curves.easeInOutCubic);
 
               oldPage = page;
             },
             isProgressTap: false,
             globalBackgroundColor: Colors.transparent,
             rawPages: const [
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: [
-              //     Flexible(
-              //       flex: 3,
-              //       child: Stack(
-              //         children: [
-              //           Container(
-              //             decoration: const BoxDecoration(
-              //               gradient: LinearGradient(
-              //                   begin: Alignment.topCenter,
-              //                   end: Alignment.bottomCenter,
-              //                   colors: [
-              //                     Color.fromARGB(255, 109, 195, 231),
-              //                     Color.fromARGB(255, 248, 220, 255)
-              //                   ]),
-              //             ),
-              //           ),
-              //           Align(
-              //             alignment: const Alignment(0.0, 1.0),
-              //             child: LayoutBuilder(builder: (context, constraints) {
-              //               return Image(
-              //                   image: const AssetImage('assets/stack_of_books.png'),
-              //                   height: constraints.maxHeight * 0.7);
-              //             }),
-              //           ),
-              //           Align(
-              //             alignment: Alignment.bottomCenter,
-              //             child: Container(
-              //               height: 8,
-              //               decoration: const BoxDecoration(
-              //                   gradient: LinearGradient(
-              //                 begin: Alignment.topCenter,
-              //                 end: Alignment.bottomCenter,
-              //                 colors: <Color>[
-              //                   Color(0x00000000),
-              //                   Color(0x30000000),
-              //                 ],
-              //               )),
-              //             ),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //     Flexible(
-              //       flex: 2,
-              //       child: Padding(
-              //         padding: const EdgeInsets.only(top: 20.0),
-              //         child: Column(
-              //           mainAxisAlignment: MainAxisAlignment.start,
-              //           children: [
-              //             Padding(
-              //               padding: const EdgeInsets.all(8.0),
-              //               child: Text(
-              //                 "Lerne für deine Amateurfunkprüfung",
-              //                 style: Theme.of(context).textTheme.headlineSmall,
-              //               ),
-              //             ),
-              //             const Padding(
-              //               padding: EdgeInsets.all(8.0),
-              //               child: Text(
-              //                 "Schau dir kurz an, wie es funktioniert.",
-              //                 textAlign: TextAlign.center,
-              //                 style: TextStyle(fontSize: 15),
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: [
-              //     Flexible(
-              //       flex: 3,
-              //       child: SafeArea(
-              //         child: Stack(
-              //           children: [
-              //             Container(
-              //               color: Color.lerp(PRIMARY, Colors.white, 0.9),
-              //               child: SingleChildScrollView(
-              //                 physics: const NeverScrollableScrollPhysics(),
-              //                 child: Column(
-              //                   children: getChapterCards(hid: 'TE', demo: true),
-              //                 ),
-              //               ),
-              //             ),
-              //             Align(
-              //               alignment: Alignment.bottomCenter,
-              //               child: Container(
-              //                 height: 8,
-              //                 decoration: const BoxDecoration(
-              //                     gradient: LinearGradient(
-              //                   begin: Alignment.topCenter,
-              //                   end: Alignment.bottomCenter,
-              //                   colors: <Color>[
-              //                     Color(0x00000000),
-              //                     Color(0x30000000),
-              //                   ],
-              //                 )),
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //     Flexible(
-              //       flex: 2,
-              //       child: Padding(
-              //         padding: const EdgeInsets.only(top: 20.0),
-              //         child: Column(
-              //           mainAxisAlignment: MainAxisAlignment.start,
-              //           children: [
-              //             Padding(
-              //               padding: const EdgeInsets.all(8.0),
-              //               child: Text(
-              //                 "Kapitel auswählen und üben",
-              //                 style: Theme.of(context).textTheme.headlineSmall,
-              //               ),
-              //             ),
-              //             const Padding(
-              //                 padding: EdgeInsets.all(8.0),
-              //                 child: SingleChildScrollView(
-              //                   child: Column(
-              //                     children: [
-              //                       Padding(
-              //                         padding: EdgeInsets.all(8.0),
-              //                         child: Text(
-              //                           "Such dir ein Kapitel aus und beantworte die Fragen.",
-              //                           textAlign: TextAlign.center,
-              //                           style: TextStyle(fontSize: 15),
-              //                         ),
-              //                       ),
-              //                       Padding(
-              //                         padding: EdgeInsets.all(8.0),
-              //                         child: Text(
-              //                           "Fortschrittsbalken zeigen dir, wie viele der Fragen du schon korrekt beantwortet hast.",
-              //                           textAlign: TextAlign.center,
-              //                           style: TextStyle(fontSize: 15),
-              //                         ),
-              //                       ),
-              //                       Padding(
-              //                         padding: EdgeInsets.all(8.0),
-              //                         child: Text(
-              //                           "Die Fortschrittsbalken verblassen nach und nach.",
-              //                           textAlign: TextAlign.center,
-              //                           style: TextStyle(fontSize: 15),
-              //                         ),
-              //                       ),
-              //                     ],
-              //                   ),
-              //                 )),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               IntroScreenColumn(
                 child: Column(
                   children: [
@@ -805,7 +716,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Die Fortschrittsbalken verblassen nach und nach.",
+                        "Die Fortschrittsbalken verblassen nach einigen Tagen.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),
@@ -855,7 +766,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Zu vielen der Prüfungsfragen gibt es Hilfen auf der DARC-Website. Klicke auf »Hilfe«, wenn du mit einer Frage Probleme hast.",
+                        "Zu vielen der Prüfungsfragen gibt es Hilfen auf der DARC-Website. Tippe auf »Hilfestellung«, wenn du mit einer Frage Probleme hast.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),
@@ -863,7 +774,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Du wirst dann direkt an die richtige Stelle geleitet (manchmal musst du etwas nach oben scrollen, um eine Erklärung zu finden).",
+                        "Du wirst dann direkt an die richtige Stelle auf der DARC-Website geleitet (manchmal musst du etwas nach oben scrollen, um eine Erklärung zu finden).",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),
@@ -1695,72 +1606,6 @@ class IntroScreenColumn extends StatelessWidget {
             color: Colors.transparent,
             child: SizedBox(
               height: constraints.maxHeight - INTRO_BOTTOM,
-              // child: Padding(
-              //   padding: const EdgeInsets.all(50.0),
-              //   child: Container(color: Colors.amber),
-              // ),
-
-              // child: Stack(
-              //   children: [
-              //     SafeArea(
-              //       child: Container(
-              //         color: Color.lerp(PRIMARY, Colors.white, 0.9),
-              //         child: SingleChildScrollView(
-              //           physics: const NeverScrollableScrollPhysics(),
-              //           child: Column(
-              //             children: cards,
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //     BottomMenu(
-              //       qid: 'TA101E',
-              //       feelingUnsureWidget: Switch(
-              //         value: false,
-              //         activeColor: Colors.red[900],
-              //         onChanged: (value) {},
-              //       ),
-              //     ),
-              //     Align(
-              //       alignment: Alignment.bottomCenter,
-              //       child: LayoutBuilder(builder: (context, constraints) {
-              //         return Transform.translate(
-              //           offset: Offset(position * constraints.maxWidth / 3, 72),
-              //           child: ClipPath(
-              //             clipper: MyClipper(),
-              //             child: Container(
-              //                 decoration: BoxDecoration(
-              //                   // color: Colors.transparent,
-              //                   borderRadius: BorderRadius.circular(200),
-              //                   gradient: const RadialGradient(
-              //                     colors: [Color(0x40000000), Colors.transparent],
-              //                     stops: [0.5, 0.7],
-              //                   ),
-              //                 ),
-              //                 width: 200,
-              //                 height: 200),
-              //           ),
-              //         );
-              //       }),
-              //     ),
-              //     Align(
-              //       alignment: Alignment.bottomCenter,
-              //       child: Container(
-              //         height: 8,
-              //         decoration: const BoxDecoration(
-              //           gradient: LinearGradient(
-              //             begin: Alignment.topCenter,
-              //             end: Alignment.bottomCenter,
-              //             colors: <Color>[
-              //               Color(0x00000000),
-              //               Color(0x30000000),
-              //             ],
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ),
           ),
           Container(
