@@ -1,6 +1,5 @@
 import 'dart:developer' as developer;
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -103,6 +102,11 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     duration: const Duration(milliseconds: 500),
     vsync: this,
   );
+  late final AnimationController _animationControllerSpotSize =
+      AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
 
   @override
   void initState() {
@@ -116,6 +120,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     _animationControllerCat.dispose();
     _animationControllerOverview.dispose();
     _animationControllerQuiz.dispose();
+    _animationControllerSpotSize.dispose();
     super.dispose();
   }
 
@@ -228,6 +233,93 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
   }
 
   Widget introScreen() {
+    List<Widget> cards = [];
+    List<int> answerIndex = [1, 3, 0, 2];
+    List<Color> answerColor = [
+      Colors.transparent,
+      Colors.transparent,
+      Colors.transparent,
+      Colors.transparent
+    ];
+    List<String> answers = [
+      '42*10<sup>-3</sup> A.',
+      '42*10<sup>3</sup> A.',
+      '42*10<sup>-2</sup> A.',
+      '42*10<sup>-1</sup> A.',
+    ];
+    cards.add(Card(
+      child: ListTile(
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Html(
+            data: "<b>TA101</b>&nbsp;&nbsp;&nbsp;&nbsp;0,042 A entspricht",
+            style: {'body': Style(margin: Margins.zero)},
+          ),
+        ),
+      ),
+    ));
+    cards.add(const Divider());
+
+    for (int ti = 0; ti < 4; ti++) {
+      int i = answerIndex[ti];
+      cards.add(Card(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: answerColor[i],
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Center(
+            child: ListTile(
+              horizontalTitleGap: 0,
+              titleAlignment: ListTileTitleAlignment.top,
+              leading: Transform.translate(
+                offset: const Offset(0, 8),
+                child: CircleAvatar(
+                  backgroundColor: answerColor[i] == Colors.transparent
+                      ? Color.lerp(PRIMARY, Colors.white, 0.8)
+                      : answerColor[i],
+                  radius: 15,
+                  child: answerColor[i] == GREEN
+                      ? const Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 16,
+                        )
+                      : answerColor[i] == RED
+                          ? const Icon(
+                              Icons.clear,
+                              color: Colors.white,
+                              size: 16,
+                            )
+                          : Text(
+                              String.fromCharCode(65 + ti),
+                              style: GoogleFonts.alegreyaSans(
+                                  fontSize: 14,
+                                  color: answerColor[i] == Colors.transparent
+                                      ? Colors.black87
+                                      : Colors.white,
+                                  fontWeight:
+                                      answerColor[i] == Colors.transparent
+                                          ? FontWeight.normal
+                                          : FontWeight.bold),
+                            ),
+                ),
+              ),
+              title: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Html(
+                  data: answers[i].toString().replaceAll('*', ' ⋅ '),
+                  style: {'body': Style(margin: Margins.zero)},
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+    }
     return LayoutBuilder(builder: (context, constraints) {
       return Stack(
         children: [
@@ -268,6 +360,121 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                           });
                     }),
                   ),
+                  Material(
+                    color: Colors.transparent,
+                    child: AnimatedBuilder(
+                        animation: _animationControllerOverview,
+                        builder: (context, child) {
+                          return Transform.translate(
+                            offset: Offset(
+                                0,
+                                -(1.0 - _animationControllerOverview.value) *
+                                    constraints.maxHeight),
+                            child: SafeArea(
+                              child: Container(
+                                color: Color.lerp(PRIMARY, Colors.white, 0.9),
+                                child: SingleChildScrollView(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  child: Column(
+                                    children:
+                                        getChapterCards(hid: 'TE', demo: true),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                  AnimatedBuilder(
+                      animation: _animationControllerQuiz,
+                      builder: (context, child) {
+                        return Stack(
+                          children: [
+                            Transform.translate(
+                              offset: Offset(
+                                  0,
+                                  (1.0 - _animationControllerQuiz.value) *
+                                      constraints.maxHeight),
+                              child: Material(
+                                color: Colors.transparent,
+                                child: SafeArea(
+                                  child: Container(
+                                    color:
+                                        Color.lerp(PRIMARY, Colors.white, 0.9),
+                                    child: SingleChildScrollView(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      child: Column(
+                                        children: cards,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Transform.translate(
+                              offset: Offset(0,
+                                  (1.0 - _animationControllerQuiz.value) * 120),
+                              child: BottomMenu(
+                                qid: 'TA101E',
+                                feelingUnsureWidget: Switch(
+                                  value: false,
+                                  activeColor: Colors.red[900],
+                                  onChanged: (value) {},
+                                ),
+                              ),
+                            ),
+                            Transform.translate(
+                              offset: Offset(0,
+                                  (1.0 - _animationControllerQuiz.value) * 120),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: LayoutBuilder(
+                                    builder: (context, constraints) {
+                                  return Transform.translate(
+                                    offset: Offset(
+                                        -1 * constraints.maxWidth / 3, 72),
+                                    child: AnimatedBuilder(
+                                        animation: _animationControllerSpotSize,
+                                        builder: (context, child) {
+                                          return Opacity(
+                                            opacity:
+                                                _animationControllerSpotSize
+                                                    .value,
+                                            child: Transform.scale(
+                                              scale: 4.0 -
+                                                  3.0 *
+                                                      _animationControllerSpotSize
+                                                          .value,
+                                              child: ClipPath(
+                                                clipper: MyClipper(),
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              200),
+                                                      gradient:
+                                                          const RadialGradient(
+                                                        colors: [
+                                                          Color(0x40000000),
+                                                          Colors.transparent
+                                                        ],
+                                                        stops: [0.5, 0.7],
+                                                      ),
+                                                    ),
+                                                    width: 200,
+                                                    height: 200),
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                  );
+                                }),
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
@@ -388,13 +595,14 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     .animateTo(1.0, curve: Curves.easeInOutCubic)
                     .then((value) {});
               }
-              if (page == 0) {
-                _animationControllerCat.animateTo(1.0,
-                    curve: Curves.easeInOutCubic);
-              } else {
-                _animationControllerCat.animateTo(0.0,
-                    curve: Curves.easeInOutCubic);
-              }
+              _animationControllerCat.animateTo((page == 0) ? 1.0 : 0.0,
+                  curve: Curves.easeInOutCubic);
+              _animationControllerOverview.animateTo((page == 1) ? 1.0 : 0.0,
+                  curve: Curves.easeInOutCubic);
+              _animationControllerQuiz.animateTo((page >= 2) ? 1.0 : 0.0,
+                  curve: Curves.easeInOutCubic);
+              _animationControllerSpotSize.animateTo((page >= 3) ? 1.0 : 0.0,
+                  curve: Curves.easeInOutCubic);
 
               oldPage = page;
             },
@@ -561,8 +769,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
               //     ),
               //   ],
               // ),
-              const IntroScreenColumn(
-                position: -1,
+              IntroScreenColumn(
                 child: Column(
                   children: [
                     Padding(
@@ -576,8 +783,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              const IntroScreenColumn(
-                position: -1,
+              IntroScreenColumn(
                 child: Column(
                   children: [
                     Padding(
@@ -607,8 +813,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              const IntroScreenColumn(
-                position: -1,
+              IntroScreenColumn(
                 child: Column(
                   children: [
                     Padding(
@@ -622,8 +827,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              const IntroScreenColumn(
-                position: -1,
+              IntroScreenColumn(
                 child: Column(
                   children: [
                     Padding(
@@ -645,8 +849,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              const IntroScreenColumn(
-                position: 0,
+              IntroScreenColumn(
                 child: Column(
                   children: [
                     Padding(
@@ -668,8 +871,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              const IntroScreenColumn(
-                position: 1,
+              IntroScreenColumn(
                 child: Column(
                   children: [
                     Padding(
@@ -1481,100 +1683,11 @@ class MyClipper extends CustomClipper<Path> {
 }
 
 class IntroScreenColumn extends StatelessWidget {
-  const IntroScreenColumn(
-      {super.key, required this.position, required this.child});
-  final int position;
+  const IntroScreenColumn({super.key, required this.child});
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> cards = [];
-    List<int> answerIndex = [1, 3, 0, 2];
-    List<Color> answerColor = [
-      Colors.transparent,
-      Colors.transparent,
-      Colors.transparent,
-      Colors.transparent
-    ];
-    List<String> answers = [
-      '42*10<sup>-3</sup> A.',
-      '42*10<sup>3</sup> A.',
-      '42*10<sup>-2</sup> A.',
-      '42*10<sup>-1</sup> A.',
-    ];
-    cards.add(Card(
-      child: ListTile(
-        title: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Html(
-            data: "<b>TA101</b>&nbsp;&nbsp;&nbsp;&nbsp;0,042 A entspricht",
-            style: {'body': Style(margin: Margins.zero)},
-          ),
-        ),
-      ),
-    ));
-    cards.add(const Divider());
-
-    for (int ti = 0; ti < 4; ti++) {
-      int i = answerIndex[ti];
-      cards.add(Card(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: answerColor[i],
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Center(
-            child: ListTile(
-              horizontalTitleGap: 0,
-              titleAlignment: ListTileTitleAlignment.top,
-              leading: Transform.translate(
-                offset: const Offset(0, 8),
-                child: CircleAvatar(
-                  backgroundColor: answerColor[i] == Colors.transparent
-                      ? Color.lerp(PRIMARY, Colors.white, 0.8)
-                      : answerColor[i],
-                  radius: 15,
-                  child: answerColor[i] == GREEN
-                      ? const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 16,
-                        )
-                      : answerColor[i] == RED
-                          ? const Icon(
-                              Icons.clear,
-                              color: Colors.white,
-                              size: 16,
-                            )
-                          : Text(
-                              String.fromCharCode(65 + ti),
-                              style: GoogleFonts.alegreyaSans(
-                                  fontSize: 14,
-                                  color: answerColor[i] == Colors.transparent
-                                      ? Colors.black87
-                                      : Colors.white,
-                                  fontWeight:
-                                      answerColor[i] == Colors.transparent
-                                          ? FontWeight.normal
-                                          : FontWeight.bold),
-                            ),
-                ),
-              ),
-              title: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Html(
-                  data: answers[i].toString().replaceAll('*', ' ⋅ '),
-                  style: {'body': Style(margin: Margins.zero)},
-                ),
-              ),
-            ),
-          ),
-        ),
-      ));
-    }
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         children: [
