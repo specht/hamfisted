@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,17 @@ import 'data.dart';
 const GREEN = Color(0xff73a946);
 const RED = Color(0xff992413);
 const PRIMARY = Color(0xff1d5479);
+
+const double INTRO_BOTTOM = 220;
+
+const List<String> introTitles = [
+  "Lerne für deine Amateurfunkprüfung",
+  "Kapitel auswählen und üben",
+  "Trainiere die Fragen",
+  "Trainiere die Fragen",
+  "Trainiere die Fragen",
+  "Trainiere die Fragen",
+];
 
 const List DECAY = [
   1000 * 60 * 60 * 24 * 21,
@@ -54,7 +66,7 @@ class MyApp extends StatelessWidget {
       home: const Overview(),
       routes: {
         '/overview': (context) => const Overview(),
-        '/quiz': (context) => Quiz(),
+        '/quiz': (context) => const Quiz(),
         '/about': (context) => const About(),
       },
     );
@@ -68,7 +80,54 @@ class Overview extends StatefulWidget {
   State<Overview> createState() => _OverviewState();
 }
 
-class _OverviewState extends State<Overview> {
+class _OverviewState extends State<Overview> with TickerProviderStateMixin {
+  String oldTitle = "";
+  String newTitle = "";
+  bool animatingForward = true;
+  int oldPage = 0;
+  late final AnimationController _animationControllerHeading =
+      AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
+  late final AnimationController _animationControllerCat = AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
+  late final AnimationController _animationControllerOverview =
+      AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
+  late final AnimationController _animationControllerQuiz = AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
+
+  @override
+  void initState() {
+    resetIntro();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationControllerHeading.dispose();
+    _animationControllerCat.dispose();
+    _animationControllerOverview.dispose();
+    _animationControllerQuiz.dispose();
+    super.dispose();
+  }
+
+  void resetIntro() {
+    oldTitle = introTitles[0];
+    newTitle = introTitles[0];
+    animatingForward = true;
+    oldPage = 0;
+    _animationControllerHeading.value = 0.0;
+    _animationControllerCat.value = 1.0;
+  }
+
   Future<void> clearProgress() async {
     await GlobalData.box.clear();
     setState(() {});
@@ -169,13 +228,14 @@ class _OverviewState extends State<Overview> {
   }
 
   Widget introScreen() {
-    return IntroductionScreen(
-      rawPages: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
-              flex: 3,
+    return LayoutBuilder(builder: (context, constraints) {
+      return Stack(
+        children: [
+          Container(color: PRIMARY),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: INTRO_BOTTOM + 64),
               child: Stack(
                 children: [
                   Container(
@@ -190,11 +250,22 @@ class _OverviewState extends State<Overview> {
                     ),
                   ),
                   Align(
-                    alignment: const Alignment(0.0, 1.0),
+                    alignment: Alignment.bottomCenter,
                     child: LayoutBuilder(builder: (context, constraints) {
-                      return Image(
-                          image: const AssetImage('assets/stack_of_books.png'),
-                          height: constraints.maxHeight * 0.7);
+                      return AnimatedBuilder(
+                          animation: _animationControllerCat,
+                          builder: (context, child) {
+                            return Transform.translate(
+                              offset: Offset(
+                                  0,
+                                  (1.0 - _animationControllerCat.value) *
+                                      constraints.maxHeight),
+                              child: Image(
+                                  image: const AssetImage(
+                                      'assets/stack_of_books.png'),
+                                  height: constraints.maxHeight * 0.7),
+                            );
+                          });
                     }),
                   ),
                   Align(
@@ -215,21 +286,286 @@ class _OverviewState extends State<Overview> {
                 ],
               ),
             ),
-            Flexible(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  height: 8,
+                  decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                          stops: [0, 1],
+                          colors: [Color(0x00000000), Color(0x20000000)],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter)),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: INTRO_BOTTOM),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 28, left: 8.0, right: 8.0, bottom: 8.0),
+                      child: AnimatedBuilder(
+                          animation: _animationControllerHeading,
+                          builder: (context, child) {
+                            double direction = 1.0;
+                            if (!animatingForward) direction = -1.0;
+                            return Stack(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Transform.translate(
+                                    offset: Offset(
+                                        -_animationControllerHeading.value *
+                                            constraints.maxWidth *
+                                            direction,
+                                        0),
+                                    child: Text(
+                                      oldTitle,
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Transform.translate(
+                                    offset: Offset(
+                                        (1.0 -
+                                                _animationControllerHeading
+                                                    .value) *
+                                            constraints.maxWidth *
+                                            direction,
+                                        0),
+                                    child: Text(
+                                      newTitle,
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          IntroductionScreen(
+            next: const Text("Nächster Tipp"),
+            done: const Text("Los geht's!"),
+            onDone: () {
+              setState(() {
+                GlobalData.box.put('shown_intro', true);
+              });
+            },
+            dotsDecorator: DotsDecorator(
+              size: const Size.square(10.0),
+              activeSize: const Size(20.0, 10.0),
+              activeColor: PRIMARY,
+              color: Colors.black26,
+              spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0)),
+            ),
+            curve: Curves.easeInOutCubic,
+            onChange: (page) {
+              animatingForward = (page > oldPage);
+              if (introTitles[page] != introTitles[oldPage]) {
+                oldTitle = introTitles[oldPage];
+                newTitle = introTitles[page];
+                _animationControllerHeading.value = 0;
+                _animationControllerHeading
+                    .animateTo(1.0, curve: Curves.easeInOutCubic)
+                    .then((value) {});
+              }
+              if (page == 0) {
+                _animationControllerCat.animateTo(1.0,
+                    curve: Curves.easeInOutCubic);
+              } else {
+                _animationControllerCat.animateTo(0.0,
+                    curve: Curves.easeInOutCubic);
+              }
+
+              oldPage = page;
+            },
+            isProgressTap: false,
+            globalBackgroundColor: Colors.transparent,
+            rawPages: const [
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     Flexible(
+              //       flex: 3,
+              //       child: Stack(
+              //         children: [
+              //           Container(
+              //             decoration: const BoxDecoration(
+              //               gradient: LinearGradient(
+              //                   begin: Alignment.topCenter,
+              //                   end: Alignment.bottomCenter,
+              //                   colors: [
+              //                     Color.fromARGB(255, 109, 195, 231),
+              //                     Color.fromARGB(255, 248, 220, 255)
+              //                   ]),
+              //             ),
+              //           ),
+              //           Align(
+              //             alignment: const Alignment(0.0, 1.0),
+              //             child: LayoutBuilder(builder: (context, constraints) {
+              //               return Image(
+              //                   image: const AssetImage('assets/stack_of_books.png'),
+              //                   height: constraints.maxHeight * 0.7);
+              //             }),
+              //           ),
+              //           Align(
+              //             alignment: Alignment.bottomCenter,
+              //             child: Container(
+              //               height: 8,
+              //               decoration: const BoxDecoration(
+              //                   gradient: LinearGradient(
+              //                 begin: Alignment.topCenter,
+              //                 end: Alignment.bottomCenter,
+              //                 colors: <Color>[
+              //                   Color(0x00000000),
+              //                   Color(0x30000000),
+              //                 ],
+              //               )),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     Flexible(
+              //       flex: 2,
+              //       child: Padding(
+              //         padding: const EdgeInsets.only(top: 20.0),
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.start,
+              //           children: [
+              //             Padding(
+              //               padding: const EdgeInsets.all(8.0),
+              //               child: Text(
+              //                 "Lerne für deine Amateurfunkprüfung",
+              //                 style: Theme.of(context).textTheme.headlineSmall,
+              //               ),
+              //             ),
+              //             const Padding(
+              //               padding: EdgeInsets.all(8.0),
+              //               child: Text(
+              //                 "Schau dir kurz an, wie es funktioniert.",
+              //                 textAlign: TextAlign.center,
+              //                 style: TextStyle(fontSize: 15),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     Flexible(
+              //       flex: 3,
+              //       child: SafeArea(
+              //         child: Stack(
+              //           children: [
+              //             Container(
+              //               color: Color.lerp(PRIMARY, Colors.white, 0.9),
+              //               child: SingleChildScrollView(
+              //                 physics: const NeverScrollableScrollPhysics(),
+              //                 child: Column(
+              //                   children: getChapterCards(hid: 'TE', demo: true),
+              //                 ),
+              //               ),
+              //             ),
+              //             Align(
+              //               alignment: Alignment.bottomCenter,
+              //               child: Container(
+              //                 height: 8,
+              //                 decoration: const BoxDecoration(
+              //                     gradient: LinearGradient(
+              //                   begin: Alignment.topCenter,
+              //                   end: Alignment.bottomCenter,
+              //                   colors: <Color>[
+              //                     Color(0x00000000),
+              //                     Color(0x30000000),
+              //                   ],
+              //                 )),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     Flexible(
+              //       flex: 2,
+              //       child: Padding(
+              //         padding: const EdgeInsets.only(top: 20.0),
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.start,
+              //           children: [
+              //             Padding(
+              //               padding: const EdgeInsets.all(8.0),
+              //               child: Text(
+              //                 "Kapitel auswählen und üben",
+              //                 style: Theme.of(context).textTheme.headlineSmall,
+              //               ),
+              //             ),
+              //             const Padding(
+              //                 padding: EdgeInsets.all(8.0),
+              //                 child: SingleChildScrollView(
+              //                   child: Column(
+              //                     children: [
+              //                       Padding(
+              //                         padding: EdgeInsets.all(8.0),
+              //                         child: Text(
+              //                           "Such dir ein Kapitel aus und beantworte die Fragen.",
+              //                           textAlign: TextAlign.center,
+              //                           style: TextStyle(fontSize: 15),
+              //                         ),
+              //                       ),
+              //                       Padding(
+              //                         padding: EdgeInsets.all(8.0),
+              //                         child: Text(
+              //                           "Fortschrittsbalken zeigen dir, wie viele der Fragen du schon korrekt beantwortet hast.",
+              //                           textAlign: TextAlign.center,
+              //                           style: TextStyle(fontSize: 15),
+              //                         ),
+              //                       ),
+              //                       Padding(
+              //                         padding: EdgeInsets.all(8.0),
+              //                         child: Text(
+              //                           "Die Fortschrittsbalken verblassen nach und nach.",
+              //                           textAlign: TextAlign.center,
+              //                           style: TextStyle(fontSize: 15),
+              //                         ),
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 )),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              const IntroScreenColumn(
+                position: -1,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Lerne für deine Amateurfunkprüfung",
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ),
-                    const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
                         "Schau dir kurz an, wie es funktioniert.",
@@ -240,187 +576,118 @@ class _OverviewState extends State<Overview> {
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Flexible(
-              flex: 3,
-              child: SafeArea(
-                child: Stack(
-                  children: [
-                    Container(
-                      color: Color.lerp(PRIMARY, Colors.white, 0.9),
-                      child: SingleChildScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        child: Column(
-                          children: getChapterCards(hid: 'TE', demo: true),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 8,
-                        decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Color(0x00000000),
-                            Color(0x30000000),
-                          ],
-                        )),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Flexible(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+              const IntroScreenColumn(
+                position: -1,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Kapitel auswählen und üben",
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        "Such dir ein Kapitel aus und beantworte die Fragen.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
                       ),
                     ),
-                    const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Such dir ein Kapitel aus und beantworte die Fragen.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Fortschrittsbalken zeigen dir, wie viele der Fragen du schon korrekt beantwortet hast.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Die Fortschrittsbalken verblassen nach und nach.",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Fortschrittsbalken zeigen dir an, wie viele der Fragen du schon korrekt beantwortet hast.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Die Fortschrittsbalken verblassen nach und nach.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
-        const IntroScreenColumn(
-          position: -1,
-          title: "Trainiere die Fragen",
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15),
+              const IntroScreenColumn(
+                position: -1,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Falls du dir unsicher bist, tippe auf den Schalter unten links (oder tippe lang auf eine Antwort).",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15),
+              const IntroScreenColumn(
+                position: -1,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Falls du dir unsicher bist, tippe auf den Schalter unten links (oder tippe lang auf eine Antwort).",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Du kannst dann in Ruhe alle Antworten aufdecken, bis du die richtige Antwort gefunden hast. Du bekommst die Frage später noch einmal gezeigt.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Du kannst dann in Ruhe alle Antworten aufdecken, bis du die richtige Antwort gefunden hast. Du bekommst die Frage später noch einmal gezeigt.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15),
+              const IntroScreenColumn(
+                position: 0,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Zu vielen der Prüfungsfragen gibt es Hilfen auf der DARC-Website. Klicke auf »Hilfe«, wenn du mit einer Frage Probleme hast.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Du wirst dann direkt an die richtige Stelle geleitet (manchmal musst du etwas nach oben scrollen, um eine Erklärung zu finden).",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const IntroScreenColumn(
+                position: 1,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Tippe auf »Frage überspringen«, wenn du eine Frage gerade nicht beantworten kannst oder möchtest.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-        ),
-        const IntroScreenColumn(
-          position: 0,
-          title: "Trainiere die Fragen",
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Zu vielen der Prüfungsfragen gibt es Hilfen auf der DARC-Website. Klicke auf »Hilfe«, wenn du mit einer Frage Probleme hast.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Du wirst dann direkt an die richtige Stelle geleitet (manchmal musst du etwas nach oben scrollen, um eine Erklärung zu finden).",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const IntroScreenColumn(
-          position: 1,
-          title: "Trainiere die Fragen",
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Tippe auf »Frage überspringen«, wenn du eine Frage gerade nicht beantworten kannst oder möchtest.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-      next: const Text("Nächster Tipp"),
-      done: const Text("Los geht's!"),
-      onDone: () {
-        setState(() {
-          GlobalData.box.put('shown_intro', true);
-        });
-      },
-      dotsDecorator: DotsDecorator(
-        size: const Size.square(10.0),
-        activeSize: const Size(20.0, 10.0),
-        activeColor: PRIMARY,
-        color: Colors.black26,
-        spacing: const EdgeInsets.symmetric(horizontal: 3.0),
-        activeShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
-      ),
-    );
+        ],
+      );
+    });
   }
 
   @override
@@ -488,7 +755,9 @@ class _OverviewState extends State<Overview> {
                     showMyDialog(context);
                   } else if (value == 'show_intro') {
                     await GlobalData.box.delete('shown_intro');
-                    setState(() {});
+                    setState(() {
+                      resetIntro();
+                    });
                   } else if (value == 'about') {
                     Navigator.of(context).pushNamed('/about');
                   }
@@ -1213,12 +1482,8 @@ class MyClipper extends CustomClipper<Path> {
 
 class IntroScreenColumn extends StatelessWidget {
   const IntroScreenColumn(
-      {super.key,
-      required this.position,
-      required this.title,
-      required this.child});
+      {super.key, required this.position, required this.child});
   final int position;
-  final String title;
   final Widget child;
 
   @override
@@ -1312,95 +1577,87 @@ class IntroScreenColumn extends StatelessWidget {
     }
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(
-            height: constraints.maxHeight / 5 * 3,
-            child: Stack(
-              children: [
-                SafeArea(
-                  child: Container(
-                    color: Color.lerp(PRIMARY, Colors.white, 0.9),
-                    child: SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      child: Column(
-                        children: cards,
-                      ),
-                    ),
-                  ),
-                ),
-                BottomMenu(
-                  qid: 'TA101E',
-                  feelingUnsureWidget: Switch(
-                    value: false,
-                    activeColor: Colors.red[900],
-                    onChanged: (value) {},
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    return Transform.translate(
-                      offset: Offset(position * constraints.maxWidth / 3, 72),
-                      child: ClipPath(
-                        clipper: MyClipper(),
-                        child: Container(
-                            decoration: BoxDecoration(
-                              // color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(200),
-                              gradient: const RadialGradient(
-                                colors: [Color(0x40000000), Colors.transparent],
-                                stops: [0.5, 0.7],
-                              ),
-                            ),
-                            width: 200,
-                            height: 200),
-                      ),
-                    );
-                  }),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: <Color>[
-                          Color(0x00000000),
-                          Color(0x30000000),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+          Container(
+            color: Colors.transparent,
+            child: SizedBox(
+              height: constraints.maxHeight - INTRO_BOTTOM,
+              // child: Padding(
+              //   padding: const EdgeInsets.all(50.0),
+              //   child: Container(color: Colors.amber),
+              // ),
+
+              // child: Stack(
+              //   children: [
+              //     SafeArea(
+              //       child: Container(
+              //         color: Color.lerp(PRIMARY, Colors.white, 0.9),
+              //         child: SingleChildScrollView(
+              //           physics: const NeverScrollableScrollPhysics(),
+              //           child: Column(
+              //             children: cards,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     BottomMenu(
+              //       qid: 'TA101E',
+              //       feelingUnsureWidget: Switch(
+              //         value: false,
+              //         activeColor: Colors.red[900],
+              //         onChanged: (value) {},
+              //       ),
+              //     ),
+              //     Align(
+              //       alignment: Alignment.bottomCenter,
+              //       child: LayoutBuilder(builder: (context, constraints) {
+              //         return Transform.translate(
+              //           offset: Offset(position * constraints.maxWidth / 3, 72),
+              //           child: ClipPath(
+              //             clipper: MyClipper(),
+              //             child: Container(
+              //                 decoration: BoxDecoration(
+              //                   // color: Colors.transparent,
+              //                   borderRadius: BorderRadius.circular(200),
+              //                   gradient: const RadialGradient(
+              //                     colors: [Color(0x40000000), Colors.transparent],
+              //                     stops: [0.5, 0.7],
+              //                   ),
+              //                 ),
+              //                 width: 200,
+              //                 height: 200),
+              //           ),
+              //         );
+              //       }),
+              //     ),
+              //     Align(
+              //       alignment: Alignment.bottomCenter,
+              //       child: Container(
+              //         height: 8,
+              //         decoration: const BoxDecoration(
+              //           gradient: LinearGradient(
+              //             begin: Alignment.topCenter,
+              //             end: Alignment.bottomCenter,
+              //             colors: <Color>[
+              //               Color(0x00000000),
+              //               Color(0x30000000),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ),
           ),
           Container(
             color: Colors.white,
             child: SizedBox(
-              height: constraints.maxHeight / 5 * 2,
+              height: INTRO_BOTTOM,
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          title,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(width: double.maxFinite, child: child),
-                      ),
-                    ],
-                  ),
+                  padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                  child: SizedBox(width: double.maxFinite, child: child),
                 ),
               ),
             ),
