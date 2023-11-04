@@ -8,6 +8,7 @@
 <br/>
 
 <a href='https://play.google.com/store/apps/details?id=org.nhcham.hamfisted' target='_blank'><img src='craft/google-play-badge.png' style='height: 50px;'/></a>
+<a href='https://f-droid.org/packages/org.nhcham.hamfisted/' target='_blank'><img src='craft/get-it-on-en-us.png' style='height: 50px;'/></a>
 <a href='https://apps.apple.com/app/hamfisted/id6470218069' target='_blank'><img src='craft/app-store-badge.png' style='height: 50px;'/></a>
 
 <p>
