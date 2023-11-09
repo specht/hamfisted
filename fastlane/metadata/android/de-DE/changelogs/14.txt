@@ -1,0 +1,1 @@
+- Fehler bei Frage TC507 behoben (Bilder werden in Antworten nicht angezeigt)

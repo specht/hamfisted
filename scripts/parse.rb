@@ -17,11 +17,11 @@ class Parser
     end
 
     def fix_png_path(text)
-        result = text.gsub(/([a-z0-9]+\.png)/) do |x|
+        result = text.gsub(/([a-z0-9_]+\.png)/) do |x|
             match = Regexp.last_match
             'asset:data/' + match[1].sub('.png', @id_suffix + '.png')
         end
-        result = result.gsub(/([a-z0-9]+\.jpg)/) do |x|
+        result = result.gsub(/([a-z0-9_]+\.jpg)/) do |x|
             match = Regexp.last_match
             'asset:data/' + match[1].sub('.jpg', @id_suffix + '.jpg')
         end

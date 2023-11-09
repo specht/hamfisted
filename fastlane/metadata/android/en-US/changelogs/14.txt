@@ -1,0 +1,1 @@
+- fixed a bug with question TC507 (images not showing in answers)
