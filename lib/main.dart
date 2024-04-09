@@ -3,6 +3,8 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html_math/flutter_html_math.dart';
+import 'package:flutter_html_svg/flutter_html_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -58,9 +60,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: PRIMARY,
-        ),
+        // colorScheme: ColorScheme.fromSeed(
+        // seedColor: PRIMARY,
+        // ),
         textTheme: GoogleFonts.alegreyaSansTextTheme(textTheme),
       ),
       home: const Overview(),
@@ -997,6 +999,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       ListWithDecay(4)
     ];
     for (String qid in candidates) {
+      developer.log("qid: $qid");
       int ts = GlobalData.box.get("t/$qid") ?? 0;
       int diff = now - ts;
       int slot = 4;
@@ -1129,12 +1132,21 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
+    qid = '2024_NH303';
+    developer.log(GlobalData.questions!['questions'][qid]['challenge']);
 
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
     if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
       qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
     }
+    qidDisplay = qidDisplay.replaceAll('2024_', '');
+
+    // cards.add(Card(
+    // child: SvgPicture.asset(
+    // "data/2024/NB205_q.svg",
+    // ),
+    // ));
 
     cards.add(
       Padding(
@@ -1160,10 +1172,41 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
         child: ListTile(
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Html(
-              data:
-                  "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
-              style: {'body': Style(margin: Margins.zero)},
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                double svgWidth = GlobalData.questions!['questions'][qid]
+                        ['challenge_svg_width'] ??
+                    1.0;
+                double svgHeight = GlobalData.questions!['questions'][qid]
+                        ['challenge_svg_height'] ??
+                    1.0;
+                svgWidth /= 227.0 / constraints.maxWidth;
+                svgHeight /= 227.0 / constraints.maxWidth;
+                if (svgWidth > constraints.maxWidth) {
+                  double scale = svgWidth / constraints.maxWidth;
+                  svgWidth /= scale;
+                  svgHeight /= scale;
+                }
+                developer.log("svgWidth: $svgWidth, svgHeight: $svgHeight");
+                return SizedBox(
+                  width: constraints.maxWidth,
+                  child: Html(
+                    data:
+                        "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
+                    style: {
+                      'body': Style(margin: Margins.zero),
+                      'svg': Style(
+                        width: Width(svgWidth, Unit.px),
+                        height: Height(svgHeight, Unit.px),
+                      ),
+                    },
+                    extensions: [
+                      // MathHtmlExtension(),
+                      SvgHtmlExtension(),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -1243,7 +1286,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                           titleAlignment:
                                               ListTileTitleAlignment.top,
                                           leading: Transform.translate(
-                                            offset: const Offset(0, 8),
+                                            offset: const Offset(-5, 6),
                                             child: CircleAvatar(
                                               backgroundColor: answerColor[i] ==
                                                       Colors.transparent
@@ -1289,7 +1332,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                           ),
                                           title: Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                vertical: 4),
+                                                vertical: 0, horizontal: 4),
                                             child: Html(
                                               data: GlobalData
                                                   .questions!['questions'][qid]
@@ -1300,6 +1343,10 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                                 'body':
                                                     Style(margin: Margins.zero)
                                               },
+                                              extensions: [
+                                                // MathHtmlExtension(),
+                                                SvgHtmlExtension(),
+                                              ],
                                             ),
                                           ),
                                         ),
