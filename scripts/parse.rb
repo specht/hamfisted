@@ -155,3 +155,7 @@ parser.parse_darc()
 File.open('../data/questions.json', 'w') do |f|
     f.puts parser.dump.to_json
 end
+
+File.open('../data/questions.yaml', 'w') do |f|
+    f.puts parser.dump.to_yaml
+end
