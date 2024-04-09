@@ -2,7 +2,6 @@
 
 require 'digest'
 require 'fileutils'
-require 'katex'
 require 'nokogiri'
 require 'set'
 require 'json'
@@ -24,6 +23,90 @@ class Parser
         @questions_for_hid['2007'] = []
         @questions_for_hid['2024'] = []
         @latex_terms = Set.new()
+    end
+
+    def latex_to_html(s)
+        s = "#{s}"
+        @latex_terms << s
+        s.gsub!('=', '&nbsp;=&nbsp;')
+        s.gsub!('>', '&nbsp;>&nbsp;')
+        s.gsub!('<', '&nbsp;<&nbsp;')
+        s.gsub!('-', '&ndash;')
+        s.gsub!('^\\circ', '°')
+        while s.include?('\\textrm{')
+            i0 = s.index('\\textrm{')
+            i1 = s.index('}', i0)
+            s = s[0, i0] + s[(i0 + 8)..(i1 - 1)] + s[(i1 + 1)..-1]
+        end
+        while s.include?('\\mathrm{')
+            i0 = s.index('\\mathrm{')
+            i1 = s.index('}', i0)
+            s = s[0, i0] + s[(i0 + 8)..(i1 - 1)] + s[(i1 + 1)..-1]
+        end
+        while s.include?('\\text{')
+            i0 = s.index('\\text{')
+            i1 = s.index('}', i0)
+            s = s[0, i0] + s[(i0 + 6)..(i1 - 1)] + s[(i1 + 1)..-1]
+        end
+        while s.include?('^{')
+            i0 = s.index('^{')
+            i1 = s.index('}', i0)
+            s = s[0, i0] + '<sup>' + s[(i0 + 2)..(i1 - 1)] + '</sup>' + s[(i1 + 1)..-1]
+        end
+        while s.include?('^')
+            i0 = s.index('^')
+            s = s[0, i0] + '<sup>' + s[(i0 + 1)..(i0 + 1)] + '</sup>' + s[(i0 + 2)..-1]
+        end
+        while s.include?('_{')
+            i0 = s.index('_{')
+            i1 = s.index('}', i0)
+            s = s[0, i0] + '<sub>' + s[(i0 + 2)..(i1 - 1)] + '</sub>' + s[(i1 + 1)..-1]
+        end
+        while s.include?('_')
+            i0 = s.index('_')
+            s = s[0, i0] + '<sub>' + s[(i0 + 1)..(i0 + 1)] + '</sub>' + s[(i0 + 2)..-1]
+        end
+        s.gsub!('\\frac{', '\\dfrac{')
+        while s.include?('\\dfrac{')
+            i0 = s.index('\\dfrac{')
+            i1 = s.index('}', i0)
+            upper = s[(i0 + 7)..(i1 - 1)]
+            i2 = i1 + 1
+            i3 = s.index('}', i2)
+            lower = s[(i2 + 1)..(i3 - 1)]
+            s = s[0, i0] + "<span class='frac'><span>#{upper}</span><span>#{lower}</span></span>" + s[(i3 + 1)..-1]
+        end
+        while s.include?('\\sqrt{')
+            i0 = s.index('\\sqrt{')
+            i1 = s.index('}', i0)
+            s = s[0, i0] + '√' + s[(i0 + 6)..(i1 - 1)] + s[(i1 + 1)..-1]
+        end
+    
+        s.gsub!('\\cdot', ' &middot; ')
+        s.gsub!('\\Omega', '&Omega;')
+        s.gsub!('\\pi', '&pi;')
+        s.gsub!('\\varphi', '𝜑')
+        s.gsub!('\\phi', 'ϕ')
+        s.gsub!('\\lambda', '&lambda;')
+        s.gsub!('\\delta', '&delta;')
+        s.gsub!('\\eta', '&eta;')
+        s.gsub!('\\approx', '&approx;')
+        s.gsub!('\\infty', '&infin;')
+        s.gsub!('\\ll', '&nbsp;≪&nbsp;')
+        s.gsub!('\\gg', '&nbsp;≫&nbsp;')
+        s.gsub!('\\left(', "<span style='transform: scale(1, 3); margin: 0 0.1em;'>(</span>")
+        s.gsub!('\\right)', "<span style='transform: scale(1, 3); margin: 0 0.1em;'>)</span>")
+        "<span class='eq' style='border: 1px solid green;'>&#8203;#{s}&#8203;</span>"
+    end
+
+    def render_latex(s)
+        s
+        # s.gsub(/\$[^\$]+\$/) do |x|
+        #     x = x[1, x.size - 2]
+        #     # @latex_terms << x
+        #     # latex_to_html(x)
+        #     "<tex>#{x}</tex>"
+        # end
     end
 
     attr_reader :latex_terms
@@ -134,18 +217,56 @@ class Parser
         end
     end
 
-    def render_katex(s)
-        s.gsub(/\$[^\$]+\$/) do |x|
-            x = x[1, x.size - 2]
-            @latex_terms << x
-            # STDERR.puts x
-            # exit
-            sha1 = Digest::SHA1.hexdigest("#{x}/#{Katex::KATEX_VERSION}")
-            unless File.exist?("cache/#{sha1}")
-                File.open("cache/#{sha1}", 'w') { |f| f.write(Katex.render(x)) }
-            end
-            File.read("cache/#{sha1}")
+    def render_tex(s, key, suffix, width)
+        key_with_suffix = "#{key}_#{suffix}"
+        sha1 = Digest::SHA1.hexdigest(s)[0, 12]
+        if key_with_suffix == 'AA112_q'
+            s.sub!('120 dB$μ$V/m', '120 dB$\\mu$V/m')
+        elsif key_with_suffix == 'EA115_q'
+            s.sub!('0,22 μF', '0,22 $\\mu$F')
+        elsif key_with_suffix == 'EB408_q'
+            s.sub!('50 μs', '50 $\\mu$s')
         end
+        STDERR.puts "#{'-' * 30} #{key}_#{suffix} #{'-' * 30}"
+        STDERR.puts s
+        STDERR.puts '-' * 70
+        unless File.exist?("cache/#{sha1}.svg")
+            File.open("cache/#{sha1}.tex", 'w') do |f|
+                f.puts <<~END_OF_STRING
+                    \\documentclass{article}
+                    \\usepackage[paperwidth=#{width}cm]{geometry}
+                    \\usepackage[utf8]{inputenc}
+                    \\usepackage[german]{babel}
+                    \\usepackage[bitstream-charter]{mathdesign}
+                    \\let\\circledS\\undefined
+                    \\usepackage{amsmath,amssymb,amsfonts,amsthm}
+                    \\usepackage{tikz}
+                    \\pagestyle{empty}
+                    \\begin{document}
+                    \\setlength{\\parindent}{0pt}
+                    \\begin{tikzpicture}
+                    \\draw [line width=0.01pt, opacity=0.01] (0,0) -- (\\textwidth,0);
+                    \\end{tikzpicture}
+                END_OF_STRING
+                f.puts
+                f.puts s
+                f.puts
+                f.puts <<~END_OF_STRING
+                    \\vspace*{-2mm}
+                    \\begin{tikzpicture}
+                    \\draw [line width=0.01pt, opacity=0.01] (0,0) -- (\\textwidth,0);
+                    \\end{tikzpicture}
+                    \\end{document}
+                END_OF_STRING
+            end
+            system("pdflatex -interaction=nonstopmode -output-directory cache cache/#{sha1}.tex")
+            system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/#{sha1}.svg --actions='select-all;fit-canvas-to-selection' --pdf-poppler /app/#{sha1}.pdf")
+            system("rm -f cache/#{sha1}.tex")
+            system("rm -f cache/#{sha1}.log")
+            system("rm -f cache/#{sha1}.aux")
+            system("rm -f cache/#{sha1}.pdf")
+        end
+        sha1
     end
 
     def recurse_json(sections, level = 0, prefix = [])
@@ -169,26 +290,28 @@ class Parser
                     qid = '2024_' + question['number']
                     qid = "#{qid}#{@id_suffix}"
                     data = {}
-                    data[:challenge] = render_katex(question['question'])
-                    if question['picture_question']
-                        path = Dir["../bnetza-2024/svgs/#{question['picture_question']}*"].first
-                        if path.include?('.svg')
-                            svg = File.read(path)
-                            svg_dom = Nokogiri::XML(svg).css('svg')
-                            width = svg_dom.attr('width').to_s.to_f
-                            height = svg_dom.attr('height').to_s.to_f
-                            data[:challenge] += "<p>#{svg}</p>"
-                            data[:challenge_svg_width] = width
-                            data[:challenge_svg_height] = height
-                        else
-                            data[:challenge] += "<p><img src=\"asset:data/2024/#{File.basename(path)}\" /></p>"
-                        end
-                    end
+                    STDERR.puts "-" * 30 + qid + "-" * 30
+                    data[:challenge] = render_tex("\\textbf{#{question['number']}}~~~#{question['question']}", question['number'], 'q', 10.5)
+                    # data[:challenge] = render_latex(question['question'])
+                    # if question['picture_question']
+                    #     path = Dir["../bnetza-2024/svgs/#{question['picture_question']}*"].first
+                    #     if path.include?('.svg')
+                    #         svg = File.read(path)
+                    #         svg_dom = Nokogiri::XML(svg).css('svg')
+                    #         width = svg_dom.attr('width').to_s.to_f
+                    #         height = svg_dom.attr('height').to_s.to_f
+                    #         data[:challenge] += "<p>#{svg}</p>"
+                    #         data[:challenge_svg_width] = width
+                    #         data[:challenge_svg_height] = height
+                    #     else
+                    #         data[:challenge] += "<p><img src=\"asset:data/2024/#{File.basename(path)}\" /></p>"
+                    #     end
+                    # end
                     data[:answers] = [
-                        render_katex(question['answer_a']),
-                        render_katex(question['answer_b']),
-                        render_katex(question['answer_c']),
-                        render_katex(question['answer_d']),
+                        render_tex(question['answer_a'], question['number'], 'a', 8.5),
+                        render_tex(question['answer_b'], question['number'], 'a', 8.5),
+                        render_tex(question['answer_c'], question['number'], 'a', 8.5),
+                        render_tex(question['answer_d'], question['number'], 'a', 8.5),
                     ]
                     # if qid == '2024_NH303'
                         # STDERR.puts data.to_yaml
@@ -262,60 +385,6 @@ File.open('../data/questions.yaml', 'w') do |f|
     f.puts parser.dump.to_yaml
 end
 
-def convert_latex(s)
-    s = "#{s}"
-    s.gsub!('=', '&nbsp;=&nbsp;')
-    s.gsub!('-', '&ndash;')
-    while s.include?('\\textrm{')
-        i0 = s.index('\\textrm{')
-        i1 = s.index('}', i0)
-        s = s[0, i0] + s[(i0 + 8)..(i1 - 1)] + s[(i1 + 1)..-1]
-    end
-    while s.include?('^{')
-        i0 = s.index('^{')
-        i1 = s.index('}', i0)
-        s = s[0, i0] + '<sup>' + s[(i0 + 2)..(i1 - 1)] + '</sup>' + s[(i1 + 1)..-1]
-    end
-    while s.include?('^')
-        i0 = s.index('^')
-        s = s[0, i0] + '<sup>' + s[(i0 + 1)..(i0 + 1)] + '</sup>' + s[(i0 + 2)..-1]
-    end
-    while s.include?('_{')
-        i0 = s.index('_{')
-        i1 = s.index('}', i0)
-        s = s[0, i0] + '<sub>' + s[(i0 + 2)..(i1 - 1)] + '</sub>' + s[(i1 + 1)..-1]
-    end
-    while s.include?('_')
-        i0 = s.index('_')
-        s = s[0, i0] + '<sub>' + s[(i0 + 1)..(i0 + 1)] + '</sub>' + s[(i0 + 2)..-1]
-    end
-    s.gsub!('\\frac{', '\\dfrac{')
-    while s.include?('\\dfrac{')
-        i0 = s.index('\\dfrac{')
-        i1 = s.index('}', i0)
-        upper = s[(i0 + 7)..(i1 - 1)]
-        i2 = i1 + 1
-        i3 = s.index('}', i2)
-        lower = s[(i2 + 1)..(i3 - 1)]
-        s = s[0, i0] + "<span class='frac'><span>#{upper}</span><span>#{lower}</span></span>" + s[(i3 + 1)..-1]
-    end
-    while s.include?('\\sqrt{')
-        i0 = s.index('\\sqrt{')
-        i1 = s.index('}', i0)
-        s = s[0, i0] + '√' + s[(i0 + 6)..(i1 - 1)] + s[(i1 + 1)..-1]
-    end
-
-    s.gsub!('\\cdot', ' &middot; ')
-    s.gsub!('\\Omega', '&nbsp;&Omega;')
-    s.gsub!('\\pi', '&pi;')
-    s.gsub!('\\varphi', '𝜑')
-    s.gsub!('\\phi', 'ϕ')
-    s.gsub!('\\lambda', '&lambda;')
-    s.gsub!('\\ll', '&nbsp;≪&nbsp;')
-    s.gsub!('\\gg', '&nbsp;≫&nbsp;')
-    "<span class='eq'>&nbsp;#{s}&nbsp;</span>"
-end
-
 File.open('../data/latex_terms.html', 'w') do |f|
     f.puts <<~END_OF_STRING
     <style>
@@ -324,10 +393,10 @@ File.open('../data/latex_terms.html', 'w') do |f|
             font-family: 'Alegreya';
             border: 1px solid red;
             align-items: center;
-            /* gap: 0.2em; */
         }
         .frac {
             display: inline-block;
+            min-width: 0.8em;
         }
         .frac > span:first-child {
             border-bottom: 1px solid black;
@@ -350,7 +419,7 @@ File.open('../data/latex_terms.html', 'w') do |f|
     parser.latex_terms.to_a.each do |x|
         f.puts "<tr>"
         f.puts "<td style='max-width: 20em; font-family: monospace;'>#{x}</td>"
-        f.puts "<td>blabla #{convert_latex(x)} blabla</td>"
+        f.puts "<td>blabla #{parser.latex_to_html(x)} blabla</td>"
         f.puts "</tr>"
     end
     f.puts "</table>"

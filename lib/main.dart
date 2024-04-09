@@ -2,14 +2,20 @@ import 'dart:developer' as developer;
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 // import 'package:flutter_html_math/flutter_html_math.dart';
+// import 'package:flutter_html_math/flutter_html_math.dart';
 import 'package:flutter_html_svg/flutter_html_svg.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+// import 'package:webview_flutter/webview_flutter.dart';
+// import 'package:webview_flutter_android/webview_flutter_android.dart';
+// import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import 'data.dart';
 
@@ -123,6 +129,13 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    final fontLoader = FontLoader('AlegreyaSans')
+      ..addFont(rootBundle.load('fonts/AlegreyaSans-Regular.ttf'))
+      ..addFont(rootBundle.load('fonts/AlegreyaSans-Bold.ttf'))
+      ..addFont(rootBundle.load('fonts/AlegreyaSans-Italic.ttf'))
+      ..addFont(rootBundle.load('fonts/AlegreyaSans-BoldItalic.ttf'));
+    fontLoader.load();
+
     resetIntro();
     super.initState();
   }
@@ -968,9 +981,74 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     vsync: this,
   );
 
+  // late final PlatformWebViewControllerCreationParams params;
+  // late final WebViewController wvController;
+
   @override
   void initState() {
     super.initState();
+//     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+//       params = WebKitWebViewControllerCreationParams(
+//         allowsInlineMediaPlayback: true,
+//         mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+//       );
+//     } else {
+//       params = const PlatformWebViewControllerCreationParams();
+//     }
+
+//     wvController = WebViewController.fromPlatformCreationParams(params);
+//     wvController
+//       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+//       ..setBackgroundColor(const Color(0x00000000))
+//       ..setNavigationDelegate(
+//         NavigationDelegate(
+//           onProgress: (int progress) {
+//             debugPrint('WebView is loading (progress : $progress%)');
+//           },
+//           onPageStarted: (String url) {
+//             debugPrint('Page started loading: $url');
+//           },
+//           onPageFinished: (String url) {
+//             debugPrint('Page finished loading: $url');
+//           },
+//           onWebResourceError: (WebResourceError error) {
+//             debugPrint('''
+// Page resource error:
+//   code: ${error.errorCode}
+//   description: ${error.description}
+//   errorType: ${error.errorType}
+//   isForMainFrame: ${error.isForMainFrame}
+//           ''');
+//           },
+//           onNavigationRequest: (NavigationRequest request) {
+//             if (request.url.startsWith('https://www.youtube.com/')) {
+//               debugPrint('blocking navigation to ${request.url}');
+//               return NavigationDecision.prevent;
+//             }
+//             debugPrint('allowing navigation to ${request.url}');
+//             return NavigationDecision.navigate;
+//           },
+//           onUrlChange: (UrlChange change) {
+//             debugPrint('url change to ${change.url}');
+//           },
+//         ),
+//       )
+//       ..addJavaScriptChannel(
+//         'Toaster',
+//         onMessageReceived: (JavaScriptMessage message) {
+//           ScaffoldMessenger.of(context).showSnackBar(
+//             SnackBar(content: Text(message.message)),
+//           );
+//         },
+//       );
+
+//     // #docregion platform_features
+//     if (wvController.platform is AndroidWebViewController) {
+//       AndroidWebViewController.enableDebugging(true);
+//       (wvController.platform as AndroidWebViewController)
+//           .setMediaPlaybackRequiresUserGesture(false);
+//     }
+//     wvController.loadHtmlString('hello');
   }
 
   @override
@@ -1341,13 +1419,65 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                                   .replaceAll('*', ' ⋅ '),
                                               style: {
                                                 'body':
-                                                    Style(margin: Margins.zero)
+                                                    Style(margin: Margins.zero),
                                               },
                                               extensions: [
                                                 // MathHtmlExtension(),
                                                 SvgHtmlExtension(),
+                                                TagExtension(
+                                                    tagsToExtend: {'tex'},
+                                                    builder:
+                                                        (extensionContext) {
+                                                      return Math.tex(
+                                                        extensionContext
+                                                            .innerHtml,
+                                                        mathStyle:
+                                                            MathStyle.text,
+                                                        // textStyle: extensionContext
+                                                        //     .styledElement
+                                                        //     ?.style
+                                                        //     .generateTextStyle(),
+                                                        // textScaleFactor: 1.5,
+                                                        options: MathOptions(
+                                                          mathFontOptions:
+                                                              FontOptions(
+                                                            fontFamily:
+                                                                'AlegreyaSans',
+                                                          ),
+                                                        ),
+                                                        textStyle: GoogleFonts
+                                                            .alegreya(
+                                                                fontSize: 16,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal),
+                                                        onErrorFallback:
+                                                            (FlutterMathException
+                                                                e) {
+                                                          //optionally try and correct the Tex string here
+                                                          return Text(
+                                                              e.message);
+                                                        },
+                                                      );
+                                                    }),
                                               ],
                                             ),
+                                            // child: ti == 0
+                                            //     ? Container(
+                                            //         height: MediaQuery.of(
+                                            //                     context)
+                                            //                 .size
+                                            //                 .height -
+                                            //             MediaQuery.of(context)
+                                            //                 .padding
+                                            //                 .vertical,
+                                            //         child: WebViewWidget(
+                                            //           controller: wvController,
+                                            //         ),
+                                            //       )
+                                            //     : Text("$ti"),
                                           ),
                                         ),
                                       ),
