@@ -241,6 +241,8 @@ class Parser
                     \\let\\circledS\\undefined
                     \\usepackage{amsmath,amssymb,amsfonts,amsthm}
                     \\usepackage{tikz}
+                    \\usepackage{setspace}
+                    \\setstretch{1.15}
                     \\pagestyle{empty}
                     \\begin{document}
                     \\setlength{\\parindent}{0pt}
@@ -291,7 +293,7 @@ class Parser
                     qid = "#{qid}#{@id_suffix}"
                     data = {}
                     STDERR.puts "-" * 30 + qid + "-" * 30
-                    data[:challenge] = render_tex("\\textbf{#{question['number']}}~~~#{question['question']}", question['number'], 'q', 10.5)
+                    data[:challenge] = render_tex("\\textbf{#{question['number']}}~~~#{question['question']}", question['number'], 'q', 11)
                     # data[:challenge] = render_latex(question['question'])
                     # if question['picture_question']
                     #     path = Dir["../bnetza-2024/svgs/#{question['picture_question']}*"].first
@@ -308,10 +310,10 @@ class Parser
                     #     end
                     # end
                     data[:answers] = [
-                        render_tex(question['answer_a'], question['number'], 'a', 8.5),
-                        render_tex(question['answer_b'], question['number'], 'a', 8.5),
-                        render_tex(question['answer_c'], question['number'], 'a', 8.5),
-                        render_tex(question['answer_d'], question['number'], 'a', 8.5),
+                        render_tex(question['answer_a'], question['number'], 'a', 9.5),
+                        render_tex(question['answer_b'], question['number'], 'a', 9.5),
+                        render_tex(question['answer_c'], question['number'], 'a', 9.5),
+                        render_tex(question['answer_d'], question['number'], 'a', 9.5),
                     ]
                     # if qid == '2024_NH303'
                         # STDERR.puts data.to_yaml

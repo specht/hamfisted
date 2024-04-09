@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 // import 'package:flutter_html_math/flutter_html_math.dart';
 // import 'package:flutter_html_math/flutter_html_math.dart';
-import 'package:flutter_html_svg/flutter_html_svg.dart';
-import 'package:flutter_math_fork/flutter_math.dart';
+// import 'package:flutter_html_svg/flutter_html_svg.dart';
+// import 'package:flutter_math_fork/flutter_math.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -129,13 +130,6 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    final fontLoader = FontLoader('AlegreyaSans')
-      ..addFont(rootBundle.load('fonts/AlegreyaSans-Regular.ttf'))
-      ..addFont(rootBundle.load('fonts/AlegreyaSans-Bold.ttf'))
-      ..addFont(rootBundle.load('fonts/AlegreyaSans-Italic.ttf'))
-      ..addFont(rootBundle.load('fonts/AlegreyaSans-BoldItalic.ttf'));
-    fontLoader.load();
-
     resetIntro();
     super.initState();
   }
@@ -1220,11 +1214,28 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     }
     qidDisplay = qidDisplay.replaceAll('2024_', '');
 
-    // cards.add(Card(
-    // child: SvgPicture.asset(
-    // "data/2024/NB205_q.svg",
-    // ),
-    // ));
+    cards.add(LayoutBuilder(builder: (context, constraints) {
+      return Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            "data/2024/tex/6f448ad33925.svg",
+            width: constraints.maxWidth - 40,
+          ),
+        ),
+      );
+    }));
+    cards.add(LayoutBuilder(builder: (context, constraints) {
+      return Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            "data/2024/tex/1a5bfb3ea593.svg",
+            width: constraints.maxWidth * 0.75,
+          ),
+        ),
+      );
+    }));
 
     cards.add(
       Padding(
@@ -1280,7 +1291,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                     },
                     extensions: [
                       // MathHtmlExtension(),
-                      SvgHtmlExtension(),
+                      // SvgHtmlExtension(),
                     ],
                   ),
                 );
@@ -1421,48 +1432,48 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                                 'body':
                                                     Style(margin: Margins.zero),
                                               },
-                                              extensions: [
-                                                // MathHtmlExtension(),
-                                                SvgHtmlExtension(),
-                                                TagExtension(
-                                                    tagsToExtend: {'tex'},
-                                                    builder:
-                                                        (extensionContext) {
-                                                      return Math.tex(
-                                                        extensionContext
-                                                            .innerHtml,
-                                                        mathStyle:
-                                                            MathStyle.text,
-                                                        // textStyle: extensionContext
-                                                        //     .styledElement
-                                                        //     ?.style
-                                                        //     .generateTextStyle(),
-                                                        // textScaleFactor: 1.5,
-                                                        options: MathOptions(
-                                                          mathFontOptions:
-                                                              FontOptions(
-                                                            fontFamily:
-                                                                'AlegreyaSans',
-                                                          ),
-                                                        ),
-                                                        textStyle: GoogleFonts
-                                                            .alegreya(
-                                                                fontSize: 16,
-                                                                color: Colors
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal),
-                                                        onErrorFallback:
-                                                            (FlutterMathException
-                                                                e) {
-                                                          //optionally try and correct the Tex string here
-                                                          return Text(
-                                                              e.message);
-                                                        },
-                                                      );
-                                                    }),
-                                              ],
+                                              // extensions: [
+                                              //   // MathHtmlExtension(),
+                                              //   SvgHtmlExtension(),
+                                              //   TagExtension(
+                                              //       tagsToExtend: {'tex'},
+                                              //       builder:
+                                              //           (extensionContext) {
+                                              //         return Math.tex(
+                                              //           extensionContext
+                                              //               .innerHtml,
+                                              //           mathStyle:
+                                              //               MathStyle.text,
+                                              //           // textStyle: extensionContext
+                                              //           //     .styledElement
+                                              //           //     ?.style
+                                              //           //     .generateTextStyle(),
+                                              //           // textScaleFactor: 1.5,
+                                              //           options: MathOptions(
+                                              //             mathFontOptions:
+                                              //                 FontOptions(
+                                              //               fontFamily:
+                                              //                   'AlegreyaSans',
+                                              //             ),
+                                              //           ),
+                                              //           textStyle: GoogleFonts
+                                              //               .alegreya(
+                                              //                   fontSize: 16,
+                                              //                   color: Colors
+                                              //                       .black,
+                                              //                   fontWeight:
+                                              //                       FontWeight
+                                              //                           .normal),
+                                              //           onErrorFallback:
+                                              //               (FlutterMathException
+                                              //                   e) {
+                                              //             //optionally try and correct the Tex string here
+                                              //             return Text(
+                                              //                 e.message);
+                                              //           },
+                                              //         );
+                                              //       }),
+                                              // ],
                                             ),
                                             // child: ti == 0
                                             //     ? Container(
