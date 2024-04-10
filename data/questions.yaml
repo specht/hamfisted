@@ -20821,7 +20821,7 @@
     :challenge_svg_height: 126.846
     :answers_tex:
     - c3f727a86988
-    - 59542d74da2e
+    - 5eccdc0df833
     - efb552c67357
     - c0741678be8e
   2024_EC520:
@@ -21033,7 +21033,7 @@
     - AC524_c.svg
     - AC524_d.svg
   2024_AC523:
-    :challenge_tex: e0da15554579
+    :challenge_tex: 8c1e2f49b71e
     :answers_tex:
     - 12fc1a21bf66
     - bfcb684391e5
@@ -21954,7 +21954,7 @@
     - AD204_c.svg
     - AD204_d.svg
   2024_AD203:
-    :challenge_tex: ea90d68575c6
+    :challenge_tex: 727913fddf84
     :challenge_svg: AD203_q.svg
     :challenge_svg_width: 226.772
     :challenge_svg_height: 200.843
@@ -24768,7 +24768,7 @@
     - 4919ea12ddd6
     - acd32766c9b6
   2024_AF305:
-    :challenge_tex: 6056f194357a
+    :challenge_tex: 9ca077e1a1f4
     :challenge_svg: AF305_q.svg
     :challenge_svg_width: 227.518
     :challenge_svg_height: 81.508

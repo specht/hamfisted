@@ -239,6 +239,10 @@ class Parser
         s.gsub!('Expeditionen', 'Ex\\-pedi\\-tionen')
         s.gsub!('Empfehlung', 'Emp\\-feh\\-lung')
         s.gsub!('%', '\\%')
+        s.gsub!('\\mOhm', 'm$\\Omega$')
+        s.gsub!('\\milliOhm', 'm$\\Omega$')
+        s.gsub!('\\kiloOhm', 'k$\\Omega$')
+        s.gsub!('\\glqq', '"')
         key_with_suffix = "#{key}_#{suffix}"
         sha1 = Digest::SHA1.hexdigest(s)[0, 12]
         STDERR.puts "#{'-' * 30} #{key}_#{suffix} #{'-' * 30}"
@@ -286,7 +290,7 @@ class Parser
                 system("rm -f cache/#{sha1}.aux")
                 system("rm -f cache/#{sha1}.pdf")
             else
-                @faulty_keys << key_with_suffix
+                @faulty_keys << "#{key_with_suffix} #{sha1}"
             end
         end
         sha1
