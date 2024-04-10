@@ -1071,7 +1071,6 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       ListWithDecay(4)
     ];
     for (String qid in candidates) {
-      developer.log("qid: $qid");
       int ts = GlobalData.box.get("t/$qid") ?? 0;
       int diff = now - ts;
       int slot = 4;
@@ -1204,8 +1203,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
-    qid = '2024_NH303';
-    developer.log(GlobalData.questions!['questions'][qid]['challenge']);
+    qid = '2024_BE206';
+    // developer.log(GlobalData.questions!['questions'][qid]['challenge']);
 
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
@@ -1213,29 +1212,6 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
     }
     qidDisplay = qidDisplay.replaceAll('2024_', '');
-
-    cards.add(LayoutBuilder(builder: (context, constraints) {
-      return Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset(
-            "data/2024/tex/6f448ad33925.svg",
-            width: constraints.maxWidth - 40,
-          ),
-        ),
-      );
-    }));
-    cards.add(LayoutBuilder(builder: (context, constraints) {
-      return Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset(
-            "data/2024/tex/1a5bfb3ea593.svg",
-            width: constraints.maxWidth * 0.75,
-          ),
-        ),
-      );
-    }));
 
     cards.add(
       Padding(
@@ -1256,51 +1232,46 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       ),
     );
 
-    cards.add(
-      Card(
-        child: ListTile(
-          title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                double svgWidth = GlobalData.questions!['questions'][qid]
-                        ['challenge_svg_width'] ??
-                    1.0;
-                double svgHeight = GlobalData.questions!['questions'][qid]
-                        ['challenge_svg_height'] ??
-                    1.0;
-                svgWidth /= 227.0 / constraints.maxWidth;
-                svgHeight /= 227.0 / constraints.maxWidth;
-                if (svgWidth > constraints.maxWidth) {
-                  double scale = svgWidth / constraints.maxWidth;
-                  svgWidth /= scale;
-                  svgHeight /= scale;
-                }
-                developer.log("svgWidth: $svgWidth, svgHeight: $svgHeight");
-                return SizedBox(
-                  width: constraints.maxWidth,
-                  child: Html(
-                    data:
-                        "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
-                    style: {
-                      'body': Style(margin: Margins.zero),
-                      'svg': Style(
-                        width: Width(svgWidth, Unit.px),
-                        height: Height(svgHeight, Unit.px),
-                      ),
-                    },
-                    extensions: [
-                      // MathHtmlExtension(),
-                      // SvgHtmlExtension(),
-                    ],
-                  ),
-                );
-              },
+    cards.add(LayoutBuilder(builder: (context, constraints) {
+      List<Widget> challengeParts = [];
+
+      if (GlobalData.questions!['questions'][qid]['challenge_tex'] != null) {
+        challengeParts.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            "data/2024/tex/${GlobalData.questions!['questions'][qid]['challenge_tex']}.svg",
+            width: constraints.maxWidth - 40,
+          ),
+        ));
+      }
+
+      if (GlobalData.questions!['questions'][qid]['challenge_svg'] != null) {
+        challengeParts.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            "data/2024/${GlobalData.questions!['questions'][qid]['challenge_svg']}",
+            width: constraints.maxWidth - 40,
+          ),
+        ));
+      }
+
+      if (GlobalData.questions!['questions'][qid]['challenge_png'] != null) {
+        challengeParts.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image(
+            image: AssetImage(
+              "data/2024/${GlobalData.questions!['questions'][qid]['challenge_png']}",
             ),
           ),
-        ),
-      ),
-    );
+        ));
+      }
+
+      return Card(
+        child: Column(children: challengeParts),
+        elevation: 4,
+        surfaceTintColor: Colors.transparent,
+      );
+    }));
 
     cards.add(const Divider());
 
@@ -1343,6 +1314,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                               return Transform.translate(
                                 offset: offset * constraints.maxWidth,
                                 child: Card(
+                                  elevation: 4,
+                                  surfaceTintColor: Colors.transparent,
                                   child: InkWell(
                                     onTapCancel: () => _timer?.cancel(),
                                     onTapDown: (_) => {
@@ -1422,73 +1395,27 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                           title: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 4),
-                                            child: Html(
-                                              data: GlobalData
-                                                  .questions!['questions'][qid]
-                                                      ['answers'][i]
-                                                  .toString()
-                                                  .replaceAll('*', ' ⋅ '),
-                                              style: {
-                                                'body':
-                                                    Style(margin: Margins.zero),
-                                              },
-                                              // extensions: [
-                                              //   // MathHtmlExtension(),
-                                              //   SvgHtmlExtension(),
-                                              //   TagExtension(
-                                              //       tagsToExtend: {'tex'},
-                                              //       builder:
-                                              //           (extensionContext) {
-                                              //         return Math.tex(
-                                              //           extensionContext
-                                              //               .innerHtml,
-                                              //           mathStyle:
-                                              //               MathStyle.text,
-                                              //           // textStyle: extensionContext
-                                              //           //     .styledElement
-                                              //           //     ?.style
-                                              //           //     .generateTextStyle(),
-                                              //           // textScaleFactor: 1.5,
-                                              //           options: MathOptions(
-                                              //             mathFontOptions:
-                                              //                 FontOptions(
-                                              //               fontFamily:
-                                              //                   'AlegreyaSans',
-                                              //             ),
-                                              //           ),
-                                              //           textStyle: GoogleFonts
-                                              //               .alegreya(
-                                              //                   fontSize: 16,
-                                              //                   color: Colors
-                                              //                       .black,
-                                              //                   fontWeight:
-                                              //                       FontWeight
-                                              //                           .normal),
-                                              //           onErrorFallback:
-                                              //               (FlutterMathException
-                                              //                   e) {
-                                              //             //optionally try and correct the Tex string here
-                                              //             return Text(
-                                              //                 e.message);
-                                              //           },
-                                              //         );
-                                              //       }),
-                                              // ],
-                                            ),
-                                            // child: ti == 0
-                                            //     ? Container(
-                                            //         height: MediaQuery.of(
-                                            //                     context)
-                                            //                 .size
-                                            //                 .height -
-                                            //             MediaQuery.of(context)
-                                            //                 .padding
-                                            //                 .vertical,
-                                            //         child: WebViewWidget(
-                                            //           controller: wvController,
-                                            //         ),
-                                            //       )
-                                            //     : Text("$ti"),
+                                            child: GlobalData.questions![
+                                                            'questions'][qid]
+                                                        ['answers_tex'] ==
+                                                    null
+                                                ? Html(
+                                                    data: GlobalData
+                                                        .questions!['questions']
+                                                            [qid]['answers'][i]
+                                                        .toString()
+                                                        .replaceAll('*', ' ⋅ '),
+                                                    style: {
+                                                      'body': Style(
+                                                          margin: Margins.zero),
+                                                    },
+                                                  )
+                                                : SvgPicture.asset(
+                                                    "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
+                                                    width:
+                                                        constraints.maxWidth -
+                                                            40,
+                                                  ),
                                           ),
                                         ),
                                       ),

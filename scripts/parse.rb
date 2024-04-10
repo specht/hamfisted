@@ -220,9 +220,11 @@ class Parser
     def render_tex(s, key, suffix, width)
         key_with_suffix = "#{key}_#{suffix}"
         sha1 = Digest::SHA1.hexdigest(s)[0, 12]
-        if key_with_suffix == 'AA112_q'
-            s.sub!('120 dB$μ$V/m', '120 dB$\\mu$V/m')
-        elsif key_with_suffix == 'EA115_q'
+        # if key_with_suffix == 'AA112_q'
+        #     STDERR.puts sha1
+        #     exit
+        #     s.sub!('120 dB$μ$V/m', '120 dB$\\mu$V/m')
+        if key_with_suffix == 'EA115_q'
             s.sub!('0,22 μF', '0,22 $\\mu$F')
         elsif key_with_suffix == 'EB408_q'
             s.sub!('50 μs', '50 $\\mu$s')
@@ -262,11 +264,13 @@ class Parser
                 END_OF_STRING
             end
             system("pdflatex -interaction=nonstopmode -output-directory cache cache/#{sha1}.tex")
-            system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/#{sha1}.svg --actions='select-all;fit-canvas-to-selection' --pdf-poppler /app/#{sha1}.pdf")
-            system("rm -f cache/#{sha1}.tex")
-            system("rm -f cache/#{sha1}.log")
-            system("rm -f cache/#{sha1}.aux")
-            system("rm -f cache/#{sha1}.pdf")
+            if $?.exitstatus == 0
+                system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/#{sha1}.svg --actions='select-all;fit-canvas-to-selection' --pdf-poppler /app/#{sha1}.pdf")
+                system("rm -f cache/#{sha1}.tex")
+                system("rm -f cache/#{sha1}.log")
+                system("rm -f cache/#{sha1}.aux")
+                system("rm -f cache/#{sha1}.pdf")
+            end
         end
         sha1
     end
@@ -293,23 +297,23 @@ class Parser
                     qid = "#{qid}#{@id_suffix}"
                     data = {}
                     STDERR.puts "-" * 30 + qid + "-" * 30
-                    data[:challenge] = render_tex("\\textbf{#{question['number']}}~~~#{question['question']}", question['number'], 'q', 11)
+                    data[:challenge_tex] = render_tex("\\textbf{#{question['number']}}~~~#{question['question']}", question['number'], 'q', 11)
                     # data[:challenge] = render_latex(question['question'])
-                    # if question['picture_question']
-                    #     path = Dir["../bnetza-2024/svgs/#{question['picture_question']}*"].first
-                    #     if path.include?('.svg')
-                    #         svg = File.read(path)
-                    #         svg_dom = Nokogiri::XML(svg).css('svg')
-                    #         width = svg_dom.attr('width').to_s.to_f
-                    #         height = svg_dom.attr('height').to_s.to_f
-                    #         data[:challenge] += "<p>#{svg}</p>"
-                    #         data[:challenge_svg_width] = width
-                    #         data[:challenge_svg_height] = height
-                    #     else
-                    #         data[:challenge] += "<p><img src=\"asset:data/2024/#{File.basename(path)}\" /></p>"
-                    #     end
-                    # end
-                    data[:answers] = [
+                    if question['picture_question']
+                        path = Dir["../bnetza-2024/svgs/#{question['picture_question']}*"].sort.reverse.first
+                        if path.include?('.svg')
+                            svg = File.read(path)
+                            svg_dom = Nokogiri::XML(svg).css('svg')
+                            width = svg_dom.attr('width').to_s.to_f
+                            height = svg_dom.attr('height').to_s.to_f
+                            data[:challenge_svg] = File.basename(path)
+                            data[:challenge_svg_width] = width
+                            data[:challenge_svg_height] = height
+                        else
+                            data[:challenge_png] = File.basename(path)
+                        end
+                    end
+                    data[:answers_tex] = [
                         render_tex(question['answer_a'], question['number'], 'a', 9.5),
                         render_tex(question['answer_b'], question['number'], 'a', 9.5),
                         render_tex(question['answer_c'], question['number'], 'a', 9.5),
