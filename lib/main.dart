@@ -15,6 +15,7 @@ import 'data.dart';
 const GREEN = Color(0xff73a946);
 const RED = Color(0xff992413);
 const PRIMARY = Color(0xff1d5479);
+const double MAX_WIDTH = 400;
 
 const double INTRO_BOTTOM = 220;
 
@@ -1206,7 +1207,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
-    // qid = '2024_NH301';
+    // qid = '2024_NF104';
 
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
@@ -1235,17 +1236,21 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     );
 
     cards.add(LayoutBuilder(builder: (context, constraints) {
+      double cwidth = min(constraints.maxWidth, MAX_WIDTH);
       List<Widget> challengeParts = [];
 
       if (GlobalData.questions!['questions'][qid]['challenge'] != null) {
-        challengeParts.add(Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Html(
-            data:
-                "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
-            style: {
-              'body': Style(margin: Margins.zero, fontSize: FontSize(16))
-            },
+        challengeParts.add(Container(
+          constraints: BoxConstraints(maxWidth: cwidth),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Html(
+              data:
+                  "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
+              style: {
+                'body': Style(margin: Margins.zero, fontSize: FontSize(16))
+              },
+            ),
           ),
         ));
       }
@@ -1255,7 +1260,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
           padding: const EdgeInsets.all(8.0),
           child: SvgPicture.asset(
             "data/2024/tex/${GlobalData.questions!['questions'][qid]['challenge_tex']}.svg",
-            width: constraints.maxWidth - 40,
+            width: cwidth,
           ),
         ));
       }
@@ -1264,7 +1269,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
         var aspect = GlobalData.questions!['questions'][qid]
                 ['challenge_svg_width'] /
             GlobalData.questions!['questions'][qid]['challenge_svg_height'];
-        var width = (constraints.maxWidth - 40) *
+        var width = (cwidth - 40) *
             min(GlobalData.questions!['questions'][qid]['challenge_svg_width'],
                 250) /
             250;
@@ -1291,10 +1296,10 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       }
 
       return Card(
-        child: Column(children: challengeParts),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         elevation: 2,
         surfaceTintColor: Colors.transparent,
+        child: Column(children: challengeParts),
       );
     }));
 
@@ -1317,6 +1322,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                           builder: (context, child) {
                             return LayoutBuilder(
                                 builder: (context, constraints) {
+                              double cwidth =
+                                  min(constraints.maxWidth, MAX_WIDTH);
                               Offset offset = Offset.zero;
                               if (animationPhase1) {
                                 if (i != 0) {
@@ -1370,102 +1377,123 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: Center(
-                                        child: ListTile(
-                                          horizontalTitleGap: 0,
-                                          titleAlignment:
-                                              ListTileTitleAlignment.top,
-                                          leading: Transform.translate(
-                                            offset: const Offset(-5, 6),
-                                            child: CircleAvatar(
-                                              backgroundColor: answerColor[i] ==
-                                                      Colors.transparent
-                                                  ? Color.lerp(PRIMARY,
-                                                      Colors.white, 0.8)
-                                                  : answerColor[i],
-                                              radius: 15,
-                                              child: answerColor[i] == GREEN
-                                                  ? const Icon(
-                                                      Icons.check,
-                                                      color: Colors.white,
-                                                      size: 16,
-                                                    )
-                                                  : answerColor[i] == RED
-                                                      ? const Icon(
-                                                          Icons.clear,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: max(
+                                                  0,
+                                                  (constraints.maxWidth -
+                                                              cwidth) /
+                                                          2 -
+                                                      15)),
+                                          child: Container(
+                                            child: ListTile(
+                                              minVerticalPadding: 0,
+                                              horizontalTitleGap: 0,
+                                              titleAlignment:
+                                                  ListTileTitleAlignment.top,
+                                              leading: Transform.translate(
+                                                offset: const Offset(-4, 10),
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                      answerColor[i] ==
+                                                              Colors.transparent
+                                                          ? Color.lerp(PRIMARY,
+                                                              Colors.white, 0.8)
+                                                          : answerColor[i],
+                                                  radius: cwidth * 0.045,
+                                                  child: answerColor[i] == GREEN
+                                                      ? Icon(
+                                                          Icons.check,
                                                           color: Colors.white,
-                                                          size: 16,
+                                                          size: cwidth * 0.05,
                                                         )
-                                                      : Text(
-                                                          String.fromCharCode(
-                                                              65 + ti),
-                                                          style: GoogleFonts.alegreyaSans(
-                                                              fontSize: 14,
-                                                              color: answerColor[
-                                                                          i] ==
-                                                                      Colors
-                                                                          .transparent
-                                                                  ? Colors
-                                                                      .black87
-                                                                  : Colors
-                                                                      .white,
-                                                              fontWeight: answerColor[
-                                                                          i] ==
-                                                                      Colors
-                                                                          .transparent
-                                                                  ? FontWeight
-                                                                      .normal
-                                                                  : FontWeight
-                                                                      .bold),
+                                                      : answerColor[i] == RED
+                                                          ? Icon(
+                                                              Icons.clear,
+                                                              color:
+                                                                  Colors.white,
+                                                              size:
+                                                                  cwidth * 0.05,
+                                                            )
+                                                          : Text(
+                                                              String
+                                                                  .fromCharCode(
+                                                                      65 + ti),
+                                                              style: GoogleFonts.alegreyaSans(
+                                                                  fontSize:
+                                                                      cwidth *
+                                                                          0.04,
+                                                                  color: answerColor[
+                                                                              i] ==
+                                                                          Colors
+                                                                              .transparent
+                                                                      ? Colors
+                                                                          .black87
+                                                                      : Colors
+                                                                          .white,
+                                                                  fontWeight: answerColor[
+                                                                              i] ==
+                                                                          Colors
+                                                                              .transparent
+                                                                      ? FontWeight
+                                                                          .normal
+                                                                      : FontWeight
+                                                                          .bold),
+                                                            ),
+                                                ),
+                                              ),
+                                              title: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 0,
+                                                        horizontal: 4),
+                                                child: (GlobalData.questions![
+                                                                        'questions']
+                                                                    [qid][
+                                                                'answers_tex'] ==
+                                                            null &&
+                                                        GlobalData.questions![
+                                                                        'questions']
+                                                                    [qid][
+                                                                'answers_svg'] ==
+                                                            null)
+                                                    ? Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                vertical: 13.0),
+                                                        child: Html(
+                                                          data: GlobalData
+                                                              .questions![
+                                                                  'questions']
+                                                                  [qid]
+                                                                  ['answers'][i]
+                                                              .toString()
+                                                              .replaceAll(
+                                                                  '*', ' ⋅ '),
+                                                          style: {
+                                                            'body': Style(
+                                                              margin:
+                                                                  Margins.zero,
+                                                            ),
+                                                          },
                                                         ),
-                                            ),
-                                          ),
-                                          title: Container(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 0,
-                                                      horizontal: 4),
-                                              child: (GlobalData.questions![
-                                                                      'questions']
-                                                                  [qid]
-                                                              ['answers_tex'] ==
-                                                          null &&
-                                                      GlobalData.questions![
-                                                                      'questions']
-                                                                  [qid]
-                                                              ['answers_svg'] ==
-                                                          null)
-                                                  ? Html(
-                                                      data: GlobalData
-                                                          .questions![
-                                                              'questions'][qid]
-                                                              ['answers'][i]
-                                                          .toString()
-                                                          .replaceAll(
-                                                              '*', ' ⋅ '),
-                                                      style: {
-                                                        'body': Style(
-                                                            margin:
-                                                                Margins.zero),
-                                                      },
-                                                    )
-                                                  : (GlobalData.questions![
-                                                                      'questions']
-                                                                  [qid]
-                                                              ['answers_svg'] ==
-                                                          null
-                                                      ? SvgPicture.asset(
-                                                          "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
-                                                          width: constraints
-                                                                  .maxWidth -
-                                                              40,
-                                                        )
-                                                      : SvgPicture.asset(
-                                                          "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
-                                                          width: constraints
-                                                                  .maxWidth -
-                                                              40,
-                                                        )),
+                                                      )
+                                                    : (GlobalData.questions![
+                                                                        'questions']
+                                                                    [qid]
+                                                                ['answers_svg'] ==
+                                                            null
+                                                        ? SvgPicture.asset(
+                                                            "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
+                                                            width: cwidth * 1,
+                                                          )
+                                                        : SvgPicture.asset(
+                                                            "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+                                                            width:
+                                                                cwidth * 0.86,
+                                                          )),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -1490,8 +1518,10 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       ),
       body: Stack(
         children: [
-          ListView(
-            children: cards,
+          Container(
+            child: ListView(
+              children: cards,
+            ),
           ),
           BottomMenu(
             qid: qid!,
