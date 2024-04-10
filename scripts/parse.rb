@@ -322,27 +322,28 @@ class Parser
                     data[:challenge_tex] = render_tex("\\textbf{#{question['number']}}~~~#{question['question']}", question['number'], 'q', 11)
                     # data[:challenge] = render_latex(question['question'])
                     if question['picture_question']
-                        path = Dir["../bnetza-2024/svgs/#{question['picture_question']}*"].sort.reverse.first
+                        path = Dir["../bnetza-2024/svgs/#{question['picture_question']}*"].sort.first
                         if path.include?('.svg')
-                            svg = File.read(path)
-                            svg_dom = Nokogiri::XML(svg).css('svg')
-                            width = svg_dom.attr('width').to_s.to_f
-                            height = svg_dom.attr('height').to_s.to_f
+                            svg_dom = Nokogiri::XML(File.read(path)).css('svg')
                             data[:challenge_svg] = File.basename(path)
-                            data[:challenge_svg_width] = width
-                            data[:challenge_svg_height] = height
+                            data[:challenge_svg_width] = svg_dom.attr('width').to_s.to_f
+                            data[:challenge_svg_height] = svg_dom.attr('height').to_s.to_f
                         else
                             data[:challenge_png] = File.basename(path)
                         end
                     end
                     if (question['answer_a'] || '').empty? && (question['answer_b'] || '').empty? &&
                        (question['answer_c'] || '').empty? && (question['answer_d'] || '')
-                        data[:answers_svg] = [
-                            "#{question['picture_a']}.svg",
-                            "#{question['picture_b']}.svg",
-                            "#{question['picture_c']}.svg",
-                            "#{question['picture_d']}.svg",
-                        ]
+                        data[:answers_svg] = []
+                        data[:answers_svg_width] = []
+                        data[:answers_svg_height] = []
+                        ['a', 'b', 'c', 'd'].each do |letter|
+                            path = '../bnetza-2024/svgs/' + question['picture_' + letter] + '.svg'
+                            data[:answers_svg] << File.basename(path)
+                            svg_dom = Nokogiri::XML(File.read(path)).css('svg')
+                            data[:answers_svg_width] << svg_dom.attr('width').to_s.to_f
+                            data[:answers_svg_height] << svg_dom.attr('height').to_s.to_f
+                        end
                     else
                         data[:answers_tex] = [
                             render_tex(question['answer_a'], question['number'], 'a', 9.5),
@@ -350,6 +351,15 @@ class Parser
                             render_tex(question['answer_c'], question['number'], 'a', 9.5),
                             render_tex(question['answer_d'], question['number'], 'a', 9.5),
                         ]
+                        data[:answers_tex_width] = []
+                        data[:answers_tex_height] = []
+                        data[:answers_tex].each do |sha1|
+                            path = './cache/' + sha1 + '.svg'
+                            svg_dom = Nokogiri::XML(File.read(path)).css('svg')
+                            data[:answers_tex_width] << svg_dom.attr('width').to_s.to_f
+                            data[:answers_tex_height] << svg_dom.attr('height').to_s.to_f
+                        end
+
                     end
                     raise 'nope' if @questions.include?(qid)
                     @questions[qid] = data

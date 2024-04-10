@@ -924,21 +924,23 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       body: ListView(
         children: cards,
       ),
-      bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              boxShadow: [BoxShadow(color: Color(0x80000000), blurRadius: 5)]),
-          child: TextButton(
-            child: Text(
-                "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen üben"),
-            onPressed: () {
-              Navigator.of(context)
-                  .pushNamed('/quiz', arguments: hid)
-                  .then((value) {
-                setState(() {});
-              });
-            },
-          )),
+      bottomNavigationBar: hid == ''
+          ? null
+          : Container(
+              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+                BoxShadow(color: Color(0x80000000), blurRadius: 5)
+              ]),
+              child: TextButton(
+                child: Text(
+                    "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen üben"),
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed('/quiz', arguments: hid)
+                      .then((value) {
+                    setState(() {});
+                  });
+                },
+              )),
     );
   }
 }
@@ -1207,7 +1209,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
-    // qid = '2024_NF104';
+    // qid = '2024_AD619';
 
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
@@ -1269,7 +1271,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
         var aspect = GlobalData.questions!['questions'][qid]
                 ['challenge_svg_width'] /
             GlobalData.questions!['questions'][qid]['challenge_svg_height'];
-        var width = (cwidth - 40) *
+        var width = (cwidth) *
             min(GlobalData.questions!['questions'][qid]['challenge_svg_width'],
                 250) /
             250;
@@ -1310,7 +1312,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       cards.add(
         Padding(
           padding:
-              ti == 3 ? const EdgeInsets.only(bottom: 90) : EdgeInsets.zero,
+              ti == 3 ? const EdgeInsets.only(bottom: 105) : EdgeInsets.zero,
           child: AnimatedBuilder(
               animation: _animationController3,
               builder: (context, child) {
@@ -1486,7 +1488,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                                             null
                                                         ? SvgPicture.asset(
                                                             "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
-                                                            width: cwidth * 1,
+                                                            width:
+                                                                cwidth * 0.86,
                                                           )
                                                         : SvgPicture.asset(
                                                             "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
