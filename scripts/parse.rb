@@ -23,7 +23,10 @@ class Parser
         @questions_for_hid['2007'] = []
         @questions_for_hid['2024'] = []
         @latex_terms = Set.new()
+        @faulty_keys = Set.new()
     end
+
+    attr_reader :faulty_keys
 
     def latex_to_html(s)
         s = "#{s}"
@@ -270,6 +273,8 @@ class Parser
                 system("rm -f cache/#{sha1}.log")
                 system("rm -f cache/#{sha1}.aux")
                 system("rm -f cache/#{sha1}.pdf")
+            else
+                @faulty_keys << key_with_suffix
             end
         end
         sha1
@@ -382,6 +387,9 @@ parser = Parser.new()
 end
 parser.parse_darc()
 parser.parse_2024()
+
+STDERR.puts "Errors are here:"
+STDERR.puts parser.faulty_keys.to_a.sort.to_yaml
 
 File.open('../data/questions.json', 'w') do |f|
     f.puts parser.dump.to_json
