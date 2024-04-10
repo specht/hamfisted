@@ -874,6 +874,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
+        backgroundColor: PRIMARY,
+        foregroundColor: Colors.white,
         actions: hid.isEmpty
             ? [
                 PopupMenuButton(onSelected: (value) async {
@@ -1516,6 +1518,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
+        backgroundColor: PRIMARY,
+        foregroundColor: Colors.white,
         title: Text(
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
       ),
