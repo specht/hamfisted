@@ -59,10 +59,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // useMaterial3: true,
-        // colorScheme: ColorScheme.fromSeed(
-        // seedColor: PRIMARY,
-        // ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: PRIMARY,
+        ),
         textTheme: GoogleFonts.alegreyaSansTextTheme(textTheme),
+        // fontFamily: 'BitstreamCharter',
       ),
       home: const Overview(),
       routes: {
@@ -183,6 +184,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       cards.add(
         InkWell(
           child: Card(
+            surfaceTintColor: Colors.transparent,
             child: ListTile(
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -268,6 +270,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       '42*10<sup>-1</sup> A.',
     ];
     cards.add(Card(
+      surfaceTintColor: Colors.transparent,
+      elevation: 4,
       child: ListTile(
         title: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -283,6 +287,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     for (int ti = 0; ti < 4; ti++) {
       int i = answerIndex[ti];
       cards.add(Card(
+        surfaceTintColor: Colors.transparent,
+        elevation: 2,
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
@@ -296,7 +302,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
               horizontalTitleGap: 0,
               titleAlignment: ListTileTitleAlignment.top,
               leading: Transform.translate(
-                offset: const Offset(0, 8),
+                offset: const Offset(-2, 5),
                 child: CircleAvatar(
                   backgroundColor: answerColor[i] == Colors.transparent
                       ? Color.lerp(PRIMARY, Colors.white, 0.8)
@@ -411,7 +417,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                                           const NeverScrollableScrollPhysics(),
                                       child: Column(
                                         children: getChapterCards(
-                                            hid: 'TE', demo: true),
+                                            hid: '2024/TA', demo: true),
                                       ),
                                     ),
                                   ),
@@ -471,7 +477,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                                         builder: (context, constraints) {
                                       return Transform.translate(
                                         offset: Offset(
-                                            -1 * constraints.maxWidth / 3, 72),
+                                            -1 * constraints.maxWidth / 3, 60),
                                         child: AnimatedBuilder(
                                             animation:
                                                 _animationControllerSpotShift2,
@@ -1195,8 +1201,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
-    // qid = '2024_EF216';
-    // developer.log(GlobalData.questions!['questions'][qid]['challenge']);
+    qid = '2024_BB105';
 
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
@@ -1226,6 +1231,19 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
 
     cards.add(LayoutBuilder(builder: (context, constraints) {
       List<Widget> challengeParts = [];
+
+      if (GlobalData.questions!['questions'][qid]['challenge'] != null) {
+        challengeParts.add(Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Html(
+            data:
+                "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
+            style: {
+              'body': Style(margin: Margins.zero, fontSize: FontSize(16))
+            },
+          ),
+        ));
+      }
 
       if (GlobalData.questions!['questions'][qid]['challenge_tex'] != null) {
         challengeParts.add(Padding(
@@ -1393,47 +1411,54 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                                         ),
                                             ),
                                           ),
-                                          title: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 0, horizontal: 4),
-                                            child: (GlobalData.questions![
-                                                                    'questions']
-                                                                [qid]
-                                                            ['answers_tex'] ==
-                                                        null &&
-                                                    GlobalData.questions![
-                                                                    'questions']
-                                                                [qid]
-                                                            ['answers_svg'] ==
-                                                        null)
-                                                ? Html(
-                                                    data: GlobalData
-                                                        .questions!['questions']
-                                                            [qid]['answers'][i]
-                                                        .toString()
-                                                        .replaceAll('*', ' ⋅ '),
-                                                    style: {
-                                                      'body': Style(
-                                                          margin: Margins.zero),
-                                                    },
-                                                  )
-                                                : (GlobalData.questions![
-                                                                    'questions']
-                                                                [qid]
-                                                            ['answers_svg'] ==
-                                                        null
-                                                    ? SvgPicture.asset(
-                                                        "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
-                                                        width: constraints
-                                                                .maxWidth -
-                                                            40,
-                                                      )
-                                                    : SvgPicture.asset(
-                                                        "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
-                                                        width: constraints
-                                                                .maxWidth -
-                                                            40,
-                                                      )),
+                                          title: Container(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 0,
+                                                      horizontal: 4),
+                                              child: (GlobalData.questions![
+                                                                      'questions']
+                                                                  [qid]
+                                                              ['answers_tex'] ==
+                                                          null &&
+                                                      GlobalData.questions![
+                                                                      'questions']
+                                                                  [qid]
+                                                              ['answers_svg'] ==
+                                                          null)
+                                                  ? Html(
+                                                      data: GlobalData
+                                                          .questions![
+                                                              'questions'][qid]
+                                                              ['answers'][i]
+                                                          .toString()
+                                                          .replaceAll(
+                                                              '*', ' ⋅ '),
+                                                      style: {
+                                                        'body': Style(
+                                                            margin:
+                                                                Margins.zero),
+                                                      },
+                                                    )
+                                                  : (GlobalData.questions![
+                                                                      'questions']
+                                                                  [qid]
+                                                              ['answers_svg'] ==
+                                                          null
+                                                      ? SvgPicture.asset(
+                                                          "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
+                                                          width: constraints
+                                                                  .maxWidth -
+                                                              40,
+                                                        )
+                                                      : SvgPicture.asset(
+                                                          "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+                                                          width: constraints
+                                                                  .maxWidth -
+                                                              40,
+                                                        )),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -1497,6 +1522,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 padding: const EdgeInsets.only(bottom: 100, right: 10),
                 child: ElevatedButton.icon(
                   style: ButtonStyle(
+                    surfaceTintColor:
+                        MaterialStateProperty.all(Colors.transparent),
                     padding: MaterialStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     ),
@@ -1623,12 +1650,13 @@ class _BottomMenuState extends State<BottomMenu> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SizedBox(
-                                height: 30,
+                                height: 45,
                                 child: widget.feelingUnsureWidget,
                               ),
                               const Text(
                                 "Ich bin mir\nunsicher",
                                 textAlign: TextAlign.center,
+                                style: TextStyle(height: 1.2),
                               ),
                             ],
                           ),
@@ -1656,11 +1684,12 @@ class _BottomMenuState extends State<BottomMenu> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 SizedBox(
-                                    height: 30,
+                                    height: 42,
                                     child: Icon(Icons.help_outline)),
                                 Text(
                                   "Hilfestellung\nzu dieser Frage",
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(height: 1.2),
                                 ),
                               ],
                             ),
@@ -1683,11 +1712,12 @@ class _BottomMenuState extends State<BottomMenu> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SizedBox(
-                                  height: 30,
+                                  height: 42,
                                   child: Icon(Icons.skip_next_outlined)),
                               Text(
                                 "Frage\nüberspringen",
                                 textAlign: TextAlign.center,
+                                style: TextStyle(height: 1.2),
                               ),
                             ],
                           ),

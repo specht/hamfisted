@@ -48,6 +48,16 @@ flutter:
         - asset: fonts/AlegreyaSans-BoldItalic.ttf
           style: italic
           weight: 700
+    # - family: BitstreamCharter
+    #   fonts:
+    #     - asset: fonts/Bitstream-Charter/CharterBT-Roman.otf
+    #     - asset: fonts/Bitstream-Charter/CharterBT-Bold.otf
+    #       weight: 700
+    #     - asset: fonts/Bitstream-Charter/CharterBT-Italic.otf
+    #       style: italic
+    #     - asset: fonts/Bitstream-Charter/CharterBT-BoldItalic.otf
+    #       style: italic
+    #       weight: 700
 
 flutter_launcher_icons:
   ios: true

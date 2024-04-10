@@ -27,11 +27,11 @@ class Parser
         @headings['2024/TN'] = 'Technische Kenntnisse der Klasse N'
         @headings['2024/TE'] = 'Technische Kenntnisse der Klasse E'
         @headings['2024/TA'] = 'Technische Kenntnisse der Klasse A'
-        @questions_for_hid['2007'] = []
-        @questions_for_hid['2024'] = []
-        @questions_for_hid['2024/TN'] = []
-        @questions_for_hid['2024/TE'] = []
-        @questions_for_hid['2024/TA'] = []
+        @questions_for_hid['2007'] = Set.new()
+        @questions_for_hid['2024'] = Set.new()
+        @questions_for_hid['2024/TN'] = Set.new()
+        @questions_for_hid['2024/TE'] = Set.new()
+        @questions_for_hid['2024/TA'] = Set.new()
         @latex_terms = Set.new()
         @faulty_keys = Set.new()
     end
@@ -181,7 +181,7 @@ class Parser
                 (0..(prefix + [id]).size).each do |l|
                     sub_prefix = (prefix + [id])[0, l]
                     lhid = sub_prefix.join('/')
-                    @questions_for_hid[lhid] ||= []
+                    @questions_for_hid[lhid] ||= Set.new()
                     @questions_for_hid[lhid] << qid
                 end
             end
@@ -231,17 +231,10 @@ class Parser
     end
 
     def render_tex(s, key, suffix, width)
+        s.gsub!('<u>', '\\underline{')
+        s.gsub!('</u>', '}')
         key_with_suffix = "#{key}_#{suffix}"
         sha1 = Digest::SHA1.hexdigest(s)[0, 12]
-        # if key_with_suffix == 'AA112_q'
-        #     STDERR.puts sha1
-        #     exit
-        #     s.sub!('120 dB$μ$V/m', '120 dB$\\mu$V/m')
-        if key_with_suffix == 'EA115_q'
-            s.sub!('0,22 μF', '0,22 $\\mu$F')
-        elsif key_with_suffix == 'EB408_q'
-            s.sub!('50 μs', '50 $\\mu$s')
-        end
         STDERR.puts "#{'-' * 30} #{key}_#{suffix} #{'-' * 30}"
         STDERR.puts s
         STDERR.puts '-' * 70
@@ -359,7 +352,7 @@ class Parser
                             lparent_hid = sub_prefix[0, sub_prefix.size - 1].join('/')
 
                             lhid_parts = lhid.split('/')
-                            (1..lhid_parts.size).each do |j|
+                            (3..lhid_parts.size).each do |j|
                                 sub_parts = lhid_parts[0, j]
                                 sub_hid = sub_parts.join('/')
                                 sub_parent = sub_parts[0, sub_parts.size - 1].join('/')
@@ -380,7 +373,7 @@ class Parser
                                 sub_prefix[1] = insert_id
                                 lhid = sub_prefix.join('/')
                                 lparent_hid = sub_prefix[0, sub_prefix.size - 1].join('/')
-                                @questions_for_hid[lhid] ||= []
+                                @questions_for_hid[lhid] ||= Set.new()
                                 @questions_for_hid[lhid] << qid
                             end
                         end
@@ -388,7 +381,7 @@ class Parser
                         (0..(prefix + [id]).size).each do |l|
                             sub_prefix = (prefix + [id])[0, l]
                             lhid = sub_prefix.join('/')
-                            @questions_for_hid[lhid] ||= []
+                            @questions_for_hid[lhid] ||= Set.new()
                             @questions_for_hid[lhid] << qid
                         end
                     end
@@ -400,6 +393,19 @@ class Parser
     def parse_2024
         data = JSON.parse(File.read('../bnetza-2024/fragenkatalog3b.json'))
         recurse_json(data['sections'], 0, ['2024'])
+    end
+
+    def finalize
+        @questions_for_hid['2024'] |= @questions_for_hid['2024/TN'] | @questions_for_hid['2024/TE'] | @questions_for_hid['2024/TA']
+        @questions_for_hid[''] |= @questions_for_hid['2024']
+        @questions_for_hid.each_pair do |k, entries|
+            @questions_for_hid[k] = entries.to_a
+        end
+        @headings.reject! { |k, v| k[0, 6] == '2024/0' }
+        @children.reject! { |k, v| k[0, 6] == '2024/0' }
+        @questions_for_hid.reject! { |k, v| k[0, 6] == '2024/0' }
+        @parents.reject! { |x, y| x[0, 6] == '2024/0' }
+        @children['2024'].delete('2024/0')
     end
 
     def dump
@@ -435,6 +441,8 @@ parser.parse_2024()
 
 STDERR.puts "Errors are here:"
 STDERR.puts parser.faulty_keys.to_a.sort.to_yaml
+
+parser.finalize
 
 File.open('../data/questions.json', 'w') do |f|
     f.puts parser.dump.to_json
