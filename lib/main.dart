@@ -179,7 +179,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
           countForDuration[slot] += 1;
         }
       }
-      String label = GlobalData.questions!['headings'][subhid];
+      String label = GlobalData.questions!['headings'][subhid] ?? subhid;
       cards.add(
         InkWell(
           child: Card(
@@ -1195,7 +1195,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
-    qid = '2024_BE206';
+    // qid = '2024_EF216';
     // developer.log(GlobalData.questions!['questions'][qid]['challenge']);
 
     List<Widget> cards = [];
@@ -1203,7 +1203,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
       qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
     }
-    qidDisplay = qidDisplay.replaceAll('2024_', '');
+    qidDisplay = qidDisplay.replaceFirst('2024_', '');
 
     cards.add(
       Padding(
@@ -1238,11 +1238,20 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       }
 
       if (GlobalData.questions!['questions'][qid]['challenge_svg'] != null) {
+        var aspect = GlobalData.questions!['questions'][qid]
+                ['challenge_svg_width'] /
+            GlobalData.questions!['questions'][qid]['challenge_svg_height'];
+        var width = (constraints.maxWidth - 40) *
+            min(GlobalData.questions!['questions'][qid]['challenge_svg_width'],
+                250) /
+            250;
+        var height = width / aspect;
         challengeParts.add(Padding(
           padding: const EdgeInsets.all(8.0),
           child: SvgPicture.asset(
             "data/2024/${GlobalData.questions!['questions'][qid]['challenge_svg']}",
-            width: constraints.maxWidth - 40,
+            width: width,
+            height: height,
           ),
         ));
       }
@@ -1260,7 +1269,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
 
       return Card(
         child: Column(children: challengeParts),
-        elevation: 4,
+        elevation: 2,
         surfaceTintColor: Colors.transparent,
       );
     }));
@@ -1306,7 +1315,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                               return Transform.translate(
                                 offset: offset * constraints.maxWidth,
                                 child: Card(
-                                  elevation: 4,
+                                  elevation: 1,
                                   surfaceTintColor: Colors.transparent,
                                   child: InkWell(
                                     onTapCancel: () => _timer?.cancel(),
@@ -1387,10 +1396,16 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                           title: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 0, horizontal: 4),
-                                            child: GlobalData.questions![
-                                                            'questions'][qid]
-                                                        ['answers_tex'] ==
-                                                    null
+                                            child: (GlobalData.questions![
+                                                                    'questions']
+                                                                [qid]
+                                                            ['answers_tex'] ==
+                                                        null &&
+                                                    GlobalData.questions![
+                                                                    'questions']
+                                                                [qid]
+                                                            ['answers_svg'] ==
+                                                        null)
                                                 ? Html(
                                                     data: GlobalData
                                                         .questions!['questions']
@@ -1402,12 +1417,23 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                                           margin: Margins.zero),
                                                     },
                                                   )
-                                                : SvgPicture.asset(
-                                                    "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
-                                                    width:
-                                                        constraints.maxWidth -
+                                                : (GlobalData.questions![
+                                                                    'questions']
+                                                                [qid]
+                                                            ['answers_svg'] ==
+                                                        null
+                                                    ? SvgPicture.asset(
+                                                        "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
+                                                        width: constraints
+                                                                .maxWidth -
                                                             40,
-                                                  ),
+                                                      )
+                                                    : SvgPicture.asset(
+                                                        "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+                                                        width: constraints
+                                                                .maxWidth -
+                                                            40,
+                                                      )),
                                           ),
                                         ),
                                       ),

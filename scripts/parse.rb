@@ -16,12 +16,22 @@ class Parser
         @questions_for_hid = {}
         @meta = []
         @children[''] = ['2007', '2024']
+        @children['2024'] = ['2024/TN', '2024/TE', '2024/TA']
         @parents['2007'] = ''
         @parents['2024'] = ''
+        @parents['2024/TN'] = '2024'
+        @parents['2024/TE'] = '2024'
+        @parents['2024/TA'] = '2024'
         @headings['2007'] = 'Alter Fragenkatalog (2007)'
         @headings['2024'] = 'Neuer Fragenkatalog (2024)'
+        @headings['2024/TN'] = 'Technische Kenntnisse der Klasse N'
+        @headings['2024/TE'] = 'Technische Kenntnisse der Klasse E'
+        @headings['2024/TA'] = 'Technische Kenntnisse der Klasse A'
         @questions_for_hid['2007'] = []
         @questions_for_hid['2024'] = []
+        @questions_for_hid['2024/TN'] = []
+        @questions_for_hid['2024/TE'] = []
+        @questions_for_hid['2024/TA'] = []
         @latex_terms = Set.new()
         @faulty_keys = Set.new()
     end
@@ -288,8 +298,8 @@ class Parser
             parent_hid = prefix.empty? ? '' : "#{prefix.join('/')}"
             title = section['title']
             title.sub!('Prüfungsfragen im Prüfungsteil: ', '')
-            @headings[hid] = title
             STDERR.puts "#{spacer}[#{parent_hid}] => [#{hid}] #{title}"
+            @headings[hid] = title
             @children[parent_hid] ||= []
             @children[parent_hid] << hid
             @parents[hid] = parent_hid
@@ -298,6 +308,7 @@ class Parser
             end
             if section['questions']
                 section['questions'].each do |question|
+
                     qid = '2024_' + question['number']
                     qid = "#{qid}#{@id_suffix}"
                     data = {}
@@ -318,34 +329,68 @@ class Parser
                             data[:challenge_png] = File.basename(path)
                         end
                     end
-                    data[:answers_tex] = [
-                        render_tex(question['answer_a'], question['number'], 'a', 9.5),
-                        render_tex(question['answer_b'], question['number'], 'a', 9.5),
-                        render_tex(question['answer_c'], question['number'], 'a', 9.5),
-                        render_tex(question['answer_d'], question['number'], 'a', 9.5),
-                    ]
-                    # if qid == '2024_NH303'
-                        # STDERR.puts data.to_yaml
-                        # exit
-                    # end
-                    # data[:challenge] = fix_png_path(question.css('>textquestion')[0].text.strip)
-                    # data[:answers] = []
-                    # question.css('>textanswer').each.with_index do |answer, index|
-                    #     if index == 0
-                    #         if answer.attr('correct') != 'true'
-                    #             raise 'oops'
-                    #         end
-                    #     end
-                    #     data[:answers] << fix_png_path(answer.text.strip)
-                    # end
-                    # # STDERR.puts "#{spacer}  [#{qid}] #{data[:challenge]}"
+                    if (question['answer_a'] || '').empty? && (question['answer_b'] || '').empty? &&
+                       (question['answer_c'] || '').empty? && (question['answer_d'] || '')
+                        data[:answers_svg] = [
+                            "#{question['picture_a']}.svg",
+                            "#{question['picture_b']}.svg",
+                            "#{question['picture_c']}.svg",
+                            "#{question['picture_d']}.svg",
+                        ]
+                    else
+                        data[:answers_tex] = [
+                            render_tex(question['answer_a'], question['number'], 'a', 9.5),
+                            render_tex(question['answer_b'], question['number'], 'a', 9.5),
+                            render_tex(question['answer_c'], question['number'], 'a', 9.5),
+                            render_tex(question['answer_d'], question['number'], 'a', 9.5),
+                        ]
+                    end
                     raise 'nope' if @questions.include?(qid)
                     @questions[qid] = data
-                    (0..(prefix + [id]).size).each do |l|
-                        sub_prefix = (prefix + [id])[0, l]
-                        lhid = sub_prefix.join('/')
-                        @questions_for_hid[lhid] ||= []
-                        @questions_for_hid[lhid] << qid
+
+                    if prefix.first == '2024' && prefix[1] == '0'
+                        classes = ['N', 'E', 'A'][question['class'].to_i - 1, 3]
+                        classes.each do |c|
+
+                            insert_id = "T#{c}"
+                            sub_prefix = prefix + [id]
+                            sub_prefix[1] = insert_id
+                            lhid = sub_prefix.join('/')
+                            lparent_hid = sub_prefix[0, sub_prefix.size - 1].join('/')
+
+                            lhid_parts = lhid.split('/')
+                            (1..lhid_parts.size).each do |j|
+                                sub_parts = lhid_parts[0, j]
+                                sub_hid = sub_parts.join('/')
+                                sub_parent = sub_parts[0, sub_parts.size - 1].join('/')
+                                @children[sub_parent] ||= []
+                                @children[sub_parent] << sub_hid unless @children[sub_parent].include?(sub_hid)
+                                @parents[sub_hid] = sub_parent
+                                patched_sub_hid = sub_hid.split('/')
+                                patched_sub_hid[1] = '0'
+                                @headings[sub_hid] = @headings[patched_sub_hid.join('/')]
+                            end
+            
+                            @headings[lhid] = title
+                            @children[lparent_hid] ||= []
+                            @children[lparent_hid] << lhid unless @children[lparent_hid].include?(lhid)
+                            @parents[lhid] = lparent_hid
+                            (0..(prefix + [id]).size).each do |l|
+                                sub_prefix = (prefix + [id])[0, l]
+                                sub_prefix[1] = insert_id
+                                lhid = sub_prefix.join('/')
+                                lparent_hid = sub_prefix[0, sub_prefix.size - 1].join('/')
+                                @questions_for_hid[lhid] ||= []
+                                @questions_for_hid[lhid] << qid
+                            end
+                        end
+                    else
+                        (0..(prefix + [id]).size).each do |l|
+                            sub_prefix = (prefix + [id])[0, l]
+                            lhid = sub_prefix.join('/')
+                            @questions_for_hid[lhid] ||= []
+                            @questions_for_hid[lhid] << qid
+                        end
                     end
                 end
             end
