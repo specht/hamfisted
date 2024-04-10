@@ -233,6 +233,12 @@ class Parser
     def render_tex(s, key, suffix, width)
         s.gsub!('<u>', '\\underline{')
         s.gsub!('</u>', '}')
+        s.gsub!('μ', '\\textmu{}')
+        s.gsub!('Sicherheitsabstand', 'Sicher\\-heits\\-ab\\-stand')
+        s.gsub!('Frequenzmultiplexverfahren', 'Frequenz\\-multi\\-plex\\-ver\\-fahren')
+        s.gsub!('Expeditionen', 'Ex\\-pedi\\-tionen')
+        s.gsub!('Empfehlung', 'Emp\\-feh\\-lung')
+        s.gsub!('%', '\\%')
         key_with_suffix = "#{key}_#{suffix}"
         sha1 = Digest::SHA1.hexdigest(s)[0, 12]
         STDERR.puts "#{'-' * 30} #{key}_#{suffix} #{'-' * 30}"
@@ -246,10 +252,13 @@ class Parser
                     \\usepackage[utf8]{inputenc}
                     \\usepackage[german]{babel}
                     \\usepackage[bitstream-charter]{mathdesign}
+                    \\usepackage{textcomp}
                     \\let\\circledS\\undefined
                     \\usepackage{amsmath,amssymb,amsfonts,amsthm}
                     \\usepackage{tikz}
                     \\usepackage{setspace}
+                    \\usepackage{csquotes}
+                    \\MakeOuterQuote{"}
                     \\setstretch{1.15}
                     \\pagestyle{empty}
                     \\begin{document}
@@ -272,7 +281,7 @@ class Parser
             system("pdflatex -interaction=nonstopmode -output-directory cache cache/#{sha1}.tex")
             if $?.exitstatus == 0
                 system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/#{sha1}.svg --actions='select-all;fit-canvas-to-selection' --pdf-poppler /app/#{sha1}.pdf")
-                system("rm -f cache/#{sha1}.tex")
+                # system("rm -f cache/#{sha1}.tex")
                 system("rm -f cache/#{sha1}.log")
                 system("rm -f cache/#{sha1}.aux")
                 system("rm -f cache/#{sha1}.pdf")
@@ -450,44 +459,4 @@ end
 
 File.open('../data/questions.yaml', 'w') do |f|
     f.puts parser.dump.to_yaml
-end
-
-File.open('../data/latex_terms.html', 'w') do |f|
-    f.puts <<~END_OF_STRING
-    <style>
-        .eq {
-            display: inline-flex;
-            font-family: 'Alegreya';
-            border: 1px solid red;
-            align-items: center;
-        }
-        .frac {
-            display: inline-block;
-            min-width: 0.8em;
-        }
-        .frac > span:first-child {
-            border-bottom: 1px solid black;
-        }
-        .frac > span {
-            display: block;
-            text-align: center;
-        }
-        .eq sub {
-            font-size: 60%;
-            padding-top: 1em;
-        }
-        .eq sup {
-            font-size: 60%;
-            padding-bottom: 1em;
-        }
-    </style>
-    END_OF_STRING
-    f.puts "<table><tr><th>Term</th><th>Converted</th></tr>"
-    parser.latex_terms.to_a.each do |x|
-        f.puts "<tr>"
-        f.puts "<td style='max-width: 20em; font-family: monospace;'>#{x}</td>"
-        f.puts "<td>blabla #{parser.latex_to_html(x)} blabla</td>"
-        f.puts "</tr>"
-    end
-    f.puts "</table>"
 end

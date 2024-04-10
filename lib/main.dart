@@ -184,7 +184,10 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       cards.add(
         InkWell(
           child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             surfaceTintColor: Colors.transparent,
+            elevation: 2,
             child: ListTile(
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -271,7 +274,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     ];
     cards.add(Card(
       surfaceTintColor: Colors.transparent,
-      elevation: 4,
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: ListTile(
         title: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -288,7 +292,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       int i = answerIndex[ti];
       cards.add(Card(
         surfaceTintColor: Colors.transparent,
-        elevation: 2,
+        elevation: 1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
@@ -1201,7 +1206,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
-    qid = '2024_BB105';
+    // qid = '2024_NH301';
 
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
@@ -1287,6 +1292,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
 
       return Card(
         child: Column(children: challengeParts),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         elevation: 2,
         surfaceTintColor: Colors.transparent,
       );
@@ -1334,6 +1340,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                 offset: offset * constraints.maxWidth,
                                 child: Card(
                                   elevation: 1,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
                                   surfaceTintColor: Colors.transparent,
                                   child: InkWell(
                                     onTapCancel: () => _timer?.cancel(),
@@ -1586,7 +1594,7 @@ class _AboutState extends State<About> {
       body: Html(
         data: "<h2>Hamfisted</h2>"
             "<p>App zur Vorbereitung auf die Amateurfunkprüfung</p>"
-            "<p>Die Fragen stammen aus der AFUTrainer-App von <a href='http://oliver-saal.de/software/afutrainer/download.php'>Oliver Saal</a>. Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht.</p>"
+            "<p>Die Fragen von 2007 stammen aus der AFUTrainer-App von <a href='http://oliver-saal.de/software/afutrainer/download.php'>Oliver Saal</a>. Die Fragen von 2024 stammen von der Bundesnetzagentur (3. Auflage, März 2024). Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht.</p>"
             "<p><b>Version:</b> ${version}</p>"
             "<p><b>Quelltext:</b> <a href='https://github.com/specht/hamfisted'>https://github.com/specht/hamfisted</a></p>"
             "<p><b>Kontakt:</b> <a href='mailto:specht@gymnasiumsteglitz.de'>specht@gymnasiumsteglitz.de</a></p>",

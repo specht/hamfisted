@@ -18831,7 +18831,7 @@
     - a1f5bf7985ba
     - 612fb826e9ba
   2024_AA112:
-    :challenge_tex: 258b8f373f8a
+    :challenge_tex: 6759bc659af6
     :answers_tex:
     - 623219148e18
     - fc782be84e60
@@ -18922,7 +18922,7 @@
     - d937a2d58002
     - 5bfdb39cb9ee
   2024_EA115:
-    :challenge_tex: 2cb0959cdb0c
+    :challenge_tex: 1f8adbd23c14
     :answers_tex:
     - e6763d81f0d7
     - 25a72d4ba777
@@ -18938,10 +18938,10 @@
   2024_EA113:
     :challenge_tex: 2aa88a3e96fb
     :answers_tex:
-    - 18def7f7cb63
-    - 8ab7eba4435b
-    - 39b525bd8bc6
-    - 5a0b9250b3e2
+    - 562673e6ba94
+    - f14f2aa45b87
+    - 8ae28d86b620
+    - 64b55a0defe7
   2024_EA112:
     :challenge_tex: 0c28a1ccba26
     :answers_tex:
@@ -19030,7 +19030,7 @@
     :challenge_tex: 0dfe1c86ec26
     :answers_tex:
     - abbe94cc76e4
-    - 2adeeaf00fdd
+    - 993636ecd685
     - ada5b265ed53
     - 31440ec755cc
   2024_NA212:
@@ -19044,14 +19044,14 @@
     :challenge_tex: b10594f62704
     :answers_tex:
     - a4c3a745e17c
-    - 6cb14fe7bacc
+    - b376d8db0b88
     - ed0c90655940
     - '0920721306d9'
   2024_NA210:
     :challenge_tex: 3e9c4f9d835e
     :answers_tex:
     - a71cda93995e
-    - bed16423d68f
+    - 2370b36eb1f1
     - 80cdf6245851
     - d56c5b4d2baf
   2024_NA209:
@@ -19065,7 +19065,7 @@
     :challenge_tex: 6d421c659d9a
     :answers_tex:
     - b35a3e3cadcb
-    - dcdc1bbefe95
+    - 3bf711ae1b08
     - 5569e14873ef
     - 0bf8bdb48fac
   2024_NA207:
@@ -19273,17 +19273,17 @@
   2024_AB214:
     :challenge_tex: 26c089327f0f
     :answers_tex:
-    - 67af846ed180
-    - 03ca15c82d28
-    - 911a1ca34602
-    - 64a27afe9e4d
+    - ec086d2a5dd2
+    - 020e6a8ec1a5
+    - e3e6b70f4e12
+    - 2dd29e580d0a
   2024_AB213:
     :challenge_tex: 130cf8613f14
     :answers_tex:
-    - b99ac7c7947b
-    - 4b645b53651f
-    - 69537dd8c743
-    - ec21458881ba
+    - 3975d2f33c6f
+    - 78d6a2047753
+    - 24e65884ab12
+    - 3c37e30da778
   2024_AB212:
     :challenge_tex: 99e2c8cdfea9
     :answers_tex:
@@ -19292,7 +19292,7 @@
     - 1e3309b4ed33
     - fb1c8fcef82c
   2024_AB211:
-    :challenge_tex: 72ec0a20ae66
+    :challenge_tex: 2bc66853d094
     :answers_tex:
     - cfa5b1aba0aa
     - 04c692b5f843
@@ -19749,7 +19749,7 @@
     - 3ac2d9297424
     - 45de46e56efa
   2024_EB408:
-    :challenge_tex: b2b130adbcb6
+    :challenge_tex: 413e29272fd4
     :answers_tex:
     - 881d68aa1525
     - d8168716a9ba
@@ -20213,7 +20213,7 @@
     - d5a9a24aedc9
     - d4c692e62e58
   2024_EC112:
-    :challenge_tex: 3e0714e2b6e6
+    :challenge_tex: 27c1e3e543b5
     :answers_tex:
     - 59b564d85ec1
     - 2ad11be24cc1
@@ -20302,24 +20302,24 @@
   2024_NC110:
     :challenge_tex: 181b44c7ede8
     :answers_tex:
-    - dbfe35a1a268
-    - 417d24233f04
-    - a33b5129cfe7
-    - 120bd9d1406a
+    - b0318cce47fc
+    - 48c650d908b9
+    - 9c9a4b91f476
+    - de51aab397a7
   2024_NC109:
     :challenge_tex: 290c0ecd430d
     :answers_tex:
-    - 10bd979d502d
-    - 8275ef9d8113
-    - 868545769ca0
-    - 5abbfd50e710
+    - a1d24b7eda7b
+    - f06051a7aa47
+    - 171c4fe1d027
+    - 8c2e02238075
   2024_NC108:
     :challenge_tex: c756c41e7ec8
     :answers_tex:
-    - 4c3ee9878170
-    - 10bd979d502d
-    - 868545769ca0
-    - 5abbfd50e710
+    - c9a5939251e5
+    - a1d24b7eda7b
+    - 171c4fe1d027
+    - 8c2e02238075
   2024_NC107:
     :challenge_tex: c207ed454f66
     :answers_tex:
@@ -20373,7 +20373,7 @@
     - c05ff65dfeb2
     - 7a2895c2e572
   2024_AC111:
-    :challenge_tex: 951b751f4593
+    :challenge_tex: 0ecd4c04fee5
     :answers_tex:
     - 92c2cd4d5c79
     - cc693108d93d
@@ -20396,10 +20396,10 @@
   2024_AC108:
     :challenge_tex: 8b4d455d3743
     :answers_tex:
-    - 733e0bfdfd99
-    - a9e636b3c85e
-    - 0ed8a2967ee4
-    - d1a6beb01eec
+    - 4c84009cc463
+    - 652c462aeb5f
+    - 1a558fbcd0fa
+    - b4f0e4e07c03
   2024_AC107:
     :challenge_tex: a1216cece5aa
     :answers_tex:
@@ -20533,7 +20533,7 @@
     - e1733ce760fa
     - ba3010c83c29
   2024_AC208:
-    :challenge_tex: 2c4fe8798511
+    :challenge_tex: 350af52c971d
     :answers_tex:
     - 91032ad7bbcb
     - ab7f7b955330
@@ -20550,18 +20550,18 @@
     :challenge_tex: a152f5158d76
     :answers_tex:
     - 620b7ba6d07b
-    - ecd4b0660c95
+    - af6a023e22dc
     - 9f6ae3cbf96c
     - 3fc99c21fb26
   2024_AC205:
     :challenge_tex: 1be4a1d43fc7
     :answers_tex:
-    - e2dd2cd8098a
-    - ada66b82d9fb
+    - 9a49d48f022a
+    - ac595e6e5e44
     - d5c43e9003f0
     - 4370e7b1a959
   2024_AC204:
-    :challenge_tex: ca8f8a935e46
+    :challenge_tex: 3fc2f5da44c1
     :answers_tex:
     - 44848069b2e7
     - d22f9c1b6d0f
@@ -20589,25 +20589,25 @@
     - 5883b84dd596
     - a9faaaca97bd
   2024_EC307:
-    :challenge_tex: ff235d52480b
+    :challenge_tex: 9a661a02940e
     :challenge_svg: EC307_q.svg
     :challenge_svg_width: 226.349
     :challenge_svg_height: 139.731
     :answers_tex:
-    - 7031e12eb660
-    - 0c1aea074180
-    - aa550dd3644a
-    - 73d2d6a1d637
+    - 3d492c885338
+    - 2d6a6d15d8c6
+    - d6b275b0615a
+    - d40be87fab34
   2024_EC306:
-    :challenge_tex: e604ea65d1b0
+    :challenge_tex: 2cda3edea9c3
     :challenge_svg: EC306_q.svg
     :challenge_svg_width: 228.705
     :challenge_svg_height: 168.547
     :answers_tex:
-    - e0786714aa13
-    - 4e0b1b8e8397
-    - e5dfb10a6602
-    - ad1ff6d5c32d
+    - a61dac6e3faa
+    - 516819c7c8f1
+    - 21d1962a0927
+    - 90299a6fca15
   2024_EC305:
     :challenge_tex: 8da588ae2f30
     :answers_tex:
@@ -21485,7 +21485,7 @@
     - 78dd3a3a22dd
     - ab13e569afcc
   2024_AD105:
-    :challenge_tex: 10ba5f8ddb36
+    :challenge_tex: 350ab71c053f
     :answers_tex:
     - 7199229b450f
     - e2719e472f4f
@@ -21509,12 +21509,12 @@
     - 2f3b03165ce6
     - 912d746b4a11
   2024_AD102:
-    :challenge_tex: bfd7ecd5224e
+    :challenge_tex: cca7d5f00859
     :answers_tex:
-    - 3069842b5c05
-    - 90576a0c32aa
+    - 6786afd8e2ce
+    - 7ba5b90a46df
     - c0611ebb86e2
-    - 4d3d6d6227ed
+    - f8c6bb077a64
   2024_AD101:
     :challenge_tex: ed4aeabd1047
     :answers_tex:
@@ -21543,15 +21543,15 @@
     - 845421ef980f
     - d9459201b4be
   2024_ED122:
-    :challenge_tex: a1ee0b261b9a
+    :challenge_tex: 841df4fb6dc7
     :challenge_svg: ED122_q.svg
     :challenge_svg_width: 226.335
     :challenge_svg_height: 101.525
     :answers_tex:
-    - 497f3aaf470b
+    - 184bb782a139
     - 200717cb15a1
-    - 208eb64450bb
-    - aa157e07b284
+    - e36edbc21a44
+    - bf5fa6fd519e
   2024_ED121:
     :challenge_tex: 0d2cf1736cff
     :challenge_svg: ED121_q.svg
@@ -21563,33 +21563,33 @@
     - 62be8d180906
     - c2a8468449b0
   2024_ED120:
-    :challenge_tex: b5ae37bb46ff
+    :challenge_tex: 84b96498f3fd
     :answers_tex:
-    - f4c55ec97d23
+    - 2bb6912c477e
     - 6c7035c3263c
-    - ebba272f9eb9
-    - 26cab76cb62d
+    - 87f11b2c6cae
+    - '05305986e301'
   2024_ED119:
-    :challenge_tex: faf513a9458e
+    :challenge_tex: a1a58a2fb29f
     :answers_tex:
-    - 4c11a36fe361
-    - eb0f9e3b51b1
-    - 5a74e720d1c8
-    - f63f30811151
+    - 7852624038a6
+    - 91178846e627
+    - 7e81787a4365
+    - 55f2374a3099
   2024_ED118:
-    :challenge_tex: a06a1c66508b
+    :challenge_tex: 7db177d0339e
     :answers_tex:
-    - 0a47b4da5dae
+    - 0b91c9d04d92
     - 70d07fa9b616
     - 858afccdaafd
     - babb08bcc062
   2024_ED117:
-    :challenge_tex: 75a47f24b784
+    :challenge_tex: 73d6c602aef4
     :answers_tex:
-    - 37843334214a
-    - f773b6eab99d
-    - 603c543ef0e8
-    - 9f5ef8851da3
+    - '409898580261'
+    - 7c3d9f2591c1
+    - 4eb0f4286ada
+    - 357764749e33
   2024_ED116:
     :challenge_tex: f9abd5951ec5
     :challenge_svg: ED116_q.svg
@@ -21766,28 +21766,28 @@
     - 7e892fa54890
     - a4a929009aba
   2024_AD226:
-    :challenge_tex: 5cda5b1f9e95
+    :challenge_tex: 47ceb53c62d3
     :answers_tex:
     - ac3478d69a3c
     - e1822db470e6
     - f1abd670358e
     - 84320eb8dbbe
   2024_AD225:
-    :challenge_tex: 95493a8ccf61
+    :challenge_tex: 53bba4c7a8f0
     :answers_tex:
     - b1d5781111d8
     - 356a192b7913
     - fa5836450376
     - 310b86e0b62b
   2024_AD224:
-    :challenge_tex: 5e9ef1fdbc36
+    :challenge_tex: daa98bcc918d
     :answers_tex:
     - 3f64452df789
     - 31f89d80690b
     - 96d13170dd47
     - 3fc4592707b3
   2024_AD223:
-    :challenge_tex: 9687fa726b94
+    :challenge_tex: c4321130a44f
     :answers_tex:
     - c6fd0ff71ff1
     - cbb6df692397
@@ -21880,7 +21880,7 @@
     - e3ed471d2865
     - b779be96c3be
   2024_AD211:
-    :challenge_tex: 82247e3180f0
+    :challenge_tex: 45f6ac220aa5
     :challenge_svg: AD211_q.svg
     :challenge_svg_width: 227.96
     :challenge_svg_height: 98.85
@@ -21890,7 +21890,7 @@
     - 2ea997e6aabb
     - e9eda8e9e6f2
   2024_AD210:
-    :challenge_tex: beb9a65ae90f
+    :challenge_tex: 67efc1074fc8
     :challenge_svg: AD210_q.svg
     :challenge_svg_width: 225.68
     :challenge_svg_height: 24.608
@@ -21900,7 +21900,7 @@
     - 2299f625df43
     - 747819f335e4
   2024_AD209:
-    :challenge_tex: bc4f0557f7ff
+    :challenge_tex: ec74152b4de2
     :challenge_svg: AD209_q.svg
     :challenge_svg_width: 225.68
     :challenge_svg_height: 24.608
@@ -21910,7 +21910,7 @@
     - 32a1ee9a08e4
     - 83c904f076ea
   2024_AD208:
-    :challenge_tex: 5ebd5da69919
+    :challenge_tex: 858e37004442
     :challenge_svg: AD208_q.svg
     :challenge_svg_width: 225.68
     :challenge_svg_height: 24.608
@@ -22318,7 +22318,7 @@
     - AD305_c.svg
     - AD305_d.svg
   2024_AD304:
-    :challenge_tex: 9a9999c2871b
+    :challenge_tex: ead1daf59d9e
     :challenge_svg: AD304_q.svg
     :challenge_svg_width: 227.718
     :challenge_svg_height: 75.929
@@ -22328,7 +22328,7 @@
     - 3f32b64d2e4c
     - 40bcfa08cca3
   2024_AD303:
-    :challenge_tex: 6394e24702d1
+    :challenge_tex: 5b31be0e23cc
     :challenge_svg: AD303_q.svg
     :challenge_svg_width: 227.718
     :challenge_svg_height: 75.929
@@ -22482,17 +22482,17 @@
   2024_AD430:
     :challenge_tex: 87137c0129df
     :answers_tex:
-    - 8f4b395f5054
-    - eea25f9dfdc5
-    - 896edaea6d0d
-    - 57fce0112cfc
+    - fc1c6c425b08
+    - 7f989c0b83f4
+    - b6bb54a8b20d
+    - dc42d6dc9018
   2024_AD429:
     :challenge_tex: 4b3b0fc43b86
     :answers_tex:
-    - caa427a2783e
-    - 4d04d593eab2
-    - 0bb0a327d138
-    - ec6472de3478
+    - 82514c8b98e0
+    - faf5130d5e58
+    - 4f68d146712e
+    - bbd4fed3caf3
   2024_AD428:
     :challenge_tex: eef633914137
     :answers_tex:
@@ -22545,31 +22545,31 @@
   2024_AD421:
     :challenge_tex: 5b7d2d3f3a12
     :answers_tex:
-    - b1e76399c646
-    - 6b7bdb3d8fd6
-    - b8b799346c04
-    - f0ef09fc3f83
+    - ecdb9c5bfdaf
+    - 2acd2d919646
+    - f81441b9cf38
+    - 0d8a4146494b
   2024_AD420:
     :challenge_tex: 961f3b1aa6a9
     :answers_tex:
-    - b8b799346c04
-    - 6b7bdb3d8fd6
-    - f0ef09fc3f83
-    - b1e76399c646
+    - f81441b9cf38
+    - 2acd2d919646
+    - 0d8a4146494b
+    - ecdb9c5bfdaf
   2024_AD419:
     :challenge_tex: 886d3e11d430
     :answers_tex:
-    - f0ef09fc3f83
-    - 6b7bdb3d8fd6
-    - b8b799346c04
-    - b1e76399c646
+    - 0d8a4146494b
+    - 2acd2d919646
+    - f81441b9cf38
+    - ecdb9c5bfdaf
   2024_AD418:
     :challenge_tex: b9819df67630
     :answers_tex:
     - 8d645731c6ac
-    - ebe00c4ff565
-    - 473ce0aed9ec
-    - 2dc6bb9a03e2
+    - 81ac0ec68231
+    - e3cc169cc85c
+    - 5b0ca7b83b80
   2024_AD417:
     :challenge_tex: 5a5e1e459ef9
     :answers_tex:
@@ -23179,10 +23179,10 @@
     :challenge_svg_width: 228.777
     :challenge_svg_height: 128.178
     :answers_tex:
-    - df2b6bfcf63f
-    - b339c66c15c6
-    - 611dee0e5d65
-    - ec6472de3478
+    - dbe67de0384b
+    - f38a204ced64
+    - 7800177b3ed5
+    - bbd4fed3caf3
   2024_EE101:
     :challenge_tex: cdb9eb787ff1
     :answers_svg:
@@ -23261,7 +23261,7 @@
     :answers_tex:
     - 3f392f84ec74
     - a155b63a6435
-    - decd2d52a437
+    - 5a95ac640da9
     - 6b69a35eddd6
   2024_AE206:
     :challenge_tex: ec65d5866f82
@@ -23280,10 +23280,10 @@
   2024_AE204:
     :challenge_tex: 1869f8e5a12d
     :answers_tex:
-    - bb698d4c8d4a
-    - 506cb3d8808f
-    - 32e7f8051f35
-    - a6c93ca15dfa
+    - 0bd63b1619b8
+    - 94cd633e243e
+    - f1604a0772f3
+    - aa53cf914fb3
   2024_AE203:
     :challenge_tex: c0d40f9681fb
     :answers_svg:
@@ -23297,12 +23297,12 @@
     :challenge_svg_width: 228.944
     :challenge_svg_height: 185.319
     :answers_tex:
-    - 0ed334017ec5
-    - f3709e635dd8
-    - 76f6873faea2
-    - b88a4057cc3e
+    - 7394f8fd6d3c
+    - 403f47b5d64b
+    - 7146aff37985
+    - 0b7629d8c9d7
   2024_AE201:
-    :challenge_tex: 4162e505622a
+    :challenge_tex: e9113e5c9a41
     :answers_svg:
     - AE201_a.svg
     - AE201_b.svg
@@ -23663,14 +23663,14 @@
     - '0827e946baf3'
     - 6009a20f0eb6
   2024_AE422:
-    :challenge_tex: c8b7cbb9dbc3
+    :challenge_tex: fca144756f40
     :answers_tex:
     - d3daf4198433
     - a2d446a3c25b
     - b56b2940fba2
     - 13b4bfedbb36
   2024_AE421:
-    :challenge_tex: 1d4612ce38a0
+    :challenge_tex: a3a3fb122b5b
     :answers_tex:
     - 01edb4bf1da2
     - 6b75d8b29667
@@ -23852,7 +23852,7 @@
     - 9005541e62f1
     - be771c8df60a
   2024_EE410:
-    :challenge_tex: 50dd42df9962
+    :challenge_tex: 220019fc1aad
     :answers_tex:
     - '543161495273'
     - 9005541e62f1
@@ -24224,12 +24224,12 @@
     - c562c2e24c48
     - '092b2693f16f'
   2024_AF105:
-    :challenge_tex: c87ea7e0c773
+    :challenge_tex: 1a28fa5c871d
     :answers_tex:
-    - 6a1cdde933e1
-    - 0d50195f7abf
-    - 49550ee1d36b
-    - 18ab7ef82178
+    - 53150c76401e
+    - 1fe9c681505d
+    - 0b1e8380c379
+    - 6b020c6946b3
   2024_AF104:
     :challenge_tex: 35aba5092a62
     :answers_tex:
@@ -26191,7 +26191,7 @@
     - c9fc9bc54a47
     - 1b7a61c3cd34
   2024_AG218:
-    :challenge_tex: b152379ac736
+    :challenge_tex: 0f8974a1d7f7
     :answers_tex:
     - 29fa2b9ced2a
     - bd906e96389c
@@ -26499,10 +26499,10 @@
   2024_EG202:
     :challenge_tex: 4c7233a7201c
     :answers_tex:
-    - 9967384903fb
-    - f6b4513c0f34
-    - 77a66cf9718e
-    - ff3764013e8c
+    - 0da08ea16a4f
+    - 9e048a6ca646
+    - a81f87d15e40
+    - 498ab50dae56
   2024_EG201:
     :challenge_tex: 7b100abc5bc7
     :answers_tex:
@@ -27122,17 +27122,17 @@
   2024_EG403:
     :challenge_tex: fb0343a0d799
     :answers_tex:
-    - f6b4513c0f34
-    - 4bd3acba376e
-    - 4d04d593eab2
-    - 3cfe42fe75c2
+    - 9e048a6ca646
+    - 52fd9f8e6bcf
+    - faf5130d5e58
+    - 95540a12b84a
   2024_EG402:
     :challenge_tex: ac318a40c225
     :answers_tex:
-    - 4d04d593eab2
-    - 6ee9819ce316
-    - 4bd3acba376e
-    - f6b4513c0f34
+    - faf5130d5e58
+    - 4778b41e1972
+    - 52fd9f8e6bcf
+    - 9e048a6ca646
   2024_EG401:
     :challenge_tex: 75869bdc0da7
     :answers_tex:
@@ -27863,7 +27863,7 @@
   2024_NH301:
     :challenge_tex: 7920405d474f
     :answers_tex:
-    - 5de8c96238f5
+    - 10589660967f
     - 7d32cc7fa2c6
     - 124aff332b2e
     - 47305174a000
@@ -27875,19 +27875,19 @@
     - 7ee68a4e9f36
     - 425ef193e6e7
   2024_AI104:
-    :challenge_tex: 814f16656eaf
+    :challenge_tex: 5d467ab12a00
     :answers_tex:
     - 98224ca96a51
     - 3b5d622b623b
     - 2ac666b56069
     - 546870c65a4a
   2024_AI103:
-    :challenge_tex: 89554bdf0ce3
+    :challenge_tex: 5ae36dca9925
     :answers_tex:
-    - eeb084b1096f
-    - cd94c5db8e01
-    - d44a0f1d23dc
-    - 15cef04e152a
+    - c7179732e39c
+    - 7ed6dae38380
+    - beba98d90fee
+    - 97a2762a646a
   2024_AI102:
     :challenge_tex: 14ce7fc1e92c
     :challenge_svg: AI102_q.svg
@@ -28110,10 +28110,10 @@
   2024_AI303:
     :challenge_tex: 2325f9188e24
     :answers_tex:
-    - 6b35db7ad7e1
-    - 526be4c84d7f
-    - 24c8bf0d055f
-    - 29f87260335f
+    - 66051748f5f8
+    - fdb4016df590
+    - a4c2cd33df02
+    - d51148fb5b7d
   2024_AI302:
     :challenge_tex: 8d61aa1fcc29
     :answers_tex:
@@ -28141,10 +28141,10 @@
     :challenge_svg_width: 227.694
     :challenge_svg_height: 174.217
     :answers_tex:
-    - 418d415ea48b
-    - f1dfc175c229
-    - 56c58f6aa8fa
-    - ec07e272e896
+    - 7891dd3999b0
+    - 7de19591c14f
+    - 1322e49a29f8
+    - e74374bb90c0
   2024_EI302:
     :challenge_tex: c1872281e07a
     :challenge_svg: EI302_q.svg
@@ -28231,7 +28231,7 @@
     :challenge_tex: 4805f493d244
     :answers_tex:
     - dfd86c74fcd8
-    - a593f31a179e
+    - 07c9d29c1494
     - 267ecfa81d12
     - dfd29d91c256
   2024_NI202:
@@ -28277,14 +28277,14 @@
     - 428c53d79b74
     - cd2a185d1de1
   2024_AI507:
-    :challenge_tex: d149db6ce215
+    :challenge_tex: 1f398a96edad
     :answers_tex:
     - bcd5b2df8afe
     - 120aba9ed08b
     - 23b0ad1e4bb0
     - cdb2e928fe28
   2024_AI506:
-    :challenge_tex: '05238a97869a'
+    :challenge_tex: cc6afc23958c
     :answers_tex:
     - fe2fe849f081
     - eb5c345d7a8d
@@ -28829,17 +28829,17 @@
   2024_AJ225:
     :challenge_tex: 478e5e7ae1a8
     :answers_tex:
-    - a8e3bcd8a7f7
-    - faab938cd3a9
-    - a6d3bcdf00d6
-    - 6b61063d87b7
+    - d30ef613b00f
+    - 1999128150a4
+    - f4d2be1bb953
+    - abb3f18184d2
   2024_AJ224:
     :challenge_tex: f51feedad1be
     :answers_tex:
-    - faab938cd3a9
-    - a8e3bcd8a7f7
-    - a6d3bcdf00d6
-    - 6b61063d87b7
+    - 1999128150a4
+    - d30ef613b00f
+    - f4d2be1bb953
+    - abb3f18184d2
   2024_AJ223:
     :challenge_tex: 620f79a10426
     :answers_tex:
@@ -29190,56 +29190,56 @@
     - 255c5845eb3c
     - 6d636dae28fd
   2024_AK112:
-    :challenge_tex: d77c3e91fced
+    :challenge_tex: 74750619c01b
     :answers_tex:
     - 6a80b3651f88
     - 7c84fcef1aa0
     - 522ab7caff35
     - c10d3dac1f6a
   2024_AK111:
-    :challenge_tex: 1974708dbc1c
+    :challenge_tex: bdba7869784f
     :answers_tex:
     - 42a4dd35a155
     - 25a3cd2c6c4b
     - 27d7f19f417c
     - ce4b20eac056
   2024_AK110:
-    :challenge_tex: f7b77a2861dc
+    :challenge_tex: a0cb0d691b71
     :answers_tex:
     - 0c69c88706d5
     - bb3e1c4bd8ec
     - be31d9416f75
     - 2c00d355f5de
   2024_AK109:
-    :challenge_tex: 1daec6b243e1
+    :challenge_tex: f3e4d20753b0
     :answers_tex:
     - 1bc3925dd912
     - 48363c592687
     - dfc2c1289a66
     - 5caa0baca47a
   2024_AK108:
-    :challenge_tex: b5b6d9ffd3e5
+    :challenge_tex: 128af0483ca6
     :answers_tex:
     - 22fca401a89b
     - 4ffab94235b1
     - c9abfcb52dc1
     - 39cc8acf41ba
   2024_AK107:
-    :challenge_tex: 1f72e9716c5f
+    :challenge_tex: 6effd229ba7c
     :answers_tex:
     - 564cf2765305
     - 814916a25d65
     - f1319caebb86
     - fa7d8bddf718
   2024_AK106:
-    :challenge_tex: f57521f1c08d
+    :challenge_tex: b0b3c001ccd9
     :answers_tex:
     - 5efad818d000
     - 521fa9c2d593
     - 5eba3623cd34
     - 4950dac141e6
   2024_AK105:
-    :challenge_tex: 0dbb9b624bc3
+    :challenge_tex: 65946251220d
     :answers_tex:
     - a78cecad6514
     - d9a261bc6882
@@ -29253,12 +29253,12 @@
     - c3cdd557383f
     - 4dc762162d77
   2024_AK103:
-    :challenge_tex: 717f50842a2b
+    :challenge_tex: b4feb7451da6
     :answers_tex:
-    - 6e5e46a75e24
+    - 97afe0cc34b4
     - 71e397ab664b
-    - 5ce88ced3e17
-    - f498533809be
+    - 50006f7a2b80
+    - 590fcab24cbc
   2024_AK102:
     :challenge_tex: 4d39023d80c0
     :answers_tex:
@@ -29274,33 +29274,33 @@
     - f6491e07aa9c
     - 96c2b56d9c85
   2024_EK108:
-    :challenge_tex: cd44c3b9c032
+    :challenge_tex: 05fba5566e19
     :answers_tex:
     - 30c96836331a
     - 55c482f41c37
     - 10432e060d89
     - d581f5eab4ee
   2024_EK107:
-    :challenge_tex: 2b5e2a5752b8
+    :challenge_tex: 585db41c10dc
     :answers_tex:
     - dd855dfc7c6d
     - 3ba637d5241c
     - e7f5350455e3
     - c93161864315
   2024_EK106:
-    :challenge_tex: 1565f32eeafb
+    :challenge_tex: 68e945efce4d
     :answers_tex:
     - 227a14b312ef
     - bda2c48e40b8
     - 2f807abeaadc
     - fdf053c6c3e2
   2024_EK105:
-    :challenge_tex: '088eebd2df77'
+    :challenge_tex: ae3def6be11e
     :answers_tex:
     - 4824b76a9957
-    - 5c51d955181f
-    - d905524aa26e
-    - e8191dd5d011
+    - 202609ff62d6
+    - 3e5a3860888a
+    - 1f8aa5167f81
   2024_EK104:
     :challenge_tex: 63a1f5271be3
     :answers_tex:
@@ -29438,7 +29438,7 @@
     :challenge_tex: d93df97c8d2e
     :answers_tex:
     - 9700ca83eddc
-    - 9dd468c8bd3b
+    - 52bd8524923a
     - 682109d909ef
     - 9163a4ee1acb
   2024_NK311:
@@ -29876,14 +29876,14 @@
     - 5efd39786457
     - c60baaebc952
   2024_BC203:
-    :challenge_tex: 3fa2f2f1f10b
+    :challenge_tex: 4b206b7bd004
     :answers_tex:
     - 2ae7e9182483
     - 810fc77304b5
     - a93ac8c0fa0a
     - 8926498d6b6b
   2024_BC202:
-    :challenge_tex: 310e49aca57e
+    :challenge_tex: bf1c71fd4ddc
     :answers_tex:
     - 060dad1fe770
     - 810fc77304b5
@@ -29892,7 +29892,7 @@
   2024_BC201:
     :challenge_tex: 5a3df5b29e10
     :answers_tex:
-    - 0fba17148558
+    - 204d3f1f2627
     - 2700998d280c
     - 9a9f7f2fea15
     - ca49cf094eaf
@@ -29976,9 +29976,9 @@
   2024_BD212:
     :challenge_tex: dedd06bbdc4e
     :answers_tex:
-    - b0f6c8fc7eff
+    - '08c9a854d26c'
     - aee5b2a74f4a
-    - 567d17e88f46
+    - 1314ba6af90b
     - e2688a13c804
   2024_BD211:
     :challenge_tex: bdeedcfe5953
@@ -30181,7 +30181,7 @@
     :answers_tex:
     - dbe6edc0dab8
     - 97bc11b1c957
-    - '05281f1da9b2'
+    - d5472f0009de
     - 5294ae155ce0
   2024_BE118:
     :challenge_tex: c0af92fe45c0
@@ -30533,10 +30533,10 @@
   2024_BE410:
     :challenge_tex: f50245a38a6c
     :answers_tex:
-    - 273e4ef9281c
-    - '0369008355bd'
-    - 9fbc6c52ca2c
-    - a0fdb6281d03
+    - b2c33823b9fd
+    - 3b1286779c14
+    - d83d1a6f055a
+    - dafdbcebb27b
   2024_BE409:
     :challenge_tex: 2b725f98bc7c
     :answers_tex:
@@ -30601,7 +30601,7 @@
     - 33301febe114
     - 6684decf18d0
   2024_BF109:
-    :challenge_tex: be2c8f830a0e
+    :challenge_tex: f92daf35e97b
     :answers_tex:
     - 58eeb7852e3c
     - 8f75d126405a
@@ -30765,8 +30765,8 @@
     :challenge_tex: 9bd8cc6fce38
     :answers_tex:
     - 715ec5162228
-    - a184c8b181bc
-    - 3bb42332c9d2
+    - ae1c54c83d16
+    - f75878b30fb4
     - 4da36f01e54f
   2024_VA202:
     :challenge_tex: e780cfe930b5
@@ -30814,9 +30814,9 @@
     :challenge_tex: 65fbd40fd32a
     :answers_tex:
     - c7ea3a8ee47e
-    - 62c5bdf795ef
+    - dfba7b8410c6
     - 5b8d50339157
-    - '866860519896'
+    - b335d7b3c86a
   2024_VA406:
     :challenge_tex: f7c36c7a6dff
     :answers_tex:
@@ -30860,18 +30860,18 @@
     - 4a8c111525f9
     - 9df8fa03ae37
   2024_VB114:
-    :challenge_tex: 78a40b2e54d6
+    :challenge_tex: e28d807fe8b3
     :answers_tex:
     - 5aa0b1b564bf
     - af5f251878bd
     - 890b705907e9
     - 3a432b9ed6b0
   2024_VB113:
-    :challenge_tex: 19753e8264d2
+    :challenge_tex: 54cf6a773f08
     :answers_tex:
     - e5ba6251d296
     - 312a6af140b8
-    - 45251396d1d7
+    - f25f2f53ccc4
     - b0d7dad09ca6
   2024_VB112:
     :challenge_tex: 2fc1ddfb20f3
@@ -30881,14 +30881,14 @@
     - ca987fab5029
     - 277d4a5cc2f9
   2024_VB111:
-    :challenge_tex: fa12e6dca801
+    :challenge_tex: 566c9806d0a8
     :answers_tex:
-    - 4c65f1a0fd8c
+    - 302ea1a491af
     - 2d86305a944f
-    - 1cace8f3bf7f
+    - e490cd680246
     - aa3d619d655d
   2024_VB110:
-    :challenge_tex: b2ef29844fa6
+    :challenge_tex: ec048ac3e20c
     :answers_tex:
     - 0d0fd5333761
     - c674c6f72f83
@@ -30902,25 +30902,25 @@
     - 10022f3edbb3
     - 56c3c8ef3905
   2024_VB108:
-    :challenge_tex: 1456024f3347
+    :challenge_tex: dbba53cb9f76
     :answers_tex:
-    - 597b5a90fe1a
-    - 68b4f893bb4a
-    - 243d1bfaeaf7
+    - a72482c5d30c
+    - d103ff2776ff
+    - abc9b18c97d2
     - fcaca0ae9ae9
   2024_VB107:
     :challenge_tex: 7d2f3317658d
     :answers_tex:
-    - 78f4a9788130
-    - 7f432e00955d
-    - 666884bba5c0
+    - 180690548b7c
+    - 9888412e7f0b
+    - 180c9cf7a0a5
     - fdc872e8fd0d
   2024_VB106:
     :challenge_tex: 7dbc06bd0cb6
     :answers_tex:
-    - a98782e82587
-    - b0f448d36ef1
-    - '079bb3c16287'
+    - 18c506f6c809
+    - 2f4b19a6fccf
+    - ce91a2710561
     - fdc872e8fd0d
   2024_VB105:
     :challenge_tex: a5f0305ce998
@@ -30930,7 +30930,7 @@
     - 7cdfb2a042c4
     - 9fa43cdbe75f
   2024_VB104:
-    :challenge_tex: b8110bf8dcf4
+    :challenge_tex: c2b6c2edc4c8
     :answers_tex:
     - 813132dc00c5
     - 102c207ebf38
@@ -30939,23 +30939,23 @@
   2024_VB103:
     :challenge_tex: d23e03372088
     :answers_tex:
-    - 956cc5f41b44
-    - 12e714cb1cec
+    - 1b8c6bc3a5af
+    - 963babc08fa8
     - b5d3d453fe47
     - 4d1c06c0f268
   2024_VB102:
     :challenge_tex: 931fa1382f59
     :answers_tex:
-    - 0b763904c751
-    - 3614387acede
-    - a9d4793b31c1
-    - f25074f4f33e
+    - 5050b8e497f1
+    - d3cbb191a06d
+    - bf830f88aaf8
+    - e3818efeaf08
   2024_VB101:
     :challenge_tex: d8ce115acf00
     :answers_tex:
     - 23ef1b5a5ced
     - 89bf2fc4e655
-    - fb4438e6ea99
+    - aa726c9247e2
     - '0415591434e2'
   2024_VC125:
     :challenge_tex: e695a3fb21e8
@@ -31973,14 +31973,14 @@
     - 55181335695d
     - 8657bae5dca1
   2024_VE517:
-    :challenge_tex: d7c58ce3cf20
+    :challenge_tex: c5295ab9e08d
     :answers_tex:
     - dea648295a0f
-    - fd05ff4a35fe
+    - 033b446df1c9
     - d577dfad5fc3
     - 6d245363fe58
   2024_VE516:
-    :challenge_tex: 036c8d8b2439
+    :challenge_tex: 7b473f3b3947
     :answers_tex:
     - e72ee023ff1a
     - 84948becd878
@@ -32004,13 +32004,13 @@
     :challenge_tex: 2b7d00e68f6a
     :answers_tex:
     - 7446a200139f
-    - 59a225898fab
+    - 7065513c4002
     - e8948babecc0
     - 2cf91caea4f4
   2024_VE512:
     :challenge_tex: 3f2052d3e14d
     :answers_tex:
-    - 490981b5d402
+    - 0b49a22fcecb
     - 250624c1d029
     - fe644949155b
     - 84c329ac3eed
@@ -32052,10 +32052,10 @@
   2024_VE506:
     :challenge_tex: 1bab2a7f2fb8
     :answers_tex:
-    - 0456f6e13049
-    - 30e31cc1afb3
-    - b8e23e491cda
-    - f7aee1de1012
+    - eea448473915
+    - b448ca31f3ad
+    - 2dd10204408b
+    - 2ab27e1a38a9
   2024_VE505:
     :challenge_tex: 4169ab9df140
     :answers_tex:
@@ -32110,7 +32110,7 @@
     :answers_tex:
     - 6b26c187baf0
     - cf0ba90f8ff3
-    - 8ab44f6fae5d
+    - e6d7f356091c
     - 3cb88e07d537
   2024_VE601:
     :challenge_tex: 50e64a1251ed
@@ -32118,7 +32118,7 @@
     - 721c9c03a55d
     - f371f0984d34
     - da63502b6ebb
-    - '09f930bb37fe'
+    - 668e143b94a1
   2024_VE707:
     :challenge_tex: 9b3cc8f10635
     :answers_tex:
