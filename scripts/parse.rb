@@ -430,7 +430,11 @@ class Parser
                 \\begin{document}
                 \\setlength{\\parindent}{0pt}
                 \\setlength{\\JustifyingParindent}{0pt}
-                \\tolerance=10000
+                \\pretolerance=6000
+                \\tolerance=9500
+                \\hbadness=9500
+                \\hfuzz5pt
+                \\emergencystretch=0em
                 \\justifying
 
             END_OF_STRING
