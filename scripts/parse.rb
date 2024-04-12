@@ -265,6 +265,11 @@ class Parser
                     \\MakeOuterQuote{"}
                     \\setstretch{1.15}
                     \\pagestyle{empty}
+                    \\usepackage{fontspec}
+                    \\setmainfont[
+                    BoldFont=AlegreyaSans-Bold.ttf,
+                    ItalicFont=AlegreyaSans-Italic.ttf,
+                    ]{AlegreyaSans-Regular.ttf}
                     \\begin{document}
                     \\setlength{\\parindent}{0pt}
                     \\begin{tikzpicture}
@@ -282,10 +287,11 @@ class Parser
                     \\end{document}
                 END_OF_STRING
             end
-            system("pdflatex -interaction=nonstopmode -output-directory cache cache/#{sha1}.tex")
+            system("docker run --rm -v ./cache:/app texlive/texlive lualatex --output-directory=/app -interaction=nonstopmode /app/#{sha1}.tex")
             if $?.exitstatus == 0
                 system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/#{sha1}.svg --actions='select-all;fit-canvas-to-selection' --pdf-poppler /app/#{sha1}.pdf")
-                # system("rm -f cache/#{sha1}.tex")
+                # exit
+                system("rm -f cache/#{sha1}.tex")
                 system("rm -f cache/#{sha1}.log")
                 system("rm -f cache/#{sha1}.aux")
                 system("rm -f cache/#{sha1}.pdf")
@@ -444,6 +450,7 @@ class Parser
 end
 
 FileUtils::mkpath('../data')
+system("cp -purv ../fonts/*.ttf cache/")
 parser = Parser.new()
 ['DL Technik Klasse E 2007', 'DL Technik Klasse A 2007', 'DL Betriebstechnik und Vorschriften 2007'].each do |_path|
     path = File.join('..', 'bnetza', _path)
