@@ -201,7 +201,7 @@ class Parser
     end
 
     def parse_darc()
-        #system("wget -O darc.html \"https://www.darc.de/der-club/referate/ajw/darc-online-lehrgang/\"")
+        system("wget -O darc.html \"https://www.darc.de/der-club/referate/ajw/darc-online-lehrgang/\"")
         File.open('darc.html') do |f|
             doc = Nokogiri::HTML(f)
             doc.css('a').each do |a|
