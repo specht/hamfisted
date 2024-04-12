@@ -1248,14 +1248,14 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       challengeParts.add(Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
-            height: 200,
+            height: 250,
             width: double.infinity,
             child: Container(
               decoration:
                   BoxDecoration(border: Border.all(color: Colors.black)),
               child: FutureBuilder(
                   future: ScalableImage.fromSvgAsset(
-                      rootBundle, "data/2024/tex/test9.svg"),
+                      rootBundle, "data/2024/tex/8eb1b4ef916f.svg"),
                   builder: (context, snapshot) {
                     return ScalableImageWidget(
                       si: snapshot.requireData,

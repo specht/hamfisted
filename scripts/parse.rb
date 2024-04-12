@@ -256,6 +256,7 @@ class Parser
         s.gsub!('Stromdichte', 'Strom\\-dich\\-te')
         s.gsub!('Drahtdurchmesser', 'Draht\\-durch\\-mes\\-ser')
         s.gsub!('Amateurfunkband', 'Ama\\-teur\\-funk\\-band')
+        s.gsub!('Wasserfahrzeugs', 'Wasser\\-fahr\\-zeugs')
         s.gsub!('%', '\\%')
         s.gsub!('\\mOhm', 'm$\\Omega$')
         s.gsub!('\\milliOhm', 'm$\\Omega$')
@@ -264,9 +265,11 @@ class Parser
         key_with_suffix = "#{key}_#{suffix}"
         sha1 = Digest::SHA1.hexdigest(s)[0, 12]
         unless @latex_entries.include?(sha1)
-            @latex_entries[sha1] = s
-            @latex_entry_order << sha1
-            @latex_suffix_for_sha1[sha1] = suffix
+            # if sha1 == '8eb1b4ef916f'
+                @latex_entries[sha1] = s
+                @latex_entry_order << sha1
+                @latex_suffix_for_sha1[sha1] = suffix
+            # end
         end
         sha1
     end
@@ -421,6 +424,9 @@ class Parser
                 BoldFont=AlegreyaSans-Bold.ttf,
                 ItalicFont=AlegreyaSans-Italic.ttf,
                 ]{AlegreyaSans-Regular.ttf}
+                \\usepackage{mathastext}
+
+
                 \\begin{document}
                 \\setlength{\\parindent}{0pt}
                 \\setlength{\\JustifyingParindent}{0pt}
