@@ -365,7 +365,6 @@ class Parser
                             data[:answers_tex_width] << svg_dom.attr('width').to_s.to_f
                             data[:answers_tex_height] << svg_dom.attr('height').to_s.to_f
                         end
-
                     end
                     raise 'nope' if @questions.include?(qid)
                     @questions[qid] = data
