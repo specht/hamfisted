@@ -34,6 +34,9 @@ class Parser
         @questions_for_hid['2024/TA'] = Set.new()
         @latex_terms = Set.new()
         @faulty_keys = Set.new()
+        @latex_entries = {}
+        @latex_entry_order = []
+        @latex_suffix_for_sha1 = {}
     end
 
     attr_reader :faulty_keys
@@ -201,7 +204,7 @@ class Parser
     end
 
     def parse_darc()
-        system("wget -O darc.html \"https://www.darc.de/der-club/referate/ajw/darc-online-lehrgang/\"")
+        # system("wget -O darc.html \"https://www.darc.de/der-club/referate/ajw/darc-online-lehrgang/\"")
         File.open('darc.html') do |f|
             doc = Nokogiri::HTML(f)
             doc.css('a').each do |a|
@@ -221,7 +224,7 @@ class Parser
                 qid = short.split('#').last
                 qid += suffix
                 if @questions.include?(qid)
-                    STDERR.puts "Adding hint to #{qid}: #{href}"
+                    # STDERR.puts "Adding hint to #{qid}: #{href}"
                     @questions[qid][:hint] = href
                 else
                     STDERR.puts "Unknown qid: #{qid}"
@@ -238,6 +241,21 @@ class Parser
         s.gsub!('Frequenzmultiplexverfahren', 'Frequenz\\-multi\\-plex\\-ver\\-fahren')
         s.gsub!('Expeditionen', 'Ex\\-pedi\\-tionen')
         s.gsub!('Empfehlung', 'Emp\\-feh\\-lung')
+        s.gsub!('Ausgangsleistung', 'Aus\\-gangs\\-leis\\-tung')
+        s.gsub!('Eingangsleistung', 'Ein\\-gangs\\-leis\\-tung')
+        s.gsub!('Leistung', 'Leis\\-tung')
+        s.gsub!('Feldkomponente', 'Feld\\-kom\\-po\\-nen\\-te')
+        s.gsub!('Spannungsversorgung', 'Spannungs\\-ver\\-sor\\-gung')
+        s.gsub!('Halbleiter', 'Halb\\-lei\\-ter')
+        s.gsub!('Mobilfunk', 'Mo\\-bil\\-funk')
+        s.gsub!('Transceiver', 'Trans\\-cei\\-ver')
+        s.gsub!('Leistungsverstärker', 'Leis\\-tungs\\-ver\\-stär\\-ker')
+        s.gsub!('Leistungsverstärkers', 'Leis\\-tungs\\-ver\\-stär\\-kers')
+        s.gsub!('Halbleitermaterialien', 'Halb\\-lei\\-ter\\-ma\\-teri\\-alien')
+        s.gsub!('zulässige', 'zu\\-läs\\-si\\-ge')
+        s.gsub!('Stromdichte', 'Strom\\-dich\\-te')
+        s.gsub!('Drahtdurchmesser', 'Draht\\-durch\\-mes\\-ser')
+        s.gsub!('Amateurfunkband', 'Ama\\-teur\\-funk\\-band')
         s.gsub!('%', '\\%')
         s.gsub!('\\mOhm', 'm$\\Omega$')
         s.gsub!('\\milliOhm', 'm$\\Omega$')
@@ -245,59 +263,10 @@ class Parser
         s.gsub!('\\glqq', '"')
         key_with_suffix = "#{key}_#{suffix}"
         sha1 = Digest::SHA1.hexdigest(s)[0, 12]
-        STDERR.puts "#{'-' * 30} #{key}_#{suffix} #{'-' * 30}"
-        STDERR.puts s
-        STDERR.puts '-' * 70
-        unless File.exist?("cache/#{sha1}.svg")
-            File.open("cache/#{sha1}.tex", 'w') do |f|
-                f.puts <<~END_OF_STRING
-                    \\documentclass{article}
-                    \\usepackage[paperwidth=#{width}cm]{geometry}
-                    \\usepackage[utf8]{inputenc}
-                    \\usepackage[german]{babel}
-                    \\usepackage[bitstream-charter]{mathdesign}
-                    \\usepackage{textcomp}
-                    \\let\\circledS\\undefined
-                    \\usepackage{amsmath,amssymb,amsfonts,amsthm}
-                    \\usepackage{tikz}
-                    \\usepackage{setspace}
-                    \\usepackage{csquotes}
-                    \\MakeOuterQuote{"}
-                    \\setstretch{1.15}
-                    \\pagestyle{empty}
-                    \\usepackage{fontspec}
-                    \\setmainfont[
-                    BoldFont=AlegreyaSans-Bold.ttf,
-                    ItalicFont=AlegreyaSans-Italic.ttf,
-                    ]{AlegreyaSans-Regular.ttf}
-                    \\begin{document}
-                    \\setlength{\\parindent}{0pt}
-                    \\begin{tikzpicture}
-                    \\draw [line width=0.01pt, opacity=0.01] (0,0) -- (\\textwidth,0);
-                    \\end{tikzpicture}
-                END_OF_STRING
-                f.puts
-                f.puts s
-                f.puts
-                f.puts <<~END_OF_STRING
-                    \\vspace*{-2mm}
-                    \\begin{tikzpicture}
-                    \\draw [line width=0.01pt, opacity=0.01] (0,0) -- (\\textwidth,0);
-                    \\end{tikzpicture}
-                    \\end{document}
-                END_OF_STRING
-            end
-            system("docker run --rm -v ./cache:/app texlive/texlive lualatex --output-directory=/app -interaction=nonstopmode /app/#{sha1}.tex")
-            if $?.exitstatus == 0
-                system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/#{sha1}.svg --actions='select-all;fit-canvas-to-selection' --pdf-poppler /app/#{sha1}.pdf")
-                # exit
-                system("rm -f cache/#{sha1}.tex")
-                system("rm -f cache/#{sha1}.log")
-                system("rm -f cache/#{sha1}.aux")
-                system("rm -f cache/#{sha1}.pdf")
-            else
-                @faulty_keys << "#{key_with_suffix} #{sha1}"
-            end
+        unless @latex_entries.include?(sha1)
+            @latex_entries[sha1] = s
+            @latex_entry_order << sha1
+            @latex_suffix_for_sha1[sha1] = suffix
         end
         sha1
     end
@@ -310,7 +279,7 @@ class Parser
             parent_hid = prefix.empty? ? '' : "#{prefix.join('/')}"
             title = section['title']
             title.sub!('Prüfungsfragen im Prüfungsteil: ', '')
-            STDERR.puts "#{spacer}[#{parent_hid}] => [#{hid}] #{title}"
+            # STDERR.puts "#{spacer}[#{parent_hid}] => [#{hid}] #{title}"
             @headings[hid] = title
             @children[parent_hid] ||= []
             @children[parent_hid] << hid
@@ -323,17 +292,18 @@ class Parser
 
                     qid = '2024_' + question['number']
                     qid = "#{qid}#{@id_suffix}"
+                    # next unless qid == '2024_VC102'
                     data = {}
-                    STDERR.puts "-" * 30 + qid + "-" * 30
+                    # STDERR.puts "-" * 30 + qid + "-" * 30
                     data[:challenge_tex] = render_tex("\\textbf{#{question['number']}}~~~#{question['question']}", question['number'], 'q', 11)
                     # data[:challenge] = render_latex(question['question'])
                     if question['picture_question']
                         path = Dir["../bnetza-2024/svgs/#{question['picture_question']}*"].sort.first
                         if path.include?('.svg')
-                            svg_dom = Nokogiri::XML(File.read(path)).css('svg')
-                            data[:challenge_svg] = File.basename(path)
-                            data[:challenge_svg_width] = svg_dom.attr('width').to_s.to_f
-                            data[:challenge_svg_height] = svg_dom.attr('height').to_s.to_f
+                            # svg_dom = Nokogiri::XML(File.read(path)).css('svg')
+                            # data[:challenge_svg] = File.basename(path)
+                            # data[:challenge_svg_width] = svg_dom.attr('width').to_s.to_f
+                            # data[:challenge_svg_height] = svg_dom.attr('height').to_s.to_f
                         else
                             data[:challenge_png] = File.basename(path)
                         end
@@ -344,11 +314,11 @@ class Parser
                         data[:answers_svg_width] = []
                         data[:answers_svg_height] = []
                         ['a', 'b', 'c', 'd'].each do |letter|
-                            path = '../bnetza-2024/svgs/' + question['picture_' + letter] + '.svg'
-                            data[:answers_svg] << File.basename(path)
-                            svg_dom = Nokogiri::XML(File.read(path)).css('svg')
-                            data[:answers_svg_width] << svg_dom.attr('width').to_s.to_f
-                            data[:answers_svg_height] << svg_dom.attr('height').to_s.to_f
+                            # path = '../bnetza-2024/svgs/' + question['picture_' + letter] + '.svg'
+                            # data[:answers_svg] << File.basename(path)
+                            # svg_dom = Nokogiri::XML(File.read(path)).css('svg')
+                            # data[:answers_svg_width] << svg_dom.attr('width').to_s.to_f
+                            # data[:answers_svg_height] << svg_dom.attr('height').to_s.to_f
                         end
                     else
                         data[:answers_tex] = [
@@ -360,10 +330,10 @@ class Parser
                         data[:answers_tex_width] = []
                         data[:answers_tex_height] = []
                         data[:answers_tex].each do |sha1|
-                            path = './cache/' + sha1 + '.svg'
-                            svg_dom = Nokogiri::XML(File.read(path)).css('svg')
-                            data[:answers_tex_width] << svg_dom.attr('width').to_s.to_f
-                            data[:answers_tex_height] << svg_dom.attr('height').to_s.to_f
+                            # path = './cache/' + sha1 + '.svg'
+                            # svg_dom = Nokogiri::XML(File.read(path)).css('svg')
+                            # data[:answers_tex_width] << svg_dom.attr('width').to_s.to_f
+                            # data[:answers_tex_height] << svg_dom.attr('height').to_s.to_f
                         end
                     end
                     raise 'nope' if @questions.include?(qid)
@@ -424,6 +394,75 @@ class Parser
     end
 
     def finalize
+
+        width = 11
+
+        File.open("cache/all.tex", 'w') do |f|
+            f.puts <<~END_OF_STRING
+                \\documentclass{article}
+                \\usepackage[paperwidth=9cm,paperheight=17cm,margin=1cm]{geometry}
+                \\usepackage[utf8]{inputenc}
+                \\usepackage[german]{babel}
+                \\usepackage[bitstream-charter]{mathdesign}
+                \\usepackage{textcomp}
+                \\let\\circledS\\undefined
+                \\usepackage{amsmath,amssymb,amsfonts,amsthm}
+                \\usepackage{tikz}
+                \\usepackage{setspace}
+                \\usepackage{csquotes}
+                \\usepackage{tabto}
+                %\\usepackage{linebreaker}
+                \\MakeOuterQuote{"}
+                \\setstretch{1.15}
+                \\pagestyle{empty}
+                \\usepackage{fontspec}
+                \\usepackage{ragged2e}
+                \\setmainfont[
+                BoldFont=AlegreyaSans-Bold.ttf,
+                ItalicFont=AlegreyaSans-Italic.ttf,
+                ]{AlegreyaSans-Regular.ttf}
+                \\begin{document}
+                \\setlength{\\parindent}{0pt}
+                \\setlength{\\JustifyingParindent}{0pt}
+                \\tolerance=10000
+                \\justifying
+
+            END_OF_STRING
+            @latex_entry_order.each do |sha1|
+                if @latex_suffix_for_sha1[sha1] != 'q'
+                    f.puts "\\newgeometry{margin=1.4cm}"
+                else
+                    f.puts "\\newgeometry{margin=1cm}"
+                end
+                f.puts <<~END_OF_STRING
+                    \\begin{tikzpicture}
+                    \\draw [line width=0.01pt, opacity=0.01] (0,0) -- (\\textwidth,0);
+                    \\end{tikzpicture}
+                END_OF_STRING
+                f.puts
+                f.puts @latex_entries[sha1]
+                f.puts
+                f.puts <<~END_OF_STRING
+                    \\vspace*{-2mm}
+                    \\begin{tikzpicture}
+                    \\draw [line width=0.01pt, opacity=0.01] (0,0) -- (\\textwidth,0);
+                    \\end{tikzpicture}
+                END_OF_STRING
+            end
+            f.puts <<~END_OF_STRING
+                \\end{document}
+            END_OF_STRING
+        end
+        system("docker run --rm -v ./cache:/app texlive/texlive lualatex --output-directory=/app -interaction=nonstopmode /app/all.tex")
+        if $?.exitstatus != 0
+            raise 'oops'
+        end
+
+        @latex_entry_order.each.with_index do |sha1, index|
+            system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}.svg --actions='select-all;fit-canvas-to-selection' --pdf-poppler --pdf-page #{index + 1} /app/all.pdf")
+            system("scour -i \"cache/svg/#{sha1}.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
+        end
+
         @questions_for_hid['2024'] |= @questions_for_hid['2024/TN'] | @questions_for_hid['2024/TE'] | @questions_for_hid['2024/TA']
         @questions_for_hid[''] |= @questions_for_hid['2024']
         @questions_for_hid.each_pair do |k, entries|
@@ -449,6 +488,9 @@ class Parser
 end
 
 FileUtils::mkpath('../data')
+FileUtils::mkpath('./cache/svg/')
+FileUtils::mkpath('./cache/svg-scour/')
+
 system("cp -purv ../fonts/*.ttf cache/")
 parser = Parser.new()
 ['DL Technik Klasse E 2007', 'DL Technik Klasse A 2007', 'DL Betriebstechnik und Vorschriften 2007'].each do |_path|
