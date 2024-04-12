@@ -2,10 +2,12 @@ import 'dart:developer' as developer;
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:jovial_svg/jovial_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -1243,61 +1245,81 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       double cwidth = min(constraints.maxWidth, MAX_WIDTH);
       List<Widget> challengeParts = [];
 
-      if (GlobalData.questions!['questions'][qid]['challenge'] != null) {
-        challengeParts.add(Container(
-          constraints: BoxConstraints(maxWidth: cwidth),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Html(
-              data:
-                  "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
-              style: {
-                'body': Style(margin: Margins.zero, fontSize: FontSize(16))
-              },
+      challengeParts.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 200,
+            width: double.infinity,
+            child: Container(
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.black)),
+              child: FutureBuilder(
+                  future: ScalableImage.fromSvgAsset(
+                      rootBundle, "data/2024/tex/test9.svg"),
+                  builder: (context, snapshot) {
+                    return ScalableImageWidget(
+                      si: snapshot.requireData,
+                    );
+                  }),
             ),
-          ),
-        ));
-      }
+          )));
 
-      if (GlobalData.questions!['questions'][qid]['challenge_tex'] != null) {
-        challengeParts.add(Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset(
-            "data/2024/tex/${GlobalData.questions!['questions'][qid]['challenge_tex']}.svg",
-            width: cwidth,
-          ),
-        ));
-      }
+      // if (GlobalData.questions!['questions'][qid]['challenge'] != null) {
+      //   challengeParts.add(Container(
+      //     constraints: BoxConstraints(maxWidth: cwidth),
+      //     child: Padding(
+      //       padding: const EdgeInsets.all(16.0),
+      //       child: Html(
+      //         data:
+      //             "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
+      //         style: {
+      //           'body': Style(margin: Margins.zero, fontSize: FontSize(16))
+      //         },
+      //       ),
+      //     ),
+      //   ));
+      // }
 
-      if (GlobalData.questions!['questions'][qid]['challenge_svg'] != null) {
-        var aspect = GlobalData.questions!['questions'][qid]
-                ['challenge_svg_width'] /
-            GlobalData.questions!['questions'][qid]['challenge_svg_height'];
-        var width = (cwidth) *
-            min(GlobalData.questions!['questions'][qid]['challenge_svg_width'],
-                250) /
-            250;
-        var height = width / aspect;
-        challengeParts.add(Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset(
-            "data/2024/${GlobalData.questions!['questions'][qid]['challenge_svg']}",
-            width: width,
-            height: height,
-          ),
-        ));
-      }
+      // if (GlobalData.questions!['questions'][qid]['challenge_tex'] != null) {
+      //   challengeParts.add(Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: SvgPicture.asset(
+      //       "data/2024/tex/${GlobalData.questions!['questions'][qid]['challenge_tex']}.svg",
+      //       // "data/2024/test9.svg",
+      //       width: cwidth,
+      //     ),
+      //   ));
+      // }
 
-      if (GlobalData.questions!['questions'][qid]['challenge_png'] != null) {
-        challengeParts.add(Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image(
-            image: AssetImage(
-              "data/2024/${GlobalData.questions!['questions'][qid]['challenge_png']}",
-            ),
-          ),
-        ));
-      }
+      // if (GlobalData.questions!['questions'][qid]['challenge_svg'] != null) {
+      //   var aspect = GlobalData.questions!['questions'][qid]
+      //           ['challenge_svg_width'] /
+      //       GlobalData.questions!['questions'][qid]['challenge_svg_height'];
+      //   var width = (cwidth) *
+      //       min(GlobalData.questions!['questions'][qid]['challenge_svg_width'],
+      //           250) /
+      //       250;
+      //   var height = width / aspect;
+      //   challengeParts.add(Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: SvgPicture.asset(
+      //       "data/2024/${GlobalData.questions!['questions'][qid]['challenge_svg']}",
+      //       width: width,
+      //       height: height,
+      //     ),
+      //   ));
+      // }
+
+      // if (GlobalData.questions!['questions'][qid]['challenge_png'] != null) {
+      //   challengeParts.add(Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: Image(
+      //       image: AssetImage(
+      //         "data/2024/${GlobalData.questions!['questions'][qid]['challenge_png']}",
+      //       ),
+      //     ),
+      //   ));
+      // }
 
       return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -1309,211 +1331,211 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
 
     cards.add(const Divider());
 
-    for (int ti = 0; ti < 4; ti++) {
-      int i = answerIndex[ti];
-      cards.add(
-        Padding(
-          padding:
-              ti == 3 ? const EdgeInsets.only(bottom: 105) : EdgeInsets.zero,
-          child: AnimatedBuilder(
-              animation: _animationController3,
-              builder: (context, child) {
-                return AnimatedBuilder(
-                    animation: _animationController2,
-                    builder: (context, child) {
-                      return AnimatedBuilder(
-                          animation: _animationController,
-                          builder: (context, child) {
-                            return LayoutBuilder(
-                                builder: (context, constraints) {
-                              double cwidth =
-                                  min(constraints.maxWidth, MAX_WIDTH);
-                              Offset offset = Offset.zero;
-                              if (animationPhase1) {
-                                if (i != 0) {
-                                  offset = Offset(
-                                      -1 * _animationController.value, 0);
-                                }
-                              }
-                              if (animationPhase2) {
-                                if (i != 0 && !animationPhase1) {
-                                  offset = const Offset(-1, 0);
-                                } else {
-                                  offset =
-                                      Offset(-_animationController2.value, 0);
-                                }
-                              }
-                              if (animationPhase3) {
-                                offset = Offset(
-                                    1.0 - _animationController3.value, 0);
-                              }
-                              return Transform.translate(
-                                offset: offset * constraints.maxWidth,
-                                child: Card(
-                                  elevation: 1,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  surfaceTintColor: Colors.transparent,
-                                  child: InkWell(
-                                    onTapCancel: () => _timer?.cancel(),
-                                    onTapDown: (_) => {
-                                      _timer = Timer(
-                                          const Duration(milliseconds: 1500),
-                                          () {
-                                        setState(() {
-                                          unsure = true;
-                                          tapAnswer(i);
-                                        });
-                                      })
-                                    },
-                                    onTap: () {
-                                      _timer?.cancel();
-                                      setState(() {
-                                        tapAnswer(i);
-                                      });
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: answerColor[i],
-                                          width: 2,
-                                        ),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Center(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: max(
-                                                  0,
-                                                  (constraints.maxWidth -
-                                                              cwidth) /
-                                                          2 -
-                                                      15)),
-                                          child: Container(
-                                            child: ListTile(
-                                              minVerticalPadding: 0,
-                                              horizontalTitleGap: 0,
-                                              titleAlignment:
-                                                  ListTileTitleAlignment.top,
-                                              leading: Transform.translate(
-                                                offset: const Offset(-4, 10),
-                                                child: CircleAvatar(
-                                                  backgroundColor:
-                                                      answerColor[i] ==
-                                                              Colors.transparent
-                                                          ? Color.lerp(PRIMARY,
-                                                              Colors.white, 0.8)
-                                                          : answerColor[i],
-                                                  radius: cwidth * 0.045,
-                                                  child: answerColor[i] == GREEN
-                                                      ? Icon(
-                                                          Icons.check,
-                                                          color: Colors.white,
-                                                          size: cwidth * 0.05,
-                                                        )
-                                                      : answerColor[i] == RED
-                                                          ? Icon(
-                                                              Icons.clear,
-                                                              color:
-                                                                  Colors.white,
-                                                              size:
-                                                                  cwidth * 0.05,
-                                                            )
-                                                          : Text(
-                                                              String
-                                                                  .fromCharCode(
-                                                                      65 + ti),
-                                                              style: GoogleFonts.alegreyaSans(
-                                                                  fontSize:
-                                                                      cwidth *
-                                                                          0.04,
-                                                                  color: answerColor[
-                                                                              i] ==
-                                                                          Colors
-                                                                              .transparent
-                                                                      ? Colors
-                                                                          .black87
-                                                                      : Colors
-                                                                          .white,
-                                                                  fontWeight: answerColor[
-                                                                              i] ==
-                                                                          Colors
-                                                                              .transparent
-                                                                      ? FontWeight
-                                                                          .normal
-                                                                      : FontWeight
-                                                                          .bold),
-                                                            ),
-                                                ),
-                                              ),
-                                              title: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 0,
-                                                        horizontal: 4),
-                                                child: (GlobalData.questions![
-                                                                        'questions']
-                                                                    [qid][
-                                                                'answers_tex'] ==
-                                                            null &&
-                                                        GlobalData.questions![
-                                                                        'questions']
-                                                                    [qid][
-                                                                'answers_svg'] ==
-                                                            null)
-                                                    ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                vertical: 13.0),
-                                                        child: Html(
-                                                          data: GlobalData
-                                                              .questions![
-                                                                  'questions']
-                                                                  [qid]
-                                                                  ['answers'][i]
-                                                              .toString()
-                                                              .replaceAll(
-                                                                  '*', ' ⋅ '),
-                                                          style: {
-                                                            'body': Style(
-                                                              margin:
-                                                                  Margins.zero,
-                                                            ),
-                                                          },
-                                                        ),
-                                                      )
-                                                    : (GlobalData.questions![
-                                                                        'questions']
-                                                                    [qid]
-                                                                ['answers_svg'] ==
-                                                            null
-                                                        ? SvgPicture.asset(
-                                                            "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
-                                                            width:
-                                                                cwidth * 0.86,
-                                                          )
-                                                        : SvgPicture.asset(
-                                                            "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
-                                                            width:
-                                                                cwidth * 0.86,
-                                                          )),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            });
-                          });
-                    });
-              }),
-        ),
-      );
-    }
+    // for (int ti = 0; ti < 4; ti++) {
+    //   int i = answerIndex[ti];
+    //   cards.add(
+    //     Padding(
+    //       padding:
+    //           ti == 3 ? const EdgeInsets.only(bottom: 105) : EdgeInsets.zero,
+    //       child: AnimatedBuilder(
+    //           animation: _animationController3,
+    //           builder: (context, child) {
+    //             return AnimatedBuilder(
+    //                 animation: _animationController2,
+    //                 builder: (context, child) {
+    //                   return AnimatedBuilder(
+    //                       animation: _animationController,
+    //                       builder: (context, child) {
+    //                         return LayoutBuilder(
+    //                             builder: (context, constraints) {
+    //                           double cwidth =
+    //                               min(constraints.maxWidth, MAX_WIDTH);
+    //                           Offset offset = Offset.zero;
+    //                           if (animationPhase1) {
+    //                             if (i != 0) {
+    //                               offset = Offset(
+    //                                   -1 * _animationController.value, 0);
+    //                             }
+    //                           }
+    //                           if (animationPhase2) {
+    //                             if (i != 0 && !animationPhase1) {
+    //                               offset = const Offset(-1, 0);
+    //                             } else {
+    //                               offset =
+    //                                   Offset(-_animationController2.value, 0);
+    //                             }
+    //                           }
+    //                           if (animationPhase3) {
+    //                             offset = Offset(
+    //                                 1.0 - _animationController3.value, 0);
+    //                           }
+    //                           return Transform.translate(
+    //                             offset: offset * constraints.maxWidth,
+    //                             child: Card(
+    //                               elevation: 1,
+    //                               shape: RoundedRectangleBorder(
+    //                                   borderRadius: BorderRadius.circular(8)),
+    //                               surfaceTintColor: Colors.transparent,
+    //                               child: InkWell(
+    //                                 onTapCancel: () => _timer?.cancel(),
+    //                                 onTapDown: (_) => {
+    //                                   _timer = Timer(
+    //                                       const Duration(milliseconds: 1500),
+    //                                       () {
+    //                                     setState(() {
+    //                                       unsure = true;
+    //                                       tapAnswer(i);
+    //                                     });
+    //                                   })
+    //                                 },
+    //                                 onTap: () {
+    //                                   _timer?.cancel();
+    //                                   setState(() {
+    //                                     tapAnswer(i);
+    //                                   });
+    //                                 },
+    //                                 child: Container(
+    //                                   decoration: BoxDecoration(
+    //                                     border: Border.all(
+    //                                       color: answerColor[i],
+    //                                       width: 2,
+    //                                     ),
+    //                                     borderRadius: BorderRadius.circular(4),
+    //                                   ),
+    //                                   child: Center(
+    //                                     child: Container(
+    //                                       padding: EdgeInsets.symmetric(
+    //                                           horizontal: max(
+    //                                               0,
+    //                                               (constraints.maxWidth -
+    //                                                           cwidth) /
+    //                                                       2 -
+    //                                                   15)),
+    //                                       child: Container(
+    //                                         child: ListTile(
+    //                                           minVerticalPadding: 0,
+    //                                           horizontalTitleGap: 0,
+    //                                           titleAlignment:
+    //                                               ListTileTitleAlignment.top,
+    //                                           leading: Transform.translate(
+    //                                             offset: const Offset(-4, 10),
+    //                                             child: CircleAvatar(
+    //                                               backgroundColor:
+    //                                                   answerColor[i] ==
+    //                                                           Colors.transparent
+    //                                                       ? Color.lerp(PRIMARY,
+    //                                                           Colors.white, 0.8)
+    //                                                       : answerColor[i],
+    //                                               radius: cwidth * 0.045,
+    //                                               child: answerColor[i] == GREEN
+    //                                                   ? Icon(
+    //                                                       Icons.check,
+    //                                                       color: Colors.white,
+    //                                                       size: cwidth * 0.05,
+    //                                                     )
+    //                                                   : answerColor[i] == RED
+    //                                                       ? Icon(
+    //                                                           Icons.clear,
+    //                                                           color:
+    //                                                               Colors.white,
+    //                                                           size:
+    //                                                               cwidth * 0.05,
+    //                                                         )
+    //                                                       : Text(
+    //                                                           String
+    //                                                               .fromCharCode(
+    //                                                                   65 + ti),
+    //                                                           style: GoogleFonts.alegreyaSans(
+    //                                                               fontSize:
+    //                                                                   cwidth *
+    //                                                                       0.04,
+    //                                                               color: answerColor[
+    //                                                                           i] ==
+    //                                                                       Colors
+    //                                                                           .transparent
+    //                                                                   ? Colors
+    //                                                                       .black87
+    //                                                                   : Colors
+    //                                                                       .white,
+    //                                                               fontWeight: answerColor[
+    //                                                                           i] ==
+    //                                                                       Colors
+    //                                                                           .transparent
+    //                                                                   ? FontWeight
+    //                                                                       .normal
+    //                                                                   : FontWeight
+    //                                                                       .bold),
+    //                                                         ),
+    //                                             ),
+    //                                           ),
+    //                                           title: Padding(
+    //                                             padding:
+    //                                                 const EdgeInsets.symmetric(
+    //                                                     vertical: 0,
+    //                                                     horizontal: 4),
+    //                                             child: (GlobalData.questions![
+    //                                                                     'questions']
+    //                                                                 [qid][
+    //                                                             'answers_tex'] ==
+    //                                                         null &&
+    //                                                     GlobalData.questions![
+    //                                                                     'questions']
+    //                                                                 [qid][
+    //                                                             'answers_svg'] ==
+    //                                                         null)
+    //                                                 ? Padding(
+    //                                                     padding:
+    //                                                         const EdgeInsets
+    //                                                             .symmetric(
+    //                                                             vertical: 13.0),
+    //                                                     child: Html(
+    //                                                       data: GlobalData
+    //                                                           .questions![
+    //                                                               'questions']
+    //                                                               [qid]
+    //                                                               ['answers'][i]
+    //                                                           .toString()
+    //                                                           .replaceAll(
+    //                                                               '*', ' ⋅ '),
+    //                                                       style: {
+    //                                                         'body': Style(
+    //                                                           margin:
+    //                                                               Margins.zero,
+    //                                                         ),
+    //                                                       },
+    //                                                     ),
+    //                                                   )
+    //                                                 : (GlobalData.questions![
+    //                                                                     'questions']
+    //                                                                 [qid]
+    //                                                             ['answers_svg'] ==
+    //                                                         null
+    //                                                     ? SvgPicture.asset(
+    //                                                         "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.svg",
+    //                                                         width:
+    //                                                             cwidth * 0.86,
+    //                                                       )
+    //                                                     : SvgPicture.asset(
+    //                                                         "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+    //                                                         width:
+    //                                                             cwidth * 0.86,
+    //                                                       )),
+    //                                           ),
+    //                                         ),
+    //                                       ),
+    //                                     ),
+    //                                   ),
+    //                                 ),
+    //                               ),
+    //                             ),
+    //                           );
+    //                         });
+    //                       });
+    //                 });
+    //           }),
+    //     ),
+    //   );
+    // }
 
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
