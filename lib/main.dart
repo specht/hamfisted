@@ -1213,7 +1213,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
-    // qid = '2024_NF104';
+    // qid = '2024_AF420';
 
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
@@ -1235,7 +1235,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
           builder: (context, value, _) => LinearProgressIndicator(
             value: value,
             backgroundColor: const Color(0x20000000),
-            color: PRIMARY,
+            color: Color.lerp(PRIMARY, Colors.black, 0.5),
           ),
         ),
       ),
@@ -1267,20 +1267,21 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
           child: SizedBox(
             width: cwidth,
-            height: cwidth /
-                GlobalData.questions!['questions'][qid]['challenge_tex_width'] *
-                GlobalData.questions!['questions'][qid]['challenge_tex_height'],
+            height: max(
+                60,
+                cwidth /
+                    GlobalData.questions!['questions'][qid]
+                        ['challenge_tex_width'] *
+                    GlobalData.questions!['questions'][qid]
+                        ['challenge_tex_height']),
             child: FutureBuilder(
                 future: ScalableImage.fromSIAsset(rootBundle,
                     "data/2024/tex/${GlobalData.questions!['questions'][qid]['challenge_tex']}.si"),
                 builder: (context, snapshot) {
                   developer.log(
                       GlobalData.questions!['questions'][qid]['challenge_tex']);
-                  return Container(
-                    decoration: BoxDecoration(border: Border.all(width: 1)),
-                    child: ScalableImageWidget(
-                      si: snapshot.requireData,
-                    ),
+                  return ScalableImageWidget(
+                    si: snapshot.requireData,
                   );
                 }),
           ),
@@ -1407,125 +1408,139 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                                               cwidth) /
                                                           2 -
                                                       15)),
-                                          child: Container(
-                                            child: ListTile(
-                                              minVerticalPadding: 0,
-                                              horizontalTitleGap: 0,
-                                              titleAlignment:
-                                                  ListTileTitleAlignment.top,
-                                              leading: Transform.translate(
-                                                offset: const Offset(-4, 10),
-                                                child: CircleAvatar(
-                                                  backgroundColor:
-                                                      answerColor[i] ==
-                                                              Colors.transparent
-                                                          ? Color.lerp(PRIMARY,
-                                                              Colors.white, 0.8)
-                                                          : answerColor[i],
-                                                  radius: cwidth * 0.045,
-                                                  child: answerColor[i] == GREEN
-                                                      ? Icon(
-                                                          Icons.check,
-                                                          color: Colors.white,
-                                                          size: cwidth * 0.05,
-                                                        )
-                                                      : answerColor[i] == RED
-                                                          ? Icon(
-                                                              Icons.clear,
-                                                              color:
-                                                                  Colors.white,
-                                                              size:
-                                                                  cwidth * 0.05,
-                                                            )
-                                                          : Text(
-                                                              String
-                                                                  .fromCharCode(
-                                                                      65 + ti),
-                                                              style: GoogleFonts.alegreyaSans(
-                                                                  fontSize:
-                                                                      cwidth *
-                                                                          0.04,
-                                                                  color: answerColor[
-                                                                              i] ==
-                                                                          Colors
-                                                                              .transparent
-                                                                      ? Colors
-                                                                          .black87
-                                                                      : Colors
-                                                                          .white,
-                                                                  fontWeight: answerColor[
-                                                                              i] ==
-                                                                          Colors
-                                                                              .transparent
-                                                                      ? FontWeight
-                                                                          .normal
-                                                                      : FontWeight
-                                                                          .bold),
-                                                            ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Center(
+                                                  child: CircleAvatar(
+                                                    backgroundColor:
+                                                        answerColor[i] ==
+                                                                Colors
+                                                                    .transparent
+                                                            ? Color.lerp(
+                                                                PRIMARY,
+                                                                Colors.white,
+                                                                0.8)
+                                                            : answerColor[i],
+                                                    radius: cwidth * 0.045,
+                                                    child:
+                                                        answerColor[i] == GREEN
+                                                            ? Icon(
+                                                                Icons.check,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: cwidth *
+                                                                    0.05,
+                                                              )
+                                                            : answerColor[i] ==
+                                                                    RED
+                                                                ? Icon(
+                                                                    Icons.clear,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    size:
+                                                                        cwidth *
+                                                                            0.05,
+                                                                  )
+                                                                : Text(
+                                                                    String.fromCharCode(
+                                                                        65 +
+                                                                            ti),
+                                                                    style: GoogleFonts.alegreyaSans(
+                                                                        fontSize:
+                                                                            cwidth *
+                                                                                0.04,
+                                                                        color: answerColor[i] == Colors.transparent
+                                                                            ? Colors
+                                                                                .black87
+                                                                            : Colors
+                                                                                .white,
+                                                                        fontWeight: answerColor[i] ==
+                                                                                Colors.transparent
+                                                                            ? FontWeight.normal
+                                                                            : FontWeight.bold),
+                                                                  ),
+                                                  ),
                                                 ),
                                               ),
-                                              title: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 0,
-                                                        horizontal: 4),
-                                                child: (GlobalData.questions!['questions'][qid]['answers_tex'] ==
-                                                            null &&
-                                                        GlobalData.questions!['questions'][qid]['answers_svg'] ==
-                                                            null)
-                                                    ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                vertical: 13.0),
-                                                        child: Html(
-                                                          data: GlobalData
-                                                              .questions![
-                                                                  'questions']
-                                                                  [qid]
-                                                                  ['answers'][i]
-                                                              .toString()
-                                                              .replaceAll(
-                                                                  '*', ' ⋅ '),
-                                                          style: {
-                                                            'body': Style(
-                                                              margin:
-                                                                  Margins.zero,
+                                              Container(
+                                                width:
+                                                    cwidth * (1.0 - 0.045) - 70,
+                                                child:
+                                                    (GlobalData.questions!['questions'][qid]
+                                                                    [
+                                                                    'answers_tex'] ==
+                                                                null &&
+                                                            GlobalData.questions!['questions']
+                                                                        [qid][
+                                                                    'answers_svg'] ==
+                                                                null)
+                                                        ? Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        13.0),
+                                                            child: Html(
+                                                              data: GlobalData
+                                                                  .questions![
+                                                                      'questions']
+                                                                      [qid][
+                                                                      'answers']
+                                                                      [i]
+                                                                  .toString()
+                                                                  .replaceAll(
+                                                                      '*',
+                                                                      ' ⋅ '),
+                                                              style: {
+                                                                'body': Style(
+                                                                  margin:
+                                                                      Margins
+                                                                          .zero,
+                                                                ),
+                                                              },
                                                             ),
-                                                          },
-                                                        ),
-                                                      )
-                                                    : (GlobalData.questions!['questions']
-                                                                    [qid][
-                                                                'answers_svg'] ==
-                                                            null
-                                                        ? SizedBox(
-                                                            width:
-                                                                cwidth * 0.86,
-                                                            height: cwidth *
-                                                                0.86 /
-                                                                GlobalData.questions!['questions']
-                                                                            [qid]
-                                                                        ['answers_tex_width']
-                                                                    [i] *
-                                                                GlobalData.questions!['questions']
-                                                                        [qid]
-                                                                    ['answers_tex_height'][i],
-                                                            child: FutureBuilder(
-                                                                future: ScalableImage.fromSIAsset(rootBundle, "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
-                                                                builder: (context, snapshot) {
-                                                                  return ScalableImageWidget(
-                                                                    si: snapshot
-                                                                        .requireData,
-                                                                  );
-                                                                }))
-                                                        : SvgPicture.asset(
-                                                            "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
-                                                            width:
-                                                                cwidth * 0.86,
-                                                          )),
+                                                          )
+                                                        : (GlobalData.questions!['questions']
+                                                                        [qid][
+                                                                    'answers_svg'] ==
+                                                                null
+                                                            ? LayoutBuilder(
+                                                                builder: (context,
+                                                                    constraints) {
+                                                                return Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                          top:
+                                                                              6,
+                                                                          bottom:
+                                                                              6),
+                                                                  child: SizedBox(
+                                                                      width: constraints.maxWidth,
+                                                                      height: constraints.maxWidth / GlobalData.questions!['questions'][qid]['answers_tex_width'][i] * GlobalData.questions!['questions'][qid]['answers_tex_height'][i],
+                                                                      child: FutureBuilder(
+                                                                          future: ScalableImage.fromSIAsset(rootBundle, "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
+                                                                          builder: (context, snapshot) {
+                                                                            return ScalableImageWidget(
+                                                                              si: snapshot.requireData,
+                                                                            );
+                                                                          })),
+                                                                );
+                                                              })
+                                                            : SvgPicture.asset(
+                                                                "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+                                                                width: cwidth *
+                                                                    0.86,
+                                                              )),
                                               ),
-                                            ),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -1653,6 +1668,8 @@ class _AboutState extends State<About> {
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
         title: const Text("Über diese App"),
+        backgroundColor: PRIMARY,
+        foregroundColor: Colors.white,
       ),
       body: Html(
         data: "<h2>Hamfisted</h2>"
