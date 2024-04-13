@@ -265,7 +265,7 @@ class Parser
         key_with_suffix = "#{key}_#{suffix}"
         sha1 = Digest::SHA1.hexdigest(s)[0, 12]
         unless @latex_entries.include?(sha1)
-            # if sha1 == '8eb1b4ef916f'
+            # if sha1 == '64b497324e5d'
                 @latex_entries[sha1] = s
                 @latex_entry_order << sha1
                 @latex_suffix_for_sha1[sha1] = suffix
@@ -303,10 +303,10 @@ class Parser
                     if question['picture_question']
                         path = Dir["../bnetza-2024/svgs/#{question['picture_question']}*"].sort.first
                         if path.include?('.svg')
-                            # svg_dom = Nokogiri::XML(File.read(path)).css('svg')
-                            # data[:challenge_svg] = File.basename(path)
-                            # data[:challenge_svg_width] = svg_dom.attr('width').to_s.to_f
-                            # data[:challenge_svg_height] = svg_dom.attr('height').to_s.to_f
+                            svg_dom = Nokogiri::XML(File.read(path)).css('svg')
+                            data[:challenge_svg] = File.basename(path)
+                            data[:challenge_svg_width] = svg_dom.attr('width').to_s.to_f
+                            data[:challenge_svg_height] = svg_dom.attr('height').to_s.to_f
                         else
                             data[:challenge_png] = File.basename(path)
                         end
@@ -317,11 +317,11 @@ class Parser
                         data[:answers_svg_width] = []
                         data[:answers_svg_height] = []
                         ['a', 'b', 'c', 'd'].each do |letter|
-                            # path = '../bnetza-2024/svgs/' + question['picture_' + letter] + '.svg'
-                            # data[:answers_svg] << File.basename(path)
-                            # svg_dom = Nokogiri::XML(File.read(path)).css('svg')
-                            # data[:answers_svg_width] << svg_dom.attr('width').to_s.to_f
-                            # data[:answers_svg_height] << svg_dom.attr('height').to_s.to_f
+                            path = '../bnetza-2024/svgs/' + question['picture_' + letter] + '.svg'
+                            data[:answers_svg] << File.basename(path)
+                            svg_dom = Nokogiri::XML(File.read(path)).css('svg')
+                            data[:answers_svg_width] << svg_dom.attr('width').to_s.to_f
+                            data[:answers_svg_height] << svg_dom.attr('height').to_s.to_f
                         end
                     else
                         data[:answers_tex] = [
@@ -469,8 +469,10 @@ class Parser
         end
 
         @latex_entry_order.each.with_index do |sha1, index|
-            system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}.svg --export-plain-svg --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
-            system("scour -i \"cache/svg/#{sha1}.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
+            # system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}-internal.svg --export-plain-svg --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
+            system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}.svg --export-plain-svg --pdf-poppler --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
+            # system("scour -i \"cache/svg/#{sha1}-internal.svg\" -o \"cache/svg/#{sha1}-internal-scour.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
+            system("scour -i \"cache/svg/#{sha1}-poppler.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
 
             # 2.9 k instead of 52 k:
             # docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/test8.svg --export-plain-svg --export-area-drawing --pdf-page 1 /app/all.pdf

@@ -19287,6 +19287,9 @@
     :answers_tex_height: []
   2024_AB109:
     :challenge_tex: 51ea7129a5cc
+    :challenge_svg: AB109_q.svg
+    :challenge_svg_width: 226.535
+    :challenge_svg_height: 129.47
     :answers_tex:
     - 2f9c9bd7f1a5
     - 531aabc27f3b
@@ -19296,6 +19299,9 @@
     :answers_tex_height: []
   2024_AB108:
     :challenge_tex: 5a8244ffec3e
+    :challenge_svg: AB108_q.svg
+    :challenge_svg_width: 226.535
+    :challenge_svg_height: 129.47
     :answers_tex:
     - 10f3eecda91d
     - e69fd5a77f2f
@@ -19449,6 +19455,9 @@
     :answers_tex_height: []
   2024_AB209:
     :challenge_tex: 341a7490b7ed
+    :challenge_svg: AB209_q.svg
+    :challenge_svg_width: 217.831
+    :challenge_svg_height: 88.632
     :answers_tex:
     - 8bf39c64dd8a
     - ece1ce9a0a01
@@ -19530,6 +19539,9 @@
     :answers_tex_height: []
   2024_NB207:
     :challenge_tex: 5b486a1946e4
+    :challenge_svg: NB207_q.svg
+    :challenge_svg_width: 224.768
+    :challenge_svg_height: 24.608
     :answers_tex:
     - e72332fe71bf
     - 59763af1a218
@@ -19539,6 +19551,9 @@
     :answers_tex_height: []
   2024_NB206:
     :challenge_tex: af108641a216
+    :challenge_svg: NB206_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 111.914
     :answers_tex:
     - e3f9692a5376
     - cea53d705efa
@@ -19548,6 +19563,9 @@
     :answers_tex_height: []
   2024_NB205:
     :challenge_tex: 55344150c381
+    :challenge_svg: NB205_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 111.914
     :answers_tex:
     - cea53d705efa
     - e3f9692a5376
@@ -19557,6 +19575,9 @@
     :answers_tex_height: []
   2024_NB204:
     :challenge_tex: 5c9e810c7a8e
+    :challenge_svg: NB204_q.svg
+    :challenge_svg_width: 217.831
+    :challenge_svg_height: 88.632
     :answers_tex:
     - 7534b63e819e
     - bfdf966edaf7
@@ -19566,6 +19587,9 @@
     :answers_tex_height: []
   2024_NB203:
     :challenge_tex: 6a745687e88b
+    :challenge_svg: NB203_q.svg
+    :challenge_svg_width: 113.386
+    :challenge_svg_height: 24.608
     :answers_tex:
     - ece0b38c55e8
     - de88fc2d4ca3
@@ -19575,6 +19599,9 @@
     :answers_tex_height: []
   2024_NB202:
     :challenge_tex: f6f704c43c76
+    :challenge_svg: NB202_q.svg
+    :challenge_svg_width: 12.703
+    :challenge_svg_height: 10.519
     :answers_tex:
     - a5d4c9da464f
     - 2ea63c00a612
@@ -19584,6 +19611,9 @@
     :answers_tex_height: []
   2024_NB201:
     :challenge_tex: 5a4b1743e3e5
+    :challenge_svg: NB201_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 24.608
     :answers_tex:
     - eb1df8432f35
     - b6d832a29d68
@@ -19593,6 +19623,9 @@
     :answers_tex_height: []
   2024_EB105:
     :challenge_tex: 28714cd73ded
+    :challenge_svg: EB105_q.svg
+    :challenge_svg_width: 226.662
+    :challenge_svg_height: 210.529
     :answers_tex:
     - 76caca932725
     - 8dd7b210694e
@@ -19611,6 +19644,9 @@
     :answers_tex_height: []
   2024_EB103:
     :challenge_tex: 1e06e5c6d7af
+    :challenge_svg: EB103_q.svg
+    :challenge_svg_width: 225.881
+    :challenge_svg_height: 225.653
     :answers_tex:
     - a52d556c29d0
     - 584daec4bd5a
@@ -19629,6 +19665,9 @@
     :answers_tex_height: []
   2024_EB101:
     :challenge_tex: 0541b70b599b
+    :challenge_svg: EB101_q.svg
+    :challenge_svg_width: 227.343
+    :challenge_svg_height: 89.829
     :answers_tex:
     - 84477a3147f7
     - cfc451a2aca8
@@ -19638,6 +19677,9 @@
     :answers_tex_height: []
   2024_EB206:
     :challenge_tex: efd4f34eb60f
+    :challenge_svg: EB206_q.svg
+    :challenge_svg_width: 226.662
+    :challenge_svg_height: 210.529
     :answers_tex:
     - 8dd7b210694e
     - 76caca932725
@@ -19665,6 +19707,9 @@
     :answers_tex_height: []
   2024_EB203:
     :challenge_tex: 01b77d2a34ce
+    :challenge_svg: EB203_q.svg
+    :challenge_svg_width: 115.525
+    :challenge_svg_height: 135.308
     :answers_tex:
     - ca21e96f9e27
     - 67a99d947fe4
@@ -19674,6 +19719,9 @@
     :answers_tex_height: []
   2024_EB202:
     :challenge_tex: ca27b0f99a53
+    :challenge_svg: EB202_q.svg
+    :challenge_svg_width: 226.415
+    :challenge_svg_height: 132.192
     :answers_tex:
     - cfc451a2aca8
     - 84477a3147f7
@@ -19746,6 +19794,9 @@
     :answers_tex_height: []
   2024_EB310:
     :challenge_tex: 1d362c8b914f
+    :challenge_svg: EB310_q.svg
+    :challenge_svg_width: 305.439
+    :challenge_svg_height: 481.466
     :answers_tex:
     - 13dd55d2204f
     - b2a3102b27a2
@@ -19755,6 +19806,9 @@
     :answers_tex_height: []
   2024_EB309:
     :challenge_tex: 19c5090ef3c4
+    :challenge_svg: EB309_q.svg
+    :challenge_svg_width: 397.986
+    :challenge_svg_height: 434.694
     :answers_tex:
     - b2a3102b27a2
     - 13dd55d2204f
@@ -19764,6 +19818,9 @@
     :answers_tex_height: []
   2024_EB308:
     :challenge_tex: 746c983bd720
+    :challenge_svg: EB308_q.svg
+    :challenge_svg_width: 229.251
+    :challenge_svg_height: 122.163
     :answers_tex:
     - 7d5f6f90277d
     - ffff0067324d
@@ -19773,6 +19830,9 @@
     :answers_tex_height: []
   2024_EB307:
     :challenge_tex: e2ff041da8ce
+    :challenge_svg: EB307_q.svg
+    :challenge_svg_width: 226.774
+    :challenge_svg_height: 129.806
     :answers_tex:
     - bb7204389227
     - ffff0067324d
@@ -19782,6 +19842,9 @@
     :answers_tex_height: []
   2024_EB306:
     :challenge_tex: 7d901ff365bb
+    :challenge_svg: EB306_q.svg
+    :challenge_svg_width: 226.774
+    :challenge_svg_height: 129.806
     :answers_tex:
     - ffff0067324d
     - bb7204389227
@@ -19872,6 +19935,9 @@
     :answers_tex_height: []
   2024_AB303:
     :challenge_tex: cdde64a6915a
+    :challenge_svg: AB303_q.svg
+    :challenge_svg_width: 228.323
+    :challenge_svg_height: 125.65
     :answers_tex:
     - 04a58ca8e610
     - 82a86bcaea09
@@ -19881,6 +19947,9 @@
     :answers_tex_height: []
   2024_AB302:
     :challenge_tex: 4cd84144ff73
+    :challenge_svg: AB302_q.svg
+    :challenge_svg_width: 229.845
+    :challenge_svg_height: 125.65
     :answers_tex:
     - 33036f702511
     - bd421be059ad
@@ -19899,6 +19968,9 @@
     :answers_tex_height: []
   2024_EB411:
     :challenge_tex: 772ee9d864da
+    :challenge_svg: EB411_q.svg
+    :challenge_svg_width: 225.834
+    :challenge_svg_height: 195.756
     :answers_tex:
     - 3ac2d9297424
     - 45de46e56efa
@@ -19908,6 +19980,9 @@
     :answers_tex_height: []
   2024_EB410:
     :challenge_tex: 06f02ac7f565
+    :challenge_svg: EB410_q.svg
+    :challenge_svg_width: 225.834
+    :challenge_svg_height: 195.111
     :answers_tex:
     - 48126d6dacc2
     - 02a95c4ca347
@@ -19917,6 +19992,9 @@
     :answers_tex_height: []
   2024_EB409:
     :challenge_tex: 92d8fc3b27f9
+    :challenge_svg: EB409_q.svg
+    :challenge_svg_width: 225.834
+    :challenge_svg_height: 195.756
     :answers_tex:
     - 530d6caf1abe
     - f6ebecc99153
@@ -19935,6 +20013,9 @@
     :answers_tex_height: []
   2024_EB407:
     :challenge_tex: 62d0ed2ba265
+    :challenge_svg: EB407_q.svg
+    :challenge_svg_width: 225.834
+    :challenge_svg_height: 195.111
     :answers_tex:
     - ab13e569afcc
     - 7b136dfbb14a
@@ -19944,6 +20025,9 @@
     :answers_tex_height: []
   2024_EB406:
     :challenge_tex: 5666af1ac52d
+    :challenge_svg: EB406_q.svg
+    :challenge_svg_width: 225.834
+    :challenge_svg_height: 195.756
     :answers_tex:
     - d793c45a86ee
     - b2f2ab090df9
@@ -19953,6 +20037,9 @@
     :answers_tex_height: []
   2024_EB405:
     :challenge_tex: 78cfffd96d1c
+    :challenge_svg: EB405_q.svg
+    :challenge_svg_width: 230.345
+    :challenge_svg_height: 142.131
     :answers_tex:
     - 2f1575e16b20
     - 9c81777c221e
@@ -19998,6 +20085,9 @@
     :answers_tex_height: []
   2024_NB405:
     :challenge_tex: 414e0de9e568
+    :challenge_svg: NB405_q.svg
+    :challenge_svg_width: 227.111
+    :challenge_svg_height: 173.127
     :answers_tex:
     - 85e181b57a56
     - 15b948e10519
@@ -20007,6 +20097,9 @@
     :answers_tex_height: []
   2024_NB404:
     :challenge_tex: 5df0c15d403c
+    :challenge_svg: NB404_q.svg
+    :challenge_svg_width: 227.111
+    :challenge_svg_height: 173.127
     :answers_tex:
     - 15b948e10519
     - c29a7f009511
@@ -20016,6 +20109,9 @@
     :answers_tex_height: []
   2024_NB403:
     :challenge_tex: 57450c2427fa
+    :challenge_svg: NB403_q.svg
+    :challenge_svg_width: 226.815
+    :challenge_svg_height: 132.475
     :answers_tex:
     - e4dbbc720407
     - 15b948e10519
@@ -20025,6 +20121,9 @@
     :answers_tex_height: []
   2024_NB402:
     :challenge_tex: 3a3d5dc75070
+    :challenge_svg: NB402_q.svg
+    :challenge_svg_width: 226.815
+    :challenge_svg_height: 132.475
     :answers_tex:
     - 15b948e10519
     - c29a7f009511
@@ -20034,9 +20133,21 @@
     :answers_tex_height: []
   2024_NB401:
     :challenge_tex: a24fb7a77b5a
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - NB401_a.svg
+    - NB401_b.svg
+    - NB401_c.svg
+    - NB401_d.svg
+    :answers_svg_width:
+    - 115.47
+    - 115.47
+    - 115.47
+    - 115.47
+    :answers_svg_height:
+    - 70.753
+    - 70.753
+    - 70.753
+    - 70.155
   2024_AB409:
     :challenge_tex: 680a49c8f80b
     :answers_tex:
@@ -20057,26 +20168,89 @@
     :answers_tex_height: []
   2024_AB407:
     :challenge_tex: 9f6b6dc17ba5
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AB407_q.svg
+    :challenge_svg_width: 174.504
+    :challenge_svg_height: 76.286
+    :answers_svg:
+    - AB407_a.svg
+    - AB407_b.svg
+    - AB407_c.svg
+    - AB407_d.svg
+    :answers_svg_width:
+    - 226.814
+    - 226.814
+    - 226.814
+    - 226.814
+    :answers_svg_height:
+    - 83.134
+    - 83.134
+    - 125.65
+    - 83.134
   2024_AB406:
     :challenge_tex: a286513015e4
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AB406_q.svg
+    :challenge_svg_width: 174.504
+    :challenge_svg_height: 76.286
+    :answers_svg:
+    - AB406_a.svg
+    - AB406_b.svg
+    - AB406_c.svg
+    - AB406_d.svg
+    :answers_svg_width:
+    - 226.814
+    - 226.814
+    - 226.814
+    - 226.814
+    :answers_svg_height:
+    - 83.134
+    - 83.134
+    - 83.134
+    - 83.134
   2024_AB405:
     :challenge_tex: 22726efb6807
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AB405_q.svg
+    :challenge_svg_width: 226.814
+    :challenge_svg_height: 83.134
+    :answers_svg:
+    - AB405_a.svg
+    - AB405_b.svg
+    - AB405_c.svg
+    - AB405_d.svg
+    :answers_svg_width:
+    - 227.771
+    - 227.771
+    - 227.771
+    - 227.771
+    :answers_svg_height:
+    - 76.286
+    - 76.286
+    - 76.286
+    - 76.286
   2024_AB404:
     :challenge_tex: d3a4c6cc4489
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AB404_q.svg
+    :challenge_svg_width: 226.814
+    :challenge_svg_height: 83.134
+    :answers_svg:
+    - AB404_a.svg
+    - AB404_b.svg
+    - AB404_c.svg
+    - AB404_d.svg
+    :answers_svg_width:
+    - 227.771
+    - 227.771
+    - 227.771
+    - 227.771
+    :answers_svg_height:
+    - 76.286
+    - 76.286
+    - 76.286
+    - 76.286
   2024_AB403:
     :challenge_tex: 9625e2ff8d49
+    :challenge_svg: AB403_q.svg
+    :challenge_svg_width: 195.064
+    :challenge_svg_height: 162.185
     :answers_tex:
     - '028bd9394289'
     - 504ea666ad62
@@ -20104,6 +20278,9 @@
     :answers_tex_height: []
   2024_NB505:
     :challenge_tex: a466cc6b1edd
+    :challenge_svg: NB505_q.svg
+    :challenge_svg_width: 168.952
+    :challenge_svg_height: 103.995
     :answers_tex:
     - 05a30484fa1f
     - 9e559cb9bfa7
@@ -20113,6 +20290,9 @@
     :answers_tex_height: []
   2024_NB504:
     :challenge_tex: 7f94b0bd285c
+    :challenge_svg: NB504_q.svg
+    :challenge_svg_width: 168.952
+    :challenge_svg_height: 102.919
     :answers_tex:
     - b103fd6b5a6a
     - 0bb48d39c180
@@ -20329,6 +20509,9 @@
     :answers_tex_height: []
   2024_AB503:
     :challenge_tex: 81df4eb6a09c
+    :challenge_svg: AB503_q.svg
+    :challenge_svg_width: 219.05
+    :challenge_svg_height: 120.635
     :answers_tex:
     - 6145455d78bc
     - 66dc5b5ca93a
@@ -20356,21 +20539,60 @@
     :answers_tex_height: []
   2024_AB601:
     :challenge_tex: f95565f0ffa5
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AB601_a.svg
+    - AB601_b.svg
+    - AB601_c.svg
+    - AB601_d.svg
+    :answers_svg_width:
+    - 113.385
+    - 113.385
+    - 113.385
+    - 113.385
+    :answers_svg_height:
+    - 113.385
+    - 113.385
+    - 113.385
+    - 113.385
   2024_NB703:
     :challenge_tex: 51cc045dabbc
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - NB703_a.svg
+    - NB703_b.svg
+    - NB703_c.svg
+    - NB703_d.svg
+    :answers_svg_width:
+    - 226.771
+    - 226.771
+    - 226.771
+    - 226.771
+    :answers_svg_height:
+    - 124.793
+    - 124.793
+    - 124.793
+    - 124.793
   2024_NB702:
     :challenge_tex: 4d94d6f95760
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - NB702_a.svg
+    - NB702_b.svg
+    - NB702_c.svg
+    - NB702_d.svg
+    :answers_svg_width:
+    - 113.385
+    - 113.385
+    - 113.385
+    - 113.385
+    :answers_svg_height:
+    - 113.385
+    - 113.385
+    - 113.385
+    - 113.385
   2024_NB701:
     :challenge_tex: c87f885c1a9a
+    :challenge_svg: NB701_q.svg
+    :challenge_svg_width: 113.388
+    :challenge_svg_height: 14.009
     :answers_tex:
     - bbe8ac8fb84e
     - a5d4c9da464f
@@ -20398,6 +20620,9 @@
     :answers_tex_height: []
   2024_EC115:
     :challenge_tex: e615964ae595
+    :challenge_svg: EC115_q.svg
+    :challenge_svg_width: 79.769
+    :challenge_svg_height: 53.973
     :answers_tex:
     - ed87674f15a0
     - 0d2a8620b476
@@ -20434,16 +20659,43 @@
     :answers_tex_height: []
   2024_EC111:
     :challenge_tex: 735d65cf912f
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC111_a.svg
+    - EC111_b.svg
+    - EC111_c.svg
+    - EC111_d.svg
+    :answers_svg_width:
+    - 112.993
+    - 112.993
+    - 112.993
+    - 112.993
+    :answers_svg_height:
+    - 42.993
+    - 42.993
+    - 18.456
+    - 31.552
   2024_EC110:
     :challenge_tex: 4d0e4b48711c
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC110_a.svg
+    - EC110_b.svg
+    - EC110_c.svg
+    - EC110_d.svg
+    :answers_svg_width:
+    - 112.993
+    - 112.993
+    - 112.993
+    - 112.993
+    :answers_svg_height:
+    - 42.993
+    - 42.993
+    - 18.456
+    - 31.552
   2024_EC109:
     :challenge_tex: 007515405b3b
+    :challenge_svg: EC109_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 42.993
     :answers_tex:
     - 225c40ac4bbd
     - 21001dd759eb
@@ -20606,6 +20858,9 @@
     :answers_tex_height: []
   2024_NC101:
     :challenge_tex: 683cf5271af2
+    :challenge_svg: NC101_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 12.703
     :answers_tex:
     - d4dd6f5ab5b1
     - b6d832a29d68
@@ -20768,11 +21023,26 @@
     :answers_tex_height: []
   2024_EC201:
     :challenge_tex: 424bea818480
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC201_a.svg
+    - EC201_b.svg
+    - EC201_c.svg
+    - EC201_d.svg
+    :answers_svg_width:
+    - 228.324
+    - 228.324
+    - 228.318
+    - 228.324
+    :answers_svg_height:
+    - 96.535
+    - 96.535
+    - 96.535
+    - 96.535
   2024_NC201:
     :challenge_tex: 180f1ae632a0
+    :challenge_svg: NC201_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 24.608
     :answers_tex:
     - 7a2895c2e572
     - c05ff65dfeb2
@@ -20782,6 +21052,9 @@
     :answers_tex_height: []
   2024_AC211:
     :challenge_tex: 81a5c9811b6c
+    :challenge_svg: AC211_q.svg
+    :challenge_svg_width: 115.525
+    :challenge_svg_height: 135.308
     :answers_tex:
     - 26b3ac17f7a8
     - 1580238de9e0
@@ -20881,6 +21154,9 @@
     :answers_tex_height: []
   2024_EC307:
     :challenge_tex: 9a661a02940e
+    :challenge_svg: EC307_q.svg
+    :challenge_svg_width: 226.349
+    :challenge_svg_height: 139.731
     :answers_tex:
     - 3d492c885338
     - 2d6a6d15d8c6
@@ -20890,6 +21166,9 @@
     :answers_tex_height: []
   2024_EC306:
     :challenge_tex: 2cda3edea9c3
+    :challenge_svg: EC306_q.svg
+    :challenge_svg_width: 228.705
+    :challenge_svg_height: 168.547
     :answers_tex:
     - a61dac6e3faa
     - 516819c7c8f1
@@ -20926,6 +21205,9 @@
     :answers_tex_height: []
   2024_EC302:
     :challenge_tex: e7d0b1497a09
+    :challenge_svg: EC302_q.svg
+    :challenge_svg_width: 222.715
+    :challenge_svg_height: 146.081
     :answers_tex:
     - c77d262c2a84
     - e1a4499132b9
@@ -20935,11 +21217,26 @@
     :answers_tex_height: []
   2024_EC301:
     :challenge_tex: 90008e35653b
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC301_a.svg
+    - EC301_b.svg
+    - EC301_c.svg
+    - EC301_d.svg
+    :answers_svg_width:
+    - 228.324
+    - 228.324
+    - 228.318
+    - 228.324
+    :answers_svg_height:
+    - 96.535
+    - 96.535
+    - 96.535
+    - 96.535
   2024_NC301:
     :challenge_tex: e420167b389f
+    :challenge_svg: NC301_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 6.749
     :answers_tex:
     - c05ff65dfeb2
     - 7a2895c2e572
@@ -20976,6 +21273,9 @@
     :answers_tex_height: []
   2024_AC304:
     :challenge_tex: fa6ef64484ea
+    :challenge_svg: AC304_q.svg
+    :challenge_svg_width: 170.079
+    :challenge_svg_height: 89.104
     :answers_tex:
     - 0f456ae9ee45
     - d35c0b4ddd65
@@ -20985,6 +21285,9 @@
     :answers_tex_height: []
   2024_AC303:
     :challenge_tex: 7271ba37126e
+    :challenge_svg: AC303_q.svg
+    :challenge_svg_width: 170.079
+    :challenge_svg_height: 89.104
     :answers_tex:
     - 33fdeb1a9d7f
     - 4aa50b772bd4
@@ -21039,6 +21342,9 @@
     :answers_tex_height: []
   2024_EC401:
     :challenge_tex: 77e28e8df1fa
+    :challenge_svg: EC401_q.svg
+    :challenge_svg_width: 107.289
+    :challenge_svg_height: 87.88
     :answers_tex:
     - b62abbf05472
     - c85c19c18d86
@@ -21066,14 +21372,44 @@
     :answers_tex_height: []
   2024_AC406:
     :challenge_tex: d4108cf580b6
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AC406_q.svg
+    :challenge_svg_width: 229.622
+    :challenge_svg_height: 125.036
+    :answers_svg:
+    - AC406_a.svg
+    - AC406_b.svg
+    - AC406_c.svg
+    - AC406_d.svg
+    :answers_svg_width:
+    - 115.253
+    - 115.253
+    - 115.253
+    - 115.253
+    :answers_svg_height:
+    - 120.45
+    - 121.048
+    - 120.45
+    - 120.45
   2024_AC405:
     :challenge_tex: d2504374ea07
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AC405_q.svg
+    :challenge_svg_width: 229.622
+    :challenge_svg_height: 125.036
+    :answers_svg:
+    - AC405_a.svg
+    - AC405_b.svg
+    - AC405_c.svg
+    - AC405_d.svg
+    :answers_svg_width:
+    - 115.253
+    - 115.253
+    - 115.253
+    - 115.253
+    :answers_svg_height:
+    - 120.45
+    - 121.048
+    - 120.45
+    - 120.45
   2024_AC404:
     :challenge_tex: 2446e4f21fb1
     :answers_tex:
@@ -21112,6 +21448,9 @@
     :answers_tex_height: []
   2024_EC522:
     :challenge_tex: 9f52a537997b
+    :challenge_svg: EC522_q.svg
+    :challenge_svg_width: 220.441
+    :challenge_svg_height: 111.438
     :answers_tex:
     - 2cb7f50d0b8b
     - '06835645e6cc'
@@ -21121,6 +21460,9 @@
     :answers_tex_height: []
   2024_EC521:
     :challenge_tex: 216f8b777640
+    :challenge_svg: EC521_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 126.846
     :answers_tex:
     - c3f727a86988
     - 5eccdc0df833
@@ -21130,11 +21472,26 @@
     :answers_tex_height: []
   2024_EC520:
     :challenge_tex: 6463114aedd5
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC520_a.svg
+    - EC520_b.svg
+    - EC520_c.svg
+    - EC520_d.svg
+    :answers_svg_width:
+    - 226.773
+    - 226.773
+    - 226.773
+    - 226.771
+    :answers_svg_height:
+    - 126.846
+    - 126.846
+    - 126.846
+    - 128.136
   2024_EC519:
     :challenge_tex: 9f52ce3dae4a
+    :challenge_svg: EC519_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 119.191
     :answers_tex:
     - deaaa49e3e20
     - 34668d3ef4e8
@@ -21153,6 +21510,9 @@
     :answers_tex_height: []
   2024_EC517:
     :challenge_tex: 3d143a913a2e
+    :challenge_svg: EC517_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 20.639
     :answers_tex:
     - c2eae779c9b4
     - 9cb9f44e0452
@@ -21162,6 +21522,9 @@
     :answers_tex_height: []
   2024_EC516:
     :challenge_tex: 9c5ec128114b
+    :challenge_svg: EC516_q.svg
+    :challenge_svg_width: 164.45
+    :challenge_svg_height: 115.104
     :answers_tex:
     - febaffbc90bd
     - 23cb9df17ef7
@@ -21180,6 +21543,9 @@
     :answers_tex_height: []
   2024_EC514:
     :challenge_tex: a52f27e4da3b
+    :challenge_svg: EC514_q.svg
+    :challenge_svg_width: 164.45
+    :challenge_svg_height: 115.104
     :answers_tex:
     - bfaced6a2111
     - 34668d3ef4e8
@@ -21198,26 +21564,77 @@
     :answers_tex_height: []
   2024_EC512:
     :challenge_tex: 64b497324e5d
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC512_a.svg
+    - EC512_b.svg
+    - EC512_c.svg
+    - EC512_d.svg
+    :answers_svg_width:
+    - 226.772
+    - 226.772
+    - 226.772
+    - 226.772
+    :answers_svg_height:
+    - 20.639
+    - 20.639
+    - 20.639
+    - 20.639
   2024_EC511:
     :challenge_tex: 84a90f0ff381
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC511_a.svg
+    - EC511_b.svg
+    - EC511_c.svg
+    - EC511_d.svg
+    :answers_svg_width:
+    - 226.772
+    - 226.772
+    - 226.772
+    - 226.772
+    :answers_svg_height:
+    - 20.639
+    - 20.639
+    - 20.639
+    - 20.639
   2024_EC510:
     :challenge_tex: 179d2a096e73
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC510_a.svg
+    - EC510_b.svg
+    - EC510_c.svg
+    - EC510_d.svg
+    :answers_svg_width:
+    - 226.772
+    - 226.772
+    - 226.772
+    - 226.772
+    :answers_svg_height:
+    - 20.639
+    - 20.639
+    - 20.639
+    - 20.639
   2024_EC509:
     :challenge_tex: 2aba31981a5e
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC509_a.svg
+    - EC509_b.svg
+    - EC509_c.svg
+    - EC509_d.svg
+    :answers_svg_width:
+    - 226.772
+    - 226.772
+    - 226.772
+    - 226.772
+    :answers_svg_height:
+    - 20.639
+    - 20.639
+    - 20.639
+    - 20.639
   2024_EC508:
     :challenge_tex: 03e8de67229e
+    :challenge_svg: EC508_q.svg
+    :challenge_svg_width: 228.609
+    :challenge_svg_height: 111.668
     :answers_tex:
     - 9cb9f44e0452
     - 2d3567d9b108
@@ -21227,6 +21644,9 @@
     :answers_tex_height: []
   2024_EC507:
     :challenge_tex: ddbfccd5c523
+    :challenge_svg: EC507_q.svg
+    :challenge_svg_width: 228.609
+    :challenge_svg_height: 111.668
     :answers_tex:
     - 2d3567d9b108
     - 9cb9f44e0452
@@ -21236,6 +21656,9 @@
     :answers_tex_height: []
   2024_EC506:
     :challenge_tex: 97a1790a9be8
+    :challenge_svg: EC506_q.svg
+    :challenge_svg_width: 228.609
+    :challenge_svg_height: 111.668
     :answers_tex:
     - 29e1390b78fa
     - 2d3567d9b108
@@ -21245,6 +21668,9 @@
     :answers_tex_height: []
   2024_EC505:
     :challenge_tex: f67bdd833cbc
+    :challenge_svg: EC505_q.svg
+    :challenge_svg_width: 228.609
+    :challenge_svg_height: 111.668
     :answers_tex:
     - f2c3c2bc3e40
     - 2d3567d9b108
@@ -21290,11 +21716,26 @@
     :answers_tex_height: []
   2024_NC404:
     :challenge_tex: 1c8d1953528f
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - NC404_a.svg
+    - NC404_b.svg
+    - NC404_c.svg
+    - NC404_d.svg
+    :answers_svg_width:
+    - 219.05
+    - 219.05
+    - 219.05
+    - 218.18
+    :answers_svg_height:
+    - 130.756
+    - 130.756
+    - 130.756
+    - 123.885
   2024_NC403:
     :challenge_tex: 6738e16573c2
+    :challenge_svg: NC403_q.svg
+    :challenge_svg_width: 113.386
+    :challenge_svg_height: 20.639
     :answers_tex:
     - a9f99756d392
     - a26c709e8a1d
@@ -21304,6 +21745,9 @@
     :answers_tex_height: []
   2024_NC402:
     :challenge_tex: 89e28c121ed3
+    :challenge_svg: NC402_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 30.361
     :answers_tex:
     - 9cb9f44e0452
     - c05ff65dfeb2
@@ -21313,6 +21757,9 @@
     :answers_tex_height: []
   2024_NC401:
     :challenge_tex: f1b60166b299
+    :challenge_svg: NC401_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 20.639
     :answers_tex:
     - b6d832a29d68
     - d4dd6f5ab5b1
@@ -21322,9 +21769,21 @@
     :answers_tex_height: []
   2024_AC524:
     :challenge_tex: 6cd526fc8239
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AC524_a.svg
+    - AC524_b.svg
+    - AC524_c.svg
+    - AC524_d.svg
+    :answers_svg_width:
+    - 106.073
+    - 106.073
+    - 106.073
+    - 106.073
+    :answers_svg_height:
+    - 190.79
+    - 190.79
+    - 190.79
+    - 190.79
   2024_AC523:
     :challenge_tex: 8c1e2f49b71e
     :answers_tex:
@@ -21336,6 +21795,9 @@
     :answers_tex_height: []
   2024_AC522:
     :challenge_tex: a8e117056f46
+    :challenge_svg: AC522_q.svg
+    :challenge_svg_width: 111.559
+    :challenge_svg_height: 240.164
     :answers_tex:
     - 2eb4f4df80ce
     - b6867e17e1b6
@@ -21345,6 +21807,9 @@
     :answers_tex_height: []
   2024_AC521:
     :challenge_tex: 88fcb1383058
+    :challenge_svg: AC521_q.svg
+    :challenge_svg_width: 111.559
+    :challenge_svg_height: 240.164
     :answers_tex:
     - 1415782278ab
     - 2135bdbff3ef
@@ -21354,6 +21819,9 @@
     :answers_tex_height: []
   2024_AC520:
     :challenge_tex: d7a485c08312
+    :challenge_svg: AC520_q.svg
+    :challenge_svg_width: 223.555
+    :challenge_svg_height: 225.574
     :answers_tex:
     - 692490ebb514
     - 3771653f6b66
@@ -21363,6 +21831,9 @@
     :answers_tex_height: []
   2024_AC519:
     :challenge_tex: aca34b378bb2
+    :challenge_svg: AC519_q.svg
+    :challenge_svg_width: 223.555
+    :challenge_svg_height: 225.574
     :answers_tex:
     - 400aac6fa1bf
     - 3771653f6b66
@@ -21372,6 +21843,9 @@
     :answers_tex_height: []
   2024_AC518:
     :challenge_tex: '083118c5d9cc'
+    :challenge_svg: AC518_q.svg
+    :challenge_svg_width: 223.555
+    :challenge_svg_height: 225.574
     :answers_tex:
     - 8f3bd4800d0e
     - 65fffe257607
@@ -21381,6 +21855,9 @@
     :answers_tex_height: []
   2024_AC517:
     :challenge_tex: 5337a92ec2da
+    :challenge_svg: AC517_q.svg
+    :challenge_svg_width: 223.555
+    :challenge_svg_height: 225.574
     :answers_tex:
     - 37cec39ac7e5
     - 78a3c5148070
@@ -21390,6 +21867,9 @@
     :answers_tex_height: []
   2024_AC516:
     :challenge_tex: f1452dcd609d
+    :challenge_svg: AC516_q.svg
+    :challenge_svg_width: 223.555
+    :challenge_svg_height: 225.574
     :answers_tex:
     - 61f704be7d79
     - 69f66c4cd452
@@ -21399,6 +21879,9 @@
     :answers_tex_height: []
   2024_AC515:
     :challenge_tex: bdda1f039f85
+    :challenge_svg: AC515_q.svg
+    :challenge_svg_width: 223.555
+    :challenge_svg_height: 225.574
     :answers_tex:
     - 7ea539a3fa68
     - f9820f7b1dec
@@ -21417,6 +21900,9 @@
     :answers_tex_height: []
   2024_AC513:
     :challenge_tex: b156abc4344d
+    :challenge_svg: AC513_q.svg
+    :challenge_svg_width: 49.098
+    :challenge_svg_height: 55.512
     :answers_tex:
     - ffa499ab4c28
     - 7fb398a15142
@@ -21435,21 +21921,60 @@
     :answers_tex_height: []
   2024_AC511:
     :challenge_tex: ce1c725c69e9
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AC511_a.svg
+    - AC511_b.svg
+    - AC511_c.svg
+    - AC511_d.svg
+    :answers_svg_width:
+    - 35.436
+    - 35.436
+    - 35.436
+    - 35.436
+    :answers_svg_height:
+    - 44.451
+    - 44.451
+    - 44.451
+    - 44.451
   2024_AC510:
     :challenge_tex: b7e7fbfa7644
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AC510_a.svg
+    - AC510_b.svg
+    - AC510_c.svg
+    - AC510_d.svg
+    :answers_svg_width:
+    - 35.436
+    - 35.436
+    - 35.436
+    - 35.436
+    :answers_svg_height:
+    - 44.451
+    - 44.451
+    - 44.451
+    - 44.451
   2024_AC509:
     :challenge_tex: 559a756ff10b
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AC509_a.svg
+    - AC509_b.svg
+    - AC509_c.svg
+    - AC509_d.svg
+    :answers_svg_width:
+    - 35.436
+    - 35.436
+    - 35.436
+    - 35.436
+    :answers_svg_height:
+    - 44.451
+    - 44.451
+    - 44.451
+    - 44.451
   2024_AC508:
     :challenge_tex: 2c46dec78dbc
+    :challenge_svg: AC508_q.svg
+    :challenge_svg_width: 35.436
+    :challenge_svg_height: 44.451
     :answers_tex:
     - 989db8c15bf4
     - 193d7616d27d
@@ -21459,6 +21984,9 @@
     :answers_tex_height: []
   2024_AC507:
     :challenge_tex: f8d188ef1a41
+    :challenge_svg: AC507_q.svg
+    :challenge_svg_width: 219.514
+    :challenge_svg_height: 44.451
     :answers_tex:
     - 568af2337883
     - fdea0a90f8da
@@ -21468,6 +21996,9 @@
     :answers_tex_height: []
   2024_AC506:
     :challenge_tex: 5c3a84dec1f6
+    :challenge_svg: AC506_q.svg
+    :challenge_svg_width: 56.693
+    :challenge_svg_height: 44.451
     :answers_tex:
     - 2a29c4d9286d
     - 3e59b7d21a3f
@@ -21522,24 +22053,72 @@
     :answers_tex_height: []
   2024_EC615:
     :challenge_tex: 771530be2abe
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC615_a.svg
+    - EC615_b.svg
+    - EC615_c.svg
+    - EC615_d.svg
+    :answers_svg_width:
+    - 113.386
+    - 113.386
+    - 113.386
+    - 113.386
+    :answers_svg_height:
+    - 99.513
+    - 99.513
+    - 100.734
+    - 100.734
   2024_EC614:
     :challenge_tex: 6d824836dc88
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC614_a.svg
+    - EC614_b.svg
+    - EC614_c.svg
+    - EC614_d.svg
+    :answers_svg_width:
+    - 113.386
+    - 113.386
+    - 113.386
+    - 113.386
+    :answers_svg_height:
+    - 100.734
+    - 100.734
+    - 100.734
+    - 100.051
   2024_EC613:
     :challenge_tex: fb9d1a0e0cee
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC613_a.svg
+    - EC613_b.svg
+    - EC613_c.svg
+    - EC613_d.svg
+    :answers_svg_width:
+    - 113.386
+    - 113.386
+    - 113.385
+    - 113.386
+    :answers_svg_height:
+    - 100.196
+    - 100.196
+    - 100.392
+    - 100.051
   2024_EC612:
     :challenge_tex: 0261113b761b
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC612_a.svg
+    - EC612_b.svg
+    - EC612_c.svg
+    - EC612_d.svg
+    :answers_svg_width:
+    - 113.386
+    - 113.385
+    - 113.386
+    - 113.386
+    :answers_svg_height:
+    - 100.051
+    - 100.392
+    - 100.051
+    - 100.051
   2024_EC611:
     :challenge_tex: 88645d2cd0cb
     :answers_tex:
@@ -21551,6 +22130,9 @@
     :answers_tex_height: []
   2024_EC610:
     :challenge_tex: 3b7e47d18b9d
+    :challenge_svg: EC610_q.svg
+    :challenge_svg_width: 114.26
+    :challenge_svg_height: 120.832
     :answers_tex:
     - 0bc1602f685b
     - 770b86fc35c4
@@ -21560,6 +22142,9 @@
     :answers_tex_height: []
   2024_EC609:
     :challenge_tex: 4ad08b2b0db7
+    :challenge_svg: EC609_q.svg
+    :challenge_svg_width: 42.872
+    :challenge_svg_height: 67.877
     :answers_tex:
     - 588ea06ef780
     - 9cc7c1fed1ef
@@ -21578,6 +22163,9 @@
     :answers_tex_height: []
   2024_EC607:
     :challenge_tex: d37d6eda26f2
+    :challenge_svg: EC607_q.svg
+    :challenge_svg_width: 32.611
+    :challenge_svg_height: 44.451
     :answers_tex:
     - d07f09bf882b
     - be96140f8f73
@@ -21587,6 +22175,9 @@
     :answers_tex_height: []
   2024_EC606:
     :challenge_tex: 1ac3d9b0bf2a
+    :challenge_svg: EC606_q.svg
+    :challenge_svg_width: 32.611
+    :challenge_svg_height: 44.451
     :answers_tex:
     - be96140f8f73
     - d07f09bf882b
@@ -21596,9 +22187,21 @@
     :answers_tex_height: []
   2024_EC605:
     :challenge_tex: be6a3d7bc182
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EC605_a.svg
+    - EC605_b.svg
+    - EC605_c.svg
+    - EC605_d.svg
+    :answers_svg_width:
+    - 32.611
+    - 112.993
+    - 111.517
+    - 113.386
+    :answers_svg_height:
+    - 44.451
+    - 20.639
+    - 63.817
+    - 44.451
   2024_EC604:
     :challenge_tex: 61dce325cb02
     :answers_tex:
@@ -21637,6 +22240,9 @@
     :answers_tex_height: []
   2024_NC501:
     :challenge_tex: 0ae4f976a233
+    :challenge_svg: NC501_q.svg
+    :challenge_svg_width: 32.611
+    :challenge_svg_height: 44.451
     :answers_tex:
     - cd8d2adc2b81
     - c05ff65dfeb2
@@ -21682,6 +22288,9 @@
     :answers_tex_height: []
   2024_AD115:
     :challenge_tex: 9693d04ea64f
+    :challenge_svg: AD115_q.svg
+    :challenge_svg_width: 164.815
+    :challenge_svg_height: 213.475
     :answers_tex:
     - 0ef80eb36baf
     - 3d695d2bdbdf
@@ -21691,6 +22300,9 @@
     :answers_tex_height: []
   2024_AD114:
     :challenge_tex: 7402e789f7d1
+    :challenge_svg: AD114_q.svg
+    :challenge_svg_width: 164.815
+    :challenge_svg_height: 213.475
     :answers_tex:
     - b73acb1e5ee2
     - '078989b86049'
@@ -21700,6 +22312,9 @@
     :answers_tex_height: []
   2024_AD113:
     :challenge_tex: b9a3b5ece860
+    :challenge_svg: AD113_q.svg
+    :challenge_svg_width: 222.815
+    :challenge_svg_height: 163.35
     :answers_tex:
     - e9ce9646de16
     - fdf4a556a3d0
@@ -21709,6 +22324,9 @@
     :answers_tex_height: []
   2024_AD112:
     :challenge_tex: bb245d4d72b1
+    :challenge_svg: AD112_q.svg
+    :challenge_svg_width: 222.815
+    :challenge_svg_height: 163.35
     :answers_tex:
     - e3f9692a5376
     - 1bca2226b0a0
@@ -21718,6 +22336,9 @@
     :answers_tex_height: []
   2024_AD111:
     :challenge_tex: 95fb19c35b33
+    :challenge_svg: AD111_q.svg
+    :challenge_svg_width: 222.815
+    :challenge_svg_height: 163.35
     :answers_tex:
     - d1dab170e12a
     - 18b5670f1f07
@@ -21727,6 +22348,9 @@
     :answers_tex_height: []
   2024_AD110:
     :challenge_tex: dbf99eb4f5f1
+    :challenge_svg: AD110_q.svg
+    :challenge_svg_width: 226.771
+    :challenge_svg_height: 228.702
     :answers_tex:
     - 8566990849c5
     - bd416f5df502
@@ -21736,6 +22360,9 @@
     :answers_tex_height: []
   2024_AD109:
     :challenge_tex: fba655c69f75
+    :challenge_svg: AD109_q.svg
+    :challenge_svg_width: 222.705
+    :challenge_svg_height: 86.523
     :answers_tex:
     - bb4a030aad1b
     - eeee8dca02ea
@@ -21745,6 +22372,9 @@
     :answers_tex_height: []
   2024_AD108:
     :challenge_tex: 667dd868265c
+    :challenge_svg: AD108_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 118.643
     :answers_tex:
     - '09f859d4b36f'
     - d7769524375a
@@ -21754,6 +22384,9 @@
     :answers_tex_height: []
   2024_AD107:
     :challenge_tex: 5757485d70f6
+    :challenge_svg: AD107_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 118.643
     :answers_tex:
     - ca2fbf95711d
     - a2835c93df3f
@@ -21763,6 +22396,9 @@
     :answers_tex_height: []
   2024_AD106:
     :challenge_tex: 26016d97a0d0
+    :challenge_svg: AD106_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 118.643
     :answers_tex:
     - f69129514a05
     - 7b136dfbb14a
@@ -21790,6 +22426,9 @@
     :answers_tex_height: []
   2024_AD103:
     :challenge_tex: 989e1805302a
+    :challenge_svg: AD103_q.svg
+    :challenge_svg_width: 225.231
+    :challenge_svg_height: 135.071
     :answers_tex:
     - e2c34c8b7d8a
     - 27740679c551
@@ -21817,6 +22456,9 @@
     :answers_tex_height: []
   2024_ED124:
     :challenge_tex: 7652b877f1a4
+    :challenge_svg: ED124_q.svg
+    :challenge_svg_width: 226.335
+    :challenge_svg_height: 101.525
     :answers_tex:
     - 4afc2e83962b
     - dea2311fdfbe
@@ -21826,6 +22468,9 @@
     :answers_tex_height: []
   2024_ED123:
     :challenge_tex: d33dceec7b07
+    :challenge_svg: ED123_q.svg
+    :challenge_svg_width: 226.335
+    :challenge_svg_height: 101.525
     :answers_tex:
     - b56af153ce0a
     - 561b57bdf3d4
@@ -21835,6 +22480,9 @@
     :answers_tex_height: []
   2024_ED122:
     :challenge_tex: 841df4fb6dc7
+    :challenge_svg: ED122_q.svg
+    :challenge_svg_width: 226.335
+    :challenge_svg_height: 101.525
     :answers_tex:
     - 184bb782a139
     - 200717cb15a1
@@ -21844,6 +22492,9 @@
     :answers_tex_height: []
   2024_ED121:
     :challenge_tex: 0d2cf1736cff
+    :challenge_svg: ED121_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 111.914
     :answers_tex:
     - 440df7f8d78b
     - c428bfa4c051
@@ -21889,6 +22540,9 @@
     :answers_tex_height: []
   2024_ED116:
     :challenge_tex: f9abd5951ec5
+    :challenge_svg: ED116_q.svg
+    :challenge_svg_width: 227.214
+    :challenge_svg_height: 163.956
     :answers_tex:
     - b72853ac0cdc
     - c627e512ab82
@@ -21898,6 +22552,9 @@
     :answers_tex_height: []
   2024_ED115:
     :challenge_tex: 740984183d07
+    :challenge_svg: ED115_q.svg
+    :challenge_svg_width: 227.214
+    :challenge_svg_height: 163.956
     :answers_tex:
     - 01e60fe9c34c
     - 12235f17ce06
@@ -21907,6 +22564,9 @@
     :answers_tex_height: []
   2024_ED114:
     :challenge_tex: f5fb4f7dc669
+    :challenge_svg: ED114_q.svg
+    :challenge_svg_width: 227.214
+    :challenge_svg_height: 163.956
     :answers_tex:
     - 31760367dd09
     - 01e60fe9c34c
@@ -21916,6 +22576,9 @@
     :answers_tex_height: []
   2024_ED113:
     :challenge_tex: 1c2da33c1fc5
+    :challenge_svg: ED113_q.svg
+    :challenge_svg_width: 226.335
+    :challenge_svg_height: 152.67
     :answers_tex:
     - 5fd6a07ac92e
     - f7a159b31073
@@ -21925,6 +22588,9 @@
     :answers_tex_height: []
   2024_ED112:
     :challenge_tex: 1d4449648f73
+    :challenge_svg: ED112_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 123.916
     :answers_tex:
     - 908ec0df2554
     - 5a5a8296fbad
@@ -21934,6 +22600,9 @@
     :answers_tex_height: []
   2024_ED111:
     :challenge_tex: 85372fb13747
+    :challenge_svg: ED111_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 123.916
     :answers_tex:
     - 908ec0df2554
     - 649b35f58898
@@ -21943,6 +22612,9 @@
     :answers_tex_height: []
   2024_ED110:
     :challenge_tex: 2ff24eee8d9f
+    :challenge_svg: ED110_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 123.916
     :answers_tex:
     - 5fd6a07ac92e
     - 649b35f58898
@@ -21952,6 +22624,9 @@
     :answers_tex_height: []
   2024_ED109:
     :challenge_tex: 02d1cccb0043
+    :challenge_svg: ED109_q.svg
+    :challenge_svg_width: 111.87
+    :challenge_svg_height: 125.313
     :answers_tex:
     - 5fd6a07ac92e
     - e50385d88b4a
@@ -21961,6 +22636,9 @@
     :answers_tex_height: []
   2024_ED108:
     :challenge_tex: f3181cf7ce7e
+    :challenge_svg: ED108_q.svg
+    :challenge_svg_width: 111.87
+    :challenge_svg_height: 125.313
     :answers_tex:
     - b3fd5b58295e
     - 31760367dd09
@@ -22006,6 +22684,9 @@
     :answers_tex_height: []
   2024_ED103:
     :challenge_tex: f66d17f74e8f
+    :challenge_svg: ED103_q.svg
+    :challenge_svg_width: 108.95
+    :challenge_svg_height: 146.528
     :answers_tex:
     - e49f47bcc023
     - 1cadd7d1dd32
@@ -22015,6 +22696,9 @@
     :answers_tex_height: []
   2024_ED102:
     :challenge_tex: baa9a2461b65
+    :challenge_svg: ED102_q.svg
+    :challenge_svg_width: 111.517
+    :challenge_svg_height: 186.492
     :answers_tex:
     - 4cd8db241d42
     - 6fa72c3640bc
@@ -22024,6 +22708,9 @@
     :answers_tex_height: []
   2024_ED101:
     :challenge_tex: a619c5486a10
+    :challenge_svg: ED101_q.svg
+    :challenge_svg_width: 111.517
+    :challenge_svg_height: 186.492
     :answers_tex:
     - 9a7203e7532d
     - c98bb9dcc4bc
@@ -22042,6 +22729,9 @@
     :answers_tex_height: []
   2024_AD228:
     :challenge_tex: 8a628d2289a8
+    :challenge_svg: AD228_q.svg
+    :challenge_svg_width: 232.286
+    :challenge_svg_height: 130.642
     :answers_tex:
     - '0499f3e4fc44'
     - 8b474dc5f5c6
@@ -22051,6 +22741,9 @@
     :answers_tex_height: []
   2024_AD227:
     :challenge_tex: 4f80d0e28cd0
+    :challenge_svg: AD227_q.svg
+    :challenge_svg_width: 232.286
+    :challenge_svg_height: 130.642
     :answers_tex:
     - 52ce033b9c72
     - 248a589255e6
@@ -22123,6 +22816,9 @@
     :answers_tex_height: []
   2024_AD219:
     :challenge_tex: 987ce478a91e
+    :challenge_svg: AD219_q.svg
+    :challenge_svg_width: 224.959
+    :challenge_svg_height: 259.68
     :answers_tex:
     - 3a887202937f
     - 8e4ddf63acf9
@@ -22132,6 +22828,9 @@
     :answers_tex_height: []
   2024_AD218:
     :challenge_tex: aa7a93f7c654
+    :challenge_svg: AD218_q.svg
+    :challenge_svg_width: 228.167
+    :challenge_svg_height: 106.821
     :answers_tex:
     - f0e92cee8b80
     - 3df65af9085e
@@ -22186,6 +22885,9 @@
     :answers_tex_height: []
   2024_AD212:
     :challenge_tex: 3c178b6b777a
+    :challenge_svg: AD212_q.svg
+    :challenge_svg_width: 225.231
+    :challenge_svg_height: 135.071
     :answers_tex:
     - 9dfe43b1019b
     - 10e10cefaeef
@@ -22195,6 +22897,9 @@
     :answers_tex_height: []
   2024_AD211:
     :challenge_tex: 45f6ac220aa5
+    :challenge_svg: AD211_q.svg
+    :challenge_svg_width: 227.96
+    :challenge_svg_height: 98.85
     :answers_tex:
     - b592f796fcd2
     - d8539a0777c2
@@ -22204,6 +22909,9 @@
     :answers_tex_height: []
   2024_AD210:
     :challenge_tex: 67efc1074fc8
+    :challenge_svg: AD210_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 24.608
     :answers_tex:
     - cbb6df692397
     - c6fd0ff71ff1
@@ -22213,6 +22921,9 @@
     :answers_tex_height: []
   2024_AD209:
     :challenge_tex: ec74152b4de2
+    :challenge_svg: AD209_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 24.608
     :answers_tex:
     - 0ac938a48e79
     - b000f9dcbbe4
@@ -22222,6 +22933,9 @@
     :answers_tex_height: []
   2024_AD208:
     :challenge_tex: 858e37004442
+    :challenge_svg: AD208_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 24.608
     :answers_tex:
     - 8d42aa2e92b9
     - 7144dac0f61f
@@ -22231,6 +22945,9 @@
     :answers_tex_height: []
   2024_AD207:
     :challenge_tex: 0d90d823da14
+    :challenge_svg: AD207_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 24.608
     :answers_tex:
     - 630eddc63180
     - 380770d88819
@@ -22249,6 +22966,9 @@
     :answers_tex_height: []
   2024_AD205:
     :challenge_tex: 52b0055941cd
+    :challenge_svg: AD205_q.svg
+    :challenge_svg_width: 224.932
+    :challenge_svg_height: 134.665
     :answers_tex:
     - 7fe4c4b9ecb3
     - 6c7f068a6fe8
@@ -22258,11 +22978,26 @@
     :answers_tex_height: []
   2024_AD204:
     :challenge_tex: 1af3d7248ce1
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AD204_a.svg
+    - AD204_b.svg
+    - AD204_c.svg
+    - AD204_d.svg
+    :answers_svg_width:
+    - 227.96
+    - 227.96
+    - 227.96
+    - 227.96
+    :answers_svg_height:
+    - 98.85
+    - 98.85
+    - 98.85
+    - 98.85
   2024_AD203:
     :challenge_tex: 727913fddf84
+    :challenge_svg: AD203_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 200.843
     :answers_tex:
     - d40e46dbc7b7
     - 17f175abb6aa
@@ -22272,6 +23007,9 @@
     :answers_tex_height: []
   2024_AD202:
     :challenge_tex: a1dde8017b0b
+    :challenge_svg: AD202_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 126.802
     :answers_tex:
     - c607e01b7036
     - 442d4ce15cf2
@@ -22281,6 +23019,9 @@
     :answers_tex_height: []
   2024_AD201:
     :challenge_tex: 37bf04797a89
+    :challenge_svg: AD201_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 132.754
     :answers_tex:
     - c3054cb9f0f9
     - 60a33bb52f4b
@@ -22299,6 +23040,9 @@
     :answers_tex_height: []
   2024_ED215:
     :challenge_tex: 87ecbd8fc153
+    :challenge_svg: ED215_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 122.237
     :answers_tex:
     - 6af1100907cf
     - 479ea4deb455
@@ -22308,6 +23052,9 @@
     :answers_tex_height: []
   2024_ED214:
     :challenge_tex: e3c3443c8027
+    :challenge_svg: ED214_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 126.642
     :answers_tex:
     - 479ea4deb455
     - 6af1100907cf
@@ -22317,11 +23064,26 @@
     :answers_tex_height: []
   2024_ED213:
     :challenge_tex: 790ad6e7f2f3
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - ED213_a.svg
+    - ED213_b.svg
+    - ED213_c.svg
+    - ED213_d.svg
+    :answers_svg_width:
+    - 113.495
+    - 113.495
+    - 113.495
+    - 113.495
+    :answers_svg_height:
+    - 96.168
+    - 90.238
+    - 90.238
+    - 90.397
   2024_ED212:
     :challenge_tex: 416241f2ed05
+    :challenge_svg: ED212_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 132.754
     :answers_tex:
     - a7350b68a1b5
     - 479ea4deb455
@@ -22331,6 +23093,9 @@
     :answers_tex_height: []
   2024_ED211:
     :challenge_tex: 93d4b4e8da9b
+    :challenge_svg: ED211_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 132.754
     :answers_tex:
     - a7350b68a1b5
     - 479ea4deb455
@@ -22340,11 +23105,26 @@
     :answers_tex_height: []
   2024_ED210:
     :challenge_tex: 05d40780a6dd
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - ED210_a.svg
+    - ED210_b.svg
+    - ED210_c.svg
+    - ED210_d.svg
+    :answers_svg_width:
+    - 113.495
+    - 113.495
+    - 113.495
+    - 113.495
+    :answers_svg_height:
+    - 90.397
+    - 96.168
+    - 96.168
+    - 90.397
   2024_ED209:
     :challenge_tex: 7be0abcd0481
+    :challenge_svg: ED209_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 126.642
     :answers_tex:
     - 602eed6edca5
     - 479ea4deb455
@@ -22354,6 +23134,9 @@
     :answers_tex_height: []
   2024_ED208:
     :challenge_tex: 24f714b9fc38
+    :challenge_svg: ED208_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 126.802
     :answers_tex:
     - 602eed6edca5
     - 479ea4deb455
@@ -22372,6 +23155,9 @@
     :answers_tex_height: []
   2024_ED206:
     :challenge_tex: 80d5e7698938
+    :challenge_svg: ED206_q.svg
+    :challenge_svg_width: 168.818
+    :challenge_svg_height: 109.436
     :answers_tex:
     - 7921e0c03940
     - 33ee0cf565ab
@@ -22381,6 +23167,9 @@
     :answers_tex_height: []
   2024_ED205:
     :challenge_tex: f1511c13d06c
+    :challenge_svg: ED205_q.svg
+    :challenge_svg_width: 168.818
+    :challenge_svg_height: 109.436
     :answers_tex:
     - b3f0c789a859
     - 7921e0c03940
@@ -22390,6 +23179,9 @@
     :answers_tex_height: []
   2024_ED204:
     :challenge_tex: eaae1e03346c
+    :challenge_svg: ED204_q.svg
+    :challenge_svg_width: 168.795
+    :challenge_svg_height: 107.254
     :answers_tex:
     - 22cd349a5ac0
     - 957a4b294966
@@ -22399,6 +23191,9 @@
     :answers_tex_height: []
   2024_ED203:
     :challenge_tex: a82331ab50c9
+    :challenge_svg: ED203_q.svg
+    :challenge_svg_width: 168.795
+    :challenge_svg_height: 107.254
     :answers_tex:
     - 957a4b294966
     - 22cd349a5ac0
@@ -22408,6 +23203,9 @@
     :answers_tex_height: []
   2024_ED202:
     :challenge_tex: dfa6d9f8d696
+    :challenge_svg: ED202_q.svg
+    :challenge_svg_width: 168.795
+    :challenge_svg_height: 107.254
     :answers_tex:
     - a7350b68a1b5
     - 602eed6edca5
@@ -22417,6 +23215,9 @@
     :answers_tex_height: []
   2024_ED201:
     :challenge_tex: 8fbd66f3af6a
+    :challenge_svg: ED201_q.svg
+    :challenge_svg_width: 168.795
+    :challenge_svg_height: 107.254
     :answers_tex:
     - 602eed6edca5
     - a7350b68a1b5
@@ -22426,6 +23227,9 @@
     :answers_tex_height: []
   2024_AD325:
     :challenge_tex: 3759039a95dc
+    :challenge_svg: AD325_q.svg
+    :challenge_svg_width: 165.26
+    :challenge_svg_height: 114.335
     :answers_tex:
     - 8dd67a160cfd
     - 06b00276ec05
@@ -22435,6 +23239,9 @@
     :answers_tex_height: []
   2024_AD324:
     :challenge_tex: e3d1d3bcc03b
+    :challenge_svg: AD324_q.svg
+    :challenge_svg_width: 165.26
+    :challenge_svg_height: 114.335
     :answers_tex:
     - 12515327ce9e
     - caf243e2d609
@@ -22444,6 +23251,9 @@
     :answers_tex_height: []
   2024_AD323:
     :challenge_tex: caca16f98779
+    :challenge_svg: AD323_q.svg
+    :challenge_svg_width: 165.26
+    :challenge_svg_height: 114.335
     :answers_tex:
     - 9cf356414722
     - 22cd349a5ac0
@@ -22462,6 +23272,9 @@
     :answers_tex_height: []
   2024_AD321:
     :challenge_tex: 96f41be22057
+    :challenge_svg: AD321_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 125.1
     :answers_tex:
     - 808e2eeabdc4
     - 26d5c0fdd7f3
@@ -22489,6 +23302,9 @@
     :answers_tex_height: []
   2024_AD318:
     :challenge_tex: d822c3b9de5f
+    :challenge_svg: AD318_q.svg
+    :challenge_svg_width: 223.0
+    :challenge_svg_height: 119.053
     :answers_tex:
     - 0c0448eab28c
     - 12fc1a21bf66
@@ -22498,6 +23314,9 @@
     :answers_tex_height: []
   2024_AD317:
     :challenge_tex: '095935a9d363'
+    :challenge_svg: AD317_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 143.272
     :answers_tex:
     - e00c49c1229c
     - a4ddd5a345a6
@@ -22507,6 +23326,9 @@
     :answers_tex_height: []
   2024_AD316:
     :challenge_tex: 495529e430a4
+    :challenge_svg: AD316_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 143.272
     :answers_tex:
     - b3144cfee428
     - 517de3dcf15f
@@ -22516,6 +23338,9 @@
     :answers_tex_height: []
   2024_AD315:
     :challenge_tex: 9d476a5656e5
+    :challenge_svg: AD315_q.svg
+    :challenge_svg_width: 226.576
+    :challenge_svg_height: 324.396
     :answers_tex:
     - 272d7831f1a9
     - b8f8a392d9e0
@@ -22525,9 +23350,21 @@
     :answers_tex_height: []
   2024_AD314:
     :challenge_tex: 7ea4c92f0fce
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AD314_a.svg
+    - AD314_b.svg
+    - AD314_c.svg
+    - AD314_d.svg
+    :answers_svg_width:
+    - 226.938
+    - 226.938
+    - 226.938
+    - 226.806
+    :answers_svg_height:
+    - 71.503
+    - 71.503
+    - 89.79
+    - 71.738
   2024_AD313:
     :challenge_tex: 32d8e3d34bd9
     :answers_tex:
@@ -22539,6 +23376,9 @@
     :answers_tex_height: []
   2024_AD312:
     :challenge_tex: 5cfffe0f372b
+    :challenge_svg: AD312_q.svg
+    :challenge_svg_width: 229.021
+    :challenge_svg_height: 112.76
     :answers_tex:
     - '09d31648bd09'
     - 770ea711673f
@@ -22548,6 +23388,9 @@
     :answers_tex_height: []
   2024_AD311:
     :challenge_tex: eae74865668e
+    :challenge_svg: AD311_q.svg
+    :challenge_svg_width: 229.021
+    :challenge_svg_height: 112.76
     :answers_tex:
     - e0b6d254b4e5
     - add5cf1d0f2b
@@ -22566,6 +23409,9 @@
     :answers_tex_height: []
   2024_AD309:
     :challenge_tex: 8565a85d2d23
+    :challenge_svg: AD309_q.svg
+    :challenge_svg_width: 226.576
+    :challenge_svg_height: 195.155
     :answers_tex:
     - 804666fb78dc
     - d9f01d0577af
@@ -22575,16 +23421,46 @@
     :answers_tex_height: []
   2024_AD308:
     :challenge_tex: be5600baafbd
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AD308_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 80.167
+    :answers_svg:
+    - AD308_a.svg
+    - AD308_b.svg
+    - AD308_c.svg
+    - AD308_d.svg
+    :answers_svg_width:
+    - 171.613
+    - 171.613
+    - 171.613
+    - 171.613
+    :answers_svg_height:
+    - 30.488
+    - 30.488
+    - 30.488
+    - 30.488
   2024_AD307:
     :challenge_tex: 9ec6802155fd
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AD307_a.svg
+    - AD307_b.svg
+    - AD307_c.svg
+    - AD307_d.svg
+    :answers_svg_width:
+    - 226.772
+    - 226.772
+    - 226.772
+    - 226.772
+    :answers_svg_height:
+    - 80.167
+    - 80.167
+    - 80.167
+    - 80.167
   2024_AD306:
     :challenge_tex: 64f8afa52d90
+    :challenge_svg: AD306_q.svg
+    :challenge_svg_width: 226.521
+    :challenge_svg_height: 104.163
     :answers_tex:
     - 40486319b06a
     - 78a1f2cef96b
@@ -22594,11 +23470,26 @@
     :answers_tex_height: []
   2024_AD305:
     :challenge_tex: c5e4e716c163
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AD305_a.svg
+    - AD305_b.svg
+    - AD305_c.svg
+    - AD305_d.svg
+    :answers_svg_width:
+    - 112.294
+    - 112.294
+    - 112.294
+    - 112.294
+    :answers_svg_height:
+    - 110.755
+    - 110.755
+    - 110.755
+    - 110.755
   2024_AD304:
     :challenge_tex: ead1daf59d9e
+    :challenge_svg: AD304_q.svg
+    :challenge_svg_width: 227.718
+    :challenge_svg_height: 75.929
     :answers_tex:
     - 0e8d59e93a9f
     - 47342622e9b3
@@ -22608,6 +23499,9 @@
     :answers_tex_height: []
   2024_AD303:
     :challenge_tex: 5b31be0e23cc
+    :challenge_svg: AD303_q.svg
+    :challenge_svg_width: 227.718
+    :challenge_svg_height: 75.929
     :answers_tex:
     - e057cb135503
     - c9f0921dd247
@@ -22617,6 +23511,9 @@
     :answers_tex_height: []
   2024_AD302:
     :challenge_tex: 7ec34b5c2c2b
+    :challenge_svg: AD302_q.svg
+    :challenge_svg_width: 227.718
+    :challenge_svg_height: 75.929
     :answers_tex:
     - 37e486001553
     - 1598a735e5ee
@@ -22626,6 +23523,9 @@
     :answers_tex_height: []
   2024_AD301:
     :challenge_tex: 6c450a9807c3
+    :challenge_svg: AD301_q.svg
+    :challenge_svg_width: 222.849
+    :challenge_svg_height: 191.005
     :answers_tex:
     - 4cee19056fe8
     - 66d392ee9c52
@@ -22635,9 +23535,24 @@
     :answers_tex_height: []
   2024_ED304:
     :challenge_tex: b46b2ef8c154
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: ED304_q.svg
+    :challenge_svg_width: 226.771
+    :challenge_svg_height: 68.657
+    :answers_svg:
+    - ED304_a.svg
+    - ED304_b.svg
+    - ED304_c.svg
+    - ED304_d.svg
+    :answers_svg_width:
+    - 118.19
+    - 118.19
+    - 118.19
+    - 119.813
+    :answers_svg_height:
+    - 85.437
+    - 85.437
+    - 85.437
+    - 85.437
   2024_ED303:
     :challenge_tex: 63538fbe36d5
     :answers_tex:
@@ -22910,6 +23825,9 @@
     :answers_tex_height: []
   2024_AD416:
     :challenge_tex: 13c03e7a29f3
+    :challenge_svg: AD416_q.svg
+    :challenge_svg_width: 161.422
+    :challenge_svg_height: 237.244
     :answers_tex:
     - eb79ba4ceedd
     - 8a30a8736254
@@ -22919,6 +23837,9 @@
     :answers_tex_height: []
   2024_AD415:
     :challenge_tex: 75fb4f656b46
+    :challenge_svg: AD415_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - b1d5781111d8
     - 7d3a4e2e6e60
@@ -22928,6 +23849,9 @@
     :answers_tex_height: []
   2024_AD414:
     :challenge_tex: 3a376fcb7a3d
+    :challenge_svg: AD414_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - 9758bac797a4
     - dc135439288a
@@ -22937,6 +23861,9 @@
     :answers_tex_height: []
   2024_AD413:
     :challenge_tex: 7f180bc9b895
+    :challenge_svg: AD413_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - '0868237995ea'
     - cfe8de2510b2
@@ -22946,6 +23873,9 @@
     :answers_tex_height: []
   2024_AD412:
     :challenge_tex: 4757f8287f34
+    :challenge_svg: AD412_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - b575f1288f9f
     - f13d2bf3a19f
@@ -22955,6 +23885,9 @@
     :answers_tex_height: []
   2024_AD411:
     :challenge_tex: 895be3d746f5
+    :challenge_svg: AD411_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - 2c496ad290c8
     - e8893aa7cbf0
@@ -22964,6 +23897,9 @@
     :answers_tex_height: []
   2024_AD410:
     :challenge_tex: 742a0881feff
+    :challenge_svg: AD410_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - 4d835af528b8
     - 4def17d027a9
@@ -22973,6 +23909,9 @@
     :answers_tex_height: []
   2024_AD409:
     :challenge_tex: fec206a94249
+    :challenge_svg: AD409_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - 953e9649c733
     - 0e3c2160366f
@@ -22982,9 +23921,24 @@
     :answers_tex_height: []
   2024_AD408:
     :challenge_tex: bc34295638a0
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AD408_q.svg
+    :challenge_svg_width: 235.094
+    :challenge_svg_height: 248.492
+    :answers_svg:
+    - AD408_a.svg
+    - AD408_b.svg
+    - AD408_c.svg
+    - AD408_d.svg
+    :answers_svg_width:
+    - 125.145
+    - 125.145
+    - 125.145
+    - 125.145
+    :answers_svg_height:
+    - 102.762
+    - 102.762
+    - 102.762
+    - 102.762
   2024_AD407:
     :challenge_tex: 4ea243e98c11
     :answers_tex:
@@ -22996,9 +23950,24 @@
     :answers_tex_height: []
   2024_AD406:
     :challenge_tex: 7d5db87f9a3d
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AD406_q.svg
+    :challenge_svg_width: 244.275
+    :challenge_svg_height: 256.537
+    :answers_svg:
+    - AD406_a.svg
+    - AD406_b.svg
+    - AD406_c.svg
+    - AD406_d.svg
+    :answers_svg_width:
+    - 232.485
+    - 232.485
+    - 232.485
+    - 232.485
+    :answers_svg_height:
+    - 57.358
+    - 57.358
+    - 57.358
+    - 57.358
   2024_AD405:
     :challenge_tex: fcbf20bcde7e
     :answers_tex:
@@ -23010,6 +23979,9 @@
     :answers_tex_height: []
   2024_AD404:
     :challenge_tex: dba89b47701e
+    :challenge_svg: AD404_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - 6be3e6e76213
     - 7065c479c657
@@ -23019,6 +23991,9 @@
     :answers_tex_height: []
   2024_AD403:
     :challenge_tex: c87726c01c45
+    :challenge_svg: AD403_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - 3e5ed54d7f33
     - ae43298986d8
@@ -23028,6 +24003,9 @@
     :answers_tex_height: []
   2024_AD402:
     :challenge_tex: f62e66c3805f
+    :challenge_svg: AD402_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - 65690f25d6e9
     - e9a65e5c764a
@@ -23037,6 +24015,9 @@
     :answers_tex_height: []
   2024_AD401:
     :challenge_tex: f2aa57f6cff4
+    :challenge_svg: AD401_q.svg
+    :challenge_svg_width: 223.211
+    :challenge_svg_height: 222.302
     :answers_tex:
     - 3b1c5a4c230b
     - 953e9649c733
@@ -23055,6 +24036,9 @@
     :answers_tex_height: []
   2024_ED402:
     :challenge_tex: 97acbe5aa640
+    :challenge_svg: ED402_q.svg
+    :challenge_svg_width: 229.94
+    :challenge_svg_height: 173.855
     :answers_tex:
     - 7378ddb0b254
     - a1dce4aece60
@@ -23082,6 +24066,9 @@
     :answers_tex_height: []
   2024_AD509:
     :challenge_tex: 78e815920ec8
+    :challenge_svg: AD509_q.svg
+    :challenge_svg_width: 227.104
+    :challenge_svg_height: 113.663
     :answers_tex:
     - 53b34d83c0ad
     - 5b3bba9b08cd
@@ -23091,6 +24078,9 @@
     :answers_tex_height: []
   2024_AD508:
     :challenge_tex: 9619449779c0
+    :challenge_svg: AD508_q.svg
+    :challenge_svg_width: 231.193
+    :challenge_svg_height: 130.592
     :answers_tex:
     - 35ef395f9829
     - 3d2ccfd507be
@@ -23100,6 +24090,9 @@
     :answers_tex_height: []
   2024_AD507:
     :challenge_tex: 8e2dee9a50a4
+    :challenge_svg: AD507_q.svg
+    :challenge_svg_width: 229.874
+    :challenge_svg_height: 178.653
     :answers_tex:
     - d07e4baf7971
     - d773755ee1a5
@@ -23109,6 +24102,9 @@
     :answers_tex_height: []
   2024_AD506:
     :challenge_tex: 3d9880928349
+    :challenge_svg: AD506_q.svg
+    :challenge_svg_width: 227.28
+    :challenge_svg_height: 144.457
     :answers_tex:
     - e8b955ca6c21
     - 22867ae2fd71
@@ -23118,6 +24114,9 @@
     :answers_tex_height: []
   2024_AD505:
     :challenge_tex: 0f0cef10391c
+    :challenge_svg: AD505_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 114.243
     :answers_tex:
     - cbc03d0e4042
     - de8d4e59d244
@@ -23127,6 +24126,9 @@
     :answers_tex_height: []
   2024_AD504:
     :challenge_tex: 5ab65d4a63af
+    :challenge_svg: AD504_q.svg
+    :challenge_svg_width: 230.234
+    :challenge_svg_height: 93.702
     :answers_tex:
     - 6ad03ab2c705
     - 47de09d23e0a
@@ -23136,6 +24138,9 @@
     :answers_tex_height: []
   2024_AD503:
     :challenge_tex: 60e7da82d0fe
+    :challenge_svg: AD503_q.svg
+    :challenge_svg_width: 230.333
+    :challenge_svg_height: 92.27
     :answers_tex:
     - 5fbbef625e38
     - 040eb0164623
@@ -23145,11 +24150,29 @@
     :answers_tex_height: []
   2024_AD502:
     :challenge_tex: 95c069147a6c
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AD502_q.svg
+    :challenge_svg_width: 228.837
+    :challenge_svg_height: 166.876
+    :answers_svg:
+    - AD502_a.svg
+    - AD502_b.svg
+    - AD502_c.svg
+    - AD502_d.svg
+    :answers_svg_width:
+    - 228.314
+    - 228.314
+    - 228.314
+    - 228.314
+    :answers_svg_height:
+    - 82.36
+    - 82.36
+    - 71.264
+    - 71.264
   2024_AD501:
     :challenge_tex: 6aaefe40942b
+    :challenge_svg: AD501_q.svg
+    :challenge_svg_width: 231.888
+    :challenge_svg_height: 90.527
     :answers_tex:
     - 5dc9a4735977
     - 26e3e90dd05c
@@ -23159,6 +24182,9 @@
     :answers_tex_height: []
   2024_AD620:
     :challenge_tex: 0ad0e721ebb8
+    :challenge_svg: AD620_q.svg
+    :challenge_svg_width: 231.809
+    :challenge_svg_height: 97.236
     :answers_tex:
     - 997bd17a27cb
     - 6a65c7b2ccc5
@@ -23168,6 +24194,9 @@
     :answers_tex_height: []
   2024_AD619:
     :challenge_tex: 5714017d997f
+    :challenge_svg: AD619_q.svg
+    :challenge_svg_width: 227.788
+    :challenge_svg_height: 184.925
     :answers_tex:
     - 8804f2187223
     - 8dda9f741168
@@ -23177,6 +24206,9 @@
     :answers_tex_height: []
   2024_AD618:
     :challenge_tex: 426889c063de
+    :challenge_svg: AD618_q.svg
+    :challenge_svg_width: 227.788
+    :challenge_svg_height: 184.925
     :answers_tex:
     - a214917b193d
     - 0d531687517e
@@ -23186,6 +24218,9 @@
     :answers_tex_height: []
   2024_AD617:
     :challenge_tex: 0a5279440257
+    :challenge_svg: AD617_q.svg
+    :challenge_svg_width: 169.023
+    :challenge_svg_height: 230.238
     :answers_tex:
     - 778aad4e502d
     - 253c769854bb
@@ -23195,6 +24230,9 @@
     :answers_tex_height: []
   2024_AD616:
     :challenge_tex: 8dfe973ab3e1
+    :challenge_svg: AD616_q.svg
+    :challenge_svg_width: 228.784
+    :challenge_svg_height: 149.113
     :answers_tex:
     - d386577c20f4
     - 8cc60fb396b8
@@ -23204,6 +24242,9 @@
     :answers_tex_height: []
   2024_AD615:
     :challenge_tex: 3b9e34dc83ff
+    :challenge_svg: AD615_q.svg
+    :challenge_svg_width: 228.512
+    :challenge_svg_height: 191.385
     :answers_tex:
     - b1f729151157
     - 57993b423641
@@ -23213,6 +24254,9 @@
     :answers_tex_height: []
   2024_AD614:
     :challenge_tex: 37cea2683639
+    :challenge_svg: AD614_q.svg
+    :challenge_svg_width: 228.512
+    :challenge_svg_height: 189.896
     :answers_tex:
     - 26ed1959f8b5
     - 1f29408e2adb
@@ -23420,6 +24464,9 @@
     :answers_tex_height: []
   2024_AD704:
     :challenge_tex: fb5b833de351
+    :challenge_svg: AD704_q.svg
+    :challenge_svg_width: 226.729
+    :challenge_svg_height: 125.683
     :answers_tex:
     - 3030cdadacf2
     - 91529b3f442b
@@ -23429,6 +24476,9 @@
     :answers_tex_height: []
   2024_AD703:
     :challenge_tex: 9d7dcb0058bf
+    :challenge_svg: AD703_q.svg
+    :challenge_svg_width: 226.729
+    :challenge_svg_height: 125.683
     :answers_tex:
     - 50cefea61838
     - a3520e92668e
@@ -23438,6 +24488,9 @@
     :answers_tex_height: []
   2024_AD702:
     :challenge_tex: b5b772612060
+    :challenge_svg: AD702_q.svg
+    :challenge_svg_width: 226.729
+    :challenge_svg_height: 125.683
     :answers_tex:
     - 8b909b4ce078
     - 4c0b619777c9
@@ -23456,6 +24509,9 @@
     :answers_tex_height: []
   2024_AD806:
     :challenge_tex: 61e9333d9b7a
+    :challenge_svg: AD806_q.svg
+    :challenge_svg_width: 226.792
+    :challenge_svg_height: 118.603
     :answers_tex:
     - 9335a20ee698
     - 4e617adea454
@@ -23465,6 +24521,9 @@
     :answers_tex_height: []
   2024_AD805:
     :challenge_tex: be848d2f63d0
+    :challenge_svg: AD805_q.svg
+    :challenge_svg_width: 228.977
+    :challenge_svg_height: 113.222
     :answers_tex:
     - 60495bfee1bd
     - b57848c1ff8b
@@ -23474,6 +24533,9 @@
     :answers_tex_height: []
   2024_AD804:
     :challenge_tex: 3c7e42c04a0d
+    :challenge_svg: AD804_q.svg
+    :challenge_svg_width: 230.916
+    :challenge_svg_height: 108.436
     :answers_tex:
     - 1b6453892473
     - da4b9237bacc
@@ -23483,6 +24545,9 @@
     :answers_tex_height: []
   2024_AD803:
     :challenge_tex: 47e8a5b8c09c
+    :challenge_svg: AD803_q.svg
+    :challenge_svg_width: 229.219
+    :challenge_svg_height: 114.075
     :answers_tex:
     - 310b86e0b62b
     - b1d5781111d8
@@ -23492,6 +24557,9 @@
     :answers_tex_height: []
   2024_AD802:
     :challenge_tex: 902bbdb0c830
+    :challenge_svg: AD802_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 94.848
     :answers_tex:
     - 79b4101cb263
     - 5b6062d08c79
@@ -23501,6 +24569,9 @@
     :answers_tex_height: []
   2024_AD801:
     :challenge_tex: 6d9403f7e58c
+    :challenge_svg: AD801_q.svg
+    :challenge_svg_width: 225.68
+    :challenge_svg_height: 94.848
     :answers_tex:
     - 79b4101cb263
     - 5b6062d08c79
@@ -23510,6 +24581,9 @@
     :answers_tex_height: []
   2024_AE101:
     :challenge_tex: 4ec5d3fddc4f
+    :challenge_svg: AE101_q.svg
+    :challenge_svg_width: 228.777
+    :challenge_svg_height: 128.178
     :answers_tex:
     - dbe67de0384b
     - f38a204ced64
@@ -23519,9 +24593,21 @@
     :answers_tex_height: []
   2024_EE101:
     :challenge_tex: cdb9eb787ff1
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EE101_a.svg
+    - EE101_b.svg
+    - EE101_c.svg
+    - EE101_d.svg
+    :answers_svg_width:
+    - 228.973
+    - 228.973
+    - 228.973
+    - 228.973
+    :answers_svg_height:
+    - 85.439
+    - 85.439
+    - 85.439
+    - 85.439
   2024_NE102:
     :challenge_tex: 36d98cc23cdb
     :answers_tex:
@@ -23542,9 +24628,21 @@
     :answers_tex_height: []
   2024_AE214:
     :challenge_tex: d807350b8f4c
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AE214_a.svg
+    - AE214_b.svg
+    - AE214_c.svg
+    - AE214_d.svg
+    :answers_svg_width:
+    - 113.388
+    - 113.388
+    - 113.388
+    - 113.388
+    :answers_svg_height:
+    - 85.041
+    - 85.041
+    - 85.041
+    - 85.041
   2024_AE213:
     :challenge_tex: 19a9c21fdc75
     :answers_tex:
@@ -23601,6 +24699,9 @@
     :answers_tex_height: []
   2024_AE207:
     :challenge_tex: d4c0d65699c3
+    :challenge_svg: AE207_q.svg
+    :challenge_svg_width: 228.944
+    :challenge_svg_height: 185.319
     :answers_tex:
     - 3f392f84ec74
     - a155b63a6435
@@ -23637,11 +24738,26 @@
     :answers_tex_height: []
   2024_AE203:
     :challenge_tex: c0d40f9681fb
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AE203_a.svg
+    - AE203_b.svg
+    - AE203_c.svg
+    - AE203_d.svg
+    :answers_svg_width:
+    - 113.388
+    - 113.388
+    - 113.388
+    - 113.388
+    :answers_svg_height:
+    - 85.041
+    - 85.041
+    - 85.041
+    - 85.041
   2024_AE202:
     :challenge_tex: b6f7357939c1
+    :challenge_svg: AE202_q.svg
+    :challenge_svg_width: 228.944
+    :challenge_svg_height: 185.319
     :answers_tex:
     - 7394f8fd6d3c
     - 403f47b5d64b
@@ -23651,9 +24767,21 @@
     :answers_tex_height: []
   2024_AE201:
     :challenge_tex: e9113e5c9a41
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AE201_a.svg
+    - AE201_b.svg
+    - AE201_c.svg
+    - AE201_d.svg
+    :answers_svg_width:
+    - 113.388
+    - 113.388
+    - 113.388
+    - 113.388
+    :answers_svg_height:
+    - 85.041
+    - 85.041
+    - 85.041
+    - 85.041
   2024_EE207:
     :challenge_tex: 6c44efcc4fbd
     :answers_tex:
@@ -23756,21 +24884,69 @@
     :answers_tex_height: []
   2024_NE208:
     :challenge_tex: 9f76c4bbafc3
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: NE208_q.svg
+    :challenge_svg_width: 226.77
+    :challenge_svg_height: 76.1
+    :answers_svg:
+    - NE208_a.svg
+    - NE208_b.svg
+    - NE208_c.svg
+    - NE208_d.svg
+    :answers_svg_width:
+    - 115.273
+    - 115.273
+    - 115.273
+    - 115.273
+    :answers_svg_height:
+    - 53.813
+    - 53.813
+    - 54.013
+    - 54.013
   2024_NE207:
     :challenge_tex: 0ef554d9113c
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: NE207_q.svg
+    :challenge_svg_width: 226.77
+    :challenge_svg_height: 76.1
+    :answers_svg:
+    - NE207_a.svg
+    - NE207_b.svg
+    - NE207_c.svg
+    - NE207_d.svg
+    :answers_svg_width:
+    - 115.273
+    - 115.273
+    - 115.273
+    - 115.273
+    :answers_svg_height:
+    - 53.813
+    - 53.813
+    - 54.013
+    - 54.013
   2024_NE206:
     :challenge_tex: f20d3861c7ad
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: NE206_q.svg
+    :challenge_svg_width: 226.77
+    :challenge_svg_height: 76.1
+    :answers_svg:
+    - NE206_a.svg
+    - NE206_b.svg
+    - NE206_c.svg
+    - NE206_d.svg
+    :answers_svg_width:
+    - 115.273
+    - 115.273
+    - 115.273
+    - 115.273
+    :answers_svg_height:
+    - 54.013
+    - 54.013
+    - 53.813
+    - 54.013
   2024_NE205:
     :challenge_tex: c31d69bd5c97
+    :challenge_svg: NE205_q.svg
+    :challenge_svg_width: 223.608
+    :challenge_svg_height: 100.442
     :answers_tex:
     - 0c623f205860
     - 061ea52dca59
@@ -23978,6 +25154,9 @@
     :answers_tex_height: []
   2024_EE301:
     :challenge_tex: 71971f423761
+    :challenge_svg: EE301_q.svg
+    :challenge_svg_width: 230.16
+    :challenge_svg_height: 85.439
     :answers_tex:
     - 6621592cdddc
     - 80d305c58f97
@@ -24266,9 +25445,21 @@
     :answers_tex_height: []
   2024_AE401:
     :challenge_tex: 8eb4c2cac3c3
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AE401_a.svg
+    - AE401_b.svg
+    - AE401_c.svg
+    - AE401_d.svg
+    :answers_svg_width:
+    - 228.973
+    - 228.973
+    - 228.973
+    - 228.973
+    :answers_svg_height:
+    - 85.439
+    - 85.439
+    - 85.439
+    - 85.439
   2024_EE415:
     :challenge_tex: c233bdc0e07a
     :answers_tex:
@@ -24343,14 +25534,38 @@
     :answers_tex_height: []
   2024_EE407:
     :challenge_tex: 52eea95c394c
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EE407_a.svg
+    - EE407_b.svg
+    - EE407_c.svg
+    - EE407_d.svg
+    :answers_svg_width:
+    - 228.973
+    - 228.973
+    - 228.973
+    - 228.973
+    :answers_svg_height:
+    - 85.439
+    - 85.439
+    - 85.439
+    - 85.439
   2024_EE406:
     :challenge_tex: 76a91879136e
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EE406_a.svg
+    - EE406_b.svg
+    - EE406_c.svg
+    - EE406_d.svg
+    :answers_svg_width:
+    - 228.973
+    - 228.973
+    - 228.973
+    - 228.973
+    :answers_svg_height:
+    - 85.439
+    - 85.439
+    - 85.439
+    - 85.439
   2024_EE405:
     :challenge_tex: a9bb2190840b
     :answers_tex:
@@ -24611,6 +25826,9 @@
     :answers_tex_height: []
   2024_AF120:
     :challenge_tex: f0d9366ca8db
+    :challenge_svg: AF120_q.svg
+    :challenge_svg_width: 227.005
+    :challenge_svg_height: 105.427
     :answers_tex:
     - 49c86234ffbf
     - 0ca4353beeef
@@ -24620,6 +25838,9 @@
     :answers_tex_height: []
   2024_AF119:
     :challenge_tex: 0f998a3a1f89
+    :challenge_svg: AF119_q.svg
+    :challenge_svg_width: 227.108
+    :challenge_svg_height: 86.479
     :answers_tex:
     - aa3ba382c8b8
     - b5bfc459a17f
@@ -24629,6 +25850,9 @@
     :answers_tex_height: []
   2024_AF118:
     :challenge_tex: d6d970c3de16
+    :challenge_svg: AF118_q.svg
+    :challenge_svg_width: 227.108
+    :challenge_svg_height: 86.479
     :answers_tex:
     - aba49fd0476e
     - f9f74949244c
@@ -24638,6 +25862,9 @@
     :answers_tex_height: []
   2024_AF117:
     :challenge_tex: f685d60ad82c
+    :challenge_svg: AF117_q.svg
+    :challenge_svg_width: 227.108
+    :challenge_svg_height: 86.479
     :answers_tex:
     - '636173164971'
     - 6cbd2ce210f5
@@ -24719,6 +25946,9 @@
     :answers_tex_height: []
   2024_AF108:
     :challenge_tex: db5fb66cd96f
+    :challenge_svg: AF108_q.svg
+    :challenge_svg_width: 226.889
+    :challenge_svg_height: 102.724
     :answers_tex:
     - 5f267d24593f
     - 554dff2ad7aa
@@ -24728,6 +25958,9 @@
     :answers_tex_height: []
   2024_AF107:
     :challenge_tex: bba33001dc92
+    :challenge_svg: AF107_q.svg
+    :challenge_svg_width: 226.889
+    :challenge_svg_height: 102.724
     :answers_tex:
     - 0da8f38ee747
     - c4451f7d90bb
@@ -24800,6 +26033,9 @@
     :answers_tex_height: []
   2024_EF101:
     :challenge_tex: ae26ea249048
+    :challenge_svg: EF101_q.svg
+    :challenge_svg_width: 226.771
+    :challenge_svg_height: 146.601
     :answers_tex:
     - f5ed051dfe92
     - 5b6062d08c79
@@ -24809,6 +26045,9 @@
     :answers_tex_height: []
   2024_NF201:
     :challenge_tex: 1e0741d2d7ec
+    :challenge_svg: NF201_q.svg
+    :challenge_svg_width: 232.383
+    :challenge_svg_height: 76.198
     :answers_tex:
     - dd8278c7dc44
     - cf6c4daa657f
@@ -24818,6 +26057,9 @@
     :answers_tex_height: []
   2024_AF231:
     :challenge_tex: ded7fea4e7ff
+    :challenge_svg: AF231_q.svg
+    :challenge_svg_width: 228.416
+    :challenge_svg_height: 192.045
     :answers_tex:
     - 53fe4870f386
     - 6c61c572351f
@@ -24827,6 +26069,9 @@
     :answers_tex_height: []
   2024_AF230:
     :challenge_tex: e156fb620d04
+    :challenge_svg: AF230_q.svg
+    :challenge_svg_width: 228.416
+    :challenge_svg_height: 192.045
     :answers_tex:
     - 44be785278df
     - 7a82720e0ce7
@@ -24890,9 +26135,21 @@
     :answers_tex_height: []
   2024_AF223:
     :challenge_tex: ee3eb16a314b
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF223_a.svg
+    - AF223_b.svg
+    - AF223_c.svg
+    - AF223_d.svg
+    :answers_svg_width:
+    - 222.703
+    - 222.703
+    - 223.765
+    - 223.765
+    :answers_svg_height:
+    - 142.117
+    - 142.117
+    - 137.016
+    - 137.016
   2024_AF222:
     :challenge_tex: d9b5d2d89128
     :answers_tex:
@@ -25003,6 +26260,9 @@
     :answers_tex_height: []
   2024_AF210:
     :challenge_tex: bef3fce13cb2
+    :challenge_svg: AF210_q.svg
+    :challenge_svg_width: 227.005
+    :challenge_svg_height: 118.575
     :answers_tex:
     - 7d4e62222044
     - ea2560773951
@@ -25012,6 +26272,9 @@
     :answers_tex_height: []
   2024_AF209:
     :challenge_tex: c907fa9596ca
+    :challenge_svg: AF209_q.svg
+    :challenge_svg_width: 227.108
+    :challenge_svg_height: 86.479
     :answers_tex:
     - fc0283b76627
     - 7a7a343a3a6f
@@ -25030,6 +26293,9 @@
     :answers_tex_height: []
   2024_AF207:
     :challenge_tex: dae97bda1800
+    :challenge_svg: AF207_q.svg
+    :challenge_svg_width: 224.959
+    :challenge_svg_height: 259.68
     :answers_tex:
     - 10dded3fd6e7
     - eaf7b4c0f052
@@ -25075,6 +26341,9 @@
     :answers_tex_height: []
   2024_AF202:
     :challenge_tex: eb83d93eab55
+    :challenge_svg: AF202_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 127.853
     :answers_tex:
     - 55da0ee0e3cb
     - fe2cc3eca3aa
@@ -25084,6 +26353,9 @@
     :answers_tex_height: []
   2024_AF201:
     :challenge_tex: 527e37cf971e
+    :challenge_svg: AF201_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 127.853
     :answers_tex:
     - 0c7a2f88d74f
     - 5262ffc98768
@@ -25093,6 +26365,9 @@
     :answers_tex_height: []
   2024_EF219:
     :challenge_tex: 494f5000ca2d
+    :challenge_svg: EF219_q.svg
+    :challenge_svg_width: 227.012
+    :challenge_svg_height: 122.397
     :answers_tex:
     - 1187f515105a
     - 1db054337814
@@ -25120,9 +26395,21 @@
     :answers_tex_height: []
   2024_EF216:
     :challenge_tex: 81f6e17d6533
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EF216_a.svg
+    - EF216_b.svg
+    - EF216_c.svg
+    - EF216_d.svg
+    :answers_svg_width:
+    - 221.384
+    - 221.384
+    - 221.309
+    - 221.309
+    :answers_svg_height:
+    - 140.911
+    - 140.911
+    - 140.747
+    - 140.747
   2024_EF215:
     :challenge_tex: 2858ca0825bc
     :answers_tex:
@@ -25179,6 +26466,9 @@
     :answers_tex_height: []
   2024_EF209:
     :challenge_tex: 203047cd515d
+    :challenge_svg: EF209_q.svg
+    :challenge_svg_width: 226.889
+    :challenge_svg_height: 102.724
     :answers_tex:
     - 21e24a06ffb6
     - ed72e73bc261
@@ -25251,6 +26541,9 @@
     :answers_tex_height: []
   2024_EF201:
     :challenge_tex: 407f9bd82c5f
+    :challenge_svg: EF201_q.svg
+    :challenge_svg_width: 164.677
+    :challenge_svg_height: 69.895
     :answers_tex:
     - 997c1bd98eb3
     - 6f0abffe2a21
@@ -25305,6 +26598,9 @@
     :answers_tex_height: []
   2024_AF312:
     :challenge_tex: a7934793f059
+    :challenge_svg: AF312_q.svg
+    :challenge_svg_width: 229.632
+    :challenge_svg_height: 170.521
     :answers_tex:
     - 1f6857d3af88
     - 9adea21c57ae
@@ -25323,6 +26619,9 @@
     :answers_tex_height: []
   2024_AF310:
     :challenge_tex: '0298e4f1502e'
+    :challenge_svg: AF310_q.svg
+    :challenge_svg_width: 227.342
+    :challenge_svg_height: 120.505
     :answers_tex:
     - 7d7ed58b7e4f
     - 1eee5b11a5ec
@@ -25332,6 +26631,9 @@
     :answers_tex_height: []
   2024_AF309:
     :challenge_tex: 96e9355d7df0
+    :challenge_svg: AF309_q.svg
+    :challenge_svg_width: 229.287
+    :challenge_svg_height: 176.704
     :answers_tex:
     - '0219c832e6e9'
     - 0cb911951871
@@ -25341,6 +26643,9 @@
     :answers_tex_height: []
   2024_AF308:
     :challenge_tex: a7193c4d68ea
+    :challenge_svg: AF308_q.svg
+    :challenge_svg_width: 229.287
+    :challenge_svg_height: 176.704
     :answers_tex:
     - 1a14a78c8f28
     - 3d2ccfd507be
@@ -25350,6 +26655,9 @@
     :answers_tex_height: []
   2024_AF307:
     :challenge_tex: 2e26556a379c
+    :challenge_svg: AF307_q.svg
+    :challenge_svg_width: 222.179
+    :challenge_svg_height: 144.187
     :answers_tex:
     - ccffecfc7093
     - fb39a009e8f5
@@ -25359,6 +26667,9 @@
     :answers_tex_height: []
   2024_AF306:
     :challenge_tex: e20c1a602abe
+    :challenge_svg: AF306_q.svg
+    :challenge_svg_width: 222.179
+    :challenge_svg_height: 144.187
     :answers_tex:
     - ca03f724afa0
     - c56a7fcb9f5e
@@ -25368,6 +26679,9 @@
     :answers_tex_height: []
   2024_AF305:
     :challenge_tex: 9ca077e1a1f4
+    :challenge_svg: AF305_q.svg
+    :challenge_svg_width: 227.518
+    :challenge_svg_height: 81.508
     :answers_tex:
     - a7b4bb20db07
     - 51fb6945563c
@@ -25422,6 +26736,9 @@
     :answers_tex_height: []
   2024_EF309:
     :challenge_tex: 551bffb683a8
+    :challenge_svg: EF309_q.svg
+    :challenge_svg_width: 226.967
+    :challenge_svg_height: 109.552
     :answers_tex:
     - 38f22bfb6bab
     - 1db054337814
@@ -25431,6 +26748,9 @@
     :answers_tex_height: []
   2024_EF308:
     :challenge_tex: ec5ffa0a68db
+    :challenge_svg: EF308_q.svg
+    :challenge_svg_width: 222.179
+    :challenge_svg_height: 144.187
     :answers_tex:
     - 858f3c23f4e5
     - 71446011ac6c
@@ -25440,9 +26760,21 @@
     :answers_tex_height: []
   2024_EF307:
     :challenge_tex: a0ac32f0b010
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EF307_a.svg
+    - EF307_b.svg
+    - EF307_c.svg
+    - EF307_d.svg
+    :answers_svg_width:
+    - 219.621
+    - 219.621
+    - 219.621
+    - 219.621
+    :answers_svg_height:
+    - 144.858
+    - 144.858
+    - 144.858
+    - 144.858
   2024_EF306:
     :challenge_tex: a34adbe925a2
     :answers_tex:
@@ -25472,6 +26804,9 @@
     :answers_tex_height: []
   2024_EF303:
     :challenge_tex: f72eb9bd78c4
+    :challenge_svg: EF303_q.svg
+    :challenge_svg_width: 223.641
+    :challenge_svg_height: 162.651
     :answers_tex:
     - '08b592d85296'
     - 3115276f2aec
@@ -25481,6 +26816,9 @@
     :answers_tex_height: []
   2024_EF302:
     :challenge_tex: 263a83a309bb
+    :challenge_svg: EF302_q.svg
+    :challenge_svg_width: 223.641
+    :challenge_svg_height: 162.651
     :answers_tex:
     - 16a904df14dd
     - ad23748dca10
@@ -25490,6 +26828,9 @@
     :answers_tex_height: []
   2024_EF301:
     :challenge_tex: 0ab30aa86db2
+    :challenge_svg: EF301_q.svg
+    :challenge_svg_width: 226.771
+    :challenge_svg_height: 42.002
     :answers_tex:
     - 1d4ee881089f
     - 9b66e907e1e1
@@ -25508,6 +26849,9 @@
     :answers_tex_height: []
   2024_NF403:
     :challenge_tex: a91d488cd3ec
+    :challenge_svg: NF403_q.svg
+    :challenge_svg_width: 226.835
+    :challenge_svg_height: 103.678
     :answers_tex:
     - ba739b8e2445
     - 917c6b0c9ba8
@@ -25526,6 +26870,9 @@
     :answers_tex_height: []
   2024_NF401:
     :challenge_tex: a666538cbb3f
+    :challenge_svg: NF401_q.svg
+    :challenge_svg_width: 226.835
+    :challenge_svg_height: 103.678
     :answers_tex:
     - 17b874d28911
     - dd8278c7dc44
@@ -25535,6 +26882,9 @@
     :answers_tex_height: []
   2024_AF428:
     :challenge_tex: c71463e245d7
+    :challenge_svg: AF428_q.svg
+    :challenge_svg_width: 228.416
+    :challenge_svg_height: 192.045
     :answers_tex:
     - 605932f2b34b
     - 79a7bfd9a1ff
@@ -25544,6 +26894,9 @@
     :answers_tex_height: []
   2024_AF427:
     :challenge_tex: 600018fe925a
+    :challenge_svg: AF427_q.svg
+    :challenge_svg_width: 227.512
+    :challenge_svg_height: 168.089
     :answers_tex:
     - cac54c0cdb44
     - b40ecb95bb75
@@ -25553,6 +26906,9 @@
     :answers_tex_height: []
   2024_AF426:
     :challenge_tex: ac93ff89f70f
+    :challenge_svg: AF426_q.svg
+    :challenge_svg_width: 227.512
+    :challenge_svg_height: 168.089
     :answers_tex:
     - 3a0d70d63043
     - 5a2c3fc79e93
@@ -25562,6 +26918,9 @@
     :answers_tex_height: []
   2024_AF425:
     :challenge_tex: f695fa7ae75a
+    :challenge_svg: AF425_q.svg
+    :challenge_svg_width: 227.512
+    :challenge_svg_height: 168.089
     :answers_tex:
     - b72853ac0cdc
     - a5d364554692
@@ -25571,6 +26930,9 @@
     :answers_tex_height: []
   2024_AF424:
     :challenge_tex: ad59e904f560
+    :challenge_svg: AF424_q.svg
+    :challenge_svg_width: 234.888
+    :challenge_svg_height: 282.142
     :answers_tex:
     - 2304bb3c91a1
     - b83e9aaba084
@@ -25580,6 +26942,9 @@
     :answers_tex_height: []
   2024_AF423:
     :challenge_tex: 14eabbf5cae0
+    :challenge_svg: AF423_q.svg
+    :challenge_svg_width: 234.888
+    :challenge_svg_height: 288.307
     :answers_tex:
     - 44af28445ef6
     - c731a96a1e25
@@ -25589,6 +26954,9 @@
     :answers_tex_height: []
   2024_AF422:
     :challenge_tex: 416947bad08d
+    :challenge_svg: AF422_q.svg
+    :challenge_svg_width: 234.888
+    :challenge_svg_height: 280.69
     :answers_tex:
     - 998d8f5eb79e
     - 94540fc2a725
@@ -25598,6 +26966,9 @@
     :answers_tex_height: []
   2024_AF421:
     :challenge_tex: 4d2e5a943581
+    :challenge_svg: AF421_q.svg
+    :challenge_svg_width: 230.527
+    :challenge_svg_height: 245.327
     :answers_tex:
     - 3ac167331a6a
     - 63894aa15f72
@@ -25607,6 +26978,9 @@
     :answers_tex_height: []
   2024_AF420:
     :challenge_tex: 1c013cc643dd
+    :challenge_svg: AF420_q.svg
+    :challenge_svg_width: 230.527
+    :challenge_svg_height: 245.327
     :answers_tex:
     - 0301056e7819
     - 67ae439b3fbd
@@ -25616,6 +26990,9 @@
     :answers_tex_height: []
   2024_AF419:
     :challenge_tex: 7818dc488deb
+    :challenge_svg: AF419_q.svg
+    :challenge_svg_width: 230.527
+    :challenge_svg_height: 245.327
     :answers_tex:
     - 0d67d55d4b08
     - 119760aeb8a9
@@ -25625,6 +27002,9 @@
     :answers_tex_height: []
   2024_AF418:
     :challenge_tex: 4344992ac5b9
+    :challenge_svg: AF418_q.svg
+    :challenge_svg_width: 230.527
+    :challenge_svg_height: 245.327
     :answers_tex:
     - 602eed6edca5
     - a7350b68a1b5
@@ -25634,6 +27014,9 @@
     :answers_tex_height: []
   2024_AF417:
     :challenge_tex: 831c2996ea69
+    :challenge_svg: AF417_q.svg
+    :challenge_svg_width: 230.527
+    :challenge_svg_height: 245.327
     :answers_tex:
     - 7739a9c3c690
     - c93e9542cadd
@@ -25643,6 +27026,9 @@
     :answers_tex_height: []
   2024_AF416:
     :challenge_tex: e432120e47b0
+    :challenge_svg: AF416_q.svg
+    :challenge_svg_width: 227.777
+    :challenge_svg_height: 249.033
     :answers_tex:
     - a729a670e078
     - d413c75cd818
@@ -25652,6 +27038,9 @@
     :answers_tex_height: []
   2024_AF415:
     :challenge_tex: 470004924d3c
+    :challenge_svg: AF415_q.svg
+    :challenge_svg_width: 227.777
+    :challenge_svg_height: 249.033
     :answers_tex:
     - e564b9d849fd
     - 6751921a0522
@@ -25661,6 +27050,9 @@
     :answers_tex_height: []
   2024_AF414:
     :challenge_tex: 6f83e875da2e
+    :challenge_svg: AF414_q.svg
+    :challenge_svg_width: 227.777
+    :challenge_svg_height: 249.033
     :answers_tex:
     - c5fceb75951d
     - ea0069662e9e
@@ -25670,6 +27062,9 @@
     :answers_tex_height: []
   2024_AF413:
     :challenge_tex: d6a746559188
+    :challenge_svg: AF413_q.svg
+    :challenge_svg_width: 227.777
+    :challenge_svg_height: 249.033
     :answers_tex:
     - 8f2f6d98610e
     - 6a2aa810366d
@@ -25679,6 +27074,9 @@
     :answers_tex_height: []
   2024_AF412:
     :challenge_tex: b4d3fccbe228
+    :challenge_svg: AF412_q.svg
+    :challenge_svg_width: 228.675
+    :challenge_svg_height: 225.514
     :answers_tex:
     - e8b17e974535
     - 6a2aa810366d
@@ -25688,6 +27086,9 @@
     :answers_tex_height: []
   2024_AF411:
     :challenge_tex: c29584c64e99
+    :challenge_svg: AF411_q.svg
+    :challenge_svg_width: 229.012
+    :challenge_svg_height: 142.971
     :answers_tex:
     - de038b28bdb8
     - cd380762b23f
@@ -25697,6 +27098,9 @@
     :answers_tex_height: []
   2024_AF410:
     :challenge_tex: 9cb46b43ee62
+    :challenge_svg: AF410_q.svg
+    :challenge_svg_width: 229.012
+    :challenge_svg_height: 142.971
     :answers_tex:
     - 7cb75b0cee0a
     - 257851e86973
@@ -25706,6 +27110,9 @@
     :answers_tex_height: []
   2024_AF409:
     :challenge_tex: 80d45c699053
+    :challenge_svg: AF409_q.svg
+    :challenge_svg_width: 229.012
+    :challenge_svg_height: 142.971
     :answers_tex:
     - e0bbdbdf0520
     - 7aee62369228
@@ -25715,6 +27122,9 @@
     :answers_tex_height: []
   2024_AF408:
     :challenge_tex: 9e6392c40f6a
+    :challenge_svg: AF408_q.svg
+    :challenge_svg_width: 229.012
+    :challenge_svg_height: 142.971
     :answers_tex:
     - 9e71b7c68143
     - 002005a025b8
@@ -25724,6 +27134,9 @@
     :answers_tex_height: []
   2024_AF407:
     :challenge_tex: 1100432f6ec6
+    :challenge_svg: AF407_q.svg
+    :challenge_svg_width: 228.799
+    :challenge_svg_height: 137.529
     :answers_tex:
     - 955de9d64cfe
     - 5968924085ea
@@ -25733,6 +27146,9 @@
     :answers_tex_height: []
   2024_AF406:
     :challenge_tex: 72e9a4e8e8ad
+    :challenge_svg: AF406_q.svg
+    :challenge_svg_width: 228.799
+    :challenge_svg_height: 137.529
     :answers_tex:
     - d62574e69d5f
     - 736c7b3cec0e
@@ -25832,6 +27248,9 @@
     :answers_tex_height: []
   2024_AF502:
     :challenge_tex: ffa5c0d2fa4c
+    :challenge_svg: AF502_q.svg
+    :challenge_svg_width: 227.893
+    :challenge_svg_height: 176.589
     :answers_tex:
     - 902942413bb0
     - 1879a0e8c54f
@@ -25841,6 +27260,9 @@
     :answers_tex_height: []
   2024_AF501:
     :challenge_tex: 1f326cf1e7f8
+    :challenge_svg: AF501_q.svg
+    :challenge_svg_width: 227.893
+    :challenge_svg_height: 176.589
     :answers_tex:
     - 5e3d080d9d6f
     - f1ddc3bd6ef7
@@ -25859,6 +27281,9 @@
     :answers_tex_height: []
   2024_EF504:
     :challenge_tex: f4508c3f4912
+    :challenge_svg: EF504_q.svg
+    :challenge_svg_width: 227.939
+    :challenge_svg_height: 115.61
     :answers_tex:
     - 3b4a2c7f725c
     - 222271fd7c3e
@@ -25868,6 +27293,9 @@
     :answers_tex_height: []
   2024_EF503:
     :challenge_tex: c8efe87d2681
+    :challenge_svg: EF503_q.svg
+    :challenge_svg_width: 227.265
+    :challenge_svg_height: 148.379
     :answers_tex:
     - d2285575dec3
     - 28514b47dbe5
@@ -25940,6 +27368,9 @@
     :answers_tex_height: []
   2024_AF632:
     :challenge_tex: a4a450af1cb0
+    :challenge_svg: AF632_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 232.527
     :answers_tex:
     - de30007129eb
     - 9c06774c8970
@@ -25967,29 +27398,101 @@
     :answers_tex_height: []
   2024_AF629:
     :challenge_tex: 4c7c172f678d
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AF629_q.svg
+    :challenge_svg_width: 227.158
+    :challenge_svg_height: 79.755
+    :answers_svg:
+    - AF629_a.svg
+    - AF629_b.svg
+    - AF629_c.svg
+    - AF629_d.svg
+    :answers_svg_width:
+    - 226.732
+    - 226.732
+    - 226.732
+    - 226.732
+    :answers_svg_height:
+    - 84.742
+    - 84.742
+    - 84.742
+    - 84.742
   2024_AF628:
     :challenge_tex: a645f28f062e
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AF628_q.svg
+    :challenge_svg_width: 227.159
+    :challenge_svg_height: 80.18
+    :answers_svg:
+    - AF628_a.svg
+    - AF628_b.svg
+    - AF628_c.svg
+    - AF628_d.svg
+    :answers_svg_width:
+    - 226.732
+    - 226.732
+    - 226.732
+    - 226.732
+    :answers_svg_height:
+    - 84.742
+    - 84.742
+    - 84.742
+    - 84.742
   2024_AF627:
     :challenge_tex: 1d905d633399
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AF627_q.svg
+    :challenge_svg_width: 226.964
+    :challenge_svg_height: 88.318
+    :answers_svg:
+    - AF627_a.svg
+    - AF627_b.svg
+    - AF627_c.svg
+    - AF627_d.svg
+    :answers_svg_width:
+    - 226.715
+    - 226.715
+    - 226.715
+    - 226.715
+    :answers_svg_height:
+    - 95.606
+    - 95.606
+    - 95.606
+    - 95.606
   2024_AF626:
     :challenge_tex: d952669825ef
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :challenge_svg: AF626_q.svg
+    :challenge_svg_width: 226.954
+    :challenge_svg_height: 90.984
+    :answers_svg:
+    - AF626_a.svg
+    - AF626_b.svg
+    - AF626_c.svg
+    - AF626_d.svg
+    :answers_svg_width:
+    - 226.715
+    - 226.715
+    - 226.715
+    - 226.715
+    :answers_svg_height:
+    - 95.606
+    - 95.606
+    - 95.606
+    - 95.606
   2024_AF625:
     :challenge_tex: dba97a947a7e
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF625_a.svg
+    - AF625_b.svg
+    - AF625_c.svg
+    - AF625_d.svg
+    :answers_svg_width:
+    - 228.297
+    - 228.297
+    - 228.297
+    - 228.297
+    :answers_svg_height:
+    - 113.783
+    - 113.783
+    - 113.783
+    - 113.783
   2024_AF624:
     :challenge_tex: a83cf7139679
     :answers_tex:
@@ -26001,9 +27504,21 @@
     :answers_tex_height: []
   2024_AF623:
     :challenge_tex: a3bbbb495412
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF623_a.svg
+    - AF623_b.svg
+    - AF623_c.svg
+    - AF623_d.svg
+    :answers_svg_width:
+    - 228.297
+    - 228.297
+    - 228.297
+    - 228.297
+    :answers_svg_height:
+    - 113.783
+    - 113.783
+    - 113.783
+    - 113.783
   2024_AF622:
     :challenge_tex: 5e44bb1ec649
     :answers_tex:
@@ -26024,6 +27539,9 @@
     :answers_tex_height: []
   2024_AF620:
     :challenge_tex: eb4dc5951d2a
+    :challenge_svg: AF620_q.svg
+    :challenge_svg_width: 220.83
+    :challenge_svg_height: 133.34
     :answers_tex:
     - 7881a7319fdf
     - e13d88d30fd4
@@ -26078,19 +27596,55 @@
     :answers_tex_height: []
   2024_AF614:
     :challenge_tex: 6e00cf4e946b
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF614_a.svg
+    - AF614_b.svg
+    - AF614_c.svg
+    - AF614_d.svg
+    :answers_svg_width:
+    - 231.045
+    - 231.045
+    - 231.045
+    - 231.045
+    :answers_svg_height:
+    - 113.781
+    - 113.781
+    - 113.781
+    - 113.781
   2024_AF613:
     :challenge_tex: f89b369a6980
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF613_a.svg
+    - AF613_b.svg
+    - AF613_c.svg
+    - AF613_d.svg
+    :answers_svg_width:
+    - 231.045
+    - 231.045
+    - 231.045
+    - 231.045
+    :answers_svg_height:
+    - 113.781
+    - 113.781
+    - 113.781
+    - 113.781
   2024_AF612:
     :challenge_tex: 1b8048a6d6ea
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF612_a.svg
+    - AF612_b.svg
+    - AF612_c.svg
+    - AF612_d.svg
+    :answers_svg_width:
+    - 231.045
+    - 231.045
+    - 231.045
+    - 231.045
+    :answers_svg_height:
+    - 113.781
+    - 113.781
+    - 113.781
+    - 113.781
   2024_AF611:
     :challenge_tex: c37a118003c3
     :answers_tex:
@@ -26156,24 +27710,72 @@
     :answers_tex_height: []
   2024_AF604:
     :challenge_tex: d643f33b4159
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF604_a.svg
+    - AF604_b.svg
+    - AF604_c.svg
+    - AF604_d.svg
+    :answers_svg_width:
+    - 226.812
+    - 226.812
+    - 226.812
+    - 226.812
+    :answers_svg_height:
+    - 113.783
+    - 113.783
+    - 113.783
+    - 113.783
   2024_AF603:
     :challenge_tex: d69f932d04b4
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF603_a.svg
+    - AF603_b.svg
+    - AF603_c.svg
+    - AF603_d.svg
+    :answers_svg_width:
+    - 226.812
+    - 226.812
+    - 226.812
+    - 226.812
+    :answers_svg_height:
+    - 113.783
+    - 113.783
+    - 113.783
+    - 113.783
   2024_AF602:
     :challenge_tex: f294c10ea263
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF602_a.svg
+    - AF602_b.svg
+    - AF602_c.svg
+    - AF602_d.svg
+    :answers_svg_width:
+    - 226.812
+    - 226.812
+    - 226.812
+    - 226.812
+    :answers_svg_height:
+    - 113.783
+    - 113.783
+    - 113.783
+    - 113.783
   2024_AF601:
     :challenge_tex: cc9743d51870
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AF601_a.svg
+    - AF601_b.svg
+    - AF601_c.svg
+    - AF601_d.svg
+    :answers_svg_width:
+    - 226.812
+    - 226.812
+    - 226.812
+    - 226.812
+    :answers_svg_height:
+    - 113.783
+    - 113.783
+    - 113.783
+    - 113.783
   2024_EF603:
     :challenge_tex: a643f4eaabd0
     :answers_tex:
@@ -26194,6 +27796,9 @@
     :answers_tex_height: []
   2024_EF601:
     :challenge_tex: 350f55f5d42e
+    :challenge_svg: EF601_q.svg
+    :challenge_svg_width: 226.772
+    :challenge_svg_height: 43.704
     :answers_tex:
     - 8eb241ab72db
     - eddd84c87461
@@ -26248,6 +27853,9 @@
     :answers_tex_height: []
   2024_AF705:
     :challenge_tex: 610377bfe235
+    :challenge_svg: AF705_q.svg
+    :challenge_svg_width: 226.854
+    :challenge_svg_height: 80.938
     :answers_tex:
     - 0f34d88b134a
     - aad1b8c0d53f
@@ -26257,6 +27865,9 @@
     :answers_tex_height: []
   2024_AF704:
     :challenge_tex: fd7b66d84ec9
+    :challenge_svg: AF704_q.svg
+    :challenge_svg_width: 226.854
+    :challenge_svg_height: 80.938
     :answers_tex:
     - 4db3539ecf02
     - 743bacf85062
@@ -26266,6 +27877,9 @@
     :answers_tex_height: []
   2024_AF703:
     :challenge_tex: 44b34b84ecdc
+    :challenge_svg: AF703_q.svg
+    :challenge_svg_width: 226.854
+    :challenge_svg_height: 80.938
     :answers_tex:
     - 743bacf85062
     - 4db3539ecf02
@@ -26275,6 +27889,9 @@
     :answers_tex_height: []
   2024_AF702:
     :challenge_tex: de536fcab994
+    :challenge_svg: AF702_q.svg
+    :challenge_svg_width: 226.854
+    :challenge_svg_height: 80.938
     :answers_tex:
     - 22df69e9ff6e
     - 68fc0caa5bba
@@ -26284,6 +27901,9 @@
     :answers_tex_height: []
   2024_AF701:
     :challenge_tex: 9705b1349f47
+    :challenge_svg: AF701_q.svg
+    :challenge_svg_width: 226.854
+    :challenge_svg_height: 80.938
     :answers_tex:
     - 43ba43ba41b9
     - 8a150b45eccc
@@ -26320,6 +27940,9 @@
     :answers_tex_height: []
   2024_AG124:
     :challenge_tex: 57ba6ed31ccd
+    :challenge_svg: AG124_q.svg
+    :challenge_svg_width: 227.021
+    :challenge_svg_height: 142.066
     :answers_tex:
     - 5ff2acbecfab
     - 2fb5a5f8ad5e
@@ -26329,6 +27952,9 @@
     :answers_tex_height: []
   2024_AG123:
     :challenge_tex: c7fca8ada242
+    :challenge_svg: AG123_q.svg
+    :challenge_svg_width: 227.061
+    :challenge_svg_height: 164.121
     :answers_tex:
     - '08fd3a5475e3'
     - 905dc0da0b36
@@ -26338,6 +27964,9 @@
     :answers_tex_height: []
   2024_AG122:
     :challenge_tex: ba7a03569850
+    :challenge_svg: AG122_q.svg
+    :challenge_svg_width: 226.905
+    :challenge_svg_height: 119.778
     :answers_tex:
     - ee3177f550ca
     - 7a60d264c356
@@ -26347,6 +27976,9 @@
     :answers_tex_height: []
   2024_AG121:
     :challenge_tex: f8ed09f35f16
+    :challenge_svg: AG121_q.svg
+    :challenge_svg_width: 226.907
+    :challenge_svg_height: 98.394
     :answers_tex:
     - 9ec5b6bb97f4
     - ee3177f550ca
@@ -26356,6 +27988,9 @@
     :answers_tex_height: []
   2024_AG120:
     :challenge_tex: 48b3fc84c3ee
+    :challenge_svg: AG120_q.svg
+    :challenge_svg_width: 226.795
+    :challenge_svg_height: 104.776
     :answers_tex:
     - 8bc0b471534b
     - ee3177f550ca
@@ -26383,6 +28018,9 @@
     :answers_tex_height: []
   2024_AG117:
     :challenge_tex: f33e0b8c68c2
+    :challenge_svg: AG117_q.svg
+    :challenge_svg_width: 227.016
+    :challenge_svg_height: 253.716
     :answers_tex:
     - bb4dcd51ca07
     - cd790c5f3608
@@ -26392,6 +28030,9 @@
     :answers_tex_height: []
   2024_AG116:
     :challenge_tex: 85c29be6bc46
+    :challenge_svg: AG116_q.svg
+    :challenge_svg_width: 226.837
+    :challenge_svg_height: 51.087
     :answers_tex:
     - 851e278b3428
     - c76de55a9e05
@@ -26401,6 +28042,9 @@
     :answers_tex_height: []
   2024_AG115:
     :challenge_tex: e8edd839e605
+    :challenge_svg: AG115_q.svg
+    :challenge_svg_width: 226.964
+    :challenge_svg_height: 40.491
     :answers_tex:
     - 379f35efeb78
     - 8e43819b3772
@@ -26410,6 +28054,9 @@
     :answers_tex_height: []
   2024_AG114:
     :challenge_tex: 841484d59148
+    :challenge_svg: AG114_q.svg
+    :challenge_svg_width: 226.964
+    :challenge_svg_height: 40.491
     :answers_tex:
     - 808b0c6ac7c6
     - 8e43819b3772
@@ -26419,6 +28066,9 @@
     :answers_tex_height: []
   2024_AG113:
     :challenge_tex: 874dd7e4300e
+    :challenge_svg: AG113_q.svg
+    :challenge_svg_width: 226.837
+    :challenge_svg_height: 62.726
     :answers_tex:
     - 424ab6e10441
     - 79a0b61405bd
@@ -26428,6 +28078,9 @@
     :answers_tex_height: []
   2024_AG112:
     :challenge_tex: 1b02aa655d00
+    :challenge_svg: AG112_q.svg
+    :challenge_svg_width: 226.837
+    :challenge_svg_height: 62.726
     :answers_tex:
     - 79a0b61405bd
     - 1b49c7b5b438
@@ -26437,6 +28090,9 @@
     :answers_tex_height: []
   2024_AG111:
     :challenge_tex: 8d04fcc567e3
+    :challenge_svg: AG111_q.svg
+    :challenge_svg_width: 226.837
+    :challenge_svg_height: 62.726
     :answers_tex:
     - 1b49c7b5b438
     - 79a0b61405bd
@@ -26455,6 +28111,9 @@
     :answers_tex_height: []
   2024_AG109:
     :challenge_tex: 780fe764fe99
+    :challenge_svg: AG109_q.svg
+    :challenge_svg_width: 226.837
+    :challenge_svg_height: 26.01
     :answers_tex:
     - d7ffda8f6235
     - afaec85a9947
@@ -26473,6 +28132,9 @@
     :answers_tex_height: []
   2024_AG107:
     :challenge_tex: 3459ad8bcfbb
+    :challenge_svg: AG107_q.svg
+    :challenge_svg_width: 227.317
+    :challenge_svg_height: 259.503
     :answers_tex:
     - edf8dcd46a6f
     - 4e0301116f4f
@@ -26482,6 +28144,9 @@
     :answers_tex_height: []
   2024_AG106:
     :challenge_tex: eefd80dad0cb
+    :challenge_svg: AG106_q.svg
+    :challenge_svg_width: 221.296
+    :challenge_svg_height: 406.789
     :answers_tex:
     - 4e0301116f4f
     - edf8dcd46a6f
@@ -26563,6 +28228,9 @@
     :answers_tex_height: []
   2024_EG111:
     :challenge_tex: 4bb587863031
+    :challenge_svg: EG111_q.svg
+    :challenge_svg_width: 224.428
+    :challenge_svg_height: 170.894
     :answers_tex:
     - 296045f817fc
     - 97bacf551ed4
@@ -26626,6 +28294,9 @@
     :answers_tex_height: []
   2024_EG104:
     :challenge_tex: 0367f91ac993
+    :challenge_svg: EG104_q.svg
+    :challenge_svg_width: 227.054
+    :challenge_svg_height: 78.888
     :answers_tex:
     - 7a60d264c356
     - ee3177f550ca
@@ -26635,6 +28306,9 @@
     :answers_tex_height: []
   2024_EG103:
     :challenge_tex: 137689e41a8e
+    :challenge_svg: EG103_q.svg
+    :challenge_svg_width: 227.054
+    :challenge_svg_height: 78.888
     :answers_tex:
     - df03e3f7453d
     - 78a015ccad24
@@ -26689,6 +28363,9 @@
     :answers_tex_height: []
   2024_NG108:
     :challenge_tex: c914eca8f6c5
+    :challenge_svg: NG108_q.svg
+    :challenge_svg_width: 115.317
+    :challenge_svg_height: 131.191
     :answers_tex:
     - 26886df66638
     - a23cc922e1aa
@@ -26698,6 +28375,9 @@
     :answers_tex_height: []
   2024_NG107:
     :challenge_tex: fe23008b7aa6
+    :challenge_svg: NG107_q.svg
+    :challenge_svg_width: 220.333
+    :challenge_svg_height: 104.343
     :answers_tex:
     - 653cdbfe5cea
     - 41d98a1a556b
@@ -26716,6 +28396,9 @@
     :answers_tex_height: []
   2024_NG105:
     :challenge_tex: 6e386c900e81
+    :challenge_svg: NG105_q.svg
+    :challenge_svg_width: 113.475
+    :challenge_svg_height: 139.743
     :answers_tex:
     - 41d98a1a556b
     - 26886df66638
@@ -26734,6 +28417,9 @@
     :answers_tex_height: []
   2024_NG103:
     :challenge_tex: 6d543e392332
+    :challenge_svg: NG103_q.svg
+    :challenge_svg_width: 225.862
+    :challenge_svg_height: 36.915
     :answers_tex:
     - a23cc922e1aa
     - 41d98a1a556b
@@ -26743,6 +28429,9 @@
     :answers_tex_height: []
   2024_NG102:
     :challenge_tex: a77699e111e7
+    :challenge_svg: NG102_q.svg
+    :challenge_svg_width: 12.703
+    :challenge_svg_height: 16.472
     :answers_tex:
     - 759f24713ae3
     - 2ea63c00a612
@@ -26752,6 +28441,9 @@
     :answers_tex_height: []
   2024_NG101:
     :challenge_tex: f30d5fe31973
+    :challenge_svg: NG101_q.svg
+    :challenge_svg_width: 20.639
+    :challenge_svg_height: 60.125
     :answers_tex:
     - 2ea63c00a612
     - 759f24713ae3
@@ -26833,6 +28525,9 @@
     :answers_tex_height: []
   2024_AG221:
     :challenge_tex: c2ca18cf8c8d
+    :challenge_svg: AG221_q.svg
+    :challenge_svg_width: 227.337
+    :challenge_svg_height: 252.32
     :answers_tex:
     - f1846fbf94f6
     - af57b864c6c2
@@ -26842,6 +28537,9 @@
     :answers_tex_height: []
   2024_AG220:
     :challenge_tex: f4c52ea210bb
+    :challenge_svg: AG220_q.svg
+    :challenge_svg_width: 227.337
+    :challenge_svg_height: 252.32
     :answers_tex:
     - 14c281428f14
     - 8143d7a77380
@@ -26869,6 +28567,9 @@
     :answers_tex_height: []
   2024_AG217:
     :challenge_tex: 3eded8845530
+    :challenge_svg: AG217_q.svg
+    :challenge_svg_width: 225.875
+    :challenge_svg_height: 47.47
     :answers_tex:
     - b61c6ddb1ec0
     - 3930aea7f465
@@ -26896,6 +28597,9 @@
     :answers_tex_height: []
   2024_AG214:
     :challenge_tex: d4b7f54055a7
+    :challenge_svg: AG214_q.svg
+    :challenge_svg_width: 231.424
+    :challenge_svg_height: 142.726
     :answers_tex:
     - d62a76e63a3f
     - 867a86f30ad6
@@ -26905,6 +28609,9 @@
     :answers_tex_height: []
   2024_AG213:
     :challenge_tex: d92a5c4b12d8
+    :challenge_svg: AG213_q.svg
+    :challenge_svg_width: 231.424
+    :challenge_svg_height: 142.726
     :answers_tex:
     - 1a197eb25da1
     - 867a86f30ad6
@@ -26968,6 +28675,9 @@
     :answers_tex_height: []
   2024_AG206:
     :challenge_tex: 99224fd11eba
+    :challenge_svg: AG206_q.svg
+    :challenge_svg_width: 226.777
+    :challenge_svg_height: 118.957
     :answers_tex:
     - c3f2e8515a12
     - e44e261afba8
@@ -26977,6 +28687,9 @@
     :answers_tex_height: []
   2024_AG205:
     :challenge_tex: d31fabf4dc4b
+    :challenge_svg: AG205_q.svg
+    :challenge_svg_width: 226.777
+    :challenge_svg_height: 118.957
     :answers_tex:
     - 950bb7f05f1c
     - e44e261afba8
@@ -26986,6 +28699,9 @@
     :answers_tex_height: []
   2024_AG204:
     :challenge_tex: b01b39c0cdd1
+    :challenge_svg: AG204_q.svg
+    :challenge_svg_width: 226.777
+    :challenge_svg_height: 118.957
     :answers_tex:
     - 69d79ce17ed5
     - e44e261afba8
@@ -26995,6 +28711,9 @@
     :answers_tex_height: []
   2024_AG203:
     :challenge_tex: d2fcbc21fc1d
+    :challenge_svg: AG203_q.svg
+    :challenge_svg_width: 226.777
+    :challenge_svg_height: 118.957
     :answers_tex:
     - e44e261afba8
     - 69d79ce17ed5
@@ -27067,6 +28786,9 @@
     :answers_tex_height: []
   2024_EG218:
     :challenge_tex: 5d52abd05086
+    :challenge_svg: EG218_q.svg
+    :challenge_svg_width: 225.404
+    :challenge_svg_height: 53.675
     :answers_tex:
     - 7a38c1a540fa
     - e27c8e4aa867
@@ -27076,6 +28798,9 @@
     :answers_tex_height: []
   2024_EG217:
     :challenge_tex: 5a3361bff94b
+    :challenge_svg: EG217_q.svg
+    :challenge_svg_width: 113.386
+    :challenge_svg_height: 66.714
     :answers_tex:
     - 916ff7216981
     - c687753ed932
@@ -27085,6 +28810,9 @@
     :answers_tex_height: []
   2024_EG216:
     :challenge_tex: 72320045f8a7
+    :challenge_svg: EG216_q.svg
+    :challenge_svg_width: 113.382
+    :challenge_svg_height: 116.619
     :answers_tex:
     - e27c8e4aa867
     - b2f40af502ea
@@ -27094,6 +28822,9 @@
     :answers_tex_height: []
   2024_EG215:
     :challenge_tex: e00e4917c399
+    :challenge_svg: EG215_q.svg
+    :challenge_svg_width: 113.587
+    :challenge_svg_height: 57.79
     :answers_tex:
     - c8c30ca5a81d
     - 26886df66638
@@ -27103,9 +28834,21 @@
     :answers_tex_height: []
   2024_EG214:
     :challenge_tex: 87a521f2f440
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EG214_a.svg
+    - EG214_b.svg
+    - EG214_c.svg
+    - EG214_d.svg
+    :answers_svg_width:
+    - 113.587
+    - 113.386
+    - 113.382
+    - 114.104
+    :answers_svg_height:
+    - 57.79
+    - 66.714
+    - 116.619
+    - 45.562
   2024_EG213:
     :challenge_tex: c575307c3702
     :answers_tex:
@@ -27486,6 +29229,9 @@
     :answers_tex_height: []
   2024_EG307:
     :challenge_tex: 65727e1585dc
+    :challenge_svg: EG307_q.svg
+    :challenge_svg_width: 227.245
+    :challenge_svg_height: 111.543
     :answers_tex:
     - aa863e140170
     - f2775d1d2010
@@ -27576,6 +29322,9 @@
     :answers_tex_height: []
   2024_NG205:
     :challenge_tex: 595fbd4639ca
+    :challenge_svg: NG205_q.svg
+    :challenge_svg_width: 635.369
+    :challenge_svg_height: 459.518
     :answers_tex:
     - 337f15d864e9
     - 3238a2c23ec5
@@ -27585,6 +29334,9 @@
     :answers_tex_height: []
   2024_NG204:
     :challenge_tex: c3f89e13d1d3
+    :challenge_svg: NG204_q.svg
+    :challenge_svg_width: 632.732
+    :challenge_svg_height: 465.433
     :answers_tex:
     - b51a60734da6
     - 3238a2c23ec5
@@ -27594,6 +29346,9 @@
     :answers_tex_height: []
   2024_NG203:
     :challenge_tex: cb12ec663cea
+    :challenge_svg: NG203_q.svg
+    :challenge_svg_width: 629.734
+    :challenge_svg_height: 466.077
     :answers_tex:
     - d6f139c9cfce
     - 337f15d864e9
@@ -27603,6 +29358,9 @@
     :answers_tex_height: []
   2024_NG202:
     :challenge_tex: 65072ba448de
+    :challenge_svg: NG202_q.svg
+    :challenge_svg_width: 632.259
+    :challenge_svg_height: 441.573
     :answers_tex:
     - 3238a2c23ec5
     - d6f139c9cfce
@@ -27630,6 +29388,9 @@
     :answers_tex_height: []
   2024_AG428:
     :challenge_tex: 2664ae736787
+    :challenge_svg: AG428_q.svg
+    :challenge_svg_width: 226.828
+    :challenge_svg_height: 268.662
     :answers_tex:
     - 8ffed36b1a71
     - 87a1edbfb7e9
@@ -27666,6 +29427,9 @@
     :answers_tex_height: []
   2024_AG424:
     :challenge_tex: 2ade89decfe5
+    :challenge_svg: AG424_q.svg
+    :challenge_svg_width: 227.016
+    :challenge_svg_height: 148.062
     :answers_tex:
     - 192aefe5800d
     - 8b9b9db9a625
@@ -27675,6 +29439,9 @@
     :answers_tex_height: []
   2024_AG423:
     :challenge_tex: 9772780538f9
+    :challenge_svg: AG423_q.svg
+    :challenge_svg_width: 227.016
+    :challenge_svg_height: 148.062
     :answers_tex:
     - 212e8d35b2ea
     - 4815aaf04113
@@ -27684,6 +29451,9 @@
     :answers_tex_height: []
   2024_AG422:
     :challenge_tex: 7e1f52ddab39
+    :challenge_svg: AG422_q.svg
+    :challenge_svg_width: 223.592
+    :challenge_svg_height: 195.145
     :answers_tex:
     - 60495bfee1bd
     - e9aa52ae91a8
@@ -27693,6 +29463,9 @@
     :answers_tex_height: []
   2024_AG421:
     :challenge_tex: a91f3dc17346
+    :challenge_svg: AG421_q.svg
+    :challenge_svg_width: 224.837
+    :challenge_svg_height: 207.88
     :answers_tex:
     - 35bc8629e182
     - 60495bfee1bd
@@ -27711,6 +29484,9 @@
     :answers_tex_height: []
   2024_AG419:
     :challenge_tex: 6efbb57596fa
+    :challenge_svg: AG419_q.svg
+    :challenge_svg_width: 227.054
+    :challenge_svg_height: 78.888
     :answers_tex:
     - 92a346cf8445
     - 3ce7c852da74
@@ -27747,6 +29523,9 @@
     :answers_tex_height: []
   2024_AG415:
     :challenge_tex: b207bf11863e
+    :challenge_svg: AG415_q.svg
+    :challenge_svg_width: 226.907
+    :challenge_svg_height: 89.277
     :answers_tex:
     - 6127e382220f
     - f681ded4440d
@@ -27756,6 +29535,9 @@
     :answers_tex_height: []
   2024_AG414:
     :challenge_tex: 833c66b0c900
+    :challenge_svg: AG414_q.svg
+    :challenge_svg_width: 226.907
+    :challenge_svg_height: 89.277
     :answers_tex:
     - f681ded4440d
     - 63d5b974218b
@@ -27765,6 +29547,9 @@
     :answers_tex_height: []
   2024_AG413:
     :challenge_tex: 653f98d19e25
+    :challenge_svg: AG413_q.svg
+    :challenge_svg_width: 226.907
+    :challenge_svg_height: 89.277
     :answers_tex:
     - 701a9c7da4a2
     - f681ded4440d
@@ -27792,6 +29577,9 @@
     :answers_tex_height: []
   2024_AG410:
     :challenge_tex: ff2a814c2577
+    :challenge_svg: AG410_q.svg
+    :challenge_svg_width: 113.386
+    :challenge_svg_height: 67.07
     :answers_tex:
     - 7d3a62f2c0b2
     - 0adbdd6623a2
@@ -27801,6 +29589,9 @@
     :answers_tex_height: []
   2024_AG409:
     :challenge_tex: ecba261cc60e
+    :challenge_svg: AG409_q.svg
+    :challenge_svg_width: 112.937
+    :challenge_svg_height: 38.896
     :answers_tex:
     - 0adbdd6623a2
     - 7d3a62f2c0b2
@@ -27810,6 +29601,9 @@
     :answers_tex_height: []
   2024_AG408:
     :challenge_tex: fdb81ecec64e
+    :challenge_svg: AG408_q.svg
+    :challenge_svg_width: 166.173
+    :challenge_svg_height: 47.065
     :answers_tex:
     - c2102555035f
     - 9c06774c8970
@@ -27819,6 +29613,9 @@
     :answers_tex_height: []
   2024_AG407:
     :challenge_tex: 302a1fa87318
+    :challenge_svg: AG407_q.svg
+    :challenge_svg_width: 166.173
+    :challenge_svg_height: 47.065
     :answers_tex:
     - de30007129eb
     - 9c06774c8970
@@ -27828,6 +29625,9 @@
     :answers_tex_height: []
   2024_AG406:
     :challenge_tex: fb60db3e395d
+    :challenge_svg: AG406_q.svg
+    :challenge_svg_width: 167.092
+    :challenge_svg_height: 112.978
     :answers_tex:
     - 0010fc374c6a
     - 7c5e91f6a520
@@ -27882,6 +29682,9 @@
     :answers_tex_height: []
   2024_EG408:
     :challenge_tex: 753ba210c3b1
+    :challenge_svg: EG408_q.svg
+    :challenge_svg_width: 115.525
+    :challenge_svg_height: 135.308
     :answers_tex:
     - 8a951d55d1a3
     - 3a9131d64e84
@@ -27918,6 +29721,9 @@
     :answers_tex_height: []
   2024_EG404:
     :challenge_tex: 739b1a4c6d6c
+    :challenge_svg: EG404_q.svg
+    :challenge_svg_width: 226.828
+    :challenge_svg_height: 268.662
     :answers_tex:
     - f270dba5afc3
     - dc9a8f722558
@@ -28855,6 +30661,9 @@
     :answers_tex_height: []
   2024_NH303:
     :challenge_tex: 589974ac0611
+    :challenge_svg: NH303_q.svg
+    :challenge_svg_width: 225.889
+    :challenge_svg_height: 51.532
     :answers_tex:
     - e4a5bc93f782
     - 637110efe2cd
@@ -28909,6 +30718,9 @@
     :answers_tex_height: []
   2024_AI102:
     :challenge_tex: 9058614fd595
+    :challenge_svg: AI102_q.svg
+    :challenge_svg_width: 225.833
+    :challenge_svg_height: 136.033
     :answers_tex:
     - 7a701d518248
     - 6b433cac2f14
@@ -28918,6 +30730,9 @@
     :answers_tex_height: []
   2024_AI101:
     :challenge_tex: 36cb653c1995
+    :challenge_svg: AI101_q.svg
+    :challenge_svg_width: 225.833
+    :challenge_svg_height: 136.033
     :answers_tex:
     - e5f17c2c3e91
     - f57e6c3765ac
@@ -28927,6 +30742,9 @@
     :answers_tex_height: []
   2024_EI104:
     :challenge_tex: 984fa5c5728b
+    :challenge_svg: EI104_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 93.195
     :answers_tex:
     - ef436fcbd782
     - 0ebf729ced5a
@@ -28936,6 +30754,9 @@
     :answers_tex_height: []
   2024_EI103:
     :challenge_tex: 8aa75f8ddc6b
+    :challenge_svg: EI103_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 93.195
     :answers_tex:
     - 70cf0f2e4dc9
     - 0ebf729ced5a
@@ -28945,9 +30766,21 @@
     :answers_tex_height: []
   2024_EI102:
     :challenge_tex: cdb49af970ea
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EI102_a.svg
+    - EI102_b.svg
+    - EI102_c.svg
+    - EI102_d.svg
+    :answers_svg_width:
+    - 226.772
+    - 226.772
+    - 226.772
+    - 226.772
+    :answers_svg_height:
+    - 128.039
+    - 128.039
+    - 128.039
+    - 138.557
   2024_EI101:
     :challenge_tex: 1a5b8654c091
     :answers_tex:
@@ -28959,16 +30792,43 @@
     :answers_tex_height: []
   2024_NI104:
     :challenge_tex: 12498548dc53
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - NI104_a.svg
+    - NI104_b.svg
+    - NI104_c.svg
+    - NI104_d.svg
+    :answers_svg_width:
+    - 226.771
+    - 226.771
+    - 226.771
+    - 226.771
+    :answers_svg_height:
+    - 174.196
+    - 162.091
+    - 163.678
+    - 163.678
   2024_NI103:
     :challenge_tex: 527d6044386d
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - NI103_a.svg
+    - NI103_b.svg
+    - NI103_c.svg
+    - NI103_d.svg
+    :answers_svg_width:
+    - 226.771
+    - 226.771
+    - 226.771
+    - 226.771
+    :answers_svg_height:
+    - 163.678
+    - 163.678
+    - 162.091
+    - 174.196
   2024_NI102:
     :challenge_tex: 8d8519be4e5c
+    :challenge_svg: NI102_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 24.608
     :answers_tex:
     - 731be19cfd7e
     - b8a6443c2d05
@@ -28978,6 +30838,9 @@
     :answers_tex_height: []
   2024_NI101:
     :challenge_tex: 213afce0a99b
+    :challenge_svg: NI101_q.svg
+    :challenge_svg_width: 112.993
+    :challenge_svg_height: 24.608
     :answers_tex:
     - 8c8ea5d6afc1
     - 731be19cfd7e
@@ -28987,6 +30850,9 @@
     :answers_tex_height: []
   2024_AI208:
     :challenge_tex: 2e87668a3c3b
+    :challenge_svg: AI208_q.svg
+    :challenge_svg_width: 227.833
+    :challenge_svg_height: 158.215
     :answers_tex:
     - 85b051df5438
     - 9760b41e0e2d
@@ -28996,6 +30862,9 @@
     :answers_tex_height: []
   2024_AI207:
     :challenge_tex: a765c427d842
+    :challenge_svg: AI207_q.svg
+    :challenge_svg_width: 227.833
+    :challenge_svg_height: 158.215
     :answers_tex:
     - c2fe18422c96
     - b9164ddf500e
@@ -29113,6 +30982,9 @@
     :answers_tex_height: []
   2024_AI306:
     :challenge_tex: 36bd31bf54c1
+    :challenge_svg: AI306_q.svg
+    :challenge_svg_width: 228.944
+    :challenge_svg_height: 185.319
     :answers_tex:
     - 7fada0881319
     - d704fb5267d0
@@ -29122,6 +30994,9 @@
     :answers_tex_height: []
   2024_AI305:
     :challenge_tex: '08105feac216'
+    :challenge_svg: AI305_q.svg
+    :challenge_svg_width: 228.944
+    :challenge_svg_height: 185.319
     :answers_tex:
     - e4aa9fb7f71b
     - 7fada0881319
@@ -29176,6 +31051,9 @@
     :answers_tex_height: []
   2024_EI303:
     :challenge_tex: cf470862c9fc
+    :challenge_svg: EI303_q.svg
+    :challenge_svg_width: 227.694
+    :challenge_svg_height: 174.217
     :answers_tex:
     - 7891dd3999b0
     - 7de19591c14f
@@ -29185,6 +31063,9 @@
     :answers_tex_height: []
   2024_EI302:
     :challenge_tex: c1872281e07a
+    :challenge_svg: EI302_q.svg
+    :challenge_svg_width: 226.784
+    :challenge_svg_height: 170.487
     :answers_tex:
     - 0b7709b750d7
     - 48f01f95175b
@@ -29194,6 +31075,9 @@
     :answers_tex_height: []
   2024_EI301:
     :challenge_tex: fe922759f07c
+    :challenge_svg: EI301_q.svg
+    :challenge_svg_width: 226.784
+    :challenge_svg_height: 170.487
     :answers_tex:
     - 44c4eb705fc5
     - f2f31a56a8a9
@@ -29212,6 +31096,9 @@
     :answers_tex_height: []
   2024_AI402:
     :challenge_tex: 72c84edf584a
+    :challenge_svg: AI402_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 96.248
     :answers_tex:
     - d369d145193e
     - 795170c3caeb
@@ -29230,6 +31117,9 @@
     :answers_tex_height: []
   2024_EI405:
     :challenge_tex: babb0f44749f
+    :challenge_svg: EI405_q.svg
+    :challenge_svg_width: 226.819
+    :challenge_svg_height: 76.737
     :answers_tex:
     - 1db054337814
     - 38f22bfb6bab
@@ -29410,6 +31300,9 @@
     :answers_tex_height: []
   2024_EI503:
     :challenge_tex: 245f6b0b7d1e
+    :challenge_svg: EI503_q.svg
+    :challenge_svg_width: 203.794
+    :challenge_svg_height: 50.088
     :answers_tex:
     - b17a6d41c4a8
     - d11d7a352bf3
@@ -29419,6 +31312,9 @@
     :answers_tex_height: []
   2024_EI502:
     :challenge_tex: 130e8c31ad67
+    :challenge_svg: EI502_q.svg
+    :challenge_svg_width: 203.794
+    :challenge_svg_height: 50.088
     :answers_tex:
     - 0b572039b32b
     - d11d7a352bf3
@@ -29464,6 +31360,9 @@
     :answers_tex_height: []
   2024_AI613:
     :challenge_tex: a715b828035d
+    :challenge_svg: AI613_q.svg
+    :challenge_svg_width: 227.016
+    :challenge_svg_height: 131.386
     :answers_tex:
     - 99f1042b1689
     - 9534dc997397
@@ -29473,6 +31372,9 @@
     :answers_tex_height: []
   2024_AI612:
     :challenge_tex: a520967f2d6a
+    :challenge_svg: AI612_q.svg
+    :challenge_svg_width: 228.973
+    :challenge_svg_height: 117.485
     :answers_tex:
     - e2c5ee31df01
     - 7664132bba2b
@@ -29482,6 +31384,9 @@
     :answers_tex_height: []
   2024_AI611:
     :challenge_tex: 10dfff327af9
+    :challenge_svg: AI611_q.svg
+    :challenge_svg_width: 228.973
+    :challenge_svg_height: 117.485
     :answers_tex:
     - 82db2594e365
     - 56a96c491754
@@ -29491,6 +31396,9 @@
     :answers_tex_height: []
   2024_AI610:
     :challenge_tex: 9f3c7a764296
+    :challenge_svg: AI610_q.svg
+    :challenge_svg_width: 228.973
+    :challenge_svg_height: 117.485
     :answers_tex:
     - ca68866260b7
     - e87bd37c4ad2
@@ -29500,6 +31408,9 @@
     :answers_tex_height: []
   2024_AI609:
     :challenge_tex: '0979e705ec15'
+    :challenge_svg: AI609_q.svg
+    :challenge_svg_width: 228.973
+    :challenge_svg_height: 117.485
     :answers_tex:
     - 52afa387bf5e
     - 79bdf07e79e8
@@ -29509,6 +31420,9 @@
     :answers_tex_height: []
   2024_AI608:
     :challenge_tex: 36b36d4631d4
+    :challenge_svg: AI608_q.svg
+    :challenge_svg_width: 228.973
+    :challenge_svg_height: 117.485
     :answers_tex:
     - d86d6c7d411f
     - 5369f5d31b2a
@@ -29518,6 +31432,9 @@
     :answers_tex_height: []
   2024_AI607:
     :challenge_tex: 8132d8140133
+    :challenge_svg: AI607_q.svg
+    :challenge_svg_width: 230.123
+    :challenge_svg_height: 166.116
     :answers_tex:
     - 2568ba4075fb
     - b36dbbd17b9e
@@ -29527,6 +31444,9 @@
     :answers_tex_height: []
   2024_AI606:
     :challenge_tex: 2d07989c3782
+    :challenge_svg: AI606_q.svg
+    :challenge_svg_width: 230.834
+    :challenge_svg_height: 118.435
     :answers_tex:
     - 34034d787c3d
     - 88614e2140a0
@@ -29536,6 +31456,9 @@
     :answers_tex_height: []
   2024_AI605:
     :challenge_tex: 9741a9b63df0
+    :challenge_svg: AI605_q.svg
+    :challenge_svg_width: 230.834
+    :challenge_svg_height: 118.435
     :answers_tex:
     - 15f2b4b9e5ee
     - 5369f5d31b2a
@@ -29545,6 +31468,9 @@
     :answers_tex_height: []
   2024_AI604:
     :challenge_tex: 402c2dcf624b
+    :challenge_svg: AI604_q.svg
+    :challenge_svg_width: 230.834
+    :challenge_svg_height: 118.435
     :answers_tex:
     - 132243e78e76
     - feb70d9d6168
@@ -29572,6 +31498,9 @@
     :answers_tex_height: []
   2024_AI601:
     :challenge_tex: c38dccf70e34
+    :challenge_svg: AI601_q.svg
+    :challenge_svg_width: 227.69
+    :challenge_svg_height: 227.996
     :answers_tex:
     - c92618a2b84c
     - 1b72efa450ab
@@ -29599,9 +31528,21 @@
     :answers_tex_height: []
   2024_AJ118:
     :challenge_tex: 0c82009bbb43
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AJ118_a.svg
+    - AJ118_b.svg
+    - AJ118_c.svg
+    - AJ118_d.svg
+    :answers_svg_width:
+    - 114.626
+    - 114.626
+    - 114.626
+    - 114.626
+    :answers_svg_height:
+    - 83.967
+    - 98.644
+    - 82.173
+    - 88.126
   2024_AJ117:
     :challenge_tex: ff2e76ea33ef
     :answers_tex:
@@ -29820,9 +31761,21 @@
     :answers_tex_height: []
   2024_EJ117:
     :challenge_tex: ebef5a34a23b
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EJ117_a.svg
+    - EJ117_b.svg
+    - EJ117_c.svg
+    - EJ117_d.svg
+    :answers_svg_width:
+    - 113.495
+    - 113.495
+    - 113.495
+    - 113.495
+    :answers_svg_height:
+    - 96.168
+    - 90.238
+    - 90.238
+    - 96.168
   2024_EJ116:
     :challenge_tex: 3a5575237c96
     :answers_tex:
@@ -30023,11 +31976,26 @@
     :answers_tex_height: []
   2024_AJ221:
     :challenge_tex: e213bb228e04
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AJ221_a.svg
+    - AJ221_b.svg
+    - AJ221_c.svg
+    - AJ221_d.svg
+    :answers_svg_width:
+    - 114.077
+    - 114.077
+    - 114.077
+    - 114.077
+    :answers_svg_height:
+    - 36.946
+    - 36.946
+    - 36.946
+    - 36.946
   2024_AJ220:
     :challenge_tex: 38eaaab10f56
+    :challenge_svg: AJ220_q.svg
+    :challenge_svg_width: 227.212
+    :challenge_svg_height: 42.615
     :answers_tex:
     - e1fe6f14500e
     - 6c3872480d65
@@ -30136,11 +32104,26 @@
     :answers_tex_height: []
   2024_AJ208:
     :challenge_tex: 2b07a110e890
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - AJ208_a.svg
+    - AJ208_b.svg
+    - AJ208_c.svg
+    - AJ208_d.svg
+    :answers_svg_width:
+    - 221.384
+    - 219.82
+    - 219.82
+    - 219.82
+    :answers_svg_height:
+    - 140.911
+    - 142.901
+    - 142.901
+    - 142.901
   2024_AJ207:
     :challenge_tex: ded7dd9bc809
+    :challenge_svg: AJ207_q.svg
+    :challenge_svg_width: 195.067
+    :challenge_svg_height: 162.185
     :answers_tex:
     - a9d075252335
     - 4513a6caeceb
@@ -30303,19 +32286,55 @@
     :answers_tex_height: []
   2024_EJ208:
     :challenge_tex: 8e612d854b1c
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EJ208_a.svg
+    - EJ208_b.svg
+    - EJ208_c.svg
+    - EJ208_d.svg
+    :answers_svg_width:
+    - 220.178
+    - 220.178
+    - 220.178
+    - 220.178
+    :answers_svg_height:
+    - 138.084
+    - 138.084
+    - 138.084
+    - 144.038
   2024_EJ207:
     :challenge_tex: 61277f44811b
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EJ207_a.svg
+    - EJ207_b.svg
+    - EJ207_c.svg
+    - EJ207_d.svg
+    :answers_svg_width:
+    - 220.178
+    - 220.178
+    - 220.178
+    - 220.178
+    :answers_svg_height:
+    - 138.084
+    - 138.084
+    - 138.084
+    - 138.084
   2024_EJ206:
     :challenge_tex: 5729a7fc1c56
-    :answers_svg: []
-    :answers_svg_width: []
-    :answers_svg_height: []
+    :answers_svg:
+    - EJ206_a.svg
+    - EJ206_b.svg
+    - EJ206_c.svg
+    - EJ206_d.svg
+    :answers_svg_width:
+    - 113.495
+    - 113.495
+    - 113.495
+    - 113.495
+    :answers_svg_height:
+    - 90.238
+    - 96.168
+    - 96.168
+    - 96.168
   2024_EJ205:
     :challenge_tex: b365df539264
     :answers_tex:
@@ -31492,13 +33511,13 @@
     - f4ebe76b2970
     - 8047049d92f4
     - 89500ceb3a5e
-    - cd1a4886577e
+    - 3fce25a89151
     :answers_tex_width: []
     :answers_tex_height: []
   2024_BD205:
     :challenge_tex: 46dc4f42c081
     :answers_tex:
-    - d6f1dcd83d93
+    - c7ade47b72c5
     - 5a4074960ff2
     - ddc6bcde9b09
     - f5e90993c68e
@@ -31507,10 +33526,10 @@
   2024_BD204:
     :challenge_tex: 2f3f7294f879
     :answers_tex:
-    - b7bed51dfad1
+    - 0ece40e8928f
     - 195bc2f28daa
     - f4ebe76b2970
-    - 1143f365b24f
+    - 6c548b2f5a03
     :answers_tex_width: []
     :answers_tex_height: []
   2024_BD203:
@@ -31519,7 +33538,7 @@
     - 1b13047e987c
     - 195bc2f28daa
     - f4ebe76b2970
-    - 1143f365b24f
+    - 6c548b2f5a03
     :answers_tex_width: []
     :answers_tex_height: []
   2024_BD202:
@@ -31536,7 +33555,7 @@
     :answers_tex:
     - 14c13209dfd8
     - 665843a89a5d
-    - 21903a0dff96
+    - 2b23f525e491
     - c86b46e95854
     :answers_tex_width: []
     :answers_tex_height: []
@@ -31905,6 +33924,9 @@
     :answers_tex_height: []
   2024_BE206:
     :challenge_tex: aadf7839779e
+    :challenge_svg: BE206_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 112.442
     :answers_tex:
     - cb49b2f0857a
     - a72b20062ec2
@@ -31914,6 +33936,9 @@
     :answers_tex_height: []
   2024_BE205:
     :challenge_tex: '601673374896'
+    :challenge_svg: BE205_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 112.442
     :answers_tex:
     - 5a5b0f9b7d3f
     - ca3512f4dfa9
@@ -31923,6 +33948,9 @@
     :answers_tex_height: []
   2024_BE204:
     :challenge_tex: dd18697a847e
+    :challenge_svg: BE204_q.svg
+    :challenge_svg_width: 226.773
+    :challenge_svg_height: 112.442
     :answers_tex:
     - 8effee409c62
     - 7719a1c782a1
