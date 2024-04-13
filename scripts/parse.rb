@@ -438,6 +438,7 @@ class Parser
 
                     qid = '2024_' + question['number']
                     qid = "#{qid}#{@id_suffix}"
+
                     # next unless qid == '2024_VC102'
                     data = {}
                     # STDERR.puts "-" * 30 + qid + "-" * 30
@@ -540,13 +541,10 @@ class Parser
     end
 
     def finalize
-
-        width = 11
-
         File.open("cache/all.tex", 'w') do |f|
             f.puts <<~END_OF_STRING
                 \\documentclass{article}
-                \\usepackage[paperwidth=10cm,paperheight=17cm,margin=1cm]{geometry}
+                \\usepackage[paperwidth=9.5cm,paperheight=17cm,margin=1cm]{geometry}
                 \\usepackage[utf8]{inputenc}
                 \\usepackage[german]{babel}
                 \\usepackage[bitstream-charter]{mathdesign}
