@@ -472,7 +472,7 @@ class Parser
             # system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}-internal.svg --export-plain-svg --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
             system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}.svg --export-plain-svg --pdf-poppler --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
             # system("scour -i \"cache/svg/#{sha1}-internal.svg\" -o \"cache/svg/#{sha1}-internal-scour.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
-            system("scour -i \"cache/svg/#{sha1}-poppler.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
+            system("scour -i \"cache/svg/#{sha1}.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
 
             # 2.9 k instead of 52 k:
             # docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/test8.svg --export-plain-svg --export-area-drawing --pdf-page 1 /app/all.pdf
