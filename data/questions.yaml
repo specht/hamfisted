@@ -18788,18 +18788,8 @@
     - 8a6248ac6ab7
     - 770d40590b36
     - ff093d063e2c
-    :answers_tex_width:
-    - 187.18
-    - 184.26
-    - 184.26
-    - 184.26
-    :answers_tex_height:
-    - 90.58
-    - 76.834
-    - 63.084
-    - 49.334
-    :challenge_tex_width: 212.6
-    :challenge_tex_height: 35.584
+    :answers_tex_width: []
+    :answers_tex_height: []
 :headings:
   '2007': Alter Fragenkatalog (2007)
   '2024': Neuer Fragenkatalog (2024)

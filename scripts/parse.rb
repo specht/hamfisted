@@ -623,15 +623,30 @@ class Parser
             raise 'oops'
         end
 
+        cores = 8
+        queues = []
+        cores.times { queues << [] }
         @latex_entry_order.each.with_index do |sha1, index|
-            system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}.svg --export-plain-svg --pdf-poppler --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
-            system("scour -i \"cache/svg/#{sha1}.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
+            queues[index % cores] << [sha1, index]
+            # system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}.svg --export-plain-svg --pdf-poppler --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
+            # system("scour -i \"cache/svg/#{sha1}.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
 
             # 2.9 k instead of 52 k:
             # docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/test8.svg --export-plain-svg --export-area-drawing --pdf-page 1 /app/all.pdf
             # scour -i cache/test8.svg -o cache/test9.svg  --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none
             #
         end
+        queues.each do |queue|
+            fork do
+                queue.each do |info|
+                    sha1 = info[0]
+                    index = info[1]
+                    system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}.svg --export-plain-svg --pdf-poppler --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
+                    system("scour -i \"cache/svg/#{sha1}.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
+                end
+            end
+        end
+        cores.times { Process.wait }
 
         @questions_for_hid['2024'] |= @questions_for_hid['2024/TN'] | @questions_for_hid['2024/TE'] | @questions_for_hid['2024/TA']
         @questions_for_hid[''] |= @questions_for_hid['2024']
