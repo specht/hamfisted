@@ -6,7 +6,7 @@ require 'json'
 require 'yaml'
 
 FileUtils.mkpath('scripts/cache/svg-scour-jovial')
-# Dir['scripts/cache/svg-scour/*.svg'].each_slice(500) { |x| system("dart run jovial_svg:svg_to_si --no-big -o scripts/cache/svg-scour-jovial/ #{x.join(' ')}") }
+Dir['scripts/cache/svg-scour/*.svg'].each_slice(500) { |x| system("dart run jovial_svg:svg_to_si --no-big -o scripts/cache/svg-scour-jovial/ #{x.join(' ')}") }
 data = YAML.load(File.read('data/questions.yaml'))
 data[:questions].each_pair do |qid, info|
     if info[:challenge_tex]

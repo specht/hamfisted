@@ -1213,7 +1213,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (qid == null) {
       pickTask();
     }
-    qid = '2024_EG106';
+    // qid = '2024_NF104';
 
     List<Widget> cards = [];
     String qidDisplay = qid ?? '';
@@ -1264,7 +1264,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       if (GlobalData.questions!['questions'][qid]['challenge_tex'] != null) {
         developer.log(GlobalData.questions!['questions'][qid]['challenge_tex']);
         challengeParts.add(Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
           child: SizedBox(
             width: cwidth,
             height: cwidth /
@@ -1276,8 +1276,11 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 builder: (context, snapshot) {
                   developer.log(
                       GlobalData.questions!['questions'][qid]['challenge_tex']);
-                  return ScalableImageWidget(
-                    si: snapshot.requireData,
+                  return Container(
+                    decoration: BoxDecoration(border: Border.all(width: 1)),
+                    child: ScalableImageWidget(
+                      si: snapshot.requireData,
+                    ),
                   );
                 }),
           ),
