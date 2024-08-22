@@ -1104,6 +1104,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     candidates.shuffle();
     setState(() {
       qid = candidates[0];
+      qid = "2024_EB206";
       answerColor = [
         Colors.transparent,
         Colors.transparent,
