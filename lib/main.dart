@@ -1600,12 +1600,11 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
               launchAnimation(quick: true);
             },
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Opacity(
-              opacity: solvedAll ? 1.0 : 0.0,
+          if (solvedAll)
+            Align(
+              alignment: Alignment.bottomRight,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 100, right: 10),
+                padding: const EdgeInsets.only(bottom: 120, right: 10),
                 child: ElevatedButton.icon(
                   style: ButtonStyle(
                     surfaceTintColor:
@@ -1633,7 +1632,6 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
