@@ -1608,12 +1608,12 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 child: ElevatedButton.icon(
                   style: ButtonStyle(
                     surfaceTintColor:
-                        MaterialStateProperty.all(Colors.transparent),
-                    padding: MaterialStateProperty.all(
+                        WidgetStateProperty.all(Colors.transparent),
+                    padding: WidgetStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     ),
-                    elevation: MaterialStateProperty.all(4),
-                    shape: MaterialStateProperty.all(
+                    elevation: WidgetStateProperty.all(4),
+                    shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10000)),
                     ),
@@ -1763,19 +1763,21 @@ class _BottomMenuState extends State<BottomMenu> {
                                   null
                               ? 0.5
                               : 1.0,
-                          child: const Padding(
-                            padding: EdgeInsets.only(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
                                 top: 8, left: 8, right: 8, bottom: 12),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                     height: 42,
                                     child: Icon(Icons.help_outline)),
                                 Text(
-                                  "Hilfestellung\nzu dieser Frage",
+                                  constraints.maxWidth < 320
+                                      ? "Hilfe zu\ndieser Frage"
+                                      : "Hilfestellung\nzu dieser Frage",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(height: 1.2),
+                                  style: const TextStyle(height: 1.2),
                                 ),
                               ],
                             ),
