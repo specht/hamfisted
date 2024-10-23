@@ -1773,7 +1773,7 @@ class _BottomMenuState extends State<BottomMenu> {
                                     height: 42,
                                     child: Icon(Icons.help_outline)),
                                 Text(
-                                  constraints.maxWidth < 320
+                                  constraints.maxWidth < 400
                                       ? "Hilfe zu\ndieser Frage"
                                       : "Hilfestellung\nzu dieser Frage",
                                   textAlign: TextAlign.center,
