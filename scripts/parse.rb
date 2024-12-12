@@ -7,6 +7,8 @@ require 'set'
 require 'json'
 require 'yaml'
 
+SKIP_SVG = false
+
 class Parser
     def initialize()
         @questions = {}
@@ -16,22 +18,28 @@ class Parser
         @questions_for_hid = {}
         @meta = []
         @children[''] = ['2007', '2024']
-        @children['2024'] = ['2024/TN', '2024/TE', '2024/TA']
+        @children['2024'] = ['2024/TN', '2024/TE', '2024/TA', '2024/TE_only', '2024/TA_only']
         @parents['2007'] = ''
         @parents['2024'] = ''
         @parents['2024/TN'] = '2024'
         @parents['2024/TE'] = '2024'
         @parents['2024/TA'] = '2024'
+        @parents['2024/TE_only'] = '2024'
+        @parents['2024/TE_only'] = '2024'
         @headings['2007'] = 'Alter Fragenkatalog (2007)'
         @headings['2024'] = 'Neuer Fragenkatalog (2024)'
         @headings['2024/TN'] = 'Technische Kenntnisse der Klasse N'
         @headings['2024/TE'] = 'Technische Kenntnisse der Klasse E'
         @headings['2024/TA'] = 'Technische Kenntnisse der Klasse A'
+        @headings['2024/TE_only'] = 'Nur Klasse E (ohne N)'
+        @headings['2024/TA_only'] = 'Nur Klasse A (ohne N und E)'
         @questions_for_hid['2007'] = Set.new()
         @questions_for_hid['2024'] = Set.new()
         @questions_for_hid['2024/TN'] = Set.new()
         @questions_for_hid['2024/TE'] = Set.new()
         @questions_for_hid['2024/TA'] = Set.new()
+        @questions_for_hid['2024/TE_only'] = Set.new()
+        @questions_for_hid['2024/TA_only'] = Set.new()
         @latex_terms = Set.new()
         @faulty_keys = Set.new()
         @latex_entries = {}
@@ -97,7 +105,7 @@ class Parser
             i1 = s.index('}', i0)
             s = s[0, i0] + '√' + s[(i0 + 6)..(i1 - 1)] + s[(i1 + 1)..-1]
         end
-    
+
         s.gsub!('\\cdot', ' &middot; ')
         s.gsub!('\\Omega', '&Omega;')
         s.gsub!('\\pi', '&pi;')
@@ -456,7 +464,7 @@ class Parser
                         end
                     end
                     if (question['answer_a'] || '').empty? && (question['answer_b'] || '').empty? &&
-                       (question['answer_c'] || '').empty? && (question['answer_d'] || '')
+                       (question['answer_c'] || '').empty? && (question['answer_d'] || '').empty?
                         data[:answers_svg] = []
                         data[:answers_svg_width] = []
                         data[:answers_svg_height] = []
@@ -488,6 +496,8 @@ class Parser
 
                     if prefix.first == '2024' && prefix[1] == '0'
                         classes = ['N', 'E', 'A'][question['class'].to_i - 1, 3]
+                        classes << 'E_only' if question['class'] == '2'
+                        classes << 'A_only' if question['class'] == '3'
                         classes.each do |c|
 
                             insert_id = "T#{c}"
@@ -508,7 +518,7 @@ class Parser
                                 patched_sub_hid[1] = '0'
                                 @headings[sub_hid] = @headings[patched_sub_hid.join('/')]
                             end
-            
+
                             @headings[lhid] = title
                             @children[lparent_hid] ||= []
                             @children[lparent_hid] << lhid unless @children[lparent_hid].include?(lhid)
@@ -618,9 +628,11 @@ class Parser
                 \\end{document}
             END_OF_STRING
         end
-        system("docker run --rm -v ./cache:/app texlive/texlive lualatex --output-directory=/app -interaction=nonstopmode /app/all.tex")
-        if $?.exitstatus != 0
-            raise 'oops'
+        unless SKIP_SVG
+            system("docker run --rm -v ./cache:/app texlive/texlive lualatex --output-directory=/app -interaction=nonstopmode /app/all.tex")
+            if $?.exitstatus != 0
+                raise 'oops'
+            end
         end
 
         cores = 8
@@ -636,17 +648,19 @@ class Parser
             # scour -i cache/test8.svg -o cache/test9.svg  --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none
             #
         end
-        queues.each do |queue|
-            fork do
-                queue.each do |info|
-                    sha1 = info[0]
-                    index = info[1]
-                    system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}.svg --export-plain-svg --pdf-poppler --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
-                    system("scour -i \"cache/svg/#{sha1}.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
+        unless SKIP_SVG
+            queues.each do |queue|
+                fork do
+                    queue.each do |info|
+                        sha1 = info[0]
+                        index = info[1]
+                        system("docker run --rm -v ./cache:/app -w /app minidocks/inkscape -o /app/svg/#{sha1}.svg --export-plain-svg --pdf-poppler --export-area-drawing --pdf-page #{index + 1} /app/all.pdf")
+                        system("scour -i \"cache/svg/#{sha1}.svg\" -o \"cache/svg-scour/#{sha1}.svg\" --enable-viewboxing --enable-id-stripping --enable-comment-stripping --shorten-ids --indent=none")
+                    end
                 end
             end
+            cores.times { Process.wait }
         end
-        cores.times { Process.wait }
 
         @questions_for_hid['2024'] |= @questions_for_hid['2024/TN'] | @questions_for_hid['2024/TE'] | @questions_for_hid['2024/TA']
         @questions_for_hid[''] |= @questions_for_hid['2024']
