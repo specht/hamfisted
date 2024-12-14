@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/overview': (context) => const Overview(),
         '/quiz': (context) => const Quiz(),
+        '/starred': (context) => const Starred(),
         '/about': (context) => const About(),
       },
     );
@@ -166,6 +167,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     int now = DateTime.now().millisecondsSinceEpoch;
     Random r = Random(0);
     for (var subhid in (GlobalData.questions!['children'][hid] ?? [])) {
+      if (subhid == '2007') continue;
       List<int> countForDuration = [0, 0, 0, 0, 0];
       if (demo) {
         countForDuration = [10, 13, 9, 2, 28];
@@ -781,7 +783,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Zu vielen der Prüfungsfragen gibt es Hilfen auf der DARC-Website. Tippe auf »Hilfestellung«, wenn du mit einer Frage Probleme hast.",
+                        "Wenn du dir eine Frage für später merken möchtest, tippe auf das Sternsymbol.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),
@@ -789,7 +791,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Du wirst dann direkt an die richtige Stelle auf der DARC-Website geleitet (manchmal musst du etwas nach oben scrollen, um eine Erklärung zu finden).",
+                        "Du kannst dir alle gemerkten Fragen später ansehen und üben.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),
@@ -826,9 +828,9 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     if (GlobalData.box.get('shown_intro') != true) {
       return introScreen();
     }
-    String hid = '';
+    String hid = '2024';
     if (ModalRoute.of(context) != null) {
-      hid = (ModalRoute.of(context)!.settings.arguments ?? '').toString();
+      hid = (ModalRoute.of(context)!.settings.arguments ?? '2024').toString();
     }
 
     var cards = getChapterCards(hid: hid);
@@ -875,6 +877,20 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
 
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
+      floatingActionButton: (GlobalData.starBox.length > 0 && hid == '2024')
+          ? FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/starred').then((value) {
+                  setState(() {});
+                });
+              },
+              icon: const Icon(Icons.star),
+              label: const Text(
+                'Gemerkte Fragen',
+                style: TextStyle(fontSize: 16),
+              ),
+            )
+          : null,
       appBar: AppBar(
         backgroundColor: PRIMARY,
         foregroundColor: Colors.white,
@@ -954,6 +970,99 @@ class Quiz extends StatefulWidget {
 
   @override
   State<Quiz> createState() => _QuizState();
+}
+
+Widget getQuestionWidget(String qid) {
+  String qidDisplay = qid ?? '';
+  if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
+    qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
+  }
+  qidDisplay = qidDisplay.replaceFirst('2024_', '');
+
+  return LayoutBuilder(builder: (context, constraints) {
+    double cwidth = min(constraints.maxWidth, MAX_WIDTH);
+    List<Widget> challengeParts = [];
+
+    if (GlobalData.questions!['questions'][qid]['challenge'] != null) {
+      challengeParts.add(Container(
+        constraints: BoxConstraints(maxWidth: cwidth),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Html(
+            data:
+                "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
+            style: {
+              'body': Style(margin: Margins.zero, fontSize: FontSize(16))
+            },
+          ),
+        ),
+      ));
+    }
+
+    if (GlobalData.questions!['questions'][qid]['challenge_tex'] != null) {
+      developer.log(GlobalData.questions!['questions'][qid]['challenge_tex']);
+      challengeParts.add(Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+        child: SizedBox(
+          width: cwidth,
+          height: max(
+              60,
+              cwidth /
+                  GlobalData.questions!['questions'][qid]
+                      ['challenge_tex_width'] *
+                  GlobalData.questions!['questions'][qid]
+                      ['challenge_tex_height']),
+          child: FutureBuilder(
+              future: ScalableImage.fromSIAsset(rootBundle,
+                  "data/2024/tex/${GlobalData.questions!['questions'][qid]['challenge_tex']}.si"),
+              builder: (context, snapshot) {
+                developer.log(
+                    GlobalData.questions!['questions'][qid]['challenge_tex']);
+                return ScalableImageWidget(
+                  si: snapshot.requireData,
+                );
+              }),
+        ),
+      ));
+    }
+
+    if (GlobalData.questions!['questions'][qid]['challenge_svg'] != null) {
+      var aspect = GlobalData.questions!['questions'][qid]
+              ['challenge_svg_width'] /
+          GlobalData.questions!['questions'][qid]['challenge_svg_height'];
+      var width = (cwidth) *
+          min(GlobalData.questions!['questions'][qid]['challenge_svg_width'],
+              250) /
+          250;
+      var height = width / aspect;
+      challengeParts.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SvgPicture.asset(
+          "data/2024/${GlobalData.questions!['questions'][qid]['challenge_svg']}",
+          width: width,
+          height: height,
+        ),
+      ));
+    }
+
+    if (GlobalData.questions!['questions'][qid]['challenge_png'] != null) {
+      challengeParts.add(Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Image(
+          image: AssetImage(
+            "data/2024/${GlobalData.questions!['questions'][qid]['challenge_png']}",
+          ),
+        ),
+      ));
+    }
+
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      elevation: 2,
+      surfaceTintColor: Colors.transparent,
+      child: Column(children: challengeParts),
+    );
+  });
 }
 
 class _QuizState extends State<Quiz> with TickerProviderStateMixin {
@@ -1216,11 +1325,6 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     // qid = '2024_AF420';
 
     List<Widget> cards = [];
-    String qidDisplay = qid ?? '';
-    if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
-      qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
-    }
-    qidDisplay = qidDisplay.replaceFirst('2024_', '');
 
     cards.add(
       Padding(
@@ -1241,90 +1345,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       ),
     );
 
-    cards.add(LayoutBuilder(builder: (context, constraints) {
-      double cwidth = min(constraints.maxWidth, MAX_WIDTH);
-      List<Widget> challengeParts = [];
-
-      if (GlobalData.questions!['questions'][qid]['challenge'] != null) {
-        challengeParts.add(Container(
-          constraints: BoxConstraints(maxWidth: cwidth),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Html(
-              data:
-                  "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
-              style: {
-                'body': Style(margin: Margins.zero, fontSize: FontSize(16))
-              },
-            ),
-          ),
-        ));
-      }
-
-      if (GlobalData.questions!['questions'][qid]['challenge_tex'] != null) {
-        developer.log(GlobalData.questions!['questions'][qid]['challenge_tex']);
-        challengeParts.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-          child: SizedBox(
-            width: cwidth,
-            height: max(
-                60,
-                cwidth /
-                    GlobalData.questions!['questions'][qid]
-                        ['challenge_tex_width'] *
-                    GlobalData.questions!['questions'][qid]
-                        ['challenge_tex_height']),
-            child: FutureBuilder(
-                future: ScalableImage.fromSIAsset(rootBundle,
-                    "data/2024/tex/${GlobalData.questions!['questions'][qid]['challenge_tex']}.si"),
-                builder: (context, snapshot) {
-                  developer.log(
-                      GlobalData.questions!['questions'][qid]['challenge_tex']);
-                  return ScalableImageWidget(
-                    si: snapshot.requireData,
-                  );
-                }),
-          ),
-        ));
-      }
-
-      if (GlobalData.questions!['questions'][qid]['challenge_svg'] != null) {
-        var aspect = GlobalData.questions!['questions'][qid]
-                ['challenge_svg_width'] /
-            GlobalData.questions!['questions'][qid]['challenge_svg_height'];
-        var width = (cwidth) *
-            min(GlobalData.questions!['questions'][qid]['challenge_svg_width'],
-                250) /
-            250;
-        var height = width / aspect;
-        challengeParts.add(Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset(
-            "data/2024/${GlobalData.questions!['questions'][qid]['challenge_svg']}",
-            width: width,
-            height: height,
-          ),
-        ));
-      }
-
-      if (GlobalData.questions!['questions'][qid]['challenge_png'] != null) {
-        challengeParts.add(Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image(
-            image: AssetImage(
-              "data/2024/${GlobalData.questions!['questions'][qid]['challenge_png']}",
-            ),
-          ),
-        ));
-      }
-
-      return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        elevation: 2,
-        surfaceTintColor: Colors.transparent,
-        child: Column(children: challengeParts),
-      );
-    }));
+    cards.add(getQuestionWidget(qid!));
 
     cards.add(const Divider());
 
@@ -1556,6 +1577,16 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       );
     }
 
+    Switch unsureSwitch = Switch(
+      value: unsure,
+      activeColor: Colors.red[900],
+      onChanged: (value) {
+        if (!unsure) {
+          setState(() => unsure = value);
+        }
+      },
+    );
+
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
@@ -1573,16 +1604,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
           ),
           BottomMenu(
             qid: qid!,
-            feelingUnsureWidget: Switch(
-              value: unsure,
-              activeColor: Colors.red[900],
-              onChanged: (value) {
-                if (!unsure) {
-                  setState(() => unsure = value);
-                }
-              },
-            ),
+            feelingUnsureWidget: unsureSwitch,
             onFeelingUnsure: () {
+              unsureSwitch.onChanged!(true);
               unsure = true;
             },
             onHelp: GlobalData.questions!['questions'][qid]['hint'] == null
@@ -1596,6 +1620,15 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                       launchUrl(Uri.parse(url));
                     }
                   },
+            onStar: () {
+              setState(() {
+                bool questionIsStarred = GlobalData.starBox.get(qid) ?? false;
+                if (questionIsStarred)
+                  GlobalData.instance.unstarQuestion(qid!);
+                else
+                  GlobalData.instance.starQuestion(qid!);
+              });
+            },
             onSkip: () {
               launchAnimation(quick: true);
             },
@@ -1672,7 +1705,7 @@ class _AboutState extends State<About> {
       body: Html(
         data: "<h2>Hamfisted</h2>"
             "<p>App zur Vorbereitung auf die Amateurfunkprüfung</p>"
-            "<p>Die Fragen von 2007 stammen aus der AFUTrainer-App von <a href='http://oliver-saal.de/software/afutrainer/download.php'>Oliver Saal</a>. Die Fragen von 2024 stammen von der Bundesnetzagentur (3. Auflage, März 2024). Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht.</p>"
+            "Die Fragen stammen von der Bundesnetzagentur (3. Auflage, März 2024). Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht.</p>"
             "<p><b>Version:</b> ${version}</p>"
             "<p><b>Quelltext:</b> <a href='https://github.com/specht/hamfisted'>https://github.com/specht/hamfisted</a></p>"
             "<p><b>Kontakt:</b> <a href='mailto:specht@gymnasiumsteglitz.de'>specht@gymnasiumsteglitz.de</a></p>",
@@ -1688,6 +1721,7 @@ class BottomMenu extends StatefulWidget {
   final Function? onFeelingUnsure;
   final Widget feelingUnsureWidget;
   final Function? onHelp;
+  final Function? onStar;
   final Function? onSkip;
   final String qid;
 
@@ -1697,7 +1731,8 @@ class BottomMenu extends StatefulWidget {
       required this.feelingUnsureWidget,
       this.onFeelingUnsure,
       this.onSkip,
-      this.onHelp});
+      this.onHelp,
+      this.onStar});
 
   @override
   State<BottomMenu> createState() => _BottomMenuState();
@@ -1706,6 +1741,7 @@ class BottomMenu extends StatefulWidget {
 class _BottomMenuState extends State<BottomMenu> {
   @override
   Widget build(BuildContext context) {
+    bool questionIsStarred = GlobalData.starBox.get(widget.qid) ?? false;
     return Align(
       alignment: Alignment.bottomCenter,
       child: Stack(
@@ -1752,35 +1788,35 @@ class _BottomMenuState extends State<BottomMenu> {
                     SizedBox(
                       width: constraints.maxWidth / 3,
                       child: InkWell(
-                        onTap: widget.onHelp == null
+                        onTap: widget.onStar == null
                             ? null
                             : () {
-                                widget.onHelp!();
+                                widget.onStar!();
                               },
-                        child: Opacity(
-                          opacity: GlobalData.questions!['questions']
-                                      [widget.qid]['hint'] ==
-                                  null
-                              ? 0.5
-                              : 1.0,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 8, left: 8, right: 8, bottom: 12),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(
-                                    height: 42,
-                                    child: Icon(Icons.help_outline)),
-                                Text(
-                                  constraints.maxWidth < 400
-                                      ? "Hilfe zu\ndieser Frage"
-                                      : "Hilfestellung\nzu dieser Frage",
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(height: 1.2),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 8, left: 8, right: 8, bottom: 12),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height: 45,
+                                child: Icon(
+                                  questionIsStarred
+                                      ? Icons.star
+                                      : Icons.star_border,
+                                  color: questionIsStarred
+                                      ? Colors.yellow[700]
+                                      : null,
+                                  size: questionIsStarred ? 32 : 28,
                                 ),
-                              ],
-                            ),
+                              ),
+                              const Text(
+                                "Frage für später\nmerken",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(height: 1.2),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -1800,8 +1836,12 @@ class _BottomMenuState extends State<BottomMenu> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SizedBox(
-                                  height: 42,
-                                  child: Icon(Icons.skip_next_outlined)),
+                                height: 45,
+                                child: Icon(
+                                  Icons.skip_next_outlined,
+                                  size: 28,
+                                ),
+                              ),
                               Text(
                                 "Frage\nüberspringen",
                                 textAlign: TextAlign.center,
@@ -1874,5 +1914,254 @@ class IntroScreenColumn extends StatelessWidget {
         ],
       );
     });
+  }
+}
+
+class Starred extends StatefulWidget {
+  const Starred({super.key});
+
+  @override
+  State<Starred> createState() => _StarredState();
+}
+
+class _StarredState extends State<Starred> {
+  Future<void> showMyDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Gemerkte Fragen löschen'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Möchtest du deine gemerkten Fragen löschen?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Abbrechen'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Löschen'),
+              onPressed: () async {
+                await GlobalData.starBox.clear();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> cards = [];
+    List<dynamic> sortedKeys = GlobalData.starBox.keys.toList();
+    sortedKeys.sort((a, b) {
+      const order = ['B', 'V', 'N', 'E', 'A'];
+      int indexA = order.indexOf(a[5]);
+      int indexB = order.indexOf(b[5]);
+      if (indexA == indexB) {
+        return a.compareTo(b);
+      }
+      return indexA.compareTo(indexB);
+    });
+    String lastHeader = '';
+    for (String qid in sortedKeys) {
+      String hid = GlobalData.questions!['hid_for_question'][qid];
+      if (hid != lastHeader) {
+        cards.add(Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          child: Text(
+            GlobalData.questions!['headings'][hid],
+            style: const TextStyle(fontSize: 16, color: Colors.black),
+          ),
+        ));
+      }
+      lastHeader = hid;
+      String qidDisplay = qid;
+      if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
+        qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
+      }
+      qidDisplay = qidDisplay.replaceFirst('2024_', '');
+      List<Widget> columnChildren = [];
+      for (int i = 0; i < 4; i++) {
+        columnChildren.add(
+          LayoutBuilder(builder: (context, constraints) {
+            double cwidth = min(constraints.maxWidth, MAX_WIDTH);
+            return Card(
+              elevation: 1,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              surfaceTintColor: Colors.transparent,
+              child: Center(
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal:
+                          max(0, (constraints.maxWidth - cwidth) / 2 - 15)),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: CircleAvatar(
+                              backgroundColor:
+                                  Color.lerp(PRIMARY, Colors.white, 0.8),
+                              radius: cwidth * 0.045,
+                              child: Text(
+                                String.fromCharCode(65 + i),
+                                style: GoogleFonts.alegreyaSans(
+                                    fontSize: cwidth * 0.04,
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: cwidth * (1.0 - 0.045) - 70,
+                          child: (GlobalData.questions!['questions'][qid]
+                                          ['answers_tex'] ==
+                                      null &&
+                                  GlobalData.questions!['questions'][qid]
+                                          ['answers_svg'] ==
+                                      null)
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 13.0),
+                                  child: Html(
+                                    data: GlobalData.questions!['questions']
+                                            [qid]['answers'][i]
+                                        .toString()
+                                        .replaceAll('*', ' ⋅ '),
+                                    style: {
+                                      'body': Style(
+                                        margin: Margins.zero,
+                                      ),
+                                    },
+                                  ),
+                                )
+                              : (GlobalData.questions!['questions'][qid]
+                                          ['answers_svg'] ==
+                                      null
+                                  ? LayoutBuilder(
+                                      builder: (context, constraints) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 6, bottom: 6),
+                                        child: SizedBox(
+                                            width: constraints.maxWidth,
+                                            height: constraints.maxWidth /
+                                                GlobalData.questions![
+                                                        'questions'][qid]
+                                                    ['answers_tex_width'][i] *
+                                                GlobalData.questions![
+                                                        'questions'][qid]
+                                                    ['answers_tex_height'][i],
+                                            child: FutureBuilder(
+                                                future: ScalableImage.fromSIAsset(
+                                                    rootBundle,
+                                                    "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
+                                                builder: (context, snapshot) {
+                                                  return ScalableImageWidget(
+                                                    si: snapshot.requireData,
+                                                  );
+                                                })),
+                                      );
+                                    })
+                                  : SvgPicture.asset(
+                                      "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+                                      width: cwidth * 0.86,
+                                    )),
+                        ),
+                      ]),
+                ),
+              ),
+            );
+          }),
+        );
+      }
+      Widget widget = ExpansionTile(
+        visualDensity: VisualDensity.compact,
+        shape: const Border(),
+        title: getQuestionWidget(qid),
+        tilePadding: const EdgeInsets.symmetric(horizontal: 0),
+        showTrailingIcon: false,
+        children: columnChildren,
+      );
+      cards.add(
+        Dismissible(
+          key: Key(qid),
+          direction: DismissDirection.startToEnd,
+          background: const Stack(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.delete, color: Colors.black45),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.delete, color: Colors.black45),
+                ),
+              ),
+            ],
+          ),
+          onDismissed: (direction) {
+            GlobalData.instance.unstarQuestion(qid);
+            setState(() {
+              if (GlobalData.starBox.keys.length == 0) {
+                Navigator.of(context).pop();
+              }
+            });
+          },
+          child: widget,
+        ),
+      );
+    }
+    return Scaffold(
+      backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
+      appBar: AppBar(
+        backgroundColor: PRIMARY,
+        foregroundColor: Colors.white,
+        actions: [
+          PopupMenuButton(onSelected: (value) async {
+            if (value == 'clear_all_stars') {
+              await showMyDialog(context);
+              if (GlobalData.starBox.keys.length == 0) {
+                Navigator.of(context).pop();
+              }
+            }
+          }, itemBuilder: (itemBuilder) {
+            return <PopupMenuEntry>[
+              const PopupMenuItem<String>(
+                value: "clear_all_stars",
+                child: ListTile(
+                  title: Text("Alle gemerkten Fragen löschen"),
+                  visualDensity: VisualDensity.compact,
+                  leading: Icon(Icons.delete),
+                ),
+              ),
+            ];
+          })
+        ],
+        title: const Text("Gemerkte Fragen"),
+      ),
+      body: ListView(
+        children: cards,
+      ),
+    );
   }
 }

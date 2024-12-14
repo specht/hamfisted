@@ -17,6 +17,7 @@ class GlobalData with ChangeNotifier {
   GlobalData._internal();
   static GlobalData get instance => _globalData;
   static var box;
+  static var starBox;
 
   static bool ready = false;
 
@@ -35,6 +36,7 @@ class GlobalData with ChangeNotifier {
   Future<bool> _init() async {
     await Hive.initFlutter();
     box = await Hive.openBox('settings');
+    starBox = await Hive.openBox('starred');
 
     questions = jsonDecode(await rootBundle.loadString("data/questions.json"));
 
@@ -52,5 +54,13 @@ class GlobalData with ChangeNotifier {
 
   void unmarkQuestionSolved(String qid) {
     GlobalData.box.delete("t/$qid");
+  }
+
+  void starQuestion(String qid) {
+    GlobalData.starBox.put(qid, true);
+  }
+
+  void unstarQuestion(String qid) {
+    GlobalData.starBox.delete(qid);
   }
 }

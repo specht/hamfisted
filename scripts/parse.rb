@@ -16,6 +16,7 @@ class Parser
         @parents = {}
         @children = {}
         @questions_for_hid = {}
+        @hid_for_question = {}
         @meta = []
         @children[''] = ['2007', '2024']
         @children['2024'] = ['2024/TN', '2024/TE', '2024/TA', '2024/TE_only', '2024/TA_only']
@@ -27,7 +28,7 @@ class Parser
         @parents['2024/TE_only'] = '2024'
         @parents['2024/TE_only'] = '2024'
         @headings['2007'] = 'Alter Fragenkatalog (2007)'
-        @headings['2024'] = 'Neuer Fragenkatalog (2024)'
+        @headings['2024'] = 'Gesamter Fragenkatalog (2024)'
         @headings['2024/TN'] = 'Technische Kenntnisse der Klasse N'
         @headings['2024/TE'] = 'Technische Kenntnisse der Klasse E'
         @headings['2024/TA'] = 'Technische Kenntnisse der Klasse A'
@@ -194,6 +195,7 @@ class Parser
                     lhid = sub_prefix.join('/')
                     @questions_for_hid[lhid] ||= Set.new()
                     @questions_for_hid[lhid] << qid
+                    @hid_for_question[qid] = lhid
                 end
             end
         end
@@ -530,6 +532,7 @@ class Parser
                                 lparent_hid = sub_prefix[0, sub_prefix.size - 1].join('/')
                                 @questions_for_hid[lhid] ||= Set.new()
                                 @questions_for_hid[lhid] << qid
+                                @hid_for_question[qid] = lhid unless lhid.include?('_only')
                             end
                         end
                     else
@@ -538,6 +541,7 @@ class Parser
                             lhid = sub_prefix.join('/')
                             @questions_for_hid[lhid] ||= Set.new()
                             @questions_for_hid[lhid] << qid
+                            @hid_for_question[qid] = lhid unless lhid.include?('_only')
                         end
                     end
                 end
@@ -681,7 +685,8 @@ class Parser
             :headings => @headings,
             :children => @children,
             :parents => @parents,
-            :questions_for_hid => @questions_for_hid
+            :questions_for_hid => @questions_for_hid,
+            :hid_for_question => @hid_for_question,
         }
     end
 end
