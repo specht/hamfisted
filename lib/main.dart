@@ -2102,6 +2102,7 @@ class _StarredState extends State<Starred> {
         Dismissible(
           key: Key(qid),
           direction: DismissDirection.startToEnd,
+          dismissThresholds: {DismissDirection.startToEnd: 0.7},
           background: const Align(
             alignment: Alignment.centerLeft,
             child: Padding(
