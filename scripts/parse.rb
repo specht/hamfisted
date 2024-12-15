@@ -697,21 +697,21 @@ FileUtils::mkpath('./cache/svg-scour/')
 
 system("cp -purv ../fonts/*.ttf cache/")
 parser = Parser.new()
-['DL Technik Klasse E 2007', 'DL Technik Klasse A 2007', 'DL Betriebstechnik und Vorschriften 2007'].each do |_path|
-    path = File.join('..', 'bnetza', _path)
-    id_suffix = ''
-    id_suffix = 'E' if path.include?('Klasse E')
-    id_suffix = 'A' if path.include?('Klasse A')
-    # STDERR.puts path
-    parser.parse("#{path}/questions.xml", id_suffix)
-    Dir["#{path}/*.png"].each do |path|
-        FileUtils.cp(path, "../data/#{File.basename(path).sub('.png', id_suffix + '.png')}")
-    end
-    Dir["#{path}/*.jpg"].each do |path|
-        FileUtils.cp(path, "../data/#{File.basename(path).sub('.jpg', id_suffix + '.jpg')}")
-    end
-end
-parser.parse_darc()
+# ['DL Technik Klasse E 2007', 'DL Technik Klasse A 2007', 'DL Betriebstechnik und Vorschriften 2007'].each do |_path|
+#     path = File.join('..', 'bnetza', _path)
+#     id_suffix = ''
+#     id_suffix = 'E' if path.include?('Klasse E')
+#     id_suffix = 'A' if path.include?('Klasse A')
+#     # STDERR.puts path
+#     parser.parse("#{path}/questions.xml", id_suffix)
+#     Dir["#{path}/*.png"].each do |path|
+#         FileUtils.cp(path, "../data/#{File.basename(path).sub('.png', id_suffix + '.png')}")
+#     end
+#     Dir["#{path}/*.jpg"].each do |path|
+#         FileUtils.cp(path, "../data/#{File.basename(path).sub('.jpg', id_suffix + '.jpg')}")
+#     end
+# end
+# parser.parse_darc()
 parser.parse_2024()
 
 STDERR.puts "Errors are here:"
