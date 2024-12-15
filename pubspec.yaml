@@ -50,16 +50,6 @@ flutter:
         - asset: fonts/AlegreyaSans-BoldItalic.ttf
           style: italic
           weight: 700
-    # - family: CharterBT
-    #   fonts:
-    #     - asset: fonts/CharterBT-Roman.otf
-    #     - asset: fonts/CharterBT-Bold.otf
-    #       weight: 700
-    #     - asset: fonts/CharterBT-Italic.otf
-    #       style: italic
-    #     - asset: fonts/CharterBT-BoldItalic.otf
-    #       style: italic
-    #       weight: 700
 
 flutter_launcher_icons:
   ios: true
