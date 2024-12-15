@@ -20,6 +20,7 @@ const PRIMARY = Color(0xff1d5479);
 const double MAX_WIDTH = 400;
 
 const double INTRO_BOTTOM = 220;
+const String ROOT_HID = '2024';
 
 const List<String> introTitles = [
   "Lerne für deine Amateurfunkprüfung",
@@ -828,9 +829,9 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     if (GlobalData.box.get('shown_intro') != true) {
       return introScreen();
     }
-    String hid = '2024';
+    String hid = ROOT_HID;
     if (ModalRoute.of(context) != null) {
-      hid = (ModalRoute.of(context)!.settings.arguments ?? '2024').toString();
+      hid = (ModalRoute.of(context)!.settings.arguments ?? ROOT_HID).toString();
     }
 
     var cards = getChapterCards(hid: hid);
@@ -877,7 +878,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
 
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
-      floatingActionButton: (GlobalData.starBox.length > 0 && hid == '2024')
+      floatingActionButton: (GlobalData.starBox.length > 0 && hid == ROOT_HID)
           ? FloatingActionButton.extended(
               onPressed: () {
                 Navigator.of(context).pushNamed('/starred').then((value) {
@@ -885,16 +886,16 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                 });
               },
               icon: const Icon(Icons.star),
-              label: const Text(
-                'Gemerkte Fragen',
-                style: TextStyle(fontSize: 16),
+              label: Text(
+                "Gemerkte Fragen (${GlobalData.starBox.length})",
+                style: const TextStyle(fontSize: 16),
               ),
             )
           : null,
       appBar: AppBar(
         backgroundColor: PRIMARY,
         foregroundColor: Colors.white,
-        actions: hid.isEmpty
+        actions: hid == ROOT_HID
             ? [
                 PopupMenuButton(onSelected: (value) async {
                   if (value == 'clear_progress') {
@@ -1977,7 +1978,7 @@ class _StarredState extends State<Starred> {
       String hid = GlobalData.questions!['hid_for_question'][qid];
       if (hid != lastHeader) {
         cards.add(Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: Text(
             GlobalData.questions!['headings'][hid],
             style: const TextStyle(fontSize: 16, color: Colors.black),
@@ -2101,23 +2102,12 @@ class _StarredState extends State<Starred> {
         Dismissible(
           key: Key(qid),
           direction: DismissDirection.startToEnd,
-          background: const Stack(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.delete, color: Colors.black45),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.delete, color: Colors.black45),
-                ),
-              ),
-            ],
+          background: const Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.delete, color: Colors.black45),
+            ),
           ),
           onDismissed: (direction) {
             GlobalData.instance.unstarQuestion(qid);
