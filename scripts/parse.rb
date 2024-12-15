@@ -7,7 +7,7 @@ require 'set'
 require 'json'
 require 'yaml'
 
-SKIP_SVG = false
+SKIP_SVG = true
 
 class Parser
     def initialize()
@@ -30,8 +30,8 @@ class Parser
         @headings['2007'] = 'Alter Fragenkatalog (2007)'
         @headings['2024'] = 'Gesamter Fragenkatalog (2024)'
         @headings['2024/TN'] = 'Technische Kenntnisse der Klasse N'
-        @headings['2024/TE'] = 'Technische Kenntnisse der Klasse E'
-        @headings['2024/TA'] = 'Technische Kenntnisse der Klasse A'
+        @headings['2024/TE'] = 'Technische Kenntnisse der Klassen E und N'
+        @headings['2024/TA'] = 'Technische Kenntnisse der Klassem A, E und N'
         @headings['2024/TE_only'] = 'Nur Klasse E (ohne N)'
         @headings['2024/TA_only'] = 'Nur Klasse A (ohne N und E)'
         @questions_for_hid['2007'] = Set.new()

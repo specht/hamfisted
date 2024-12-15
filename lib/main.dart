@@ -1965,7 +1965,7 @@ class _StarredState extends State<Starred> {
     List<Widget> cards = [];
     List<dynamic> sortedKeys = GlobalData.starBox.keys.toList();
     sortedKeys.sort((a, b) {
-      const order = ['B', 'V', 'N', 'E', 'A'];
+      const order = ['N', 'E', 'A', 'B', 'V'];
       int indexA = order.indexOf(a[5]);
       int indexB = order.indexOf(b[5]);
       if (indexA == indexB) {
