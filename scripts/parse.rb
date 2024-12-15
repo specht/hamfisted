@@ -195,7 +195,8 @@ class Parser
                     lhid = sub_prefix.join('/')
                     @questions_for_hid[lhid] ||= Set.new()
                     @questions_for_hid[lhid] << qid
-                    @hid_for_question[qid] = lhid
+                    @hid_for_question[qid] ||= lhid
+                    @hid_for_question[qid] = lhid if lhid.size > @hid_for_question[qid].size
                 end
             end
         end
@@ -532,7 +533,11 @@ class Parser
                                 lparent_hid = sub_prefix[0, sub_prefix.size - 1].join('/')
                                 @questions_for_hid[lhid] ||= Set.new()
                                 @questions_for_hid[lhid] << qid
-                                @hid_for_question[qid] = lhid unless lhid.include?('_only')
+                                unless lhid.include?('_only')
+                                    @hid_for_question[qid] ||= lhid
+                                    @hid_for_question[qid] = lhid if lhid.size > @hid_for_question[qid].size
+                                end
+
                             end
                         end
                     else
@@ -541,7 +546,10 @@ class Parser
                             lhid = sub_prefix.join('/')
                             @questions_for_hid[lhid] ||= Set.new()
                             @questions_for_hid[lhid] << qid
-                            @hid_for_question[qid] = lhid unless lhid.include?('_only')
+                            unless lhid.include?('_only')
+                                @hid_for_question[qid] ||= lhid
+                                @hid_for_question[qid] = lhid if lhid.size > @hid_for_question[qid].size
+                            end
                         end
                     end
                 end

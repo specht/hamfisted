@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -1045,22 +1046,28 @@ Widget getQuestionWidget(String qid) {
               250) /
           250;
       var height = width / aspect;
-      challengeParts.add(Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SvgPicture.asset(
-          "data/2024/${GlobalData.questions!['questions'][qid]['challenge_svg']}",
-          width: width,
-          height: height,
+      challengeParts.add(Container(
+        constraints: BoxConstraints(maxWidth: cwidth),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            "data/2024/${GlobalData.questions!['questions'][qid]['challenge_svg']}",
+            width: width,
+            height: height,
+          ),
         ),
       ));
     }
 
     if (GlobalData.questions!['questions'][qid]['challenge_png'] != null) {
-      challengeParts.add(Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Image(
-          image: AssetImage(
-            "data/2024/${GlobalData.questions!['questions'][qid]['challenge_png']}",
+      challengeParts.add(Container(
+        constraints: BoxConstraints(maxWidth: cwidth),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image(
+            image: AssetImage(
+              "data/2024/${GlobalData.questions!['questions'][qid]['challenge_png']}",
+            ),
           ),
         ),
       ));
@@ -1982,19 +1989,44 @@ class _StarredState extends State<Starred> {
       }
       return indexA.compareTo(indexB);
     });
-    String lastHeader = '';
+    List<String> lastHidList = [];
     for (String qid in sortedKeys) {
-      String hid = GlobalData.questions!['hid_for_question'][qid];
-      if (hid != lastHeader) {
-        cards.add(Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-          child: Text(
-            GlobalData.questions!['headings'][hid],
-            style: const TextStyle(fontSize: 16, color: Colors.black),
-          ),
-        ));
+      List<String> hidList = [];
+      String p = GlobalData.questions!['hid_for_question'][qid];
+      while (p != '') {
+        hidList.add(p);
+        p = GlobalData.questions!['parents'][p] ?? '';
       }
-      lastHeader = hid;
+      hidList = hidList.reversed.toList();
+      String hid = hidList.join(' / ');
+
+      const Map<String, String> tr = {
+        'TN': 'Technik N',
+        'TE': 'Technik E',
+        'TA': 'Technik A',
+        '1': 'Betriebliche Kenntnisse',
+        '2': 'Kenntnisse von Vorschriften',
+      };
+      for (int i = 2; i < hidList.length; i++) {
+        if (hidList[i] != (i < lastHidList.length ? lastHidList[i] : '')) {
+          String s = GlobalData.questions!['headings'][hidList[i]];
+          if (i == 2) {
+            s = "${tr[hidList[i].split('/')[1]]}: ${s}";
+          }
+          cards.add(Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Text(
+              s,
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontWeight: i == 2 ? FontWeight.bold : FontWeight.normal),
+            ),
+          ));
+        }
+      }
+      lastHidList = hidList;
+
       String qidDisplay = qid;
       if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
         qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
@@ -2100,10 +2132,12 @@ class _StarredState extends State<Starred> {
         );
       }
       Widget widget = ExpansionTile(
-        visualDensity: VisualDensity.compact,
         shape: const Border(),
         title: getQuestionWidget(qid),
-        tilePadding: const EdgeInsets.symmetric(horizontal: 0),
+        tilePadding: EdgeInsets.zero,
+        childrenPadding: EdgeInsets.zero,
+        collapsedShape: Border(),
+        dense: true,
         showTrailingIcon: false,
         children: columnChildren,
       );
