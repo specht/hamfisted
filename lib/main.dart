@@ -2004,8 +2004,8 @@ class _StarredState extends State<Starred> {
         'TN': 'Technik N',
         'TE': 'Technik E',
         'TA': 'Technik A',
-        '1': 'Betriebliche Kenntnisse',
-        '2': 'Kenntnisse von Vorschriften',
+        '1': 'Betrieb:',
+        '2': 'Vorschriften:',
       };
       for (int i = 2; i < hidList.length; i++) {
         if (hidList[i] != (i < lastHidList.length ? lastHidList[i] : '')) {
