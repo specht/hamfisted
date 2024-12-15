@@ -876,92 +876,96 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       );
     }
 
-    return Scaffold(
-      backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
-      floatingActionButton: (GlobalData.starBox.length > 0 && hid == ROOT_HID)
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/starred').then((value) {
-                  setState(() {});
-                });
-              },
-              icon: const Icon(Icons.star),
-              label: Text(
-                "Gemerkte Fragen (${GlobalData.starBox.length})",
-                style: const TextStyle(fontSize: 16),
-              ),
-            )
-          : null,
-      appBar: AppBar(
-        backgroundColor: PRIMARY,
-        foregroundColor: Colors.white,
-        actions: hid == ROOT_HID
-            ? [
-                PopupMenuButton(onSelected: (value) async {
-                  if (value == 'clear_progress') {
-                    showMyDialog(context);
-                  } else if (value == 'show_intro') {
-                    await GlobalData.box.delete('shown_intro');
-                    setState(() {
-                      resetIntro();
-                    });
-                  } else if (value == 'about') {
-                    Navigator.of(context).pushNamed('/about');
-                  }
-                }, itemBuilder: (itemBuilder) {
-                  return <PopupMenuEntry>[
-                    const PopupMenuItem<String>(
-                      value: "show_intro",
-                      child: ListTile(
-                        title: Text("Einführung wiederholen"),
-                        visualDensity: VisualDensity.compact,
-                        leading: Icon(Icons.restart_alt),
-                      ),
-                    ),
-                    const PopupMenuItem<String>(
-                      value: "clear_progress",
-                      child: ListTile(
-                        title: Text("Fortschritt löschen"),
-                        visualDensity: VisualDensity.compact,
-                        leading: Icon(Icons.delete),
-                      ),
-                    ),
-                    const PopupMenuDivider(),
-                    const PopupMenuItem<String>(
-                      value: "about",
-                      child: ListTile(
-                        title: Text("Über diese App"),
-                        visualDensity: VisualDensity.compact,
-                        leading: Icon(Icons.info),
-                      ),
-                    ),
-                  ];
-                })
-              ]
-            : null,
-        title: Text(
-            (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
-      ),
-      body: ListView(
-        children: cards,
-      ),
-      bottomNavigationBar: hid == ''
-          ? null
-          : Container(
-              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(color: Color(0x80000000), blurRadius: 5)
-              ]),
-              child: TextButton(
-                child: Text(
-                    "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen üben"),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
+        floatingActionButton: (GlobalData.starBox.length > 0 && hid == ROOT_HID)
+            ? FloatingActionButton.extended(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed('/quiz', arguments: hid)
-                      .then((value) {
+                  Navigator.of(context).pushNamed('/starred').then((value) {
                     setState(() {});
                   });
                 },
-              )),
+                icon: const Icon(Icons.star),
+                label: Text(
+                  "Gemerkte Fragen (${GlobalData.starBox.length})",
+                  style: const TextStyle(fontSize: 16),
+                ),
+              )
+            : null,
+        appBar: AppBar(
+          backgroundColor: PRIMARY,
+          foregroundColor: Colors.white,
+          actions: hid == ROOT_HID
+              ? [
+                  PopupMenuButton(onSelected: (value) async {
+                    if (value == 'clear_progress') {
+                      showMyDialog(context);
+                    } else if (value == 'show_intro') {
+                      await GlobalData.box.delete('shown_intro');
+                      setState(() {
+                        resetIntro();
+                      });
+                    } else if (value == 'about') {
+                      Navigator.of(context).pushNamed('/about');
+                    }
+                  }, itemBuilder: (itemBuilder) {
+                    return <PopupMenuEntry>[
+                      const PopupMenuItem<String>(
+                        value: "show_intro",
+                        child: ListTile(
+                          title: Text("Einführung wiederholen"),
+                          visualDensity: VisualDensity.compact,
+                          leading: Icon(Icons.restart_alt),
+                        ),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: "clear_progress",
+                        child: ListTile(
+                          title: Text("Fortschritt löschen"),
+                          visualDensity: VisualDensity.compact,
+                          leading: Icon(Icons.delete),
+                        ),
+                      ),
+                      const PopupMenuDivider(),
+                      const PopupMenuItem<String>(
+                        value: "about",
+                        child: ListTile(
+                          title: Text("Über diese App"),
+                          visualDensity: VisualDensity.compact,
+                          leading: Icon(Icons.info),
+                        ),
+                      ),
+                    ];
+                  })
+                ]
+              : null,
+          title: Text(
+              (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
+        ),
+        body: ListView(
+          children: cards,
+        ),
+        bottomNavigationBar: hid == ''
+            ? null
+            : Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(color: Color(0x80000000), blurRadius: 5)
+                    ]),
+                child: TextButton(
+                  child: Text(
+                      "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen üben"),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed('/quiz', arguments: hid)
+                        .then((value) {
+                      setState(() {});
+                    });
+                  },
+                )),
+      ),
     );
   }
 }
