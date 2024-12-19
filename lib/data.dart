@@ -2,12 +2,39 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:math';
 
+import 'package:Hamfisted/data.dart';
 import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:jovial_svg/jovial_svg.dart';
 
-const int maxDecay = 28;
+const GREEN = Color(0xff73a946);
+const RED = Color(0xff992413);
+const PRIMARY = Color(0xff1d5479);
+const double MAX_WIDTH = 400;
+
+const double INTRO_BOTTOM = 220;
+const String ROOT_HID = '2024';
+
+const List<String> introTitles = [
+  "Lerne für deine Amateurfunkprüfung",
+  "Kapitel auswählen und üben",
+  "Trainiere die Fragen",
+  "Trainiere die Fragen",
+  "Trainiere die Fragen",
+  "Trainiere die Fragen",
+];
+
+const List DECAY = [
+  1000 * 60 * 60 * 24 * 21,
+  1000 * 60 * 60 * 24 * 14,
+  1000 * 60 * 60 * 24 * 7,
+  1000 * 60 * 60 * 24 * 3
+];
 
 int timestamp() {
   return DateTime.now().millisecondsSinceEpoch;
@@ -85,4 +112,109 @@ class GlobalData with ChangeNotifier {
     }
     return successes / tries;
   }
+}
+
+Widget getQuestionWidget(String qid) {
+  String qidDisplay = qid ?? '';
+  if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
+    qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
+  }
+  qidDisplay = qidDisplay.replaceFirst('2024_', '');
+
+  return LayoutBuilder(builder: (context, constraints) {
+    double cwidth = min(constraints.maxWidth, MAX_WIDTH);
+    List<Widget> challengeParts = [];
+
+    if (GlobalData.questions!['questions'][qid]['challenge'] != null) {
+      challengeParts.add(Container(
+        constraints: BoxConstraints(maxWidth: cwidth),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Html(
+            data:
+                "<b>$qidDisplay</b>&nbsp;&nbsp;&nbsp;&nbsp;${GlobalData.questions!['questions'][qid]['challenge']}",
+            style: {
+              'body': Style(margin: Margins.zero, fontSize: FontSize(16))
+            },
+          ),
+        ),
+      ));
+    }
+
+    if (GlobalData.questions!['questions'][qid]['challenge_tex'] != null) {
+      developer.log(GlobalData.questions!['questions'][qid]['challenge_tex']);
+      challengeParts.add(Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+        child: SizedBox(
+          width: cwidth,
+          height: max(
+              60,
+              cwidth /
+                  GlobalData.questions!['questions'][qid]
+                      ['challenge_tex_width'] *
+                  GlobalData.questions!['questions'][qid]
+                      ['challenge_tex_height']),
+          child: FutureBuilder(
+              future: ScalableImage.fromSIAsset(rootBundle,
+                  "data/2024/tex/${GlobalData.questions!['questions'][qid]['challenge_tex']}.si"),
+              builder: (context, snapshot) {
+                developer.log(
+                    GlobalData.questions!['questions'][qid]['challenge_tex']);
+                return ScalableImageWidget(
+                  si: snapshot.requireData,
+                );
+              }),
+        ),
+      ));
+    }
+
+    if (GlobalData.questions!['questions'][qid]['challenge_svg'] != null) {
+      var aspect = GlobalData.questions!['questions'][qid]
+              ['challenge_svg_width'] /
+          GlobalData.questions!['questions'][qid]['challenge_svg_height'];
+      var width = (cwidth) *
+          min(GlobalData.questions!['questions'][qid]['challenge_svg_width'],
+              250) /
+          250;
+      var height = width / aspect;
+      challengeParts.add(Container(
+        constraints: BoxConstraints(maxWidth: cwidth),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            "data/2024/${GlobalData.questions!['questions'][qid]['challenge_svg']}",
+            width: width,
+            height: height,
+          ),
+        ),
+      ));
+    }
+
+    if (GlobalData.questions!['questions'][qid]['challenge_png'] != null) {
+      challengeParts.add(Container(
+        constraints: BoxConstraints(maxWidth: cwidth),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image(
+            image: AssetImage(
+              "data/2024/${GlobalData.questions!['questions'][qid]['challenge_png']}",
+            ),
+          ),
+        ),
+      ));
+    }
+
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      elevation: 2,
+      surfaceTintColor: Colors.transparent,
+      child: Column(children: challengeParts),
+    );
+  });
+}
+
+class ListWithDecay {
+  ListWithDecay(this.decay);
+  int decay = 0;
+  List<String> entries = [];
 }
