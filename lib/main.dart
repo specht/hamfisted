@@ -75,6 +75,7 @@ class MyApp extends StatelessWidget {
         '/overview': (context) => const Overview(),
         '/quiz': (context) => const Quiz(),
         '/starred': (context) => const Starred(),
+        '/exam': (context) => const ExamOverview(),
         '/about': (context) => const About(),
       },
     );
@@ -475,7 +476,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                                     0,
                                     (1.0 - _animationControllerQuiz.value) *
                                         120),
-                                child: BottomMenu(
+                                child: QuizBottomMenu(
                                   qid: qid,
                                   feelingUnsureWidget: Switch(
                                     value: false,
@@ -888,20 +889,6 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
 
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
-      floatingActionButton: (GlobalData.starBox.length > 0 && hid == ROOT_HID)
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/starred').then((value) {
-                  setState(() {});
-                });
-              },
-              icon: const Icon(Icons.star),
-              label: Text(
-                "Gemerkte Fragen (${GlobalData.starBox.length})",
-                style: const TextStyle(fontSize: 16),
-              ),
-            )
-          : null,
       appBar: AppBar(
         backgroundColor: PRIMARY,
         foregroundColor: Colors.white,
@@ -955,23 +942,25 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       body: ListView(
         children: cards,
       ),
-      bottomNavigationBar: hid == ''
-          ? null
-          : Container(
-              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(color: Color(0x80000000), blurRadius: 5)
-              ]),
-              child: TextButton(
-                child: Text(
-                    "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen üben"),
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed('/quiz', arguments: hid)
-                      .then((value) {
-                    setState(() {});
-                  });
-                },
-              )),
+
+      bottomNavigationBar: OverviewBottomMenu(),
+      // hid == ''
+      //     ? null
+      //     : Container(
+      //         decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+      //           BoxShadow(color: Color(0x80000000), blurRadius: 5)
+      //         ]),
+      //         child: TextButton(
+      //           child: Text(
+      //               "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen üben"),
+      //           onPressed: () {
+      //             Navigator.of(context)
+      //                 .pushNamed('/quiz', arguments: hid)
+      //                 .then((value) {
+      //               setState(() {});
+      //             });
+      //           },
+      //         )),
     );
   }
 }
@@ -1619,11 +1608,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
               children: cards,
             ),
           ),
-          Center(
-            child: Text(
-                "${((GlobalData.instance.getExamSuccessProbability('N') * 100.0).round() / 5).round() * 5}%"),
-          ),
-          BottomMenu(
+          QuizBottomMenu(
             qid: qid!,
             feelingUnsureWidget: unsureSwitch,
             onFeelingUnsure: () {
@@ -1726,7 +1711,7 @@ class _AboutState extends State<About> {
       body: Html(
         data: "<h2>Hamfisted</h2>"
             "<p>App zur Vorbereitung auf die Amateurfunkprüfung</p>"
-            "Die Fragen stammen von der Bundesnetzagentur (3. Auflage, März 2024). Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht.</p>"
+            "Die Fragen stammen von der Bundesnetzagentur (3. Auflage, März 2024). Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht, inhaltliche Beratung von Lars DO5VL.</p>"
             "<p><b>Version:</b> ${version}</p>"
             "<p><b>Quelltext:</b> <a href='https://github.com/specht/hamfisted'>https://github.com/specht/hamfisted</a></p>"
             "<p><b>Kontakt:</b> <a href='mailto:specht@gymnasiumsteglitz.de'>specht@gymnasiumsteglitz.de</a></p>",
@@ -1738,7 +1723,142 @@ class _AboutState extends State<About> {
   }
 }
 
-class BottomMenu extends StatefulWidget {
+class OverviewBottomMenu extends StatefulWidget {
+  const OverviewBottomMenu({super.key});
+
+  @override
+  State<OverviewBottomMenu> createState() => _OverviewBottomMenuState();
+}
+
+class _OverviewBottomMenuState extends State<OverviewBottomMenu> {
+  @override
+  Widget build(BuildContext context) {
+    String hid = ROOT_HID;
+    if (ModalRoute.of(context) != null) {
+      hid = (ModalRoute.of(context)!.settings.arguments ?? ROOT_HID).toString();
+    }
+
+    return Container(
+      decoration: const BoxDecoration(
+        boxShadow: [BoxShadow(color: Color(0x80000000), blurRadius: 5)],
+        color: Colors.white,
+      ),
+      child: Material(
+        child: LayoutBuilder(builder: (context, constraints) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: constraints.maxWidth / 3,
+                child: InkWell(
+                  onTap: GlobalData.starBox.length == 0
+                      ? null
+                      : () {
+                          Navigator.of(context)
+                              .pushNamed('/starred')
+                              .then((value) {
+                            setState(() {});
+                          });
+                        },
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 20),
+                    child: Opacity(
+                      opacity: GlobalData.starBox.length == 0 ? 0.5 : 1.0,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(
+                            height: 45,
+                            child: Icon(
+                              Icons.star,
+                              size: 28,
+                            ),
+                          ),
+                          Text(
+                            GlobalData.starBox.length == 0
+                                ? "Keine gemerkten\nFragen"
+                                : "Gemerkte\nFragen (${GlobalData.starBox.length})",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(height: 1.2),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: constraints.maxWidth / 3,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed('/quiz', arguments: hid)
+                        .then((value) {
+                      setState(() {});
+                    });
+                  },
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(
+                          height: 45,
+                          child: Icon(
+                            Icons.list,
+                            size: 28,
+                          ),
+                        ),
+                        Text(
+                          "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen\nüben",
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: constraints.maxWidth / 3,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/exam');
+                  },
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: 45,
+                          child: Icon(
+                            Icons.alarm,
+                            size: 28,
+                          ),
+                        ),
+                        Text(
+                          "Prüfungs-\nsimulation",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(height: 1.2),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+}
+
+class QuizBottomMenu extends StatefulWidget {
   final Function? onFeelingUnsure;
   final Widget feelingUnsureWidget;
   final Function? onHelp;
@@ -1746,7 +1866,7 @@ class BottomMenu extends StatefulWidget {
   final Function? onSkip;
   final String qid;
 
-  const BottomMenu(
+  const QuizBottomMenu(
       {super.key,
       required this.qid,
       required this.feelingUnsureWidget,
@@ -1756,10 +1876,10 @@ class BottomMenu extends StatefulWidget {
       this.onStar});
 
   @override
-  State<BottomMenu> createState() => _BottomMenuState();
+  State<QuizBottomMenu> createState() => _QuizBottomMenuState();
 }
 
-class _BottomMenuState extends State<BottomMenu> {
+class _QuizBottomMenuState extends State<QuizBottomMenu> {
   @override
   Widget build(BuildContext context) {
     bool questionIsStarred = GlobalData.starBox.get(widget.qid) ?? false;
@@ -1788,7 +1908,7 @@ class _BottomMenuState extends State<BottomMenu> {
                               },
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              top: 8, left: 8, right: 8, bottom: 12),
+                              top: 8, left: 8, right: 8, bottom: 20),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -1816,7 +1936,7 @@ class _BottomMenuState extends State<BottomMenu> {
                               },
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              top: 8, left: 8, right: 8, bottom: 12),
+                              top: 8, left: 8, right: 8, bottom: 20),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -1852,7 +1972,7 @@ class _BottomMenuState extends State<BottomMenu> {
                               },
                         child: const Padding(
                           padding: EdgeInsets.only(
-                              top: 8, left: 8, right: 8, bottom: 12),
+                              top: 8, left: 8, right: 8, bottom: 20),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -2199,6 +2319,81 @@ class _StarredState extends State<Starred> {
       ),
       body: ListView(
         children: cards,
+      ),
+    );
+  }
+}
+
+class ExamOverview extends StatefulWidget {
+  const ExamOverview({super.key});
+
+  @override
+  State<ExamOverview> createState() => _ExamOverviewState();
+}
+
+class _ExamOverviewState extends State<ExamOverview> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
+      appBar: AppBar(
+        backgroundColor: PRIMARY,
+        foregroundColor: Colors.white,
+        // actions: [
+        // PopupMenuButton(onSelected: (value) async {
+        //   if (value == 'clear_all_stars') {
+        //     await showMyDialog(context);
+        //     if (GlobalData.starBox.keys.length == 0) {
+        //       Navigator.of(context).pop();
+        //     }
+        //   }
+        // }, itemBuilder: (itemBuilder) {
+        //   return <PopupMenuEntry>[
+        //     const PopupMenuItem<String>(
+        //       value: "clear_all_stars",
+        //       child: ListTile(
+        //         title: Text("Alle gemerkten Fragen löschen"),
+        //         visualDensity: VisualDensity.compact,
+        //         leading: Icon(Icons.delete),
+        //       ),
+        //     ),
+        //   ];
+        // })
+        // ],
+        title: const Text("Prüfungssimulation"),
+      ),
+      body: ListView(
+        children: [
+          const Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              "Auf Grundlage deiner bisherigen Antworten ergeben sich folgende Wahrscheinlichkeiten für dich, die Prüfungen bzw. Prüfungsteile zu bestehen:",
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              title: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Technik N: 100%"),
+                  Icon(
+                    Icons.check,
+                    color: Colors.green,
+                  ),
+                ],
+              ),
+              subtitle: LinearProgressIndicator(
+                value: 1.0,
+                backgroundColor: const Color(0x20000000),
+                color: PRIMARY,
+              ),
+              trailing:
+                  IconButton(onPressed: () {}, icon: Icon(Icons.play_arrow)),
+            ),
+          ),
+        ],
       ),
     );
   }
