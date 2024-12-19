@@ -563,6 +563,28 @@ class Parser
     end
 
     def finalize
+        @exam_questions = {}
+        @exam_questions['N'] = []
+        @exam_questions['E'] = []
+        @exam_questions['A'] = []
+        @exam_questions['B'] = []
+        @exam_questions['V'] = []
+        hid_dict = {
+            'N' => '2024/TN',
+            'E' => '2024/TE_only',
+            'A' => '2024/TA_only',
+            'B' => '2024/1',
+            'V' => '2024/2',
+        }
+        hid_dict.each_pair do |key, value|
+            q = @questions_for_hid[value].to_a.sort
+            (0...25).each do |i|
+                i0 = (i * q.size / 25).round
+                i1 = ((i + 1) * q.size / 25).round - 1
+                @exam_questions[key] << q[i0..i1]
+            end
+        end
+
         File.open("cache/all.tex", 'w') do |f|
             f.puts <<~END_OF_STRING
                 \\documentclass{article}
@@ -677,7 +699,7 @@ class Parser
         @questions_for_hid['2024'] |= @questions_for_hid['2024/TN'] | @questions_for_hid['2024/TE'] | @questions_for_hid['2024/TA']
         @questions_for_hid[''] |= @questions_for_hid['2024']
         @questions_for_hid.each_pair do |k, entries|
-            @questions_for_hid[k] = entries.to_a
+            @questions_for_hid[k] = entries.to_a.sort
         end
         @headings.reject! { |k, v| k[0, 6] == '2024/0' }
         @children.reject! { |k, v| k[0, 6] == '2024/0' }
@@ -695,6 +717,7 @@ class Parser
             :parents => @parents,
             :questions_for_hid => @questions_for_hid,
             :hid_for_question => @hid_for_question,
+            :exam_questions => @exam_questions,
         }
     end
 end

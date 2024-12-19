@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
+import 'dart:math';
 
 import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
@@ -62,5 +63,26 @@ class GlobalData with ChangeNotifier {
 
   void unstarQuestion(String qid) {
     GlobalData.starBox.delete(qid);
+  }
+
+  double getExamSuccessProbability(String exam) {
+    int now = DateTime.now().millisecondsSinceEpoch;
+    int tries = 0;
+    int successes = 0;
+    Random r = Random(now);
+    for (int i = 0; i < 1000; i++) {
+      int correct = 0;
+      for (List<dynamic> block in GlobalData.questions!['exam_questions']
+          [exam]) {
+        String qid = block[r.nextInt(block.length)];
+        int ts = GlobalData.box.get("t/$qid") ?? 0;
+        int diff = now - ts;
+        double p = (diff < 1000 * 60 * 60 * 24 * 21) ? 0.95 : 0.25;
+        if (r.nextDouble() < p) correct += 1;
+      }
+      tries += 1;
+      if (correct >= 19) successes += 1;
+    }
+    return successes / tries;
   }
 }

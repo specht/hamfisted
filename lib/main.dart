@@ -1619,6 +1619,10 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
               children: cards,
             ),
           ),
+          Center(
+            child: Text(
+                "${((GlobalData.instance.getExamSuccessProbability('N') * 100.0).round() / 5).round() * 5}%"),
+          ),
           BottomMenu(
             qid: qid!,
             feelingUnsureWidget: unsureSwitch,
