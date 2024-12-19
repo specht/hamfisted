@@ -27,12 +27,10 @@ class Hamfisted extends StatelessWidget {
       title: 'Amateurfunkprüfung',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: PRIMARY,
         ),
         textTheme: GoogleFonts.alegreyaSansTextTheme(textTheme),
-        // fontFamily: 'BitstreamCharter',
       ),
       home: const Overview(),
       routes: {
