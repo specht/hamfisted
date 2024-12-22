@@ -53,32 +53,18 @@ class _ExamOverviewState extends State<ExamOverview> {
       ),
       body: ListView(
         children: [
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              "Auf Grundlage deiner bisherigen Antworten ergeben sich folgende Wahrscheinlichkeiten für dich, die Prüfungen bzw. Prüfungsteile zu bestehen:",
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
           for (String exam in ['N', 'E', 'A', 'B', 'V'])
             Card(
               child: ListTile(
-                title: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "${examTitle[exam]}",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                  ],
+                title: Text(
+                  "${examTitle[exam]}",
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 subtitle: Column(
                   children: [
+                    Container(
+                      width: double.infinity,
+                      child: Text("25 Fragen, ${exam == 'A' ? 60 : 45} Minuten")),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: LinearProgressIndicator(
@@ -94,6 +80,13 @@ class _ExamOverviewState extends State<ExamOverview> {
                     IconButton(onPressed: () {}, icon: Icon(Icons.play_arrow)),
               ),
             ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              "Die Prozentangaben zeigen deine momentane Wahrscheinlichkeit an, den entsprechenden Prüfungsteil zu bestehen. Die Berechnung erfolgt aufgrund deiner bisherigen Antworten im Prüfungstraining.",
+              style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, fontFamily: "Alegreya Sans"),
+            ),
+          ),
         ],
       ),
     );
