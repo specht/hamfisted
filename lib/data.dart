@@ -15,11 +15,20 @@ import 'package:jovial_svg/jovial_svg.dart';
 const GREEN = Color(0xff73a946);
 const RED = Color(0xff992413);
 const PRIMARY = Color(0xff1d5479);
+const GREY = Color(0xffe0e0e0);
 const double MAX_WIDTH = 400;
 
 const double INTRO_BOTTOM = 220;
 const String ROOT_HID = '2024';
 const ICON_SIZE = 28.0;
+
+List<Color> PROGRESS_COLORS = [
+  Color.lerp(PRIMARY, GREY, 0 / 4)!,
+  Color.lerp(PRIMARY, GREY, 1 / 4)!,
+  Color.lerp(PRIMARY, GREY, 2 / 4)!,
+  Color.lerp(PRIMARY, GREY, 3 / 4)!,
+  Color.lerp(PRIMARY, GREY, 4 / 4)!,
+];
 
 const List<String> introTitles = [
   "Lerne für deine Amateurfunkprüfung",

@@ -164,8 +164,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                           Flexible(
                             flex: countForDuration[k],
                             child: LinearProgressIndicator(
-                              backgroundColor: const Color(0x20000000),
-                              color: Color.lerp(PRIMARY, Colors.white, k / 5),
+                              backgroundColor: const Color(0x10000000),
+                              color: PROGRESS_COLORS[k],
                               value: 1.0,
                             ),
                           ),
@@ -401,17 +401,20 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                                   ),
                                 ),
                               ),
-                              Transform.translate(
-                                offset: Offset(
-                                    0,
-                                    (1.0 - _animationControllerQuiz.value) *
-                                        120),
-                                child: QuizBottomMenu(
-                                  qid: qid,
-                                  feelingUnsureWidget: Switch(
-                                    value: false,
-                                    activeColor: Colors.red[900],
-                                    onChanged: (value) {},
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Transform.translate(
+                                  offset: Offset(
+                                      0,
+                                      (1.0 - _animationControllerQuiz.value) *
+                                          120),
+                                  child: QuizBottomMenu(
+                                    qid: qid,
+                                    feelingUnsureWidget: Switch(
+                                      value: false,
+                                      activeColor: Colors.red[900],
+                                      onChanged: (value) {},
+                                    ),
                                   ),
                                 ),
                               ),
@@ -675,7 +678,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Die Fortschrittsbalken verblassen nach einigen Tagen.",
+                        "Die Fortschrittsbalken verblassen nach einigen Wochen.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),
@@ -870,12 +873,12 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
       ),
       body: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 4),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 4),
         child: ListView(
           children: cards,
         ),
       ),
-
       bottomNavigationBar: const OverviewBottomMenu(),
     );
   }
@@ -918,7 +921,8 @@ class _OverviewBottomMenuState extends State<OverviewBottomMenu> {
                     });
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -952,7 +956,8 @@ class _OverviewBottomMenuState extends State<OverviewBottomMenu> {
                           });
                         },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Opacity(
                       opacity: GlobalData.starBox.length == 0 ? 0.5 : 1.0,
                       child: Column(
@@ -987,7 +992,8 @@ class _OverviewBottomMenuState extends State<OverviewBottomMenu> {
                     Navigator.of(context).pushNamed('/exam_overview');
                   },
                   child: const Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

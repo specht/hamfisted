@@ -22,7 +22,9 @@ class Exam extends StatefulWidget {
 class _ExamState extends State<Exam> with TickerProviderStateMixin {
   String? exam;
   List<String> questions = [];
-  Map<String, List<int>> answers_for_question = {};
+  Map<String, List<int>> answers_index_for_question = {};
+  Map<String, List<Color>> answer_color_for_question = {};
+  Map<String, int> selected_answer_for_question = {};
 
   @override
   void initState() {
@@ -32,6 +34,36 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void showPopConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Prüfung abbrechen'),
+          content: const Text('Möchtest du die Prüfung wirklich abbrechen?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: const Text('Nein'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: const Text('Ja'),
+            ),
+          ],
+        );
+      },
+    ).then((result) {
+      if (result == true) {
+        Navigator.of(context).pop();
+      }
+    });
   }
 
   @override
@@ -46,8 +78,14 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
         qp.shuffle();
         String qid = qp[0];
         questions.add(qid);
-        answers_for_question[qid] = [0, 1, 2, 3];
-        answers_for_question[qid]!.shuffle();
+        answers_index_for_question[qid] = [0, 1, 2, 3];
+        answers_index_for_question[qid]!.shuffle();
+        answer_color_for_question[qid] = [
+          Colors.transparent,
+          Colors.transparent,
+          Colors.transparent,
+          Colors.transparent
+        ];
       }
       questions.shuffle();
     }
@@ -56,29 +94,190 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
 
     for (String qid in questions) {
       cards.add(getQuestionWidget(qid));
+      // cards.add(const Divider());
+      for (int ti = 0; ti < 4; ti++) {
+        int i = answers_index_for_question[qid]![ti];
+        cards.add(
+          LayoutBuilder(builder: (context, constraints) {
+            double cwidth = min(constraints.maxWidth, MAX_WIDTH);
+            return Card(
+              elevation: 1,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              surfaceTintColor: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    selected_answer_for_question[qid] = i;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: selected_answer_for_question[qid] == i
+                          ? PRIMARY
+                          : answer_color_for_question[qid]![i],
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              max(0, (constraints.maxWidth - cwidth) / 2 - 15)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    answer_color_for_question[qid]![i] ==
+                                            Colors.transparent
+                                        ? Color.lerp(PRIMARY, Colors.white, 0.8)
+                                        : answer_color_for_question[qid]![i],
+                                radius: cwidth * 0.045,
+                                child: answer_color_for_question[qid]![i] ==
+                                        GREEN
+                                    ? Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                        size: cwidth * 0.05,
+                                      )
+                                    : answer_color_for_question[qid]![i] == RED
+                                        ? Icon(
+                                            Icons.clear,
+                                            color: Colors.white,
+                                            size: cwidth * 0.05,
+                                          )
+                                        : Text(
+                                            String.fromCharCode(65 + ti),
+                                            style: GoogleFonts.alegreyaSans(
+                                                fontSize: cwidth * 0.04,
+                                                color:
+                                                    answer_color_for_question[
+                                                                qid]![i] ==
+                                                            Colors.transparent
+                                                        ? Colors.black87
+                                                        : Colors.white,
+                                                fontWeight:
+                                                    answer_color_for_question[
+                                                                qid]![i] ==
+                                                            Colors.transparent
+                                                        ? FontWeight.normal
+                                                        : FontWeight.bold),
+                                          ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: cwidth * (1.0 - 0.045) - 70,
+                            child: (GlobalData.questions!['questions'][qid]
+                                            ['answers_tex'] ==
+                                        null &&
+                                    GlobalData.questions!['questions'][qid]
+                                            ['answers_svg'] ==
+                                        null)
+                                ? Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 13.0),
+                                    child: Html(
+                                      data: GlobalData.questions!['questions']
+                                              [qid]['answers'][i]
+                                          .toString()
+                                          .replaceAll('*', ' ⋅ '),
+                                      style: {
+                                        'body': Style(
+                                          margin: Margins.zero,
+                                        ),
+                                      },
+                                    ),
+                                  )
+                                : (GlobalData.questions!['questions'][qid]
+                                            ['answers_svg'] ==
+                                        null
+                                    ? LayoutBuilder(
+                                        builder: (context, constraints) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 6, bottom: 6),
+                                          child: SizedBox(
+                                              width: constraints.maxWidth,
+                                              height: constraints.maxWidth /
+                                                  GlobalData.questions![
+                                                          'questions'][qid]
+                                                      ['answers_tex_width'][i] *
+                                                  GlobalData.questions![
+                                                          'questions'][qid]
+                                                      ['answers_tex_height'][i],
+                                              child: FutureBuilder(
+                                                  future: ScalableImage.fromSIAsset(
+                                                      rootBundle,
+                                                      "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
+                                                  builder: (context, snapshot) {
+                                                    return ScalableImageWidget(
+                                                      si: snapshot.requireData,
+                                                    );
+                                                  })),
+                                        );
+                                      })
+                                    : SvgPicture.asset(
+                                        "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+                                        width: cwidth * 0.86,
+                                      )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
+        );
+      }
+      cards.add(const Divider());
     }
 
-    return Scaffold(
-      backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
-      appBar: AppBar(
-        backgroundColor: PRIMARY,
-        foregroundColor: Colors.white,
-        title: Text("Prüfungssimulation",),
-      ),
-      body: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 4),
-        child: ListView(
-          children: cards,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) =>
+          {if (!didPop) showPopConfirmationDialog()},
+      child: Scaffold(
+        backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
+        appBar: AppBar(
+          backgroundColor: PRIMARY,
+          foregroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Prüfungssimulation",
+              ),
+              Text("45:00"),
+            ],
+          ),
         ),
+        body: Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).padding.bottom + 4),
+          child: ListView(
+            children: cards,
+          ),
+        ),
+        bottomNavigationBar: ExamBottomMenu(exam: this),
       ),
-      bottomNavigationBar: ExamBottomMenu(),
     );
   }
 }
 
 class ExamBottomMenu extends StatefulWidget {
-  const ExamBottomMenu(
-      {super.key});
+  _ExamState exam;
+  ExamBottomMenu({required this.exam, super.key});
 
   @override
   State<ExamBottomMenu> createState() => _ExamBottomMenuState();
@@ -96,13 +295,14 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
         child: LayoutBuilder(builder: (context, constraints) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 width: constraints.maxWidth / 3,
-                child: const InkWell(
+                child: InkWell(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -110,19 +310,18 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: SizedBox(
                             height: ICON_SIZE,
-
                             child: FittedBox(
                               child: CircularProgressIndicator(
-                                value: 0.7,
-
-                                
-                                
+                                backgroundColor: Colors.black12,
+                                value: widget.exam.selected_answer_for_question
+                                        .length /
+                                    25,
                               ),
                             ),
                           ),
                         ),
-                        const Text(
-                          "18/25 Fragen beantwortet",
+                        Text(
+                          "${widget.exam.selected_answer_for_question.length} von 25 Fragen beantwortet",
                           textAlign: TextAlign.center,
                           style: TextStyle(height: 1.2),
                         ),
@@ -133,21 +332,22 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
               ),
               SizedBox(
                 width: constraints.maxWidth / 3,
-                child: const InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                child: InkWell(
+                  onTap: () => widget.exam.showPopConfirmationDialog(),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
+                          padding: EdgeInsets.only(bottom: 8.0),
                           child: Icon(
                             Icons.cancel,
                             size: ICON_SIZE,
                           ),
                         ),
                         const Text(
-                          "Prüfung abbrechen",
+                          "Prüfung\nabbrechen",
                           textAlign: TextAlign.center,
                           style: TextStyle(height: 1.2),
                         ),
@@ -160,7 +360,8 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
                 width: constraints.maxWidth / 3,
                 child: const InkWell(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
