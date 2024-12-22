@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'about.dart';
 import 'data.dart';
+import 'exam.dart';
 import 'exam_overview.dart';
 import 'overview.dart';
 import 'quiz.dart';
@@ -38,6 +39,7 @@ class Hamfisted extends StatelessWidget {
         '/quiz': (context) => const Quiz(),
         '/starred': (context) => const Starred(),
         '/exam_overview': (context) => const ExamOverview(),
+        '/exam': (context) => const Exam(),
         '/about': (context) => const About(),
       },
     );

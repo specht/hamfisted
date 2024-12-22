@@ -76,8 +76,9 @@ class _ExamOverviewState extends State<ExamOverview> {
                     Text("${(examSuccessProbability[exam]! * 100).round()}%"),
                   ],
                 ),
-                trailing:
-                    IconButton(onPressed: () {}, icon: Icon(Icons.play_arrow)),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/exam', arguments: exam);
+                },
               ),
             ),
           const Padding(
