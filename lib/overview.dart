@@ -869,28 +869,14 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
         title: Text(
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
       ),
-      body: ListView(
-        children: cards,
+      body: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 4),
+        child: ListView(
+          children: cards,
+        ),
       ),
 
-      bottomNavigationBar: OverviewBottomMenu(),
-      // hid == ''
-      //     ? null
-      //     : Container(
-      //         decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-      //           BoxShadow(color: Color(0x80000000), blurRadius: 5)
-      //         ]),
-      //         child: TextButton(
-      //           child: Text(
-      //               "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen üben"),
-      //           onPressed: () {
-      //             Navigator.of(context)
-      //                 .pushNamed('/quiz', arguments: hid)
-      //                 .then((value) {
-      //               setState(() {});
-      //             });
-      //           },
-      //         )),
+      bottomNavigationBar: const OverviewBottomMenu(),
     );
   }
 }
@@ -932,20 +918,20 @@ class _OverviewBottomMenuState extends State<OverviewBottomMenu> {
                     });
                   },
                   child: Padding(
-                    padding:
-                        EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const SizedBox(
-                          height: 45,
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 8.0),
                           child: Icon(
                             Icons.list,
-                            size: 28,
+                            size: ICON_SIZE,
                           ),
                         ),
                         Text(
                           "Alle ${(GlobalData.questions!['questions_for_hid'][hid] ?? []).length} Fragen\nüben",
+                          style: TextStyle(height: 1.2),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -966,20 +952,19 @@ class _OverviewBottomMenuState extends State<OverviewBottomMenu> {
                           });
                         },
                   child: Padding(
-                    padding:
-                        EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Opacity(
                       opacity: GlobalData.starBox.length == 0 ? 0.5 : 1.0,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          SizedBox(
-                            height: 45,
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
                             child: Icon(
                               GlobalData.starBox.length == 0
                                   ? Icons.star_border
                                   : Icons.star,
-                              size: 28,
+                              size: ICON_SIZE,
                             ),
                           ),
                           Text(
@@ -1002,16 +987,15 @@ class _OverviewBottomMenuState extends State<OverviewBottomMenu> {
                     Navigator.of(context).pushNamed('/exam_overview');
                   },
                   child: const Padding(
-                    padding:
-                        EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(
-                          height: 45,
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 8.0),
                           child: Icon(
                             Icons.alarm,
-                            size: 28,
+                            size: ICON_SIZE,
                           ),
                         ),
                         Text(

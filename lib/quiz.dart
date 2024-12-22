@@ -306,228 +306,224 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     for (int ti = 0; ti < 4; ti++) {
       int i = answerIndex[ti];
       cards.add(
-        Padding(
-          padding:
-              ti == 3 ? const EdgeInsets.only(bottom: 105) : EdgeInsets.zero,
-          child: AnimatedBuilder(
-              animation: _animationController3,
-              builder: (context, child) {
-                return AnimatedBuilder(
-                    animation: _animationController2,
-                    builder: (context, child) {
-                      return AnimatedBuilder(
-                          animation: _animationController,
-                          builder: (context, child) {
-                            return LayoutBuilder(
-                                builder: (context, constraints) {
-                              double cwidth =
-                                  min(constraints.maxWidth, MAX_WIDTH);
-                              Offset offset = Offset.zero;
-                              if (animationPhase1) {
-                                if (i != 0) {
-                                  offset = Offset(
-                                      -1 * _animationController.value, 0);
-                                }
-                              }
-                              if (animationPhase2) {
-                                if (i != 0 && !animationPhase1) {
-                                  offset = const Offset(-1, 0);
-                                } else {
-                                  offset =
-                                      Offset(-_animationController2.value, 0);
-                                }
-                              }
-                              if (animationPhase3) {
+        AnimatedBuilder(
+            animation: _animationController3,
+            builder: (context, child) {
+              return AnimatedBuilder(
+                  animation: _animationController2,
+                  builder: (context, child) {
+                    return AnimatedBuilder(
+                        animation: _animationController,
+                        builder: (context, child) {
+                          return LayoutBuilder(
+                              builder: (context, constraints) {
+                            double cwidth =
+                                min(constraints.maxWidth, MAX_WIDTH);
+                            Offset offset = Offset.zero;
+                            if (animationPhase1) {
+                              if (i != 0) {
                                 offset = Offset(
-                                    1.0 - _animationController3.value, 0);
+                                    -1 * _animationController.value, 0);
                               }
-                              return Transform.translate(
-                                offset: offset * constraints.maxWidth,
-                                child: Card(
-                                  elevation: 1,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  surfaceTintColor: Colors.transparent,
-                                  child: InkWell(
-                                    onTapCancel: () => _timer?.cancel(),
-                                    onTapDown: (_) => {
-                                      _timer = Timer(
-                                          const Duration(milliseconds: 1500),
-                                          () {
-                                        setState(() {
-                                          unsure = true;
-                                          tapAnswer(i);
-                                        });
-                                      })
-                                    },
-                                    onTap: () {
-                                      _timer?.cancel();
+                            }
+                            if (animationPhase2) {
+                              if (i != 0 && !animationPhase1) {
+                                offset = const Offset(-1, 0);
+                              } else {
+                                offset =
+                                    Offset(-_animationController2.value, 0);
+                              }
+                            }
+                            if (animationPhase3) {
+                              offset = Offset(
+                                  1.0 - _animationController3.value, 0);
+                            }
+                            return Transform.translate(
+                              offset: offset * constraints.maxWidth,
+                              child: Card(
+                                elevation: 1,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                surfaceTintColor: Colors.transparent,
+                                child: InkWell(
+                                  onTapCancel: () => _timer?.cancel(),
+                                  onTapDown: (_) => {
+                                    _timer = Timer(
+                                        const Duration(milliseconds: 1500),
+                                        () {
                                       setState(() {
+                                        unsure = true;
                                         tapAnswer(i);
                                       });
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: answerColor[i],
-                                          width: 2,
-                                        ),
-                                        borderRadius: BorderRadius.circular(4),
+                                    })
+                                  },
+                                  onTap: () {
+                                    _timer?.cancel();
+                                    setState(() {
+                                      tapAnswer(i);
+                                    });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: answerColor[i],
+                                        width: 2,
                                       ),
-                                      child: Center(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: max(
-                                                  0,
-                                                  (constraints.maxWidth -
-                                                              cwidth) /
-                                                          2 -
-                                                      15)),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Center(
-                                                  child: CircleAvatar(
-                                                    backgroundColor:
-                                                        answerColor[i] ==
-                                                                Colors
-                                                                    .transparent
-                                                            ? Color.lerp(
-                                                                PRIMARY,
-                                                                Colors.white,
-                                                                0.8)
-                                                            : answerColor[i],
-                                                    radius: cwidth * 0.045,
-                                                    child:
-                                                        answerColor[i] == GREEN
-                                                            ? Icon(
-                                                                Icons.check,
-                                                                color: Colors
-                                                                    .white,
-                                                                size: cwidth *
-                                                                    0.05,
-                                                              )
-                                                            : answerColor[i] ==
-                                                                    RED
-                                                                ? Icon(
-                                                                    Icons.clear,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    size:
-                                                                        cwidth *
-                                                                            0.05,
-                                                                  )
-                                                                : Text(
-                                                                    String.fromCharCode(
-                                                                        65 +
-                                                                            ti),
-                                                                    style: GoogleFonts.alegreyaSans(
-                                                                        fontSize:
-                                                                            cwidth *
-                                                                                0.04,
-                                                                        color: answerColor[i] == Colors.transparent
-                                                                            ? Colors
-                                                                                .black87
-                                                                            : Colors
-                                                                                .white,
-                                                                        fontWeight: answerColor[i] ==
-                                                                                Colors.transparent
-                                                                            ? FontWeight.normal
-                                                                            : FontWeight.bold),
-                                                                  ),
-                                                  ),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Center(
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: max(
+                                                0,
+                                                (constraints.maxWidth -
+                                                            cwidth) /
+                                                        2 -
+                                                    15)),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Center(
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                      answerColor[i] ==
+                                                              Colors
+                                                                  .transparent
+                                                          ? Color.lerp(
+                                                              PRIMARY,
+                                                              Colors.white,
+                                                              0.8)
+                                                          : answerColor[i],
+                                                  radius: cwidth * 0.045,
+                                                  child:
+                                                      answerColor[i] == GREEN
+                                                          ? Icon(
+                                                              Icons.check,
+                                                              color: Colors
+                                                                  .white,
+                                                              size: cwidth *
+                                                                  0.05,
+                                                            )
+                                                          : answerColor[i] ==
+                                                                  RED
+                                                              ? Icon(
+                                                                  Icons.clear,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size:
+                                                                      cwidth *
+                                                                          0.05,
+                                                                )
+                                                              : Text(
+                                                                  String.fromCharCode(
+                                                                      65 +
+                                                                          ti),
+                                                                  style: GoogleFonts.alegreyaSans(
+                                                                      fontSize:
+                                                                          cwidth *
+                                                                              0.04,
+                                                                      color: answerColor[i] == Colors.transparent
+                                                                          ? Colors
+                                                                              .black87
+                                                                          : Colors
+                                                                              .white,
+                                                                      fontWeight: answerColor[i] ==
+                                                                              Colors.transparent
+                                                                          ? FontWeight.normal
+                                                                          : FontWeight.bold),
+                                                                ),
                                                 ),
                                               ),
-                                              Container(
-                                                width:
-                                                    cwidth * (1.0 - 0.045) - 70,
-                                                child:
-                                                    (GlobalData.questions!['questions'][qid]
-                                                                    [
-                                                                    'answers_tex'] ==
-                                                                null &&
-                                                            GlobalData.questions!['questions']
-                                                                        [qid][
-                                                                    'answers_svg'] ==
-                                                                null)
-                                                        ? Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    vertical:
-                                                                        13.0),
-                                                            child: Html(
-                                                              data: GlobalData
-                                                                  .questions![
-                                                                      'questions']
+                                            ),
+                                            Container(
+                                              width:
+                                                  cwidth * (1.0 - 0.045) - 70,
+                                              child:
+                                                  (GlobalData.questions!['questions'][qid]
+                                                                  [
+                                                                  'answers_tex'] ==
+                                                              null &&
+                                                          GlobalData.questions!['questions']
                                                                       [qid][
-                                                                      'answers']
-                                                                      [i]
-                                                                  .toString()
-                                                                  .replaceAll(
-                                                                      '*',
-                                                                      ' ⋅ '),
-                                                              style: {
-                                                                'body': Style(
-                                                                  margin:
-                                                                      Margins
-                                                                          .zero,
-                                                                ),
-                                                              },
-                                                            ),
-                                                          )
-                                                        : (GlobalData.questions!['questions']
-                                                                        [qid][
-                                                                    'answers_svg'] ==
-                                                                null
-                                                            ? LayoutBuilder(
-                                                                builder: (context,
-                                                                    constraints) {
-                                                                return Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          top:
-                                                                              6,
-                                                                          bottom:
-                                                                              6),
-                                                                  child: SizedBox(
-                                                                      width: constraints.maxWidth,
-                                                                      height: constraints.maxWidth / GlobalData.questions!['questions'][qid]['answers_tex_width'][i] * GlobalData.questions!['questions'][qid]['answers_tex_height'][i],
-                                                                      child: FutureBuilder(
-                                                                          future: ScalableImage.fromSIAsset(rootBundle, "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
-                                                                          builder: (context, snapshot) {
-                                                                            return ScalableImageWidget(
-                                                                              si: snapshot.requireData,
-                                                                            );
-                                                                          })),
-                                                                );
-                                                              })
-                                                            : SvgPicture.asset(
-                                                                "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
-                                                                width: cwidth *
-                                                                    0.86,
-                                                              )),
-                                              ),
-                                            ],
-                                          ),
+                                                                  'answers_svg'] ==
+                                                              null)
+                                                      ? Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical:
+                                                                      13.0),
+                                                          child: Html(
+                                                            data: GlobalData
+                                                                .questions![
+                                                                    'questions']
+                                                                    [qid][
+                                                                    'answers']
+                                                                    [i]
+                                                                .toString()
+                                                                .replaceAll(
+                                                                    '*',
+                                                                    ' ⋅ '),
+                                                            style: {
+                                                              'body': Style(
+                                                                margin:
+                                                                    Margins
+                                                                        .zero,
+                                                              ),
+                                                            },
+                                                          ),
+                                                        )
+                                                      : (GlobalData.questions!['questions']
+                                                                      [qid][
+                                                                  'answers_svg'] ==
+                                                              null
+                                                          ? LayoutBuilder(
+                                                              builder: (context,
+                                                                  constraints) {
+                                                              return Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        top:
+                                                                            6,
+                                                                        bottom:
+                                                                            6),
+                                                                child: SizedBox(
+                                                                    width: constraints.maxWidth,
+                                                                    height: constraints.maxWidth / GlobalData.questions!['questions'][qid]['answers_tex_width'][i] * GlobalData.questions!['questions'][qid]['answers_tex_height'][i],
+                                                                    child: FutureBuilder(
+                                                                        future: ScalableImage.fromSIAsset(rootBundle, "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
+                                                                        builder: (context, snapshot) {
+                                                                          return ScalableImageWidget(
+                                                                            si: snapshot.requireData,
+                                                                          );
+                                                                        })),
+                                                              );
+                                                            })
+                                                          : SvgPicture.asset(
+                                                              "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+                                                              width: cwidth *
+                                                                  0.86,
+                                                            )),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              );
-                            });
+                              ),
+                            );
                           });
-                    });
-              }),
-        ),
+                        });
+                  });
+            }),
       );
     }
 
@@ -549,14 +545,52 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
         title: Text(
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
       ),
-      body: Stack(
-        children: [
-          Container(
-            child: ListView(
-              children: cards,
+      body: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 4),
+        child: Stack(
+          children: [
+            Container(
+              child: ListView(
+                children: cards,
+              ),
             ),
-          ),
-          QuizBottomMenu(
+        
+            if (solvedAll)
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10, right: 10),
+                  child: ElevatedButton.icon(
+                    style: ButtonStyle(
+                      surfaceTintColor:
+                          WidgetStateProperty.all(Colors.transparent),
+                      padding: WidgetStateProperty.all(
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      ),
+                      elevation: WidgetStateProperty.all(4),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(Icons.check),
+                    label: const Text(
+                      "Alle Fragen beantwortet!",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+      bottomNavigationBar:           QuizBottomMenu(
             qid: qid!,
             feelingUnsureWidget: unsureSwitch,
             onFeelingUnsure: () {
@@ -587,40 +621,6 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
               launchAnimation(quick: true);
             },
           ),
-          if (solvedAll)
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 120, right: 10),
-                child: ElevatedButton.icon(
-                  style: ButtonStyle(
-                    surfaceTintColor:
-                        WidgetStateProperty.all(Colors.transparent),
-                    padding: WidgetStateProperty.all(
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
-                    elevation: WidgetStateProperty.all(4),
-                    shape: WidgetStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10000)),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(Icons.check),
-                  label: const Text(
-                    "Alle Fragen beantwortet!",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
     );
   }
 }
@@ -650,122 +650,117 @@ class _QuizBottomMenuState extends State<QuizBottomMenu> {
   @override
   Widget build(BuildContext context) {
     bool questionIsStarred = GlobalData.starBox.get(widget.qid) ?? false;
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              boxShadow: [BoxShadow(color: Color(0x80000000), blurRadius: 5)],
-              color: Colors.white,
-            ),
-            child: Material(
-              child: LayoutBuilder(builder: (context, constraints) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      width: constraints.maxWidth / 3,
-                      child: InkWell(
-                        onTap: widget.onFeelingUnsure == null
-                            ? null
-                            : () {
-                                widget.onFeelingUnsure!();
-                              },
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 8, right: 8, bottom: 20),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                height: 45,
-                                child: widget.feelingUnsureWidget,
-                              ),
-                              const Text(
-                                "Ich bin mir\nunsicher",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(height: 1.2),
-                              ),
-                            ],
+    return Container(
+      decoration: const BoxDecoration(
+        boxShadow: [BoxShadow(color: Color(0x80000000), blurRadius: 5)],
+        color: Colors.white,
+      ),
+      child: Material(
+        child: LayoutBuilder(builder: (context, constraints) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(
+                width: constraints.maxWidth / 3,
+                child: InkWell(
+                  onTap: widget.onFeelingUnsure == null
+                      ? null
+                      : () {
+                          widget.onFeelingUnsure!();
+                        },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: SizedBox(
+                            height: ICON_SIZE,
+                            child: FittedBox(
+                              child: widget.feelingUnsureWidget,
+                            ),
                           ),
                         ),
-                      ),
+                        const Text(
+                          "Ich bin mir\nunsicher",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(height: 1.2),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: constraints.maxWidth / 3,
-                      child: InkWell(
-                        onTap: widget.onStar == null
-                            ? null
-                            : () {
-                                widget.onStar!();
-                              },
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 8, right: 8, bottom: 20),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                height: 45,
-                                child: Icon(
-                                  questionIsStarred
-                                      ? Icons.star
-                                      : Icons.star_border,
-                                  color: questionIsStarred
-                                      ? Colors.yellow[700]
-                                      : null,
-                                  size: questionIsStarred ? 32 : 28,
-                                ),
-                              ),
-                              const Text(
-                                "Frage für später\nmerken",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(height: 1.2),
-                              ),
-                            ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: constraints.maxWidth / 3,
+                child: InkWell(
+                  onTap: widget.onStar == null
+                      ? null
+                      : () {
+                          widget.onStar!();
+                        },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Icon(
+                            questionIsStarred
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: questionIsStarred
+                                ? Colors.yellow[700]
+                                : null,
+                            size: ICON_SIZE,
                           ),
                         ),
-                      ),
+                        const Text(
+                          "Frage für später\nmerken",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(height: 1.2),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: constraints.maxWidth / 3,
-                      child: InkWell(
-                        onTap: widget.onSkip == null
-                            ? null
-                            : () {
-                                widget.onSkip!();
-                              },
-                        child: const Padding(
-                          padding: EdgeInsets.only(
-                              top: 10, left: 8, right: 8, bottom: 20),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                height: 45,
-                                child: Icon(
-                                  Icons.skip_next_outlined,
-                                  size: 28,
-                                ),
-                              ),
-                              Text(
-                                "Frage\nüberspringen",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(height: 1.2),
-                              ),
-                            ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: constraints.maxWidth / 3,
+                child: InkWell(
+                  onTap: widget.onSkip == null
+                      ? null
+                      : () {
+                          widget.onSkip!();
+                        },
+                  child: const Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 8.0),
+                          child: Icon(
+                            Icons.skip_next_outlined,
+                            size: ICON_SIZE,
                           ),
                         ),
-                      ),
+                        Text(
+                          "Frage\nüberspringen",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(height: 1.2),
+                        ),
+                      ],
                     ),
-                  ],
-                );
-              }),
-            ),
-          ),
-        ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
