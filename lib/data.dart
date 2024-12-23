@@ -47,7 +47,7 @@ const List DECAY = [
 ];
 
 const Map<String, int> EXAM_MINUTES = {
-  'N': 45,
+  'N': 1,
   'E': 45,
   'A': 60,
   'B': 45,

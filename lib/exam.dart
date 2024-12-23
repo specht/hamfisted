@@ -25,6 +25,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
   Map<String, List<int>> answers_index_for_question = {};
   Map<String, List<Color>> answer_color_for_question = {};
   Map<String, int> selected_answer_for_question = {};
+  bool timeout = false;
 
   @override
   void initState() {
@@ -106,7 +107,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(8)),
               surfaceTintColor: Colors.transparent,
               child: InkWell(
-                onTap: () {
+                onTap: timeout ? null : () {
                   setState(() {
                     selected_answer_for_question[qid] = i;
                   });
@@ -242,27 +243,6 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
       cards.add(const Divider());
     }
 
-
-/*
-TweenAnimationBuilder<Duration>(
-  duration: Duration(minutes: 3),
-  tween: Tween(begin: Duration(minutes: 3), end: Duration.zero),
-  onEnd: () {
-    print('Timer ended');
-  },
-  builder: (BuildContext context, Duration value, Widget? child) {
-    final minutes = value.inMinutes;
-    final seconds = value.inSeconds % 60;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Text('$minutes:$seconds',
-               textAlign: TextAlign.center,
-               style: TextStyle(
-               color: Colors.black,
-               fontWeight: FontWeight.bold,
-               fontSize: 30)));
-    }),
-*/
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) =>
@@ -276,19 +256,22 @@ TweenAnimationBuilder<Duration>(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "Prüfungssimulation",
               ),
               TweenAnimationBuilder<Duration>(
-  duration: Duration(minutes: EXAM_MINUTES[exam]!),
-  tween: Tween(begin: Duration(minutes: EXAM_MINUTES[exam]!), end: Duration.zero),
-  onEnd: () {
-  },
-  builder: (BuildContext context, Duration value, Widget? child) {
-    final minutes = value.inMinutes;
-    final seconds = value.inSeconds % 60;
-    return Text('$minutes:$seconds');
-    }),
+                duration: Duration(minutes: EXAM_MINUTES[exam]!),
+                tween: Tween(begin: Duration(minutes: EXAM_MINUTES[exam]!), end: Duration.zero),
+                onEnd: () {
+                  setState(() {
+                    timeout = true;
+                  });
+                },
+                builder: (BuildContext context, Duration value, Widget? child) {
+                  final minutes = value.inMinutes;
+                  final seconds = value.inSeconds % 60;
+                  return Text('${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}');
+                  }),
 
             ],
           ),
