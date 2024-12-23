@@ -23,6 +23,13 @@ class _ExamOverviewState extends State<ExamOverview> {
       'B': 'Betriebliche Kenntnisse',
       'V': 'Kenntnisse von Vorschriften',
     };
+    const Map<String, String> questionCountKey = {
+      'N': '2024/TN',
+      'E': '2024/TE_only',
+      'A': '2024/TA_only',
+      'B': '2024/1',
+      'V': '2024/2',
+    };
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
@@ -62,9 +69,13 @@ class _ExamOverviewState extends State<ExamOverview> {
                 ),
                 subtitle: Column(
                   children: [
-                    Container(
-                      width: double.infinity,
-                      child: Text("25 Fragen, ${exam == 'A' ? 60 : 45} Minuten")),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("25 Fragen aus ${GlobalData.questions!['questions_for_hid'][questionCountKey[exam]].length}"),
+                        Text("${exam == 'A' ? 60 : 45} Minuten"),
+                      ],
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: LinearProgressIndicator(
@@ -73,7 +84,7 @@ class _ExamOverviewState extends State<ExamOverview> {
                         color: PRIMARY,
                       ),
                     ),
-                    Text("${(examSuccessProbability[exam]! * 100).round()}%"),
+                    Text("Erfolgswahrscheinlichkeit: ${(examSuccessProbability[exam]! * 100).round()}%"),
                   ],
                 ),
                 onTap: () {

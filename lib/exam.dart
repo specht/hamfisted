@@ -300,6 +300,32 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
               SizedBox(
                 width: constraints.maxWidth / 3,
                 child: InkWell(
+                  onTap: () => widget.exam.showPopConfirmationDialog(),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 8.0),
+                          child: Icon(
+                            Icons.cancel_outlined,
+                            size: ICON_SIZE,
+                          ),
+                        ),
+                        const Text(
+                          "Prüfung\nabbrechen",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(height: 1.2),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: constraints.maxWidth / 3,
+                child: InkWell(
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
@@ -322,32 +348,6 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
                         ),
                         Text(
                           "${widget.exam.selected_answer_for_question.length} von 25 Fragen beantwortet",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(height: 1.2),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: constraints.maxWidth / 3,
-                child: InkWell(
-                  onTap: () => widget.exam.showPopConfirmationDialog(),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 8.0),
-                          child: Icon(
-                            Icons.cancel,
-                            size: ICON_SIZE,
-                          ),
-                        ),
-                        const Text(
-                          "Prüfung\nabbrechen",
                           textAlign: TextAlign.center,
                           style: TextStyle(height: 1.2),
                         ),

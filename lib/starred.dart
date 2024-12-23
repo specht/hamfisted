@@ -55,6 +55,18 @@ class _StarredState extends State<Starred> {
   @override
   Widget build(BuildContext context) {
     List<Widget> cards = [];
+    cards.add(Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+      child: Text("Anmerkung: Bei den hier angezeigten Fragen ist immer Antwort A die korrekte Antwort.",
+          style: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+    ));
+    cards.add(const Divider());
     List<dynamic> sortedKeys = GlobalData.starBox.keys.toList();
     sortedKeys.sort((a, b) {
       const order = ['N', 'E', 'A', 'B', 'V'];
