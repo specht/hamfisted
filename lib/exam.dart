@@ -242,6 +242,27 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
       cards.add(const Divider());
     }
 
+
+/*
+TweenAnimationBuilder<Duration>(
+  duration: Duration(minutes: 3),
+  tween: Tween(begin: Duration(minutes: 3), end: Duration.zero),
+  onEnd: () {
+    print('Timer ended');
+  },
+  builder: (BuildContext context, Duration value, Widget? child) {
+    final minutes = value.inMinutes;
+    final seconds = value.inSeconds % 60;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Text('$minutes:$seconds',
+               textAlign: TextAlign.center,
+               style: TextStyle(
+               color: Colors.black,
+               fontWeight: FontWeight.bold,
+               fontSize: 30)));
+    }),
+*/
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) =>
@@ -252,13 +273,23 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
           backgroundColor: PRIMARY,
           foregroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          title: const Row(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Prüfungssimulation",
               ),
-              Text("45:00"),
+              TweenAnimationBuilder<Duration>(
+  duration: Duration(minutes: EXAM_MINUTES[exam]!),
+  tween: Tween(begin: Duration(minutes: EXAM_MINUTES[exam]!), end: Duration.zero),
+  onEnd: () {
+  },
+  builder: (BuildContext context, Duration value, Widget? child) {
+    final minutes = value.inMinutes;
+    final seconds = value.inSeconds % 60;
+    return Text('$minutes:$seconds');
+    }),
+
             ],
           ),
         ),

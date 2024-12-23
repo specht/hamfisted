@@ -46,6 +46,14 @@ const List DECAY = [
   1000 * 60 * 60 * 24 * 3
 ];
 
+const Map<String, int> EXAM_MINUTES = {
+  'N': 45,
+  'E': 45,
+  'A': 60,
+  'B': 45,
+  'V': 45,
+};
+
 int timestamp() {
   return DateTime.now().millisecondsSinceEpoch;
 }
@@ -114,7 +122,14 @@ class GlobalData with ChangeNotifier {
         String qid = block[r.nextInt(block.length)];
         int ts = GlobalData.box.get("t/$qid") ?? 0;
         int diff = now - ts;
-        double p = (diff < 1000 * 60 * 60 * 24 * 21) ? 0.95 : 0.25;
+        // model exponential decay over time:
+        // - 95% after 0 days
+        // - 61% after 7 days
+        // - 52% after 14 days
+        // - 48% after 21 days
+        // - 45% after 28 days
+        double days = diff / (1000.0 * 60 * 60 * 24);
+        double p = (pow(days * 0.5 + 1.0, -0.4) * 0.75 + 0.2).toDouble();
         if (r.nextDouble() < p) correct += 1;
       }
       tries += 1;

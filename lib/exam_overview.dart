@@ -73,7 +73,7 @@ class _ExamOverviewState extends State<ExamOverview> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("25 Fragen aus ${GlobalData.questions!['questions_for_hid'][questionCountKey[exam]].length}"),
-                        Text("${exam == 'A' ? 60 : 45} Minuten"),
+                        Text("${EXAM_MINUTES[exam]} Minuten"),
                       ],
                     ),
                     Padding(
@@ -84,7 +84,7 @@ class _ExamOverviewState extends State<ExamOverview> {
                         color: PRIMARY,
                       ),
                     ),
-                    Text("Erfolgswahrscheinlichkeit: ${(examSuccessProbability[exam]! * 100).round()}%"),
+                    Text("Geschätzte Erfolgswahrscheinlichkeit: ${(examSuccessProbability[exam]! * 100).round()}%"),
                   ],
                 ),
                 onTap: () {
