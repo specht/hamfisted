@@ -238,6 +238,52 @@ Widget getQuestionWidget(String qid) {
   });
 }
 
+Widget getAnswerWidget(String qid, int i) {
+  return LayoutBuilder(builder: (context, constraints) {
+    double cwidth = min(constraints.maxWidth, MAX_WIDTH);
+    return (GlobalData.questions!['questions'][qid]['answers_tex'] == null &&
+            GlobalData.questions!['questions'][qid]['answers_svg'] == null)
+        ? Padding(
+            padding: const EdgeInsets.symmetric(vertical: 13.0),
+            child: Html(
+              data: GlobalData.questions!['questions'][qid]['answers'][i]
+                  .toString()
+                  .replaceAll('*', ' ⋅ '),
+              style: {
+                'body': Style(
+                  margin: Margins.zero,
+                ),
+              },
+            ),
+          )
+        : (GlobalData.questions!['questions'][qid]['answers_svg'] == null
+            ? LayoutBuilder(builder: (context, constraints) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 6, bottom: 6),
+                  child: SizedBox(
+                      width: constraints.maxWidth,
+                      height: constraints.maxWidth /
+                          GlobalData.questions!['questions'][qid]
+                              ['answers_tex_width'][i] *
+                          GlobalData.questions!['questions'][qid]
+                              ['answers_tex_height'][i],
+                      child: FutureBuilder(
+                          future: ScalableImage.fromSIAsset(rootBundle,
+                              "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
+                          builder: (context, snapshot) {
+                            return ScalableImageWidget(
+                              si: snapshot.requireData,
+                            );
+                          })),
+                );
+              })
+            : SvgPicture.asset(
+                "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+                width: cwidth * 0.86,
+              ));
+  });
+}
+
 class ListWithDecay {
   ListWithDecay(this.decay);
   int decay = 0;

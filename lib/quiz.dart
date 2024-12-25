@@ -315,15 +315,14 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                     return AnimatedBuilder(
                         animation: _animationController,
                         builder: (context, child) {
-                          return LayoutBuilder(
-                              builder: (context, constraints) {
+                          return LayoutBuilder(builder: (context, constraints) {
                             double cwidth =
                                 min(constraints.maxWidth, MAX_WIDTH);
                             Offset offset = Offset.zero;
                             if (animationPhase1) {
                               if (i != 0) {
-                                offset = Offset(
-                                    -1 * _animationController.value, 0);
+                                offset =
+                                    Offset(-1 * _animationController.value, 0);
                               }
                             }
                             if (animationPhase2) {
@@ -335,8 +334,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                               }
                             }
                             if (animationPhase3) {
-                              offset = Offset(
-                                  1.0 - _animationController3.value, 0);
+                              offset =
+                                  Offset(1.0 - _animationController3.value, 0);
                             }
                             return Transform.translate(
                               offset: offset * constraints.maxWidth,
@@ -349,8 +348,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                   onTapCancel: () => _timer?.cancel(),
                                   onTapDown: (_) => {
                                     _timer = Timer(
-                                        const Duration(milliseconds: 1500),
-                                        () {
+                                        const Duration(milliseconds: 1500), () {
                                       setState(() {
                                         unsure = true;
                                         tapAnswer(i);
@@ -393,124 +391,57 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                                 child: CircleAvatar(
                                                   backgroundColor:
                                                       answerColor[i] ==
-                                                              Colors
-                                                                  .transparent
-                                                          ? Color.lerp(
-                                                              PRIMARY,
-                                                              Colors.white,
-                                                              0.8)
+                                                              Colors.transparent
+                                                          ? Color.lerp(PRIMARY,
+                                                              Colors.white, 0.8)
                                                           : answerColor[i],
                                                   radius: cwidth * 0.045,
-                                                  child:
-                                                      answerColor[i] == GREEN
+                                                  child: answerColor[i] == GREEN
+                                                      ? Icon(
+                                                          Icons.check,
+                                                          color: Colors.white,
+                                                          size: cwidth * 0.05,
+                                                        )
+                                                      : answerColor[i] == RED
                                                           ? Icon(
-                                                              Icons.check,
-                                                              color: Colors
-                                                                  .white,
-                                                              size: cwidth *
-                                                                  0.05,
+                                                              Icons.clear,
+                                                              color:
+                                                                  Colors.white,
+                                                              size:
+                                                                  cwidth * 0.05,
                                                             )
-                                                          : answerColor[i] ==
-                                                                  RED
-                                                              ? Icon(
-                                                                  Icons.clear,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  size:
+                                                          : Text(
+                                                              String
+                                                                  .fromCharCode(
+                                                                      65 + ti),
+                                                              style: GoogleFonts.alegreyaSans(
+                                                                  fontSize:
                                                                       cwidth *
-                                                                          0.05,
-                                                                )
-                                                              : Text(
-                                                                  String.fromCharCode(
-                                                                      65 +
-                                                                          ti),
-                                                                  style: GoogleFonts.alegreyaSans(
-                                                                      fontSize:
-                                                                          cwidth *
-                                                                              0.04,
-                                                                      color: answerColor[i] == Colors.transparent
-                                                                          ? Colors
-                                                                              .black87
-                                                                          : Colors
-                                                                              .white,
-                                                                      fontWeight: answerColor[i] ==
-                                                                              Colors.transparent
-                                                                          ? FontWeight.normal
-                                                                          : FontWeight.bold),
-                                                                ),
+                                                                          0.04,
+                                                                  color: answerColor[
+                                                                              i] ==
+                                                                          Colors
+                                                                              .transparent
+                                                                      ? Colors
+                                                                          .black87
+                                                                      : Colors
+                                                                          .white,
+                                                                  fontWeight: answerColor[
+                                                                              i] ==
+                                                                          Colors
+                                                                              .transparent
+                                                                      ? FontWeight
+                                                                          .normal
+                                                                      : FontWeight
+                                                                          .bold),
+                                                            ),
                                                 ),
                                               ),
                                             ),
                                             Container(
                                               width:
                                                   cwidth * (1.0 - 0.045) - 70,
-                                              child:
-                                                  (GlobalData.questions!['questions'][qid]
-                                                                  [
-                                                                  'answers_tex'] ==
-                                                              null &&
-                                                          GlobalData.questions!['questions']
-                                                                      [qid][
-                                                                  'answers_svg'] ==
-                                                              null)
-                                                      ? Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical:
-                                                                      13.0),
-                                                          child: Html(
-                                                            data: GlobalData
-                                                                .questions![
-                                                                    'questions']
-                                                                    [qid][
-                                                                    'answers']
-                                                                    [i]
-                                                                .toString()
-                                                                .replaceAll(
-                                                                    '*',
-                                                                    ' ⋅ '),
-                                                            style: {
-                                                              'body': Style(
-                                                                margin:
-                                                                    Margins
-                                                                        .zero,
-                                                              ),
-                                                            },
-                                                          ),
-                                                        )
-                                                      : (GlobalData.questions!['questions']
-                                                                      [qid][
-                                                                  'answers_svg'] ==
-                                                              null
-                                                          ? LayoutBuilder(
-                                                              builder: (context,
-                                                                  constraints) {
-                                                              return Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        top:
-                                                                            6,
-                                                                        bottom:
-                                                                            6),
-                                                                child: SizedBox(
-                                                                    width: constraints.maxWidth,
-                                                                    height: constraints.maxWidth / GlobalData.questions!['questions'][qid]['answers_tex_width'][i] * GlobalData.questions!['questions'][qid]['answers_tex_height'][i],
-                                                                    child: FutureBuilder(
-                                                                        future: ScalableImage.fromSIAsset(rootBundle, "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
-                                                                        builder: (context, snapshot) {
-                                                                          return ScalableImageWidget(
-                                                                            si: snapshot.requireData,
-                                                                          );
-                                                                        })),
-                                                              );
-                                                            })
-                                                          : SvgPicture.asset(
-                                                              "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
-                                                              width: cwidth *
-                                                                  0.86,
-                                                            )),
+                                              child: getAnswerWidget(qid!, i),
                                             ),
                                           ],
                                         ),
@@ -546,7 +477,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
       ),
       body: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 4),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 4),
         child: Stack(
           children: [
             Container(
@@ -554,7 +486,6 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                 children: cards,
               ),
             ),
-        
             if (solvedAll)
               Align(
                 alignment: Alignment.bottomRight,
@@ -565,7 +496,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                       surfaceTintColor:
                           WidgetStateProperty.all(Colors.transparent),
                       padding: WidgetStateProperty.all(
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                        const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
                       ),
                       elevation: WidgetStateProperty.all(4),
                       shape: WidgetStateProperty.all(
@@ -590,37 +522,36 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
           ],
         ),
       ),
-      bottomNavigationBar:           QuizBottomMenu(
-            qid: qid!,
-            feelingUnsureWidget: unsureSwitch,
-            onFeelingUnsure: () {
-              unsureSwitch.onChanged!(true);
-              unsure = true;
-            },
-            onHelp: GlobalData.questions!['questions'][qid]['hint'] == null
-                ? null
-                : () {
-                    String? url =
-                        GlobalData.questions!['questions'][qid]['hint'];
-                    developer.log("$url");
-                    if (url != null) {
-                      setState(() => unsure = true);
-                      launchUrl(Uri.parse(url));
-                    }
-                  },
-            onStar: () {
-              setState(() {
-                bool questionIsStarred = GlobalData.starBox.get(qid) ?? false;
-                if (questionIsStarred)
-                  GlobalData.instance.unstarQuestion(qid!);
-                else
-                  GlobalData.instance.starQuestion(qid!);
-              });
-            },
-            onSkip: () {
-              launchAnimation(quick: true);
-            },
-          ),
+      bottomNavigationBar: QuizBottomMenu(
+        qid: qid!,
+        feelingUnsureWidget: unsureSwitch,
+        onFeelingUnsure: () {
+          unsureSwitch.onChanged!(true);
+          unsure = true;
+        },
+        onHelp: GlobalData.questions!['questions'][qid]['hint'] == null
+            ? null
+            : () {
+                String? url = GlobalData.questions!['questions'][qid]['hint'];
+                developer.log("$url");
+                if (url != null) {
+                  setState(() => unsure = true);
+                  launchUrl(Uri.parse(url));
+                }
+              },
+        onStar: () {
+          setState(() {
+            bool questionIsStarred = GlobalData.starBox.get(qid) ?? false;
+            if (questionIsStarred)
+              GlobalData.instance.unstarQuestion(qid!);
+            else
+              GlobalData.instance.starQuestion(qid!);
+          });
+        },
+        onSkip: () {
+          launchAnimation(quick: true);
+        },
+      ),
     );
   }
 }
@@ -670,7 +601,8 @@ class _QuizBottomMenuState extends State<QuizBottomMenu> {
                           widget.onFeelingUnsure!();
                         },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -702,19 +634,17 @@ class _QuizBottomMenuState extends State<QuizBottomMenu> {
                           widget.onStar!();
                         },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: Icon(
-                            questionIsStarred
-                                ? Icons.star
-                                : Icons.star_border,
-                            color: questionIsStarred
-                                ? Colors.yellow[700]
-                                : null,
+                            questionIsStarred ? Icons.star : Icons.star_border,
+                            color:
+                                questionIsStarred ? Colors.yellow[700] : null,
                             size: ICON_SIZE,
                           ),
                         ),
@@ -737,7 +667,8 @@ class _QuizBottomMenuState extends State<QuizBottomMenu> {
                           widget.onSkip!();
                         },
                   child: const Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

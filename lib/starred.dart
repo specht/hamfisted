@@ -57,14 +57,15 @@ class _StarredState extends State<Starred> {
     List<Widget> cards = [];
     cards.add(Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
-      child: Text("Anmerkung: Bei den hier angezeigten Fragen ist immer Antwort A die korrekte Antwort.",
-          style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
+      child: Text(
+        "Anmerkung: Bei den hier angezeigten Fragen ist immer Antwort A die korrekte Antwort.",
+        style: TextStyle(
+          fontSize: 14,
+          color: Colors.black,
+          fontWeight: FontWeight.normal,
+          fontStyle: FontStyle.italic,
+        ),
+      ),
     ));
     cards.add(const Divider());
     List<dynamic> sortedKeys = GlobalData.starBox.keys.toList();
@@ -158,59 +159,7 @@ class _StarredState extends State<Starred> {
                         ),
                         Container(
                           width: cwidth * (1.0 - 0.045) - 70,
-                          child: (GlobalData.questions!['questions'][qid]
-                                          ['answers_tex'] ==
-                                      null &&
-                                  GlobalData.questions!['questions'][qid]
-                                          ['answers_svg'] ==
-                                      null)
-                              ? Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 13.0),
-                                  child: Html(
-                                    data: GlobalData.questions!['questions']
-                                            [qid]['answers'][i]
-                                        .toString()
-                                        .replaceAll('*', ' ⋅ '),
-                                    style: {
-                                      'body': Style(
-                                        margin: Margins.zero,
-                                      ),
-                                    },
-                                  ),
-                                )
-                              : (GlobalData.questions!['questions'][qid]
-                                          ['answers_svg'] ==
-                                      null
-                                  ? LayoutBuilder(
-                                      builder: (context, constraints) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 6, bottom: 6),
-                                        child: SizedBox(
-                                            width: constraints.maxWidth,
-                                            height: constraints.maxWidth /
-                                                GlobalData.questions![
-                                                        'questions'][qid]
-                                                    ['answers_tex_width'][i] *
-                                                GlobalData.questions![
-                                                        'questions'][qid]
-                                                    ['answers_tex_height'][i],
-                                            child: FutureBuilder(
-                                                future: ScalableImage.fromSIAsset(
-                                                    rootBundle,
-                                                    "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
-                                                builder: (context, snapshot) {
-                                                  return ScalableImageWidget(
-                                                    si: snapshot.requireData,
-                                                  );
-                                                })),
-                                      );
-                                    })
-                                  : SvgPicture.asset(
-                                      "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
-                                      width: cwidth * 0.86,
-                                    )),
+                          child: getAnswerWidget(qid, i),
                         ),
                       ]),
                 ),

@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -20,11 +21,16 @@ class Exam extends StatefulWidget {
 class _ExamState extends State<Exam> with TickerProviderStateMixin {
   String? exam;
   List<String> questions = [];
-  Map<String, List<int>> answers_index_for_question = {};
-  Map<String, List<Color>> answer_color_for_question = {};
-  Map<String, int> selected_answer_for_question = {};
+  Map<String, List<int>> answersIndexForQuestion = {};
+  Map<String, int> selectedAnswerForQuestion = {};
   bool timeout = false;
   bool showResults = false;
+  bool calculatedResults = false;
+  int secondsLeft = 0;
+  int correctCount = 0;
+  int wrongCount = 0;
+  int skippedCount = 0;
+  bool examPassed = false;
 
   @override
   void initState() {
@@ -73,30 +79,247 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
     }
     if (exam == null) {
       exam = (ModalRoute.of(context)!.settings.arguments ?? '').toString();
+      secondsLeft = EXAM_MINUTES[exam]! * 60;
       developer.log("Choosing exam questions for $exam!");
       for (List<dynamic> qp in GlobalData.questions!['exam_questions'][exam]) {
         qp.shuffle();
         String qid = qp[0];
         questions.add(qid);
-        answers_index_for_question[qid] = [0, 1, 2, 3];
-        answers_index_for_question[qid]!.shuffle();
-        answer_color_for_question[qid] = [
-          Colors.transparent,
-          Colors.transparent,
-          Colors.transparent,
-          Colors.transparent
-        ];
+        answersIndexForQuestion[qid] = [0, 1, 2, 3];
+        answersIndexForQuestion[qid]!.shuffle();
       }
       questions.shuffle();
     }
 
     List<Widget> cards = [];
 
+    if (showResults) {
+      if (!calculatedResults) {
+        calculatedResults = true;
+        for (String qid in questions) {
+          if (selectedAnswerForQuestion[qid] == null) {
+            skippedCount++;
+            GlobalData.instance.unmarkQuestionSolved(qid);
+          } else if (selectedAnswerForQuestion[qid]! == 0) {
+            correctCount++;
+            GlobalData.instance
+                .markQuestionSolved(qid, DateTime.now().millisecondsSinceEpoch);
+          } else {
+            wrongCount++;
+            GlobalData.instance.unmarkQuestionSolved(qid);
+          }
+        }
+        examPassed = correctCount >= 19;
+      }
+      return Scaffold(
+        backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
+        appBar: AppBar(
+          backgroundColor: PRIMARY,
+          foregroundColor: Colors.white,
+          title: const Text("Ergebnis der Prüfungssimulation"),
+        ),
+        body: Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).padding.bottom + 4),
+          child: ListView(
+            children: [
+              const Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Auswertung",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              ),
+              if (correctCount > 0)
+                Card(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(14.0),
+                      child: Icon(Icons.check, color: GREEN, size: 20),
+                    ),
+                    Expanded(
+                      child: Text("$correctCount Fragen korrekt beantwortet",
+                          style: TextStyle(fontSize: 16)),
+                    ),
+                  ],
+                )),
+              if (wrongCount > 0)
+                Card(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(14.0),
+                      child: Icon(Icons.close, color: RED, size: 20),
+                    ),
+                    Expanded(
+                      child: Text("$wrongCount Fragen falsch beantwortet",
+                          style: TextStyle(fontSize: 16)),
+                    ),
+                  ],
+                )),
+              if (skippedCount > 0)
+                Card(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(14.0),
+                        child: Icon(Icons.help_outline,
+                            color: Colors.black54, size: 20),
+                      ),
+                      Expanded(
+                        child: Text("$skippedCount Fragen nicht beantwortet",
+                            style: TextStyle(fontSize: 16)),
+                      ),
+                    ],
+                  ),
+                ),
+              const Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Ergebnis",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              ),
+              Card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                          radius: 16,
+                          backgroundColor: examPassed
+                              ? Color.lerp(GREEN, Colors.white, 0.7)
+                              : Color.lerp(RED, Colors.white, 0.7),
+                          child: Icon(examPassed ? Icons.check : Icons.close,
+                              color: examPassed ? GREEN : RED, size: 20)),
+                    ),
+                    Expanded(
+                      child: Text.rich(
+                        TextSpan(
+                          text: "Die Prüfung wäre somit ",
+                          children: [
+                            TextSpan(
+                              text:
+                                  examPassed ? 'bestanden' : 'nicht bestanden',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const TextSpan(
+                              text: ".",
+                            ),
+                          ],
+                        ),
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (wrongCount > 0 || skippedCount > 0) const Divider(),
+              if (wrongCount > 0 || skippedCount > 0)
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Nicht oder falsch beantwortete Fragen",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                ),
+              for (String qid in questions)
+                if (selectedAnswerForQuestion[qid] != 0) ...[
+                  getQuestionWidget(qid),
+                  for (int i = 1; i < 4; i++)
+                    if (selectedAnswerForQuestion[qid] != null &&
+                        selectedAnswerForQuestion[qid] == i)
+                      LayoutBuilder(builder: (context, constraints) {
+                        double cwidth = min(constraints.maxWidth, MAX_WIDTH);
+                        return Card(
+                          elevation: 1,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          surfaceTintColor: Colors.transparent,
+                          child: Center(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: max(
+                                      0,
+                                      (constraints.maxWidth - cwidth) / 2 -
+                                          15)),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.transparent,
+                                        radius: cwidth * 0.045,
+                                        child: Icon(Icons.close,
+                                            color: RED, size: cwidth * 0.05),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: cwidth * (1.0 - 0.045) - 70,
+                                    child: getAnswerWidget(qid, i),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                  for (int i = 0; i < 1; i++)
+                    LayoutBuilder(builder: (context, constraints) {
+                      double cwidth = min(constraints.maxWidth, MAX_WIDTH);
+                      return Card(
+                        elevation: 1,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        surfaceTintColor: Colors.transparent,
+                        child: Center(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: max(0,
+                                    (constraints.maxWidth - cwidth) / 2 - 15)),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.transparent,
+                                      radius: cwidth * 0.045,
+                                      child: Icon(Icons.check,
+                                          color: GREEN, size: cwidth * 0.05),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: cwidth * (1.0 - 0.045) - 70,
+                                  child: getAnswerWidget(qid, i),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                ],
+            ],
+          ),
+        ),
+      );
+    }
+
     for (String qid in questions) {
       cards.add(getQuestionWidget(qid));
       // cards.add(const Divider());
       for (int ti = 0; ti < 4; ti++) {
-        int i = answers_index_for_question[qid]![ti];
+        int i = answersIndexForQuestion[qid]![ti];
         cards.add(
           LayoutBuilder(builder: (context, constraints) {
             double cwidth = min(constraints.maxWidth, MAX_WIDTH);
@@ -106,17 +329,19 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(8)),
               surfaceTintColor: Colors.transparent,
               child: InkWell(
-                onTap: timeout ? null : () {
-                  setState(() {
-                    selected_answer_for_question[qid] = i;
-                  });
-                },
+                onTap: timeout
+                    ? null
+                    : () {
+                        setState(() {
+                          selectedAnswerForQuestion[qid] = i;
+                        });
+                      },
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: selected_answer_for_question[qid] == i
+                      color: selectedAnswerForQuestion[qid] == i
                           ? PRIMARY
-                          : answer_color_for_question[qid]![i],
+                          : Colors.transparent,
                       width: 2,
                     ),
                     borderRadius: BorderRadius.circular(4),
@@ -135,96 +360,27 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                             child: Center(
                               child: CircleAvatar(
                                 backgroundColor:
-                                  selected_answer_for_question[qid] == i ?
-                                    Color.lerp(PRIMARY, Colors.white, 0.7) :
-                                    Color.lerp(PRIMARY, Colors.white, 0.8),
+                                    selectedAnswerForQuestion[qid] == i
+                                        ? Color.lerp(PRIMARY, Colors.white, 0.7)
+                                        : Color.lerp(
+                                            PRIMARY, Colors.white, 0.8),
                                 radius: cwidth * 0.045,
-                                child: answer_color_for_question[qid]![i] ==
-                                        GREEN
-                                    ? Icon(
-                                        Icons.check,
-                                        color: Colors.white,
-                                        size: cwidth * 0.05,
-                                      )
-                                    : answer_color_for_question[qid]![i] == RED
-                                        ? Icon(
-                                            Icons.clear,
-                                            color: Colors.white,
-                                            size: cwidth * 0.05,
-                                          )
-                                        : Text(
-                                            String.fromCharCode(65 + ti),
-                                            style: GoogleFonts.alegreyaSans(
-                                                fontSize: cwidth * 0.04,
-                                                color:
-                                                    answer_color_for_question[
-                                                                qid]![i] ==
-                                                            Colors.transparent
-                                                        ? Colors.black87
-                                                        : Colors.white,
-                                                fontWeight:
-                                                    selected_answer_for_question[qid] == i
-                                                        ? FontWeight.bold
-                                                        : FontWeight.normal),
-                                          ),
+                                child: Text(
+                                  String.fromCharCode(65 + ti),
+                                  style: GoogleFonts.alegreyaSans(
+                                      fontSize: cwidth * 0.04,
+                                      color: Colors.black87,
+                                      fontWeight:
+                                          selectedAnswerForQuestion[qid] == i
+                                              ? FontWeight.bold
+                                              : FontWeight.normal),
+                                ),
                               ),
                             ),
                           ),
                           Container(
                             width: cwidth * (1.0 - 0.045) - 70,
-                            child: (GlobalData.questions!['questions'][qid]
-                                            ['answers_tex'] ==
-                                        null &&
-                                    GlobalData.questions!['questions'][qid]
-                                            ['answers_svg'] ==
-                                        null)
-                                ? Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 13.0),
-                                    child: Html(
-                                      data: GlobalData.questions!['questions']
-                                              [qid]['answers'][i]
-                                          .toString()
-                                          .replaceAll('*', ' ⋅ '),
-                                      style: {
-                                        'body': Style(
-                                          margin: Margins.zero,
-                                        ),
-                                      },
-                                    ),
-                                  )
-                                : (GlobalData.questions!['questions'][qid]
-                                            ['answers_svg'] ==
-                                        null
-                                    ? LayoutBuilder(
-                                        builder: (context, constraints) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 6, bottom: 6),
-                                          child: SizedBox(
-                                              width: constraints.maxWidth,
-                                              height: constraints.maxWidth /
-                                                  GlobalData.questions![
-                                                          'questions'][qid]
-                                                      ['answers_tex_width'][i] *
-                                                  GlobalData.questions![
-                                                          'questions'][qid]
-                                                      ['answers_tex_height'][i],
-                                              child: FutureBuilder(
-                                                  future: ScalableImage.fromSIAsset(
-                                                      rootBundle,
-                                                      "data/2024/tex/${GlobalData.questions!['questions'][qid]['answers_tex'][i]}.si"),
-                                                  builder: (context, snapshot) {
-                                                    return ScalableImageWidget(
-                                                      si: snapshot.requireData,
-                                                    );
-                                                  })),
-                                        );
-                                      })
-                                    : SvgPicture.asset(
-                                        "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
-                                        width: cwidth * 0.86,
-                                      )),
+                            child: getAnswerWidget(qid, i),
                           ),
                         ],
                       ),
@@ -252,23 +408,25 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "Prüfungssimulation",
-              ),
+              const Text("Prüfungssimulation"),
               TweenAnimationBuilder<Duration>(
-                duration: Duration(minutes: EXAM_MINUTES[exam]!),
-                tween: Tween(begin: Duration(minutes: EXAM_MINUTES[exam]!), end: Duration.zero),
-                onEnd: () {
-                  setState(() {
-                    timeout = true;
-                  });
-                },
-                builder: (BuildContext context, Duration value, Widget? child) {
-                  final minutes = value.inMinutes;
-                  final seconds = value.inSeconds % 60;
-                  return Text('${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}');
+                  duration: Duration(seconds: EXAM_MINUTES[exam]! * 60 + 1),
+                  tween: Tween(
+                      begin: Duration(seconds: EXAM_MINUTES[exam]! * 60 + 1),
+                      end: Duration.zero),
+                  onEnd: () {
+                    setState(() {
+                      timeout = true;
+                    });
+                  },
+                  builder:
+                      (BuildContext context, Duration value, Widget? child) {
+                    final minutes = value.inMinutes;
+                    final seconds = value.inSeconds % 60;
+                    secondsLeft = value.inSeconds;
+                    return Text(
+                        '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}');
                   }),
-
             ],
           ),
         ),
@@ -320,7 +478,6 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
                           padding: EdgeInsets.only(bottom: 8.0),
                           child: Icon(
                             Icons.cancel_outlined,
-                            color: RED,
                             size: ICON_SIZE,
                           ),
                         ),
@@ -350,15 +507,15 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
                             child: FittedBox(
                               child: CircularProgressIndicator(
                                 backgroundColor: Colors.black12,
-                                value: widget.exam.selected_answer_for_question
-                                        .length /
+                                value: widget
+                                        .exam.selectedAnswerForQuestion.length /
                                     25,
                               ),
                             ),
                           ),
                         ),
                         Text(
-                          "${widget.exam.selected_answer_for_question.length} von 25 Fragen beantwortet",
+                          "${widget.exam.selectedAnswerForQuestion.length} von 25 Fragen beantwortet",
                           textAlign: TextAlign.center,
                           style: TextStyle(height: 1.2),
                         ),
@@ -376,7 +533,8 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text('Prüfungbogen abgeben'),
-                          content: const Text('Möchtest du den Prüfungsbogen jetzt abgeben?'),
+                          content: const Text(
+                              'Möchtest du den Prüfungsbogen jetzt abgeben?'),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -402,8 +560,7 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
                     });
                   },
                   child: const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -411,7 +568,6 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
                           padding: EdgeInsets.only(bottom: 8.0),
                           child: Icon(
                             Icons.check,
-                            color: GREEN,
                             size: ICON_SIZE,
                           ),
                         ),
