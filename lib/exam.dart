@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:math';
 
@@ -8,7 +7,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jovial_svg/jovial_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'data.dart';
 
@@ -26,6 +24,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
   Map<String, List<Color>> answer_color_for_question = {};
   Map<String, int> selected_answer_for_question = {};
   bool timeout = false;
+  bool showResults = false;
 
   @override
   void initState() {
@@ -136,10 +135,9 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                             child: Center(
                               child: CircleAvatar(
                                 backgroundColor:
-                                    answer_color_for_question[qid]![i] ==
-                                            Colors.transparent
-                                        ? Color.lerp(PRIMARY, Colors.white, 0.8)
-                                        : answer_color_for_question[qid]![i],
+                                  selected_answer_for_question[qid] == i ?
+                                    Color.lerp(PRIMARY, Colors.white, 0.7) :
+                                    Color.lerp(PRIMARY, Colors.white, 0.8),
                                 radius: cwidth * 0.045,
                                 child: answer_color_for_question[qid]![i] ==
                                         GREEN
@@ -165,11 +163,9 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                                                         ? Colors.black87
                                                         : Colors.white,
                                                 fontWeight:
-                                                    answer_color_for_question[
-                                                                qid]![i] ==
-                                                            Colors.transparent
-                                                        ? FontWeight.normal
-                                                        : FontWeight.bold),
+                                                    selected_answer_for_question[qid] == i
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal),
                                           ),
                               ),
                             ),
@@ -324,6 +320,7 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
                           padding: EdgeInsets.only(bottom: 8.0),
                           child: Icon(
                             Icons.cancel_outlined,
+                            color: RED,
                             size: ICON_SIZE,
                           ),
                         ),
@@ -372,21 +369,53 @@ class _ExamBottomMenuState extends State<ExamBottomMenu> {
               ),
               SizedBox(
                 width: constraints.maxWidth / 3,
-                child: const InkWell(
-                  child: Padding(
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Prüfungbogen abgeben'),
+                          content: const Text('Möchtest du den Prüfungsbogen jetzt abgeben?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(false);
+                              },
+                              child: const Text('Nein'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(true);
+                              },
+                              child: const Text('Ja'),
+                            ),
+                          ],
+                        );
+                      },
+                    ).then((result) {
+                      if (result == true) {
+                        setState(() {
+                          widget.exam.showResults = true;
+                        });
+                      }
+                    });
+                  },
+                  child: const Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                        EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
+                          padding: EdgeInsets.only(bottom: 8.0),
                           child: Icon(
                             Icons.check,
+                            color: GREEN,
                             size: ICON_SIZE,
                           ),
                         ),
-                        const Text(
+                        Text(
                           "Prüfungsbogen abgeben",
                           textAlign: TextAlign.center,
                           style: TextStyle(height: 1.2),
