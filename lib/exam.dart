@@ -183,7 +183,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                                       children: [
                                         TextSpan(
                                           text:
-                                              "${state == 0 ? correctCount : state == 1 ? wrongCount : skippedCount} Fragen",
+                                              "${state == 0 ? correctCount : state == 1 ? wrongCount : skippedCount} Frage${(state == 0 ? correctCount : state == 1 ? wrongCount : skippedCount) == 1 ? '' : 'n'}",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.normal),
                                         ),
@@ -492,7 +492,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                               children: [
                                 TextSpan(
                                   text:
-                                      "${((EXAM_MINUTES[exam]! * 60 - secondsLeft) / 60.0).ceil()} Minuten",
+                                      "${((EXAM_MINUTES[exam]! * 60 - secondsLeft) / 60.0).ceil()} Minute${(((EXAM_MINUTES[exam]! * 60 - secondsLeft) / 60.0).ceil()) == 1 ? '' : 'n'}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                 ),
