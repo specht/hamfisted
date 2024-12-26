@@ -277,9 +277,12 @@ Widget getAnswerWidget(String qid, int i) {
                           })),
                 );
               })
-            : SvgPicture.asset(
-                "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
-                width: cwidth * 0.86,
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: SvgPicture.asset(
+                  "data/2024/${GlobalData.questions!['questions'][qid]['answers_svg'][i]}",
+                  width: cwidth * 0.86,
+                ),
               ));
   });
 }

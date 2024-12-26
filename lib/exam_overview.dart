@@ -9,13 +9,18 @@ class ExamOverview extends StatefulWidget {
 }
 
 class _ExamOverviewState extends State<ExamOverview> {
-  @override
-  Widget build(BuildContext context) {
-    Map<String, double> examSuccessProbability = {};
+  Map<String, double> examSuccessProbability = {};
+
+  void recalculateProbabilities() {
     for (String exam in ['N', 'E', 'A', 'B', 'V']) {
       examSuccessProbability[exam] =
           GlobalData.instance.getExamSuccessProbability(exam);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    recalculateProbabilities();
     const Map<String, String> examTitle = {
       'N': 'Technische Kenntnisse der Klasse N',
       'E': 'Technische Kenntnisse der Klasse E',
@@ -72,7 +77,8 @@ class _ExamOverviewState extends State<ExamOverview> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("25 Fragen aus ${GlobalData.questions!['questions_for_hid'][questionCountKey[exam]].length}"),
+                        Text(
+                            "25 Fragen aus ${GlobalData.questions!['questions_for_hid'][questionCountKey[exam]].length}"),
                         Text("${EXAM_MINUTES[exam]} Minuten"),
                       ],
                     ),
@@ -84,11 +90,16 @@ class _ExamOverviewState extends State<ExamOverview> {
                         color: PRIMARY,
                       ),
                     ),
-                    Text("Geschätzte Erfolgswahrscheinlichkeit: ${(examSuccessProbability[exam]! * 100).round()}%"),
+                    Text(
+                        "Geschätzte Erfolgswahrscheinlichkeit: ${(examSuccessProbability[exam]! * 100).round()}%"),
                   ],
                 ),
                 onTap: () {
-                  Navigator.of(context).pushNamed('/exam', arguments: exam);
+                  Navigator.of(context)
+                      .pushNamed('/exam', arguments: exam)
+                      .then((_) => setState(() {
+                            recalculateProbabilities();
+                          }));
                 },
               ),
             ),
@@ -96,7 +107,10 @@ class _ExamOverviewState extends State<ExamOverview> {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
               "Die Prozentangaben zeigen deine momentane Wahrscheinlichkeit an, den entsprechenden Prüfungsteil zu bestehen. Die Berechnung erfolgt aufgrund deiner bisherigen Antworten im Prüfungstraining.",
-              style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, fontFamily: "Alegreya Sans"),
+              style: TextStyle(
+                  fontSize: 14,
+                  fontStyle: FontStyle.italic,
+                  fontFamily: "Alegreya Sans"),
             ),
           ),
         ],

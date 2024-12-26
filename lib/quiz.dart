@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -167,6 +168,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     candidates.shuffle();
     setState(() {
       qid = candidates[0];
+      // if (kDebugMode) qid = "2024_NB703";
       answerColor = [
         Colors.transparent,
         Colors.transparent,
@@ -364,8 +366,12 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: answerColor[i],
-                                        width: 2,
+                                        color:
+                                            answerColor[i] == Colors.transparent
+                                                ? Colors.transparent
+                                                : Color.lerp(answerColor[i],
+                                                    Colors.white, 0.5)!,
+                                        width: 1.5,
                                       ),
                                       borderRadius: BorderRadius.circular(4),
                                     ),
@@ -388,53 +394,69 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Center(
-                                                child: CircleAvatar(
-                                                  backgroundColor:
-                                                      answerColor[i] ==
-                                                              Colors.transparent
-                                                          ? Color.lerp(PRIMARY,
-                                                              Colors.white, 0.8)
-                                                          : answerColor[i],
-                                                  radius: cwidth * 0.045,
-                                                  child: answerColor[i] == GREEN
-                                                      ? Icon(
-                                                          Icons.check,
-                                                          color: Colors.white,
-                                                          size: cwidth * 0.05,
-                                                        )
-                                                      : answerColor[i] == RED
-                                                          ? Icon(
-                                                              Icons.clear,
-                                                              color:
-                                                                  Colors.white,
-                                                              size:
-                                                                  cwidth * 0.05,
-                                                            )
-                                                          : Text(
-                                                              String
-                                                                  .fromCharCode(
-                                                                      65 + ti),
-                                                              style: GoogleFonts.alegreyaSans(
-                                                                  fontSize:
-                                                                      cwidth *
-                                                                          0.04,
-                                                                  color: answerColor[
-                                                                              i] ==
-                                                                          Colors
-                                                                              .transparent
-                                                                      ? Colors
-                                                                          .black87
-                                                                      : Colors
-                                                                          .white,
-                                                                  fontWeight: answerColor[
-                                                                              i] ==
-                                                                          Colors
-                                                                              .transparent
-                                                                      ? FontWeight
-                                                                          .normal
-                                                                      : FontWeight
-                                                                          .bold),
-                                                            ),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: Color.lerp(
+                                                          answerColor[i],
+                                                          Colors.white,
+                                                          0.5)!, // Border color
+                                                      width:
+                                                          1.5, // Border width
+                                                    ),
+                                                  ),
+                                                  child: CircleAvatar(
+                                                    backgroundColor:
+                                                        // Colors.transparent,
+                                                        answerColor[i] ==
+                                                                Colors
+                                                                    .transparent
+                                                            ? Color.lerp(
+                                                                PRIMARY,
+                                                                Colors.white,
+                                                                0.9)
+                                                            : Color.lerp(
+                                                                answerColor[i],
+                                                                Colors.white,
+                                                                0.7),
+                                                    radius: cwidth * 0.045,
+                                                    child:
+                                                        answerColor[i] == GREEN
+                                                            ? Icon(
+                                                                Icons.check,
+                                                                color: GREEN,
+                                                                size: cwidth *
+                                                                    0.05,
+                                                              )
+                                                            : answerColor[i] ==
+                                                                    RED
+                                                                ? Icon(
+                                                                    Icons.clear,
+                                                                    color: RED,
+                                                                    size:
+                                                                        cwidth *
+                                                                            0.05,
+                                                                  )
+                                                                : Text(
+                                                                    String.fromCharCode(
+                                                                        65 +
+                                                                            ti),
+                                                                    style: GoogleFonts.alegreyaSans(
+                                                                        fontSize:
+                                                                            cwidth *
+                                                                                0.04,
+                                                                        color: answerColor[i] == Colors.transparent
+                                                                            ? Colors
+                                                                                .black87
+                                                                            : Colors
+                                                                                .white,
+                                                                        fontWeight: answerColor[i] ==
+                                                                                Colors.transparent
+                                                                            ? FontWeight.normal
+                                                                            : FontWeight.bold),
+                                                                  ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
