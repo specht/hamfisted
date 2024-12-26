@@ -92,7 +92,18 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
   }
 
   Future<void> clearProgress() async {
-    await GlobalData.box.clear();
+    String hid = ROOT_HID;
+    if (ModalRoute.of(context) != null) {
+      hid = (ModalRoute.of(context)!.settings.arguments ?? ROOT_HID).toString();
+    }
+    List<String> entries = [];
+    for (String qid
+        in (GlobalData.questions!['questions_for_hid'][hid] ?? [])) {
+      entries.add("t/$qid");
+    }
+
+    await GlobalData.box.deleteAll(entries);
+
     setState(() {});
   }
 

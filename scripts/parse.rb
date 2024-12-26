@@ -28,7 +28,7 @@ class Parser
         @parents['2024/TE_only'] = '2024'
         @parents['2024/TE_only'] = '2024'
         @headings['2007'] = 'Alter Fragenkatalog (2007)'
-        @headings['2024'] = 'Gesamter Fragenkatalog (2024)'
+        @headings['2024'] = 'Gesamter Fragenkatalog'
         @headings['2024/TN'] = 'Technische Kenntnisse der Klasse N'
         @headings['2024/TE'] = 'Technische Kenntnisse der Klassen E und N'
         @headings['2024/TA'] = 'Technische Kenntnisse der Klassen A, E und N'
