@@ -168,7 +168,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     candidates.shuffle();
     setState(() {
       qid = candidates[0];
-      // if (kDebugMode) qid = "2024_NB703";
+      if (kDebugMode) qid = "2024_NA101";
       answerColor = [
         Colors.transparent,
         Colors.transparent,
@@ -392,7 +392,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                                           children: [
                                             Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(7.0),
                                               child: Center(
                                                 child: Container(
                                                   decoration: BoxDecoration(

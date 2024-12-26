@@ -32,8 +32,8 @@ class Parser
         @headings['2024/TN'] = 'Technische Kenntnisse der Klasse N'
         @headings['2024/TE'] = 'Technische Kenntnisse der Klassen E und N'
         @headings['2024/TA'] = 'Technische Kenntnisse der Klassen A, E und N'
-        @headings['2024/TE_only'] = 'Nur Klasse E (ohne N)'
-        @headings['2024/TA_only'] = 'Nur Klasse A (ohne N und E)'
+        @headings['2024/TE_only'] = 'Nur Technik Klasse E (ohne N)'
+        @headings['2024/TA_only'] = 'Nur Technik Klasse A (ohne N und E)'
         @questions_for_hid['2007'] = Set.new()
         @questions_for_hid['2024'] = Set.new()
         @questions_for_hid['2024/TN'] = Set.new()

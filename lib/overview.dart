@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -220,7 +221,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(7.0),
                         child: Center(
                           child: CircleAvatar(
                             backgroundColor:
@@ -726,6 +727,14 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       hid = (ModalRoute.of(context)!.settings.arguments ?? ROOT_HID).toString();
     }
 
+    int solvedQuestionCount = 0;
+    for (String qid
+        in (GlobalData.questions!['questions_for_hid'][hid] ?? [])) {
+      if (GlobalData.box.get("t/$qid") != null) {
+        solvedQuestionCount += 1;
+      }
+    }
+
     var cards = getChapterCards(hid: hid);
 
     Future<void> showMyDialog(BuildContext context) async {
@@ -735,10 +744,14 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Fortschritt löschen'),
-            content: const SingleChildScrollView(
+            content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Möchtest du deinen gesamten Fortschritt löschen?'),
+                  (hid == ROOT_HID)
+                      ? Text(
+                          'Möchtest du deinen gesamten Fortschritt (${solvedQuestionCount} Antwort${solvedQuestionCount == 1 ? '' : 'en'}) löschen?')
+                      : Text(
+                          "Möchtest du deinen Fortschritt auf dieser Ebene (${solvedQuestionCount} Antwort${solvedQuestionCount == 1 ? '' : 'en'}) löschen?"),
                 ],
               ),
             ),
@@ -773,50 +786,49 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       appBar: AppBar(
         backgroundColor: PRIMARY,
         foregroundColor: Colors.white,
-        actions: hid == ROOT_HID
-            ? [
-                PopupMenuButton(onSelected: (value) async {
-                  if (value == 'clear_progress') {
-                    showMyDialog(context);
-                  } else if (value == 'show_intro') {
-                    await GlobalData.box.delete('shown_intro');
-                    setState(() {
-                      resetIntro();
-                    });
-                  } else if (value == 'about') {
-                    Navigator.of(context).pushNamed('/about');
-                  }
-                }, itemBuilder: (itemBuilder) {
-                  return <PopupMenuEntry>[
-                    const PopupMenuItem<String>(
-                      value: "show_intro",
-                      child: ListTile(
-                        title: Text("Einführung wiederholen"),
-                        visualDensity: VisualDensity.compact,
-                        leading: Icon(Icons.restart_alt),
-                      ),
-                    ),
-                    const PopupMenuItem<String>(
-                      value: "clear_progress",
-                      child: ListTile(
-                        title: Text("Fortschritt löschen"),
-                        visualDensity: VisualDensity.compact,
-                        leading: Icon(Icons.delete),
-                      ),
-                    ),
-                    const PopupMenuDivider(),
-                    const PopupMenuItem<String>(
-                      value: "about",
-                      child: ListTile(
-                        title: Text("Über diese App"),
-                        visualDensity: VisualDensity.compact,
-                        leading: Icon(Icons.info),
-                      ),
-                    ),
-                  ];
-                })
-              ]
-            : null,
+        actions: [
+          PopupMenuButton(onSelected: (value) async {
+            if (value == 'clear_progress') {
+              showMyDialog(context);
+            } else if (value == 'show_intro') {
+              await GlobalData.box.delete('shown_intro');
+              setState(() {
+                resetIntro();
+              });
+            } else if (value == 'about') {
+              Navigator.of(context).pushNamed('/about');
+            }
+          }, itemBuilder: (itemBuilder) {
+            return <PopupMenuEntry>[
+              PopupMenuItem<String>(
+                enabled: solvedQuestionCount > 0,
+                value: "clear_progress",
+                child: const ListTile(
+                  title: Text("Fortschritt löschen"),
+                  visualDensity: VisualDensity.compact,
+                  leading: Icon(Icons.delete),
+                ),
+              ),
+              const PopupMenuDivider(),
+              const PopupMenuItem<String>(
+                value: "show_intro",
+                child: ListTile(
+                  title: Text("Einführung wiederholen"),
+                  visualDensity: VisualDensity.compact,
+                  leading: Icon(Icons.restart_alt),
+                ),
+              ),
+              const PopupMenuItem<String>(
+                value: "about",
+                child: ListTile(
+                  title: Text("Über diese App"),
+                  visualDensity: VisualDensity.compact,
+                  leading: Icon(Icons.info),
+                ),
+              ),
+            ];
+          })
+        ],
         title: Text(
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
       ),

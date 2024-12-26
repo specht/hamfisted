@@ -142,23 +142,35 @@ class _StarredState extends State<Starred> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(7.0),
                           child: Center(
-                            child: CircleAvatar(
-                              backgroundColor:
-                                  Color.lerp(PRIMARY, Colors.white, 0.8),
-                              radius: cwidth * 0.045,
-                              child: Text(
-                                String.fromCharCode(65 + i),
-                                style: GoogleFonts.alegreyaSans(
-                                    fontSize: cwidth * 0.04,
-                                    color: Colors.black87,
-                                    fontWeight: FontWeight.normal),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: i == 0
+                                      ? Color.lerp(GREEN, Colors.white, 0.5)!
+                                      : Colors.transparent, // Border color
+                                  width: 1.5, // Border width
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                backgroundColor: i == 0
+                                    ? Color.lerp(GREEN, Colors.white, 0.7)
+                                    : Color.lerp(PRIMARY, Colors.white, 0.8),
+                                radius: cwidth * 0.045,
+                                child: Text(
+                                  String.fromCharCode(65 + i),
+                                  style: GoogleFonts.alegreyaSans(
+                                      fontSize: cwidth * 0.04,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.normal),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: cwidth * (1.0 - 0.045) - 70,
                           child: getAnswerWidget(qid, i),
                         ),

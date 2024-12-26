@@ -90,13 +90,13 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
         answersIndexForQuestion[qid]!.shuffle();
         globalKeyForQuestion[qid] = GlobalKey();
 
-        if (kDebugMode) {
-          Random r = Random();
-          if (r.nextDouble() < 0.8) {
-            selectedAnswerForQuestion[qid] = 0; // r.nextInt(4);
-          }
-          showResults = true;
-        }
+        // if (kDebugMode) {
+        //   Random r = Random();
+        //   if (r.nextDouble() < 0.8) {
+        //     selectedAnswerForQuestion[qid] = 0; // r.nextInt(4);
+        //   }
+        //   showResults = true;
+        // }
       }
       questions.shuffle();
     }
@@ -267,7 +267,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(8.0),
+                                                                .all(7.0),
                                                         child: Center(
                                                           child: CircleAvatar(
                                                             backgroundColor:
@@ -326,7 +326,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.all(
-                                                              8.0),
+                                                              7.0),
                                                       child: Center(
                                                         child: CircleAvatar(
                                                           backgroundColor:
@@ -556,7 +556,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(7.0),
                             child: Center(
                               child: CircleAvatar(
                                 backgroundColor:
