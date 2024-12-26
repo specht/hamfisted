@@ -64,6 +64,7 @@ class _StarredState extends State<Starred> {
           color: Colors.black,
           fontWeight: FontWeight.normal,
           fontStyle: FontStyle.italic,
+          fontFamily: "Alegreya Sans",
         ),
       ),
     ));

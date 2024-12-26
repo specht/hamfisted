@@ -108,9 +108,10 @@ class _ExamOverviewState extends State<ExamOverview> {
             child: Text(
               "Die Prozentangaben zeigen deine momentane Wahrscheinlichkeit an, den entsprechenden Prüfungsteil zu bestehen. Die Berechnung erfolgt aufgrund deiner bisherigen Antworten im Prüfungstraining.",
               style: TextStyle(
-                  fontSize: 14,
-                  fontStyle: FontStyle.italic,
-                  fontFamily: "Alegreya Sans"),
+                fontSize: 14,
+                fontStyle: FontStyle.italic,
+                fontFamily: "Alegreya Sans",
+              ),
             ),
           ),
         ],
