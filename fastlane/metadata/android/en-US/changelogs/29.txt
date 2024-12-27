@@ -1,0 +1,4 @@
+New features:
+
+- exam simulation
+- delete progress at every level

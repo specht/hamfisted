@@ -1,0 +1,3 @@
+Neue Funktionen:
+- Prüfungssimulation
+- Löschen des Fortschritts auf jeder Ebene möglich
