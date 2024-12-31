@@ -1,4 +1,12 @@
-Mit dieser App kannst du dich auf die Amateurfunkprüfung für die Klassen N, E und A vorbereiten. Übe alle Fragen der offiziellen Fragenkataloge der Bundesnetzagentur für die Teile "Technik Klasse N", "Technik Klasse E", "Technik Klasse A", "Betriebstechnik" sowie "Vorschriften" und behalte den Überblick über deinen Fortschritt. Nutze die Möglichkeit, eine Prüfung zu simulieren und dich so auf die echte Prüfung vorzubereiten. Die App ist kostenlos, offline nutzbar und enthält keine Werbung.
+Mit dieser App bereitest du dich effizient und stressfrei auf die Amateurfunk-Prüfungen der Klassen N, E und A vor.
+
+Umfassendes Übungsmaterial: Zugriff auf alle offiziellen Fragenkataloge der Bundesnetzagentur.
+
+Fortschrittskontrolle: Verfolge deinen Lernfortschritt und identifiziere deine Stärken und Schwächen.
+
+Prüfungssimulation: Teste dein Wissen unter realistischen Bedingungen und bereite dich optimal auf die echte Prüfung vor.
+
+Komplett kostenlos: Keine Kosten, keine Werbung, und vollständig offline nutzbar.
 
 Neue Funktionen:
 - Prüfungssimulation

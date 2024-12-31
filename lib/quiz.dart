@@ -127,6 +127,22 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  Future<void> clearProgress() async {
+    String hid = ROOT_HID;
+    if (ModalRoute.of(context) != null) {
+      hid = (ModalRoute.of(context)!.settings.arguments ?? ROOT_HID).toString();
+    }
+    List<String> entries = [];
+    for (String qid
+        in (GlobalData.questions!['questions_for_hid'][hid] ?? [])) {
+      entries.add("t/$qid");
+    }
+
+    await GlobalData.box.deleteAll(entries);
+
+    setState(() {});
+  }
+
   void pickTask() {
     guessedWrong = false;
     foundCorrect = false;
@@ -272,13 +288,62 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     if (hid == null) {
       // get current heading
       if (ModalRoute.of(context) != null) {
-        hid = (ModalRoute.of(context)!.settings.arguments ?? '').toString();
+        hid =
+            (ModalRoute.of(context)!.settings.arguments ?? ROOT_HID).toString();
       }
     }
     if (qid == null) {
       pickTask();
     }
+
+    int solvedQuestionCount = 0;
+    for (String qid
+        in (GlobalData.questions!['questions_for_hid'][hid] ?? [])) {
+      if (GlobalData.box.get("t/$qid") != null) {
+        solvedQuestionCount += 1;
+      }
+    }
+
     // qid = '2024_AF420';
+
+    Future<void> showMyDialog(BuildContext context) async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Fortschritt löschen'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(
+                      "Möchtest du deinen Fortschritt auf dieser Ebene (${solvedQuestionCount} Antwort${solvedQuestionCount == 1 ? '' : 'en'}) löschen?"),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Abbrechen'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Löschen'),
+                onPressed: () async {
+                  await clearProgress();
+
+                  setState(() {
+                    pickTask();
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     List<Widget> cards = [];
 
@@ -497,6 +562,25 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
         foregroundColor: Colors.white,
         title: Text(
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
+        actions: [
+          PopupMenuButton(onSelected: (value) async {
+            if (value == 'clear_progress') {
+              showMyDialog(context);
+            }
+          }, itemBuilder: (itemBuilder) {
+            return <PopupMenuEntry>[
+              PopupMenuItem<String>(
+                enabled: solvedQuestionCount > 0,
+                value: "clear_progress",
+                child: const ListTile(
+                  title: Text("Fortschritt löschen"),
+                  visualDensity: VisualDensity.compact,
+                  leading: Icon(Icons.delete),
+                ),
+              ),
+            ];
+          })
+        ],
       ),
       body: Padding(
         padding:

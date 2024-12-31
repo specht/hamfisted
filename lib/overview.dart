@@ -776,13 +776,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
               TextButton(
                 child: const Text('Löschen'),
                 onPressed: () async {
-                  var shownIntro = GlobalData.box.get('shown_intro');
                   await clearProgress();
-                  if (shownIntro != null) {
-                    setState(() {
-                      GlobalData.box.put('shown_intro', shownIntro);
-                    });
-                  }
+                  setState(() {});
                   Navigator.of(context).pop();
                 },
               ),

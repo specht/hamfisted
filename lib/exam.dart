@@ -215,23 +215,10 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                               Stack(
                                 children: [
                                   Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
                                     children: [
-                                      LayoutBuilder(
-                                        key: globalKeyForQuestion[qid],
-                                        builder: (context, constraints) {
-                                          WidgetsBinding.instance
-                                              .addPostFrameCallback((_) {
-                                            if (globalKeyForQuestion[qid]!
-                                                    .currentContext !=
-                                                null) {
-                                              setState(() {});
-                                            }
-                                          });
-                                          return Container(
-                                            child: getQuestionWidget(qid),
-                                          );
-                                        },
-                                      ),
+                                      getQuestionWidget(qid),
                                       for (int i = 1; i < 4; i++)
                                         if (selectedAnswerForQuestion[qid] !=
                                                 null &&
@@ -627,14 +614,14 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                     return Row(
                       children: [
                         SizedBox(
-                            width: 25,
+                            width: 30,
                             child: Align(
                                 alignment: Alignment.centerRight,
                                 child:
                                     Text(minutes.toString().padLeft(2, '0')))),
                         const Text(':'),
                         SizedBox(
-                            width: 25,
+                            width: 30,
                             child: Align(
                                 alignment: Alignment.centerLeft,
                                 child:
