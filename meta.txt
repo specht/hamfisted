@@ -11,3 +11,6 @@ Komplett kostenlos: Keine Kosten, keine Werbung, und vollständig offline nutzba
 Neue Funktionen:
 - Prüfungssimulation
 - Löschen des Fortschritts auf jeder Ebene möglich
+
+- Fortschritt kann auch auf der unteresten Ebene zurückgesetzt werden
+- kleinere Fehlerbehebungen
