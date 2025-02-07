@@ -7,7 +7,7 @@ require 'set'
 require 'json'
 require 'yaml'
 
-SKIP_SVG = true
+SKIP_SVG = false
 
 class Parser
     def initialize()
@@ -247,6 +247,7 @@ class Parser
     def render_tex(s, key, suffix, width)
         s.gsub!('<u>', '\\underline{')
         s.gsub!('</u>', '}')
+        s.gsub!("$\u03bc$", '\\textmu{}')
         s.gsub!('μ', '\\textmu{}')
 
         s.gsub!('Amateurfunkprüfungsbescheinigung', 'Ama\\-teur\\-funk\\-prü\\-fungs\\-be\\-schei\\-ni\\-gung')
