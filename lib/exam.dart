@@ -27,11 +27,13 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
   bool timeout = false;
   bool showResults = false;
   bool calculatedResults = false;
-  int secondsLeft = 0;
   int correctCount = 0;
   int wrongCount = 0;
   int skippedCount = 0;
   bool examPassed = false;
+  DateTime? examStartTime;
+  DateTime? examEndTime;
+  Duration? requiredTime;
 
   @override
   void initState() {
@@ -80,7 +82,8 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
     }
     if (exam == null) {
       exam = (ModalRoute.of(context)!.settings.arguments ?? '').toString();
-      secondsLeft = EXAM_MINUTES[exam]! * 60;
+      examStartTime = DateTime.now().add(const Duration(seconds: 1));
+      examEndTime = examStartTime!.add(Duration(minutes: EXAM_MINUTES[exam]!));
       developer.log("Choosing exam questions for $exam!");
       for (List<dynamic> qp in GlobalData.questions!['exam_questions'][exam]) {
         qp.shuffle();
@@ -120,6 +123,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
           }
         }
         examPassed = correctCount >= 19;
+        requiredTime = DateTime.now().difference(examStartTime!);
       }
       const List<String> stateLabel = ['Korrekt', 'Falsch', 'Nicht'];
       const List<Icon> stateIcon = [
@@ -479,7 +483,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                               children: [
                                 TextSpan(
                                   text:
-                                      "${((EXAM_MINUTES[exam]! * 60 - secondsLeft) / 60.0).ceil()} Minute${(((EXAM_MINUTES[exam]! * 60 - secondsLeft) / 60.0).ceil()) == 1 ? '' : 'n'}",
+                                      "${requiredTime!.inMinutes.toString().padLeft(2, '0')}:${(requiredTime!.inSeconds % 60).toString().padLeft(2, '0')}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -596,39 +600,36 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text("Prüfungssimulation"),
-              TweenAnimationBuilder<Duration>(
-                  duration: Duration(seconds: EXAM_MINUTES[exam]! * 60 + 1),
-                  tween: Tween(
-                      begin: Duration(seconds: EXAM_MINUTES[exam]! * 60 + 1),
-                      end: Duration.zero),
-                  onEnd: () {
-                    setState(() {
-                      timeout = true;
-                    });
-                  },
-                  builder:
-                      (BuildContext context, Duration value, Widget? child) {
-                    final minutes = value.inMinutes;
-                    final seconds = value.inSeconds % 60;
-                    secondsLeft = value.inSeconds;
-                    return Row(
-                      children: [
-                        SizedBox(
-                            width: 30,
-                            child: Align(
-                                alignment: Alignment.centerRight,
-                                child:
-                                    Text(minutes.toString().padLeft(2, '0')))),
-                        const Text(':'),
-                        SizedBox(
-                            width: 30,
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child:
-                                    Text(seconds.toString().padLeft(2, '0')))),
-                      ],
-                    );
-                  }),
+              StreamBuilder(
+                stream: Stream.periodic(const Duration(milliseconds: 250)),
+                builder: (context, snapshot) {
+                  Duration remainingTime =
+                      examEndTime!.difference(DateTime.now());
+                  if (remainingTime.isNegative) {
+                    remainingTime = const Duration(seconds: 0);
+                    setState(() => timeout = true);
+                  }
+                  return Row(
+                    children: [
+                      SizedBox(
+                          width: 30,
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(remainingTime.inMinutes
+                                  .toString()
+                                  .padLeft(2, '0')))),
+                      const Text(':'),
+                      SizedBox(
+                          width: 30,
+                          child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text((remainingTime.inSeconds % 60)
+                                  .toString()
+                                  .padLeft(2, '0')))),
+                    ],
+                  );
+                },
+              ),
             ],
           ),
         ),
