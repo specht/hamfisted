@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 import 'dart:math';
 
+import 'package:Hamfisted/aid.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -132,7 +133,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
         Icon(Icons.help_outline, color: Colors.black54, size: 20),
       ];
 
-      return Scaffold(
+      return AidScaffold(
         backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
         appBar: AppBar(
           backgroundColor: PRIMARY,
@@ -589,8 +590,8 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) =>
-          {if (!didPop) showPopConfirmationDialog()},
-      child: Scaffold(
+          {if (!didPop && !GlobalData.showAid) showPopConfirmationDialog()},
+      child: AidScaffold(
         backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
         appBar: AppBar(
           backgroundColor: PRIMARY,
@@ -600,38 +601,66 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text("Prüfungssimulation"),
-              StreamBuilder(
-                stream: Stream.periodic(const Duration(milliseconds: 250)),
-                builder: (context, snapshot) {
-                  Duration remainingTime =
-                      examEndTime!.difference(DateTime.now());
-                  if (remainingTime.isNegative) {
-                    remainingTime = const Duration(seconds: 0);
-                    setState(() => timeout = true);
-                  }
-                  return Row(
-                    children: [
-                      SizedBox(
-                          width: 30,
-                          child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(remainingTime.inMinutes
-                                  .toString()
-                                  .padLeft(2, '0')))),
-                      const Text(':'),
-                      SizedBox(
-                          width: 30,
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text((remainingTime.inSeconds % 60)
-                                  .toString()
-                                  .padLeft(2, '0')))),
-                    ],
-                  );
-                },
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      setState(() => GlobalData.showAid = true);
+                    },
+                    icon: const Icon(Icons.menu_book),
+                  ),
+                  StreamBuilder(
+                    stream: Stream.periodic(const Duration(milliseconds: 250)),
+                    builder: (context, snapshot) {
+                      Duration remainingTime =
+                          examEndTime!.difference(DateTime.now());
+                      if (remainingTime.isNegative) {
+                        remainingTime = const Duration(seconds: 0);
+                        setState(() => timeout = true);
+                      }
+                      return Row(
+                        children: [
+                          SizedBox(
+                              width: 30,
+                              child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(remainingTime.inMinutes
+                                      .toString()
+                                      .padLeft(2, '0')))),
+                          const Text(':'),
+                          SizedBox(
+                              width: 30,
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text((remainingTime.inSeconds % 60)
+                                      .toString()
+                                      .padLeft(2, '0')))),
+                        ],
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),
+          // actions: [
+          //   PopupMenuButton(onSelected: (value) async {
+          //     if (value == "show_aid") {
+          //       setState(() => GlobalData.showAid = true);
+          //     }
+          //   }, itemBuilder: (itemBuilder) {
+          //     return <PopupMenuEntry>[
+          //       const PopupMenuItem<String>(
+          //         value: "show_aid",
+          //         child: ListTile(
+          //           title: Text("Hilfsmittel"),
+          //           visualDensity: VisualDensity.compact,
+          //           leading: Icon(Icons.menu_book),
+          //         ),
+          //       ),
+          //     ];
+          //   })
+          // ],
         ),
         body: Padding(
           padding: EdgeInsets.only(

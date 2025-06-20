@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'about.dart';
+import 'aid.dart';
 import 'data.dart';
 import 'exam.dart';
 import 'exam_overview.dart';

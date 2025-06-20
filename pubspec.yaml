@@ -2,7 +2,7 @@ name: Hamfisted
 description: Trainiere für die Amateurfunkprüfung
 publish_to: 'none'
 
-version: 0.3.5+32
+version: 0.4.0+33
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -22,6 +22,7 @@ dependencies:
   package_info_plus: ^4.2.0
   provider: ^6.0.5
   path_provider: ^2.1.1
+  syncfusion_flutter_pdfviewer: ^29.2.11
   url_launcher: ^6.1.14
   vector_graphics_compiler: ^1.1.11+1
 

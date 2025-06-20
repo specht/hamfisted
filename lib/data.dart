@@ -2,17 +2,18 @@ import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:math';
 
-import 'package:Hamfisted/data.dart';
 import 'package:async/async.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jovial_svg/jovial_svg.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 const GREEN = Color(0xff73a946);
+// const GRAEN = Color(0xff4aa03f);
+// const GREEN = Color.fromARGB(255, 33, 142, 19);
 const RED = Color(0xff992413);
 const PRIMARY = Color(0xff1d5479);
 const GREY = Color(0xffe0e0e0);
@@ -64,12 +65,16 @@ class GlobalData with ChangeNotifier {
   static GlobalData get instance => _globalData;
   static var box;
   static var starBox;
+  static var configBox;
+  static bool showAid = false;
 
   static bool ready = false;
 
   static Map<String, dynamic>? questions;
 
   final _initMemoizer = AsyncMemoizer<bool>();
+  final PdfViewerController aidPdfViewerController = PdfViewerController();
+  Widget? aidPdfViewer;
 
   Future<bool> get launchGlobalData async {
     if (ready) return true;
@@ -83,8 +88,16 @@ class GlobalData with ChangeNotifier {
     await Hive.initFlutter();
     box = await Hive.openBox('settings');
     starBox = await Hive.openBox('starred');
+    configBox = await Hive.openBox('config');
 
     questions = jsonDecode(await rootBundle.loadString("data/questions.json"));
+
+    aidPdfViewer = SfPdfViewer.asset(
+      "assets/Hilfsmittel.pdf",
+      controller: aidPdfViewerController,
+      enableTextSelection: false,
+      canShowTextSelectionMenu: false,
+    );
 
     ready = true;
     developer.log('[init] GlobalData ready.');
@@ -110,11 +123,16 @@ class GlobalData with ChangeNotifier {
     GlobalData.starBox.delete(qid);
   }
 
+  double getExamHalftime() {
+    return GlobalData.configBox.get('exam_halftime', defaultValue: 14.0);
+  }
+
   double getExamSuccessProbability(String exam) {
     int now = DateTime.now().millisecondsSinceEpoch;
     int tries = 0;
     int successes = 0;
     Random r = Random(now);
+    double halftime = GlobalData.instance.getExamHalftime();
     for (int i = 0; i < 1000; i++) {
       int correct = 0;
       for (List<dynamic> block in GlobalData.questions!['exam_questions']
@@ -122,14 +140,11 @@ class GlobalData with ChangeNotifier {
         String qid = block[r.nextInt(block.length)];
         int ts = GlobalData.box.get("t/$qid") ?? 0;
         int diff = now - ts;
-        // model exponential decay over time:
-        // - 95% after 0 days
-        // - 61% after 7 days
-        // - 52% after 14 days
-        // - 48% after 21 days
-        // - 45% after 28 days
+        // model exponential decay using exponential
+        // decay with knowledge halftime
         double days = diff / (1000.0 * 60 * 60 * 24);
-        double p = (pow(days * 0.5 + 1.0, -0.4) * 0.75 + 0.2).toDouble();
+        double lambda = log(2.0) / halftime;
+        double p = exp(-lambda * days);
         if (r.nextDouble() < p) correct += 1;
       }
       tries += 1;

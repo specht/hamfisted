@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:Hamfisted/aid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -215,14 +216,16 @@ class _StarredState extends State<Starred> {
         ),
       );
     }
-    return Scaffold(
+    return AidScaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
         backgroundColor: PRIMARY,
         foregroundColor: Colors.white,
         actions: [
           PopupMenuButton(onSelected: (value) async {
-            if (value == 'clear_all_stars') {
+            if (value == "show_aid") {
+              setState(() => GlobalData.showAid = true);
+            } else if (value == 'clear_all_stars') {
               await showMyDialog(context);
               if (GlobalData.starBox.keys.length == 0) {
                 Navigator.of(context).pop();
@@ -230,6 +233,14 @@ class _StarredState extends State<Starred> {
             }
           }, itemBuilder: (itemBuilder) {
             return <PopupMenuEntry>[
+              const PopupMenuItem<String>(
+                value: "show_aid",
+                child: ListTile(
+                  title: Text("Hilfsmittel"),
+                  visualDensity: VisualDensity.compact,
+                  leading: Icon(Icons.menu_book),
+                ),
+              ),
               const PopupMenuItem<String>(
                 value: "clear_all_stars",
                 child: ListTile(

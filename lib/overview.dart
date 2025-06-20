@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:developer' as developer;
 
+import 'package:Hamfisted/aid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -787,14 +788,16 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       );
     }
 
-    return Scaffold(
+    return AidScaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
         backgroundColor: PRIMARY,
         foregroundColor: Colors.white,
         actions: [
           PopupMenuButton(onSelected: (value) async {
-            if (value == 'clear_progress') {
+            if (value == 'show_aid') {
+              setState(() => GlobalData.showAid = true);
+            } else if (value == 'clear_progress') {
               showMyDialog(context);
             } else if (value == 'show_intro') {
               await GlobalData.box.delete('shown_intro');
@@ -806,6 +809,14 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
             }
           }, itemBuilder: (itemBuilder) {
             return <PopupMenuEntry>[
+              const PopupMenuItem<String>(
+                value: "show_aid",
+                child: ListTile(
+                  title: Text("Hilfsmittel"),
+                  visualDensity: VisualDensity.compact,
+                  leading: Icon(Icons.menu_book),
+                ),
+              ),
               PopupMenuItem<String>(
                 enabled: solvedQuestionCount > 0,
                 value: "clear_progress",

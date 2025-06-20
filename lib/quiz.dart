@@ -2,13 +2,9 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
+import 'package:Hamfisted/aid.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jovial_svg/jovial_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'data.dart';
@@ -555,7 +551,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       },
     );
 
-    return Scaffold(
+    return AidScaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
         backgroundColor: PRIMARY,
@@ -564,11 +560,21 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
             (GlobalData.questions!['headings'][hid] ?? 'Amateurfunkprüfung')),
         actions: [
           PopupMenuButton(onSelected: (value) async {
-            if (value == 'clear_progress') {
+            if (value == "show_aid") {
+              setState(() => GlobalData.showAid = true);
+            } else if (value == 'clear_progress') {
               showMyDialog(context);
             }
           }, itemBuilder: (itemBuilder) {
             return <PopupMenuEntry>[
+              const PopupMenuItem<String>(
+                value: "show_aid",
+                child: ListTile(
+                  title: Text("Hilfsmittel"),
+                  visualDensity: VisualDensity.compact,
+                  leading: Icon(Icons.menu_book),
+                ),
+              ),
               PopupMenuItem<String>(
                 enabled: solvedQuestionCount > 0,
                 value: "clear_progress",
