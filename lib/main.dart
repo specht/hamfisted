@@ -13,10 +13,13 @@ import 'starred.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await GlobalData.instance.launchGlobalData;
-  runApp(ChangeNotifierProvider<GlobalData>.value(
-      value: GlobalData.instance, child: const Hamfisted()));
+  runApp(
+    ChangeNotifierProvider.value(
+      value: GlobalData.instance,
+      child: const Hamfisted(),
+    ),
+  );
 }
 
 class Hamfisted extends StatelessWidget {
@@ -28,6 +31,7 @@ class Hamfisted extends StatelessWidget {
     return MaterialApp(
       title: 'Amateurfunkprüfung',
       debugShowCheckedModeBanner: false,
+      // showPerformanceOverlay: true,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: PRIMARY,

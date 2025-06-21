@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,8 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jovial_svg/jovial_svg.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
 
 const GREEN = Color(0xff73a946);
 // const GRAEN = Color(0xff4aa03f);
@@ -66,13 +68,14 @@ class GlobalData with ChangeNotifier {
   static GlobalData get instance => _globalData;
   static var box;
   static var starBox;
+  static var configBox;
+  List<ScalableImage> aidScalableImages = [];
 
   static bool ready = false;
 
   static Map<String, dynamic>? questions;
 
   final _initMemoizer = AsyncMemoizer<bool>();
-  late final PdfViewerController aidPdfViewerController;
 
   Future<bool> get launchGlobalData async {
     if (ready) return true;
@@ -82,15 +85,38 @@ class GlobalData with ChangeNotifier {
     return _ready;
   }
 
+  List<MemoryImage?> previewImages = List.filled(24, null);
+  List<MemoryImage?> fullImages = List.filled(24, null);
+
+  Future<void> _loadSVGs() async {
+    for (int i = 1; i <= 24; i++) {
+      developer.log("Loading SVG for aid $i");
+      final si = await ScalableImage.fromSIAsset(
+        rootBundle,
+        "assets/jovial/hilfsmittel-${i}-scour.si",
+      );
+      final dag = si.toDag();
+      aidScalableImages.add(dag);
+
+      // Rasterize previews at 0.5x and 1.0x resolution
+
+      // final lowRes =
+      // await rasterizeSVG(dag, 210 * 3, 297 * 3); // ~0.5x at 2x scale
+      // previewImages[i - 1] = await imageToMemoryImage(lowRes);
+      // final hiRes =
+      //     await rasterizeSVG(dag, 210 * 4, 297 * 4); // ~1.0x at 2x scale
+      // fullImages[i - 1] = await imageToMemoryImage(hiRes);
+    }
+  }
+
   Future<bool> _init() async {
     await Hive.initFlutter();
     box = await Hive.openBox('settings');
     starBox = await Hive.openBox('starred');
+    configBox = await Hive.openBox('config');
 
     questions = jsonDecode(await rootBundle.loadString("data/questions.json"));
-
-    developer.log("CREATING PDF DOCUMENT VIEWER");
-    aidPdfViewerController = PdfViewerController();
+    await _loadSVGs();
 
     ready = true;
     developer.log('[init] GlobalData ready.');

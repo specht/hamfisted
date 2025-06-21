@@ -22,7 +22,6 @@ dependencies:
   package_info_plus: ^4.2.0
   provider: ^6.0.5
   path_provider: ^2.1.1
-  syncfusion_flutter_pdfviewer: ^29.2.11
   url_launcher: ^6.1.14
   vector_graphics_compiler: ^1.1.11+1
 
@@ -39,6 +38,7 @@ flutter:
     - data/2024/
     - data/2024/tex/
     - assets/
+    - assets/jovial/
     - fonts/
   fonts:
     - family: AlegreyaSans
