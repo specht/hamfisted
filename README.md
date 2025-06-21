@@ -8,8 +8,8 @@
 <br/>
 
 <a href='https://play.google.com/store/apps/details?id=org.nhcham.hamfisted' target='_blank'><img src='craft/google-play-badge.png' style='height: 50px;'/></a>
-<a href='https://f-droid.org/packages/org.nhcham.hamfisted/' target='_blank'><img src='craft/get-it-on-en-us.png' style='height: 50px;'/></a>
 <a href='https://apps.apple.com/app/hamfisted/id6470218069' target='_blank'><img src='craft/app-store-badge.png' style='height: 50px;'/></a>
+<a href='https://f-droid.org/packages/org.nhcham.hamfisted/' target='_blank'><img src='craft/get-it-on-en-us.png' style='height: 50px;'/></a>
 
 <p>
 Mit dieser App kannst du dich auf die Amateurfunkprüfung für die Klassen N, E und A vorbereiten. Übe alle Fragen der offiziellen Fragenkataloge der Bundesnetzagentur für die Teile "Technik Klasse N", "Technik Klasse E", "Technik Klasse A", "Betriebstechnik" sowie "Vorschriften" und behalte den Überblick über deinen Fortschritt.
@@ -33,3 +33,5 @@ Mit dieser App kannst du dich auf die Amateurfunkprüfung für die Klassen N, E 
 <a href="https://www.buymeacoffee.com/specht"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="60"></a>
 
 <br/>
+
+# 
