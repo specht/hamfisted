@@ -175,23 +175,6 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                 padding: const EdgeInsets.only(top: 8.0),
                 child: ProgressBarForHid(hid: subhid, demo: demo),
               ),
-              // subtitle: Padding(
-              //   padding: const EdgeInsets.only(top: 8.0),
-              //   child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       children: [
-              //         for (int k = 0; k <= 4; k++)
-              //           if (countForDuration[k] > 0)
-              //             Flexible(
-              //               flex: countForDuration[k],
-              //               child: LinearProgressIndicator(
-              //                 backgroundColor: const Color(0x10000000),
-              //                 color: PROGRESS_COLORS[k],
-              //                 value: 1.0,
-              //               ),
-              //             ),
-              //       ]),
-              // ),
             ),
           ),
           onTap: () {
