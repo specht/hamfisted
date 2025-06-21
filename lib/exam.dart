@@ -1,14 +1,8 @@
 import 'dart:developer' as developer;
 import 'dart:math';
 
-import 'package:Hamfisted/aid.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jovial_svg/jovial_svg.dart';
 
 import 'data.dart';
 
@@ -113,14 +107,13 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
         for (String qid in questions) {
           if (selectedAnswerForQuestion[qid] == null) {
             skippedCount++;
-            GlobalData.instance.unmarkQuestionSolved(qid);
+            // GlobalData.instance.questionAnsweredWrong(qid);
           } else if (selectedAnswerForQuestion[qid]! == 0) {
             correctCount++;
-            GlobalData.instance
-                .markQuestionSolved(qid, DateTime.now().millisecondsSinceEpoch);
+            GlobalData.instance.questionAnsweredCorrectly(qid);
           } else {
             wrongCount++;
-            GlobalData.instance.unmarkQuestionSolved(qid);
+            GlobalData.instance.questionAnsweredWrong(qid);
           }
         }
         examPassed = correctCount >= 19;
@@ -133,7 +126,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
         Icon(Icons.help_outline, color: Colors.black54, size: 20),
       ];
 
-      return AidScaffold(
+      return Scaffold(
         backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
         appBar: AppBar(
           backgroundColor: PRIMARY,
@@ -590,8 +583,8 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) =>
-          {if (!didPop && !GlobalData.showAid) showPopConfirmationDialog()},
-      child: AidScaffold(
+          {if (!didPop) showPopConfirmationDialog()},
+      child: Scaffold(
         backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
         appBar: AppBar(
           backgroundColor: PRIMARY,
@@ -605,7 +598,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
                 children: [
                   IconButton(
                     onPressed: () {
-                      setState(() => GlobalData.showAid = true);
+                      Navigator.of(context).pushNamed('/aid');
                     },
                     icon: const Icon(Icons.menu_book),
                   ),
@@ -646,7 +639,7 @@ class _ExamState extends State<Exam> with TickerProviderStateMixin {
           // actions: [
           //   PopupMenuButton(onSelected: (value) async {
           //     if (value == "show_aid") {
-          //       setState(() => GlobalData.showAid = true);
+          //       Navigator.of(context).pushNamed('/aid');
           //     }
           //   }, itemBuilder: (itemBuilder) {
           //     return <PopupMenuEntry>[

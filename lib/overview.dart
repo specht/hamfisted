@@ -1,15 +1,10 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:developer' as developer;
 
-import 'package:Hamfisted/aid.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:jovial_svg/jovial_svg.dart';
 
 import 'data.dart';
 import 'quiz.dart';
@@ -101,6 +96,9 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     for (String qid
         in (GlobalData.questions!['questions_for_hid'][hid] ?? [])) {
       entries.add("t/$qid");
+      entries.add("r/$qid");
+      entries.add("i/$qid");
+      entries.add("e/$qid");
     }
 
     await GlobalData.box.deleteAll(entries);
@@ -108,29 +106,35 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     setState(() {});
   }
 
+  Future<void> feignProgress() async {
+    String hid = ROOT_HID;
+    if (ModalRoute.of(context) != null) {
+      hid = (ModalRoute.of(context)!.settings.arguments ?? ROOT_HID).toString();
+    }
+    Random random = Random(DateTime.now().millisecondsSinceEpoch);
+    int daysRange = 7;
+    int daysOffset = 7;
+    for (String qid
+        in (GlobalData.questions!['questions_for_hid'][hid] ?? [])) {
+      GlobalData.instance.setLastReviewedForQuestion(
+          qid,
+          (DateTime.now().millisecondsSinceEpoch -
+                  random.nextInt(1000 * 60 * 60 * 24 * daysRange) -
+                  1000 * 60 * 60 * 24 * daysOffset)
+              .round());
+      GlobalData.instance.setRepetitionsForQuestion(qid, random.nextInt(3));
+      GlobalData.instance.setIntervalForQuestion(qid, random.nextInt(30));
+      GlobalData.instance
+          .setEasinessForQuestion(qid, 1.3 + random.nextDouble() * 1.7);
+    }
+
+    setState(() {});
+  }
+
   List<Widget> getChapterCards({String hid = '', bool demo = false}) {
     List<Widget> cards = [];
-    int now = DateTime.now().millisecondsSinceEpoch;
-    Random r = Random(0);
     for (var subhid in (GlobalData.questions!['children'][hid] ?? [])) {
       if (subhid == '2007') continue;
-      List<int> countForDuration = [0, 0, 0, 0, 0];
-      if (demo) {
-        countForDuration = [10, 13, 9, 2, 28];
-        countForDuration.shuffle(r);
-      } else {
-        for (String qid
-            in (GlobalData.questions!['questions_for_hid'][subhid] ?? [])) {
-          int ts = GlobalData.box.get("t/$qid") ?? 0;
-          int diff = now - ts;
-          int slot = 4;
-          if (diff < DECAY[0]) slot = 3;
-          if (diff < DECAY[1]) slot = 2;
-          if (diff < DECAY[2]) slot = 1;
-          if (diff < DECAY[3]) slot = 0;
-          countForDuration[slot] += 1;
-        }
-      }
       String label = GlobalData.questions!['headings'][subhid] ?? subhid;
       cards.add(
         InkWell(
@@ -169,21 +173,25 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      for (int k = 0; k <= 4; k++)
-                        if (countForDuration[k] > 0)
-                          Flexible(
-                            flex: countForDuration[k],
-                            child: LinearProgressIndicator(
-                              backgroundColor: const Color(0x10000000),
-                              color: PROGRESS_COLORS[k],
-                              value: 1.0,
-                            ),
-                          ),
-                    ]),
+                child: ProgressBarForHid(hid: subhid, demo: demo),
               ),
+              // subtitle: Padding(
+              //   padding: const EdgeInsets.only(top: 8.0),
+              //   child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         for (int k = 0; k <= 4; k++)
+              //           if (countForDuration[k] > 0)
+              //             Flexible(
+              //               flex: countForDuration[k],
+              //               child: LinearProgressIndicator(
+              //                 backgroundColor: const Color(0x10000000),
+              //                 color: PROGRESS_COLORS[k],
+              //                 value: 1.0,
+              //               ),
+              //             ),
+              //       ]),
+              // ),
             ),
           ),
           onTap: () {
@@ -788,7 +796,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       );
     }
 
-    return AidScaffold(
+    return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
         backgroundColor: PRIMARY,
@@ -796,9 +804,11 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
         actions: [
           PopupMenuButton(onSelected: (value) async {
             if (value == 'show_aid') {
-              setState(() => GlobalData.showAid = true);
+              Navigator.of(context).pushNamed('/aid');
             } else if (value == 'clear_progress') {
               showMyDialog(context);
+            } else if (value == 'feign_progress') {
+              feignProgress();
             } else if (value == 'show_intro') {
               await GlobalData.box.delete('shown_intro');
               setState(() {
@@ -826,6 +836,15 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                   leading: Icon(Icons.delete),
                 ),
               ),
+              if (kDebugMode)
+                const PopupMenuItem<String>(
+                  value: "feign_progress",
+                  child: ListTile(
+                    title: Text("Fortschritt simulieren"),
+                    visualDensity: VisualDensity.compact,
+                    leading: Icon(Icons.trolley),
+                  ),
+                ),
               const PopupMenuDivider(),
               const PopupMenuItem<String>(
                 value: "show_intro",

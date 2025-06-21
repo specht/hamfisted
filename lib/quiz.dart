@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:math';
 
-import 'package:Hamfisted/aid.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,8 +29,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   bool animationPhase3 = false;
   bool solvedAll = false;
   Timer? _timer;
-  double overallProgress = 0.0;
-  double? overallProgressFirst;
+  // double overallProgress = 0.0;
+  // double? overallProgressFirst;
 
   late final AnimationController _animationController = AnimationController(
     duration: const Duration(milliseconds: 500),
@@ -132,6 +132,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     for (String qid
         in (GlobalData.questions!['questions_for_hid'][hid] ?? [])) {
       entries.add("t/$qid");
+      entries.add("r/$qid");
+      entries.add("i/$qid");
+      entries.add("e/$qid");
     }
 
     await GlobalData.box.deleteAll(entries);
@@ -148,7 +151,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     for (String x in GlobalData.questions!['questions_for_hid'][hid]) {
       candidates.add(x);
     }
-    int now = DateTime.now().millisecondsSinceEpoch;
+
     List<ListWithDecay> candidatesSorted = [
       ListWithDecay(0),
       ListWithDecay(1),
@@ -157,23 +160,15 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       ListWithDecay(4)
     ];
     for (String qid in candidates) {
-      int ts = GlobalData.box.get("t/$qid") ?? 0;
-      int diff = now - ts;
       int slot = 4;
-      if (diff < DECAY[0]) slot = 3;
-      if (diff < DECAY[1]) slot = 2;
-      if (diff < DECAY[2]) slot = 1;
-      if (diff < DECAY[3]) slot = 0;
+      double p = GlobalData.instance.getRecallProbabilityForQuestion(qid);
+      if (p > 0.2) slot = 3;
+      if (p > 0.4) slot = 2;
+      if (p > 0.6) slot = 1;
+      if (p > 0.8) slot = 0;
+
       candidatesSorted[slot].entries.add(qid);
     }
-    overallProgress = (candidatesSorted[0].entries.length +
-                candidatesSorted[1].entries.length +
-                candidatesSorted[2].entries.length +
-                candidatesSorted[3].entries.length)
-            .toDouble() /
-        candidates.length;
-    overallProgressFirst ??= overallProgress;
-
     candidatesSorted.removeWhere((element) => element.entries.isEmpty);
     solvedAll = (candidatesSorted.last.decay == 0);
     candidates = candidatesSorted.last.entries;
@@ -252,6 +247,9 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
   }
 
   void tapAnswer(int i) {
+    if (animationPhase1 || animationPhase2 || animationPhase3) {
+      return;
+    }
     if (unsure && foundCorrect && answerColor[i] != Colors.transparent) {
       launchAnimation();
       return;
@@ -262,8 +260,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       answerColor[i] = GREEN;
       if (!guessedWrong) {
         if (!unsure) {
-          GlobalData.instance
-              .markQuestionSolved(qid!, DateTime.now().millisecondsSinceEpoch);
+          GlobalData.instance.questionAnsweredCorrectly(qid!);
         }
       }
       if (!unsure) {
@@ -273,8 +270,8 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       // answer is wrong
       answerColor[i] = RED;
       guessedWrong = true;
+      if (!unsure) GlobalData.instance.questionAnsweredWrong(qid!);
       unsure = true;
-      GlobalData.instance.unmarkQuestionSolved(qid!);
       solvedAll = false;
     }
   }
@@ -346,24 +343,21 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
     cards.add(
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0),
-        child: TweenAnimationBuilder<double>(
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.easeInOutCubic,
-          tween: Tween<double>(
-            begin: overallProgressFirst,
-            end: overallProgress,
-          ),
-          builder: (context, value, _) => LinearProgressIndicator(
-            value: value,
-            backgroundColor: const Color(0x20000000),
-            color: Color.lerp(PRIMARY, Colors.black, 0.5),
-          ),
-        ),
+        child: ProgressBarForHid(hid: hid!),
       ),
     );
 
     cards.add(getQuestionWidget(qid!));
 
+    if (kDebugMode) {
+      cards.add(Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Text(
+            "Repetitions: ${GlobalData.instance.getRepetitionsForQuestion(qid!)}, Interval: ${GlobalData.instance.getIntervalForQuestion(qid!)}, Easiness: ${GlobalData.instance.getEasinessForQuestion(qid!).toStringAsFixed(1)}, Recall probability: ${(GlobalData.instance.getRecallProbabilityForQuestion(qid!) * 100).round()}%",
+            textAlign: TextAlign.center),
+      ));
+      // cards.add(const Divider());
+    }
     cards.add(const Divider());
 
     for (int ti = 0; ti < 4; ti++) {
@@ -551,7 +545,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
       },
     );
 
-    return AidScaffold(
+    return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
         backgroundColor: PRIMARY,
@@ -561,7 +555,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
         actions: [
           PopupMenuButton(onSelected: (value) async {
             if (value == "show_aid") {
-              setState(() => GlobalData.showAid = true);
+              Navigator.of(context).pushNamed('/aid');
             } else if (value == 'clear_progress') {
               showMyDialog(context);
             }

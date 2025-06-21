@@ -1,15 +1,11 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'data.dart';
 
 class Aid extends StatefulWidget {
-  static final Aid instance = Aid._internal();
-  const Aid._internal();
-
-  factory Aid() => instance;
+  const Aid({super.key});
 
   @override
   State<Aid> createState() => _AidState();
@@ -82,54 +78,11 @@ class _AidState extends State<Aid> with AutomaticKeepAliveClientMixin {
           )
         ],
       ),
-      body: GlobalData.instance.aidPdfViewer,
-    );
-  }
-}
-
-class AidScaffold extends StatefulWidget {
-  final Color? backgroundColor;
-  final AppBar? appBar;
-  final Widget? body;
-  final Widget? bottomNavigationBar;
-  const AidScaffold(
-      {super.key,
-      this.backgroundColor,
-      this.appBar,
-      this.body,
-      this.bottomNavigationBar});
-
-  @override
-  State<AidScaffold> createState() => _AidScaffoldState();
-}
-
-class _AidScaffoldState extends State<AidScaffold> {
-  @override
-  Widget build(BuildContext context) {
-    return PopScope(
-      canPop: !GlobalData.showAid,
-      onPopInvokedWithResult: (didPop, result) {
-        if (GlobalData.showAid) {
-          setState(() {
-            GlobalData.showAid = false;
-          });
-        } else {
-          Navigator.of(context).maybePop(result);
-        }
-      },
-      child: IndexedStack(
-        index: GlobalData.showAid
-            ? 1
-            : 0, // This can be used to switch between different pages if needed
-        children: [
-          Scaffold(
-            appBar: widget.appBar,
-            backgroundColor: widget.backgroundColor,
-            body: widget.body,
-            bottomNavigationBar: widget.bottomNavigationBar,
-          ),
-          Aid(),
-        ],
+      body: SfPdfViewer.asset(
+        "assets/Hilfsmittel.pdf",
+        controller: GlobalData.instance.aidPdfViewerController,
+        enableTextSelection: false,
+        canShowTextSelectionMenu: false,
       ),
     );
   }

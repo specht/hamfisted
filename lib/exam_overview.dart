@@ -1,5 +1,3 @@
-import 'package:Hamfisted/aid.dart';
-
 import 'data.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +35,7 @@ class _ExamOverviewState extends State<ExamOverview> {
       'B': '2024/1',
       'V': '2024/2',
     };
-    return AidScaffold(
+    return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
         backgroundColor: PRIMARY,
@@ -119,32 +117,8 @@ class _ExamOverviewState extends State<ExamOverview> {
           const Padding(
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 0),
             child: Text(
-              "Dabei spielt es nicht direkt eine Rolle, wie viele Prüfungssimulationen du bereits bestanden hast. Es zählen nur die einzelnen Fragen und wann du zum letzten Mal eine richtige Antwort auf jede Frage gegeben hast. Für die Prüfungssimulation werden 25 Fragen quer aus dem jeweiligen Fragenkatalog zufällig ausgewählt und anschließend für jede dieser Fragen geschätzt, wie wahrscheinlich es ist, dass du sie korrekt beantworten kannst. Ein wichtiger Parameter ist dabei die Gedächtnis-Halbwertzeit, die du hier einstellen kannst:",
+              "Dabei spielt es nicht direkt eine Rolle, wie viele Prüfungssimulationen du bereits bestanden hast. Es zählen nur deine bisherigen Antworten auf die Fragen des jeweiligen Fragenkataloges. Für die Prüfungssimulation werden 25 Fragen quer aus dem jeweiligen Fragenkatalog zufällig ausgewählt und anschließend für jede dieser Fragen geschätzt, wie wahrscheinlich es ist, dass du sie korrekt beantworten kannst. Daraus wird dann die Erfolgswahrscheinlichkeit für den jeweiligen Prüfungsteil berechnet.",
               style: TextStyle(
-                fontSize: 14,
-                fontStyle: FontStyle.italic,
-                fontFamily: "Alegreya Sans",
-              ),
-            ),
-          ),
-          Slider(
-            min: 1,
-            max: 28,
-            divisions: 27,
-            value: GlobalData.instance.getExamHalftime(),
-            onChanged: (value) {
-              GlobalData.configBox.put('exam_halftime', value);
-              setState(() {
-                recalculateProbabilities();
-              });
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-            child: Text(
-              "Nach ${GlobalData.instance.getExamHalftime().toInt()} Tag${GlobalData.instance.getExamHalftime().toInt() == 1 ? '' : 'en'} sinkt die Wahrscheinlichkeit, eine Frage korrekt zu beantworten, auf 50%.",
-              textAlign: TextAlign.center,
-              style: const TextStyle(
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
                 fontFamily: "Alegreya Sans",

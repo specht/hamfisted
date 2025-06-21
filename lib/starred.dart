@@ -1,13 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:Hamfisted/aid.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jovial_svg/jovial_svg.dart';
 
 import 'data.dart';
 
@@ -56,8 +51,8 @@ class _StarredState extends State<Starred> {
   @override
   Widget build(BuildContext context) {
     List<Widget> cards = [];
-    cards.add(Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+    cards.add(const Padding(
+      padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
       child: Text(
         "Anmerkung: Bei den hier angezeigten Fragen ist immer Antwort A die korrekte Antwort.",
         style: TextStyle(
@@ -216,7 +211,7 @@ class _StarredState extends State<Starred> {
         ),
       );
     }
-    return AidScaffold(
+    return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
         backgroundColor: PRIMARY,
@@ -224,7 +219,7 @@ class _StarredState extends State<Starred> {
         actions: [
           PopupMenuButton(onSelected: (value) async {
             if (value == "show_aid") {
-              setState(() => GlobalData.showAid = true);
+              Navigator.of(context).pushNamed('/aid');
             } else if (value == 'clear_all_stars') {
               await showMyDialog(context);
               if (GlobalData.starBox.keys.length == 0) {

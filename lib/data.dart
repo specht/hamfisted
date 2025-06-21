@@ -57,6 +57,7 @@ const Map<String, int> EXAM_MINUTES = {
 
 int timestamp() {
   return DateTime.now().millisecondsSinceEpoch;
+  // return DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 60 * 24 * 50;
 }
 
 class GlobalData with ChangeNotifier {
@@ -65,16 +66,13 @@ class GlobalData with ChangeNotifier {
   static GlobalData get instance => _globalData;
   static var box;
   static var starBox;
-  static var configBox;
-  static bool showAid = false;
 
   static bool ready = false;
 
   static Map<String, dynamic>? questions;
 
   final _initMemoizer = AsyncMemoizer<bool>();
-  final PdfViewerController aidPdfViewerController = PdfViewerController();
-  Widget? aidPdfViewer;
+  late final PdfViewerController aidPdfViewerController;
 
   Future<bool> get launchGlobalData async {
     if (ready) return true;
@@ -88,16 +86,11 @@ class GlobalData with ChangeNotifier {
     await Hive.initFlutter();
     box = await Hive.openBox('settings');
     starBox = await Hive.openBox('starred');
-    configBox = await Hive.openBox('config');
 
     questions = jsonDecode(await rootBundle.loadString("data/questions.json"));
 
-    aidPdfViewer = SfPdfViewer.asset(
-      "assets/Hilfsmittel.pdf",
-      controller: aidPdfViewerController,
-      enableTextSelection: false,
-      canShowTextSelectionMenu: false,
-    );
+    developer.log("CREATING PDF DOCUMENT VIEWER");
+    aidPdfViewerController = PdfViewerController();
 
     ready = true;
     developer.log('[init] GlobalData ready.');
@@ -107,12 +100,76 @@ class GlobalData with ChangeNotifier {
     return ready;
   }
 
-  void markQuestionSolved(String qid, int timestamp) {
+  int getLastReviewedForQuestion(String qid) {
+    return GlobalData.box.get("t/$qid", defaultValue: 0);
+    // return timestamp() -
+    // Random.secure().nextInt(1000 * 60 * 60 * 24 * 30); // For testing
+  }
+
+  void setLastReviewedForQuestion(String qid, int timestamp) {
     GlobalData.box.put("t/$qid", timestamp);
   }
 
-  void unmarkQuestionSolved(String qid) {
-    GlobalData.box.delete("t/$qid");
+  int getRepetitionsForQuestion(String qid) {
+    return GlobalData.box.get("r/$qid", defaultValue: 0);
+    // return Random.secure().nextInt(10); // For testing
+  }
+
+  void setRepetitionsForQuestion(String qid, int repetitions) {
+    GlobalData.box.put("r/$qid", repetitions);
+  }
+
+  int getIntervalForQuestion(String qid) {
+    return GlobalData.box.get("i/$qid", defaultValue: 0);
+    // return Random.secure().nextInt(30) + 1; // For testing
+  }
+
+  void setIntervalForQuestion(String qid, int interval) {
+    GlobalData.box.put("i/$qid", interval);
+  }
+
+  double getEasinessForQuestion(String qid) {
+    return GlobalData.box.get("e/$qid", defaultValue: 2.5);
+  }
+
+  void setEasinessForQuestion(String qid, double easiness) {
+    GlobalData.box.put("e/$qid", easiness);
+  }
+
+  double getRetentionSpanForQuestion(String qid) {
+    int interval = getIntervalForQuestion(qid);
+    double easiness = getEasinessForQuestion(qid);
+    return max(1.0, interval * easiness);
+  }
+
+  double getRecallProbabilityForQuestion(String qid) {
+    int now = timestamp();
+    int lastReviewed = getLastReviewedForQuestion(qid);
+    double daysSince = (now - lastReviewed) / (1000 * 60 * 60 * 24);
+    double retentionSpan = getRetentionSpanForQuestion(qid);
+    return min(0.99, max(0.05, exp(-daysSince / retentionSpan)));
+  }
+
+  void questionAnsweredCorrectly(String qid) {
+    int now = timestamp();
+    int repetitions = getRepetitionsForQuestion(qid) + 1;
+    setRepetitionsForQuestion(qid, repetitions);
+    double easiness = min(max(1.3, getEasinessForQuestion(qid) + 0.1), 3.0);
+    setEasinessForQuestion(qid, easiness);
+    int interval = repetitions == 1
+        ? 1
+        : (repetitions == 2
+            ? 6
+            : (getIntervalForQuestion(qid) * easiness).round());
+    setIntervalForQuestion(qid, interval);
+    setLastReviewedForQuestion(qid, now);
+  }
+
+  void questionAnsweredWrong(String qid) {
+    setRepetitionsForQuestion(qid, 0);
+    double easiness = max(1.3, getEasinessForQuestion(qid) - 0.2);
+    setEasinessForQuestion(qid, easiness);
+    setIntervalForQuestion(qid, 1);
   }
 
   void starQuestion(String qid) {
@@ -123,28 +180,17 @@ class GlobalData with ChangeNotifier {
     GlobalData.starBox.delete(qid);
   }
 
-  double getExamHalftime() {
-    return GlobalData.configBox.get('exam_halftime', defaultValue: 14.0);
-  }
-
   double getExamSuccessProbability(String exam) {
-    int now = DateTime.now().millisecondsSinceEpoch;
+    int now = timestamp();
     int tries = 0;
     int successes = 0;
     Random r = Random(now);
-    double halftime = GlobalData.instance.getExamHalftime();
     for (int i = 0; i < 1000; i++) {
       int correct = 0;
       for (List<dynamic> block in GlobalData.questions!['exam_questions']
           [exam]) {
         String qid = block[r.nextInt(block.length)];
-        int ts = GlobalData.box.get("t/$qid") ?? 0;
-        int diff = now - ts;
-        // model exponential decay using exponential
-        // decay with knowledge halftime
-        double days = diff / (1000.0 * 60 * 60 * 24);
-        double lambda = log(2.0) / halftime;
-        double p = exp(-lambda * days);
+        double p = GlobalData.instance.getRecallProbabilityForQuestion(qid);
         if (r.nextDouble() < p) correct += 1;
       }
       tries += 1;
@@ -154,8 +200,14 @@ class GlobalData with ChangeNotifier {
   }
 }
 
+int getDueTimestampForQuestion(String qid) {
+  int lastReviewed = GlobalData.instance.getLastReviewedForQuestion(qid);
+  double retentionSpan = GlobalData.instance.getRetentionSpanForQuestion(qid);
+  return lastReviewed + (retentionSpan * 1000 * 60 * 60 * 24).round();
+}
+
 Widget getQuestionWidget(String qid) {
-  String qidDisplay = qid ?? '';
+  String qidDisplay = qid;
   if (qidDisplay.endsWith('E') || qidDisplay.endsWith('A')) {
     qidDisplay = qidDisplay.substring(0, qidDisplay.length - 1);
   }
@@ -306,4 +358,50 @@ class ListWithDecay {
   ListWithDecay(this.decay);
   int decay = 0;
   List<String> entries = [];
+}
+
+class ProgressBarForHid extends StatefulWidget {
+  final String hid;
+  final bool demo;
+  const ProgressBarForHid({super.key, required this.hid, this.demo = false});
+
+  @override
+  State<ProgressBarForHid> createState() => _ProgressBarForHidState();
+}
+
+class _ProgressBarForHidState extends State<ProgressBarForHid> {
+  List<int> countForDuration = [0, 0, 0, 0, 0];
+
+  @override
+  Widget build(BuildContext context) {
+    countForDuration = [0, 0, 0, 0, 0];
+    if (widget.demo) {
+      Random r = Random(0);
+      countForDuration = [10, 13, 9, 2, 28];
+      countForDuration.shuffle(r);
+    } else {
+      for (String qid
+          in (GlobalData.questions!['questions_for_hid'][widget.hid] ?? [])) {
+        int slot = 4;
+        double p = GlobalData.instance.getRecallProbabilityForQuestion(qid);
+        if (p > 0.2) slot = 3;
+        if (p > 0.4) slot = 2;
+        if (p > 0.6) slot = 1;
+        if (p > 0.8) slot = 0;
+        countForDuration[slot] += 1;
+      }
+    }
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      for (int k = 0; k <= 4; k++)
+        if (countForDuration[k] > 0)
+          Flexible(
+            flex: countForDuration[k],
+            child: LinearProgressIndicator(
+              backgroundColor: const Color(0x10000000),
+              color: PROGRESS_COLORS[k],
+              value: 1.0,
+            ),
+          ),
+    ]);
+  }
 }

@@ -42,6 +42,7 @@ class Hamfisted extends StatelessWidget {
         '/exam_overview': (context) => const ExamOverview(),
         '/exam': (context) => const Exam(),
         '/about': (context) => const About(),
+        '/aid': (context) => const Aid(),
       },
     );
   }
