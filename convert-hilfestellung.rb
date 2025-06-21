@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+Dir.chdir('assets')
+
 (1..24).each do |page|
     command = "inkscape --pdf-poppler --pdf-page=#{page} -C -o hilfsmittel-#{page}.svg Hilfsmittel.pdf"
     system(command)
