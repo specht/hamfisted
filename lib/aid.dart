@@ -122,14 +122,6 @@ class _AidState extends State<Aid>
     double previewOpacity = 1.0 - (currentScale - 1.5).clamp(0.0, 1.0);
     double svgOpacity = (currentScale - 1.2).clamp(0.0, 1.0);
 
-    developer.log(
-      "Building page $index, scale: ${currentScale.toStringAsFixed(2)}, previewOpacity: ${previewOpacity.toStringAsFixed(2)}, svgOpacity: ${svgOpacity.toStringAsFixed(2)}, dpr: ${dpr.toStringAsFixed(2)}",
-      name: "Aid._buildPage",
-    );
-
-    // previewOpacity = 0.0;
-    // svgOpacity = 1.0;
-
     return Stack(children: [
       Opacity(
         opacity: previewOpacity,
