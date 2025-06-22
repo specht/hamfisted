@@ -570,15 +570,16 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
                   leading: Icon(Icons.menu_book),
                 ),
               ),
-              PopupMenuItem<String>(
-                enabled: solvedQuestionCount > 0,
-                value: "clear_progress",
-                child: const ListTile(
-                  title: Text("Fortschritt löschen"),
-                  visualDensity: VisualDensity.compact,
-                  leading: Icon(Icons.delete),
-                ),
-              ),
+              // const PopupMenuDivider(),
+              // PopupMenuItem<String>(
+              //   enabled: solvedQuestionCount > 0,
+              //   value: "clear_progress",
+              //   child: const ListTile(
+              //     title: Text("Fortschritt löschen"),
+              //     visualDensity: VisualDensity.compact,
+              //     leading: Icon(Icons.delete),
+              //   ),
+              // ),
             ];
           })
         ],

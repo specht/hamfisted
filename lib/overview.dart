@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:Hamfisted/aid.dart';
+import 'package:Hamfisted/exam_overview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,6 +41,15 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     duration: const Duration(milliseconds: 500),
     vsync: this,
   );
+  late final AnimationController _animationControllerExamOverview =
+      AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
+  late final AnimationController _animationControllerAid = AnimationController(
+    duration: const Duration(milliseconds: 500),
+    vsync: this,
+  );
   late final AnimationController _animationControllerSpotSize =
       AnimationController(
     duration: const Duration(milliseconds: 500),
@@ -67,6 +78,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     _animationControllerCat.dispose();
     _animationControllerOverview.dispose();
     _animationControllerQuiz.dispose();
+    _animationControllerExamOverview.dispose();
+    _animationControllerAid.dispose();
     _animationControllerSpotSize.dispose();
     _animationControllerSpotShift1.dispose();
     _animationControllerSpotShift2.dispose();
@@ -82,6 +95,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     _animationControllerCat.value = 1.0;
     _animationControllerOverview.value = 0.0;
     _animationControllerQuiz.value = 0.0;
+    _animationControllerExamOverview.value = 0.0;
+    _animationControllerAid.value = 0.0;
     _animationControllerSpotSize.value = 0.0;
     _animationControllerSpotShift1.value = 0.0;
     _animationControllerSpotShift2.value = 0.0;
@@ -204,6 +219,9 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
     String qid = '2024_EI103';
     cards.add(getQuestionWidget(qid));
     cards.add(const Divider());
+    // for (int i = 0; i < 4; i++) {
+    //   cards.add(getAnswerWidget(qid, i));
+    // }
 
     for (int i = 0; i < 4; i++) {
       cards.add(
@@ -306,19 +324,41 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                           animation: _animationControllerOverview,
                           builder: (context, child) {
                             return Transform.translate(
-                              offset: Offset(
-                                  0,
-                                  -(1.0 - _animationControllerOverview.value) *
-                                      constraints.maxHeight),
-                              child: SafeArea(
-                                child: Container(
-                                  color: Color.lerp(PRIMARY, Colors.white, 0.9),
-                                  child: SingleChildScrollView(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    child: Column(
-                                      children: getChapterCards(
-                                          hid: '2024/TA', demo: true),
+                              offset: _animationControllerOverview.value < 0.5
+                                  ? Offset(
+                                      0,
+                                      -(1.0 -
+                                              _animationControllerOverview
+                                                      .value *
+                                                  2.0) *
+                                          constraints.maxHeight)
+                                  : Offset(
+                                      -(_animationControllerOverview.value -
+                                              0.5) *
+                                          2.0 *
+                                          constraints.maxWidth,
+                                      0),
+                              child: Scaffold(
+                                backgroundColor:
+                                    Color.lerp(PRIMARY, Colors.white, 0.9),
+                                appBar: AppBar(
+                                  backgroundColor: PRIMARY,
+                                  foregroundColor: Colors.white,
+                                  automaticallyImplyLeading: false,
+                                  title: const Text(
+                                      "Technische Kenntnisse der Klasse N"),
+                                ),
+                                body: SafeArea(
+                                  child: Container(
+                                    color:
+                                        Color.lerp(PRIMARY, Colors.white, 0.9),
+                                    child: SingleChildScrollView(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      child: Column(
+                                        children: getChapterCards(
+                                            hid: '2024/TA', demo: true),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -332,21 +372,41 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                           return Stack(
                             children: [
                               Transform.translate(
-                                offset: Offset(
-                                    0,
-                                    (1.0 - _animationControllerQuiz.value) *
-                                        constraints.maxHeight),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: SafeArea(
-                                    child: Container(
-                                      color: Color.lerp(
-                                          PRIMARY, Colors.white, 0.9),
-                                      child: SingleChildScrollView(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        child: Column(
-                                          children: cards,
+                                offset: _animationControllerQuiz.value < 0.0
+                                    ? Offset(
+                                        -(_animationControllerQuiz.value -
+                                                0.5) *
+                                            2.0 *
+                                            constraints.maxWidth,
+                                        0)
+                                    : Offset(
+                                        -(_animationControllerQuiz.value -
+                                                0.5) *
+                                            2.0 *
+                                            constraints.maxWidth,
+                                        0),
+                                child: Scaffold(
+                                  backgroundColor:
+                                      Color.lerp(PRIMARY, Colors.white, 0.9),
+                                  appBar: AppBar(
+                                    backgroundColor: PRIMARY,
+                                    foregroundColor: Colors.white,
+                                    automaticallyImplyLeading: false,
+                                    title: Text(
+                                        "Technische Kenntnisse der Klasse N"),
+                                  ),
+                                  body: Material(
+                                    color: Colors.transparent,
+                                    child: SafeArea(
+                                      child: Container(
+                                        color: Color.lerp(
+                                            PRIMARY, Colors.white, 0.9),
+                                        child: SingleChildScrollView(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          child: Column(
+                                            children: cards,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -358,7 +418,13 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                                 child: Transform.translate(
                                   offset: Offset(
                                       0,
-                                      (1.0 - _animationControllerQuiz.value) *
+                                      (1.0 -
+                                              (0.5 -
+                                                      (0.5 -
+                                                              _animationControllerQuiz
+                                                                  .value)
+                                                          .abs()) *
+                                                  2.0) *
                                           120),
                                   child: QuizBottomMenu(
                                     qid: qid,
@@ -373,7 +439,13 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                               Transform.translate(
                                 offset: Offset(
                                     0,
-                                    (1.0 - _animationControllerQuiz.value) *
+                                    (1.0 -
+                                            (0.5 -
+                                                    (0.5 -
+                                                            _animationControllerQuiz
+                                                                .value)
+                                                        .abs()) *
+                                                2.0) *
                                         120),
                                 child: Align(
                                   alignment: Alignment.bottomCenter,
@@ -455,6 +527,242 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                             ],
                           );
                         }),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: LayoutBuilder(builder: (context, constraints) {
+                        return AnimatedBuilder(
+                            animation: _animationControllerExamOverview,
+                            builder: (context, child) {
+                              return Transform.translate(
+                                offset:
+                                    _animationControllerExamOverview.value < 0.0
+                                        ? Offset(
+                                            -(_animationControllerExamOverview
+                                                        .value -
+                                                    0.5) *
+                                                2.0 *
+                                                constraints.maxWidth,
+                                            0)
+                                        : Offset(
+                                            -(_animationControllerExamOverview
+                                                        .value -
+                                                    0.5) *
+                                                2.0 *
+                                                constraints.maxWidth,
+                                            0),
+                                child: Scaffold(
+                                  backgroundColor:
+                                      Color.lerp(PRIMARY, Colors.white, 0.9),
+                                  appBar: AppBar(
+                                    backgroundColor: PRIMARY,
+                                    foregroundColor: Colors.white,
+                                    title: Text("Prüfungssimulation"),
+                                  ),
+                                  body: ListView(
+                                    children: [
+                                      for (String exam in [
+                                        'N',
+                                        'E',
+                                        'A',
+                                        'B',
+                                        'V'
+                                      ])
+                                        Card(
+                                          child: ListTile(
+                                            title: Text(
+                                              "${examTitle[exam]}",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            subtitle: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                        "25 Fragen aus ${GlobalData.questions!['questions_for_hid'][questionCountKey[exam]].length}"),
+                                                    Text(
+                                                        "${EXAM_MINUTES[exam]} Minuten"),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8, bottom: 4),
+                                                  child: ProgressBarForHid(
+                                                    hid:
+                                                        questionCountKey[exam]!,
+                                                    demo: true,
+                                                    examOverviewDemo: true,
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                        "Geschätzte Erfolgswahrscheinlichkeit: "),
+                                                    Text(
+                                                      exam == "N"
+                                                          ? "90%"
+                                                          : "0%",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 8),
+                                        child: Text(
+                                          "Die Prozentangaben zeigen deine momentane Wahrscheinlichkeit an, den entsprechenden Prüfungsteil zu bestehen. Die Berechnung erfolgt aufgrund deiner bisherigen Antworten im Prüfungstraining und in Prüfungssimulationen.",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontStyle: FontStyle.italic,
+                                            fontFamily: "Alegreya Sans",
+                                          ),
+                                        ),
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 16, right: 16, bottom: 0),
+                                        child: Text(
+                                          "Dabei spielt es nicht direkt eine Rolle, wie viele Prüfungssimulationen du bereits bestanden hast. Es zählen nur deine bisherigen Antworten auf die Fragen des jeweiligen Fragenkataloges. Für die Prüfungssimulation werden 25 Fragen quer aus dem jeweiligen Fragenkatalog zufällig ausgewählt und anschließend für jede dieser Fragen geschätzt, wie wahrscheinlich es ist, dass du sie korrekt beantworten kannst. Daraus wird dann die Erfolgswahrscheinlichkeit für den jeweiligen Prüfungsteil berechnet.",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontStyle: FontStyle.italic,
+                                            fontFamily: "Alegreya Sans",
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      }),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: LayoutBuilder(builder: (context, constraints) {
+                        return AnimatedBuilder(
+                            animation: _animationControllerAid,
+                            builder: (context, child) {
+                              return Transform.translate(
+                                offset: _animationControllerAid.value < 0.0
+                                    ? Offset(
+                                        -(_animationControllerAid.value - 0.5) *
+                                            2.0 *
+                                            constraints.maxWidth,
+                                        0)
+                                    : Offset(
+                                        -(_animationControllerAid.value - 0.5) *
+                                            2.0 *
+                                            constraints.maxWidth,
+                                        0),
+                                child: Scaffold(
+                                  backgroundColor:
+                                      Color.lerp(PRIMARY, Colors.white, 0.9),
+                                  appBar: AppBar(
+                                    backgroundColor: PRIMARY,
+                                    foregroundColor: Colors.white,
+                                    title: Text("Hilfsmittel"),
+                                  ),
+                                  body: LayoutBuilder(
+                                    builder: (context, constraints) {
+                                      double containerWidth =
+                                          constraints.maxWidth;
+                                      double containerHeight =
+                                          constraints.maxHeight;
+                                      const aspectRatio = 210 / 297;
+                                      const verticalPadding = 8.0 * 2;
+                                      final pageWidth =
+                                          MediaQuery.of(context).size.width -
+                                              16.0;
+                                      final height = pageWidth / aspectRatio;
+                                      double _pageHeight =
+                                          height + verticalPadding;
+                                      final double devicePixelRatio =
+                                          MediaQuery.of(context)
+                                              .devicePixelRatio;
+                                      int size = (containerWidth *
+                                                  devicePixelRatio)
+                                              .toInt() *
+                                          (containerHeight * devicePixelRatio)
+                                              .toInt() *
+                                          4;
+                                      return ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          minWidth: constraints.maxWidth,
+                                          maxWidth: constraints.maxWidth,
+                                          minHeight: constraints.maxHeight,
+                                          maxHeight: double.infinity,
+                                        ),
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              for (int i = 0; i < 24; i++)
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 8),
+                                                  child: AspectRatio(
+                                                    aspectRatio: 210 / 297,
+                                                    child: Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color: Colors.white,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color:
+                                                                Colors.black12,
+                                                            blurRadius: 4.0,
+                                                            offset:
+                                                                Offset(0, 2),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      child: Image.asset(
+                                                        "assets/hilfsmittel-13-150.jpg",
+                                                        width: constraints
+                                                                .maxWidth -
+                                                            16,
+                                                        height: _pageHeight,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                      // child: Stack(
+                                                      //   children: [
+                                                      //     // Image(
+                                                      //     //   image: GlobalData.instance.previewImages[i]!,
+                                                      //     // ),
+                                                      //     ScalableImageWidget(
+                                                      //       si: GlobalData.instance.aidScalableImages[i],
+                                                      //       isComplex: true,
+                                                      //     ),
+                                                      //   ],
+                                                      // ),
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            });
+                      }),
+                    ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
@@ -557,8 +865,8 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
               });
             },
             dotsDecorator: DotsDecorator(
-              size: const Size.square(10.0),
-              activeSize: const Size(20.0, 10.0),
+              size: const Size.square(6.0),
+              activeSize: const Size(12.0, 8.0),
               activeColor: PRIMARY,
               color: Colors.black26,
               spacing: const EdgeInsets.symmetric(horizontal: 3.0),
@@ -578,11 +886,27 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
               }
               _animationControllerCat.animateTo((page == 0) ? 1.0 : 0.0,
                   curve: Curves.easeInOutCubic);
-              _animationControllerOverview.animateTo((page == 1) ? 1.0 : 0.0,
+              if (page < 1) {
+                _animationControllerOverview.animateTo(0.0,
+                    curve: Curves.easeInOutCubic);
+              } else if (page == 1) {
+                _animationControllerOverview.animateTo(0.5,
+                    curve: Curves.easeInOutCubic);
+              } else {
+                _animationControllerOverview.animateTo(1.0,
+                    curve: Curves.easeInOutCubic);
+              }
+              _animationControllerQuiz.animateTo(
+                  (page < 2) ? 0.0 : ((page >= 2 && page <= 5) ? 0.5 : 1.0),
                   curve: Curves.easeInOutCubic);
-              _animationControllerQuiz.animateTo((page >= 2) ? 1.0 : 0.0,
+              _animationControllerExamOverview.animateTo(
+                  (page < 6) ? 0.0 : ((page == 6) ? 0.5 : 1.0),
                   curve: Curves.easeInOutCubic);
-              _animationControllerSpotSize.animateTo((page >= 3) ? 1.0 : 0.0,
+              _animationControllerAid.animateTo(
+                  (page < 7) ? 0.0 : ((page == 7) ? 0.5 : 1.0),
+                  curve: Curves.easeInOutCubic);
+              _animationControllerSpotSize.animateTo(
+                  (page >= 3 && page <= 5) ? 1.0 : 0.0,
                   curve: Curves.easeInOutCubic);
               _animationControllerSpotShift1.animateTo((page >= 4) ? 1.0 : 0.0,
                   curve: Curves.easeInOutCubic);
@@ -597,6 +921,14 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
               IntroScreenColumn(
                 child: Column(
                   children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Hamfisted hilft dir, dich auf die Amateurfunkprüfung vorzubereiten. Eine smarte Lernmethode (Spaced Repetition) hilft dir dabei, deinen Fortschritt zu maximieren.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
@@ -622,15 +954,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Fortschrittsbalken zeigen dir an, wie viele der Fragen du schon korrekt beantwortet hast.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Die Fortschrittsbalken verblassen nach einigen Wochen.",
+                        "Die Fortschrittsbalken zeigen dir an, wie gut du die Fragen in diesem Kapitel bereits beherrschst. Sie verändern sich mit deinem Fortschritt.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),
@@ -644,7 +968,15 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen.",
+                        "Wenn du dir sicher bist, kannst du die richtige Antwort einfach antippen. Falls deine Antwort falsch sein sollte, kannst du die anderen Antworten aufdecken, um sie zu überprüfen.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Die App merkt sich deine Antworten und wählt auf dieser Basis die nächsten Fragen aus.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),
@@ -680,7 +1012,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Wenn du dir eine Frage für später merken möchtest, tippe auf das Sternsymbol.",
+                        "Wenn du dir eine Frage für später merken möchtest, tippe auf den Stern.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),
@@ -702,7 +1034,43 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Tippe auf »Frage überspringen«, wenn du eine Frage gerade nicht beantworten kannst oder möchtest.",
+                        "Tippe auf »Frage überspringen«, wenn du eine Frage gerade nicht beantworten möchtest.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IntroScreenColumn(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Wenn du genügend Fragen geübt hast, kannst du eine Prüfungssimulation starten, in der du 25 Fragen quer aus dem Fragenkatalog beantworten musst, während die Zeit läuft.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Die geschätzte Erfolgswahrscheinlichkeit ist umso höher, je mehr Fragen du geübt hast.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IntroScreenColumn(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Du kannst jederzeit in den Hilfsmitteln nachschlagen, die von der Bundesnetzagentur bereitgestellt werden – so wie in der echten Prüfung auch.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15),
                       ),

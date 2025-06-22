@@ -184,7 +184,7 @@ class _AidState extends State<Aid>
       Opacity(
         opacity: previewOpacity,
         child: Image.asset(
-          "assets/hilfsmittel-${index + 1}-72.jpg",
+          "assets/hilfsmittel-${index + 1}-150.jpg",
           width: width,
           height: _pageHeight,
           fit: BoxFit.cover,

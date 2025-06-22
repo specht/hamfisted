@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 const GREEN = Color(0xff73a946);
 // const GRAEN = Color(0xff4aa03f);
 // const GREEN = Color.fromARGB(255, 33, 142, 19);
+const YELLOW = Color(0xfff2c94c);
 const RED = Color(0xff992413);
 const PRIMARY = Color(0xff1d5479);
 const GREY = Color(0xffe0e0e0);
@@ -40,6 +41,8 @@ const List<String> introTitles = [
   "Trainiere die Fragen",
   "Trainiere die Fragen",
   "Trainiere die Fragen",
+  "Prüfungssimulation",
+  "Hilfsmittel",
 ];
 
 const List DECAY = [
@@ -55,6 +58,21 @@ const Map<String, int> EXAM_MINUTES = {
   'A': 60,
   'B': 45,
   'V': 45,
+};
+
+const Map<String, String> examTitle = {
+  'N': 'Technische Kenntnisse der Klasse N',
+  'E': 'Technische Kenntnisse der Klasse E',
+  'A': 'Technische Kenntnisse der Klasse A',
+  'B': 'Betriebliche Kenntnisse',
+  'V': 'Kenntnisse von Vorschriften',
+};
+const Map<String, String> questionCountKey = {
+  'N': '2024/TN',
+  'E': '2024/TE_only',
+  'A': '2024/TA_only',
+  'B': '2024/1',
+  'V': '2024/2',
 };
 
 int timestamp() {
@@ -389,7 +407,12 @@ class ListWithDecay {
 class ProgressBarForHid extends StatefulWidget {
   final String hid;
   final bool demo;
-  const ProgressBarForHid({super.key, required this.hid, this.demo = false});
+  final bool examOverviewDemo;
+  const ProgressBarForHid(
+      {super.key,
+      required this.hid,
+      this.demo = false,
+      this.examOverviewDemo = false});
 
   @override
   State<ProgressBarForHid> createState() => _ProgressBarForHidState();
@@ -404,6 +427,12 @@ class _ProgressBarForHidState extends State<ProgressBarForHid> {
     if (widget.demo) {
       Random r = Random(0);
       countForDuration = [10, 13, 9, 2, 28];
+      if (widget.examOverviewDemo) {
+        countForDuration = [1, 0, 0, 0, 0];
+        if (widget.hid == "2024/TN") {
+          countForDuration = [0, 1, 2, 5, 30];
+        }
+      }
       countForDuration.shuffle(r);
     } else {
       for (String qid

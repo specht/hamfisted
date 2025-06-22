@@ -21,20 +21,6 @@ class _ExamOverviewState extends State<ExamOverview> {
   @override
   Widget build(BuildContext context) {
     recalculateProbabilities();
-    const Map<String, String> examTitle = {
-      'N': 'Technische Kenntnisse der Klasse N',
-      'E': 'Technische Kenntnisse der Klasse E',
-      'A': 'Technische Kenntnisse der Klasse A',
-      'B': 'Betriebliche Kenntnisse',
-      'V': 'Kenntnisse von Vorschriften',
-    };
-    const Map<String, String> questionCountKey = {
-      'N': '2024/TN',
-      'E': '2024/TE_only',
-      'A': '2024/TA_only',
-      'B': '2024/1',
-      'V': '2024/2',
-    };
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
@@ -83,15 +69,19 @@ class _ExamOverviewState extends State<ExamOverview> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: LinearProgressIndicator(
-                        value: examSuccessProbability[exam]!,
-                        backgroundColor: const Color(0x20000000),
-                        color: PRIMARY,
-                      ),
+                      padding: const EdgeInsets.only(top: 8, bottom: 4),
+                      child: ProgressBarForHid(hid: questionCountKey[exam]!),
                     ),
-                    Text(
-                        "Geschätzte Erfolgswahrscheinlichkeit: ${(examSuccessProbability[exam]! * 100).round()}%"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Geschätzte Erfolgswahrscheinlichkeit: "),
+                        Text(
+                          "${(examSuccessProbability[exam]! * 100).round()}%",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
                 onTap: () {
