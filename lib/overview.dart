@@ -348,17 +348,14 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                                   title: const Text(
                                       "Technische Kenntnisse der Klasse N"),
                                 ),
-                                body: SafeArea(
-                                  child: Container(
-                                    color:
-                                        Color.lerp(PRIMARY, Colors.white, 0.9),
-                                    child: SingleChildScrollView(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      child: Column(
-                                        children: getChapterCards(
-                                            hid: '2024/TA', demo: true),
-                                      ),
+                                body: Container(
+                                  color: Color.lerp(PRIMARY, Colors.white, 0.9),
+                                  child: SingleChildScrollView(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    child: Column(
+                                      children: getChapterCards(
+                                          hid: '2024/TA', demo: true),
                                     ),
                                   ),
                                 ),
