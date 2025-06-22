@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -39,10 +41,11 @@ class _AboutState extends State<About> {
       body: Html(
         data: "<h2>Hamfisted</h2>"
             "<p>App zur Vorbereitung auf die Amateurfunkprüfung</p>"
-            "Die Fragen stammen von der Bundesnetzagentur (3. Auflage, März 2024). Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht, inhaltliche Beratung von Lars DO5VL.</p>"
+            "Die Fragen und Hilfsmittel stammen von der Bundesnetzagentur (3. Auflage, März 2024). Grafiken stammen von <a href='https://freepik.com'>freepik.com</a>. Implementiert von Michael Specht, inhaltliche Beratung von Lars DO5VL.</p>"
             "<p><b>Version:</b> ${version}</p>"
             "<p><b>Quelltext:</b> <a href='https://github.com/specht/hamfisted'>https://github.com/specht/hamfisted</a></p>"
-            "<p><b>Kontakt:</b> <a href='mailto:specht@gymnasiumsteglitz.de'>specht@gymnasiumsteglitz.de</a></p>",
+            "<p><b>Kontakt:</b> <a href='mailto:specht@gymnasiumsteglitz.de'>specht@gymnasiumsteglitz.de</a></p>"
+            "<p>Falls du deine Prüfung mit Hilfe der App bestanden hast, würde ich mich über eine Nachricht oder eine Bewertung im ${Platform.isAndroid ? 'Play Store' : 'App Store'} freuen!</p>",
         onLinkTap: (url, attributes, element) {
           launchUrl(Uri.parse(url!));
         },

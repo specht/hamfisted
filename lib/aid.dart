@@ -60,7 +60,7 @@ class _AidState extends State<Aid>
   void _goToPage(int page) {
     const double targetScale = 1.0;
     final double pageHeight = _pageHeight;
-    final double totalHeight = 24 * pageHeight;
+    final double totalHeight = 24 * pageHeight + 8;
     final double pageTop = (page - 1) * pageHeight;
     developer.log(
       "Go to page $page, height: $pageHeight, total: $totalHeight, top: $pageTop",
@@ -73,6 +73,7 @@ class _AidState extends State<Aid>
     } else {
       translateY = -pageTop;
     }
+    translateY -= 16.0;
 
     if (translateY < containerHeight - totalHeight) {
       translateY = containerHeight - totalHeight;
