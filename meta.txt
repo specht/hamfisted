@@ -9,3 +9,6 @@ Fortschrittskontrolle: Verfolge deinen Lernfortschritt und identifiziere deine S
 Prüfungssimulation: Teste dein Wissen unter realistischen Bedingungen und bereite dich optimal auf die echte Prüfung vor.
 
 Komplett kostenlos: Keine Kosten, keine Werbung, und vollständig offline nutzbar.
+
+- Onboarding überarbeitet
+- Bug bei der Anzeige Hilfsmittel behoben
