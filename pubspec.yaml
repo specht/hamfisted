@@ -38,7 +38,6 @@ flutter:
     - data/2024/
     - data/2024/tex/
     - assets/
-    - assets/jovial/
     - fonts/
   fonts:
     - family: AlegreyaSans

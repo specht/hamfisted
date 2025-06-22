@@ -14,8 +14,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 const GREEN = Color(0xff73a946);
-// const GRAEN = Color(0xff4aa03f);
-// const GREEN = Color.fromARGB(255, 33, 142, 19);
 const YELLOW = Color(0xfff2c94c);
 const RED = Color(0xff992413);
 const PRIMARY = Color(0xff1d5479);
@@ -87,7 +85,7 @@ class GlobalData with ChangeNotifier {
   static var box;
   static var starBox;
   static var configBox;
-  List<ScalableImage> aidScalableImages = [];
+  // List<ScalableImage> aidScalableImages = [];
 
   static bool ready = false;
 
@@ -106,27 +104,6 @@ class GlobalData with ChangeNotifier {
   List<MemoryImage?> previewImages = List.filled(24, null);
   List<MemoryImage?> fullImages = List.filled(24, null);
 
-  Future<void> _loadSVGs() async {
-    for (int i = 1; i <= 24; i++) {
-      developer.log("Loading SVG for aid $i");
-      final si = await ScalableImage.fromSIAsset(
-        rootBundle,
-        "assets/jovial/hilfsmittel-${i}-scour.si",
-      );
-      final dag = si.toDag();
-      aidScalableImages.add(dag);
-
-      // Rasterize previews at 0.5x and 1.0x resolution
-
-      // final lowRes =
-      // await rasterizeSVG(dag, 210 * 3, 297 * 3); // ~0.5x at 2x scale
-      // previewImages[i - 1] = await imageToMemoryImage(lowRes);
-      // final hiRes =
-      //     await rasterizeSVG(dag, 210 * 4, 297 * 4); // ~1.0x at 2x scale
-      // fullImages[i - 1] = await imageToMemoryImage(hiRes);
-    }
-  }
-
   Future<bool> _init() async {
     await Hive.initFlutter();
     box = await Hive.openBox('settings');
@@ -134,7 +111,6 @@ class GlobalData with ChangeNotifier {
     configBox = await Hive.openBox('config');
 
     questions = jsonDecode(await rootBundle.loadString("data/questions.json"));
-    await _loadSVGs();
 
     ready = true;
     developer.log('[init] GlobalData ready.');

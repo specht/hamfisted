@@ -57,34 +57,15 @@ class _AidState extends State<Aid>
     });
   }
 
-  // Future<MemoryImage> renderPreviewImage({
-  //   required ScalableImage dag,
-  //   required double width,
-  // }) async {
-  //   width = (210.0 / 25.4) * 72.0;
-  //   int scale = 1;
-  //   final int pixelWidth = width.round();
-  //   final int pixelHeight = (pixelWidth * 297 / 210).round(); // A4 aspect ratio
-
-  //   final recorder = ui.PictureRecorder();
-  //   final canvas = Canvas(recorder);
-  //   canvas.scale(scale.toDouble());
-
-  //   dag.paint(canvas);
-
-  //   final picture = recorder.endRecording();
-  //   final img = await picture.toImage(pixelWidth * scale, pixelHeight * scale);
-  //   final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
-
-  //   return MemoryImage(byteData!.buffer.asUint8List());
-  // }
-
   void _goToPage(int page) {
     const double targetScale = 1.0;
     final double pageHeight = _pageHeight;
-    final double totalHeight =
-        GlobalData.instance.aidScalableImages.length * pageHeight;
+    final double totalHeight = 24 * pageHeight;
     final double pageTop = (page - 1) * pageHeight;
+    developer.log(
+      "Go to page $page, height: $pageHeight, total: $totalHeight, top: $pageTop",
+      name: "Aid._goToPage",
+    );
 
     double translateY;
     if (pageHeight < containerHeight) {
@@ -98,6 +79,8 @@ class _AidState extends State<Aid>
     } else if (translateY > 0.0) {
       translateY = 0.0;
     }
+
+    // translateY = 0.0;
 
     final Matrix4 targetTransform = Matrix4.identity()
       ..scale(targetScale)
@@ -128,72 +111,36 @@ class _AidState extends State<Aid>
 
   double get _pageHeight {
     const aspectRatio = 210 / 297;
-    const verticalPadding = 8.0 * 2;
+    const verticalPadding = 8.0;
     final pageWidth = MediaQuery.of(context).size.width - 16.0;
     final height = pageWidth / aspectRatio;
     return height + verticalPadding;
   }
 
-  // Widget _buildPage(int index, double width, double dpr) {
-  //   final key = '$index@${dpr.toStringAsFixed(2)}';
-
-  //   return FutureBuilder<MemoryImage>(
-  //     future: _previewCache.containsKey(key)
-  //         ? Future.value(_previewCache[key])
-  //         : renderPreviewImage(
-  //                 dag: GlobalData.instance.aidScalableImages[index],
-  //                 width: width * dpr)
-  //             .then((img) {
-  //             _previewCache[key] = img;
-  //             return img;
-  //           }),
-  //     builder: (context, snapshot) {
-  //       // if (snapshot.connectionState == ConnectionState.waiting) {
-  //       // return const Center(child: CircularProgressIndicator());
-  //       // }
-
-  //       double previewOpacity = 1.0 - (currentScale - 1.5).clamp(0.0, 1.0);
-  //       double svgOpacity = (currentScale - 1.2).clamp(0.0, 1.0);
-
-  //       return Stack(children: [
-  //         Opacity(
-  //           opacity: previewOpacity,
-  //           child: Image(
-  //             image: snapshot.data!,
-  //             width: width,
-  //             height: _pageHeight,
-  //             fit: BoxFit.cover,
-  //           ),
-  //         ),
-  //         Opacity(
-  //           opacity: svgOpacity,
-  //           child: ScalableImageWidget(
-  //               si: GlobalData.instance.aidScalableImages[index],
-  //               isComplex: true),
-  //         ),
-  //       ]);
-  //     },
-  //   );
-  // }
-
   Widget _buildPage(int index, double width, double dpr) {
     double previewOpacity = 1.0 - (currentScale - 1.5).clamp(0.0, 1.0);
     double svgOpacity = (currentScale - 1.2).clamp(0.0, 1.0);
+
+    developer.log(
+      "Building page $index, scale: ${currentScale.toStringAsFixed(2)}, previewOpacity: ${previewOpacity.toStringAsFixed(2)}, svgOpacity: ${svgOpacity.toStringAsFixed(2)}, dpr: ${dpr.toStringAsFixed(2)}",
+      name: "Aid._buildPage",
+    );
+
+    // previewOpacity = 0.0;
+    // svgOpacity = 1.0;
 
     return Stack(children: [
       Opacity(
         opacity: previewOpacity,
         child: Image.asset(
           "assets/hilfsmittel-${index + 1}-150.jpg",
-          width: width,
-          height: _pageHeight,
-          fit: BoxFit.cover,
         ),
       ),
       Opacity(
         opacity: svgOpacity,
-        child: ScalableImageWidget(
-            si: GlobalData.instance.aidScalableImages[index], isComplex: true),
+        child: Image.asset(
+          "assets/hilfsmittel-${index + 1}-300.jpg",
+        ),
       ),
     ]);
   }
@@ -201,10 +148,6 @@ class _AidState extends State<Aid>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-    if (GlobalData.instance.aidScalableImages.length < 24) {
-      return const Center(child: CircularProgressIndicator());
-    }
 
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
@@ -253,13 +196,6 @@ class _AidState extends State<Aid>
           containerHeight = constraints.maxHeight;
           final double devicePixelRatio =
               MediaQuery.of(context).devicePixelRatio;
-          int size = (containerWidth * devicePixelRatio).toInt() *
-              (containerHeight * devicePixelRatio).toInt() *
-              4;
-          developer.log(
-            "Container size: ${constraints.maxWidth} x ${constraints.maxHeight}, DPR: $devicePixelRatio, bytes: $size",
-            name: "Aid",
-          );
           return InteractiveViewer(
             transformationController: _transformationController,
             maxScale: 5,
@@ -281,51 +217,35 @@ class _AidState extends State<Aid>
               GlobalData.configBox.put('aid_x', translateX);
               GlobalData.configBox.put('aid_y', translateY);
             },
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minWidth: constraints.maxWidth,
-                maxWidth: constraints.maxWidth,
-                minHeight: constraints.maxHeight,
-                maxHeight: double.infinity,
-              ),
+            child: SizedBox(
+              width: containerWidth,
               child: SingleChildScrollView(
-                controller: _scrollController,
                 child: Column(
-                  children: [
-                    for (int i = 0; i < 24; i++)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 8),
+                  children: List.generate(
+                    24,
+                    (index) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                            top: index == 0 ? 8 : 0,
+                            bottom: 8,
+                            left: 8,
+                            right: 8),
                         child: AspectRatio(
-                          aspectRatio: 210 / 297,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 4.0,
-                                  offset: Offset(0, 2),
+                            aspectRatio: 210 / 297,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  // color: Colors.white,
+                                  // border: Border.all(color: Colors.black12),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.black12, blurRadius: 4),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            child: _buildPage(
-                                i, containerWidth - 16, devicePixelRatio),
-                            // child: Stack(
-                            //   children: [
-                            //     // Image(
-                            //     //   image: GlobalData.instance.previewImages[i]!,
-                            //     // ),
-                            //     ScalableImageWidget(
-                            //       si: GlobalData.instance.aidScalableImages[i],
-                            //       isComplex: true,
-                            //     ),
-                            //   ],
-                            // ),
-                          ),
-                        ),
-                      ),
-                  ],
+                                child: _buildPage(
+                                    index, containerWidth, devicePixelRatio))),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
