@@ -1,5 +1,7 @@
 Mit dieser App bereitest du dich effizient und stressfrei auf die Amateurfunk-Prüfungen der Klassen N, E und A vor.
 
+Smarte Lernmethode: Spaced Repetition hilft dir dabei, deinen Fortschritt zu maximieren.
+
 Umfassendes Übungsmaterial: Zugriff auf alle offiziellen Fragenkataloge der Bundesnetzagentur.
 
 Fortschrittskontrolle: Verfolge deinen Lernfortschritt und identifiziere deine Stärken und Schwächen.
@@ -7,10 +9,3 @@ Fortschrittskontrolle: Verfolge deinen Lernfortschritt und identifiziere deine S
 Prüfungssimulation: Teste dein Wissen unter realistischen Bedingungen und bereite dich optimal auf die echte Prüfung vor.
 
 Komplett kostenlos: Keine Kosten, keine Werbung, und vollständig offline nutzbar.
-
-Neue Funktionen:
-- Prüfungssimulation
-- Löschen des Fortschritts auf jeder Ebene möglich
-
-- Fortschritt kann auch auf der unteresten Ebene zurückgesetzt werden
-- kleinere Fehlerbehebungen
