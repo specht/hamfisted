@@ -155,8 +155,7 @@ class _AidState extends State<Aid>
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
-        title: Text(
-            "Hilfsmittel ${(currentTransformY / currentScale).toStringAsFixed(2)}"),
+        title: const Text("Hilfsmittel"),
         backgroundColor: PRIMARY,
         foregroundColor: Colors.white,
         actions: [
