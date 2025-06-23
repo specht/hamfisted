@@ -198,6 +198,13 @@ class _AidState extends State<Aid>
         builder: (context, constraints) {
           containerWidth = constraints.maxWidth;
           containerHeight = constraints.maxHeight;
+          double upperLimit =
+              (containerHeight * (-0.1) - currentTransformY) / currentScale;
+          double lowerLimit = (containerHeight -
+                  currentTransformY -
+                  10 -
+                  containerHeight * (-0.1)) /
+              currentScale;
           final double devicePixelRatio =
               MediaQuery.of(context).devicePixelRatio;
           return InteractiveViewer(
@@ -231,16 +238,17 @@ class _AidState extends State<Aid>
                         child: AspectRatio(
                           aspectRatio: 210 / 297,
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.white,
-                              // border: Border.all(color: Colors.black12),
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(color: Colors.black12, blurRadius: 4),
                               ],
                             ),
-                            child: _buildPage(
-                                index, containerWidth, devicePixelRatio),
-                            // Container(),
+                            child: (_pageHeight * index + 8 > lowerLimit ||
+                                    _pageHeight * (index + 1) < upperLimit)
+                                ? Container()
+                                : _buildPage(
+                                    index, containerWidth, devicePixelRatio),
                           ),
                         ),
                       );
