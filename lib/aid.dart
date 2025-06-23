@@ -27,6 +27,7 @@ class _AidState extends State<Aid>
   final ScrollController _scrollController = ScrollController();
   final TransformationController _transformationController =
       TransformationController();
+
   final List<Bookmark> bookmarks = [
     Bookmark(4, "Frequenzbereiche"),
     Bookmark(7, "Rufzeichenplan"),
@@ -40,11 +41,20 @@ class _AidState extends State<Aid>
   double containerWidth = 100.0;
   double containerHeight = 100.0;
   double currentScale = 1.0;
+  double currentTransformY = 0.0;
   final Map<String, MemoryImage> _previewCache = {};
 
   @override
   void initState() {
     super.initState();
+
+    _transformationController.addListener(() {
+      final matrix = _transformationController.value;
+      setState(() {
+        currentScale = matrix.getMaxScaleOnAxis();
+        currentTransformY = matrix.getTranslation().y;
+      });
+    });
 
     setState(() {
       double scale = GlobalData.configBox.get('aid_scale', defaultValue: 1.0);
@@ -145,7 +155,8 @@ class _AidState extends State<Aid>
     return Scaffold(
       backgroundColor: Color.lerp(PRIMARY, Colors.white, 0.9),
       appBar: AppBar(
-        title: const Text("Hilfsmittel"),
+        title: Text(
+            "Hilfsmittel ${(currentTransformY / currentScale).toStringAsFixed(2)}"),
         backgroundColor: PRIMARY,
         foregroundColor: Colors.white,
         actions: [
@@ -195,12 +206,6 @@ class _AidState extends State<Aid>
             minScale: 1,
             panEnabled: true,
             constrained: false,
-            onInteractionUpdate: (details) {
-              final matrix = _transformationController.value;
-              setState(() {
-                currentScale = matrix.getMaxScaleOnAxis();
-              });
-            },
             onInteractionEnd: (details) {
               final matrix = _transformationController.value;
               final double scale = matrix.getMaxScaleOnAxis();
@@ -224,18 +229,20 @@ class _AidState extends State<Aid>
                             left: 8,
                             right: 8),
                         child: AspectRatio(
-                            aspectRatio: 210 / 297,
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  // color: Colors.white,
-                                  // border: Border.all(color: Colors.black12),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.black12, blurRadius: 4),
-                                  ],
-                                ),
-                                child: _buildPage(
-                                    index, containerWidth, devicePixelRatio))),
+                          aspectRatio: 210 / 297,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              // border: Border.all(color: Colors.black12),
+                              boxShadow: const [
+                                BoxShadow(color: Colors.black12, blurRadius: 4),
+                              ],
+                            ),
+                            child: _buildPage(
+                                index, containerWidth, devicePixelRatio),
+                            // Container(),
+                          ),
+                        ),
                       );
                     },
                   ),
