@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:developer' as developer;
 
-import 'package:Hamfisted/aid.dart';
-import 'package:Hamfisted/exam_overview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +9,16 @@ import 'package:introduction_screen/introduction_screen.dart';
 
 import 'data.dart';
 import 'quiz.dart';
+
+double calculateIntroBottom(BoxConstraints constraints, double dpr) {
+  if (constraints.maxWidth < 600) {
+    return 210.0;
+  } else if (constraints.maxWidth < 800) {
+    return 180.0;
+  } else {
+    return 160.0;
+  }
+}
 
 class Overview extends StatefulWidget {
   const Overview({super.key});
@@ -270,15 +279,19 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
       );
     }
     return LayoutBuilder(builder: (context, constraints) {
+      double introBottom = calculateIntroBottom(
+          constraints, MediaQuery.of(context).devicePixelRatio);
+      double headingHeight = 64.0;
+      double totalBottomHeight = introBottom + headingHeight;
+
       return Stack(
         children: [
-          Container(color: PRIMARY),
           Container(
             color: Color.lerp(PRIMARY, Colors.white, 0.9),
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: INTRO_BOTTOM + 64),
+                padding: EdgeInsets.only(bottom: totalBottomHeight),
                 child: Stack(
                   children: [
                     AnimatedBuilder(
@@ -299,25 +312,6 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                             ),
                           );
                         }),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: LayoutBuilder(builder: (context, constraints) {
-                        return AnimatedBuilder(
-                            animation: _animationControllerCat,
-                            builder: (context, child) {
-                              return Transform.translate(
-                                offset: Offset(
-                                    0,
-                                    (1.0 - _animationControllerCat.value) *
-                                        constraints.maxHeight),
-                                child: Image(
-                                    image: const AssetImage(
-                                        'assets/stack_of_books.png'),
-                                    height: constraints.maxHeight * 0.7),
-                              );
-                            });
-                      }),
-                    ),
                     Material(
                       color: Colors.transparent,
                       child: AnimatedBuilder(
@@ -760,21 +754,6 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                             });
                       }),
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 8,
-                        decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Color(0x00000000),
-                            Color(0x30000000),
-                          ],
-                        )),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -782,75 +761,111 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  height: 8,
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          stops: [0, 1],
-                          colors: [Color(0x00000000), Color(0x20000000)],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter)),
-                ),
-                Container(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: INTRO_BOTTOM),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 28, left: 8.0, right: 8.0, bottom: 8.0),
-                      child: AnimatedBuilder(
-                          animation: _animationControllerHeading,
-                          builder: (context, child) {
-                            double direction = 1.0;
-                            if (!animatingForward) direction = -1.0;
-                            return Stack(
-                              children: [
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: Transform.translate(
-                                    offset: Offset(
-                                        -_animationControllerHeading.value *
-                                            constraints.maxWidth *
-                                            direction,
-                                        0),
-                                    child: Text(
-                                      oldTitle,
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: Transform.translate(
-                                    offset: Offset(
-                                        (1.0 -
-                                                _animationControllerHeading
-                                                    .value) *
-                                            constraints.maxWidth *
-                                            direction,
-                                        0),
-                                    child: Text(
-                                      newTitle,
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          }),
+            child: Container(
+              child: LayoutBuilder(builder: (context, constraints) {
+                return Padding(
+                  padding: EdgeInsets.only(bottom: introBottom + headingHeight),
+                  child: AnimatedBuilder(
+                      animation: _animationControllerCat,
+                      builder: (context, child) {
+                        return Transform.translate(
+                          offset: Offset(
+                              0,
+                              (1.0 - _animationControllerCat.value) *
+                                  constraints.maxHeight),
+                          child: Image(
+                            image:
+                                const AssetImage('assets/stack_of_books.png'),
+                            width: constraints.maxWidth * 0.85,
+                            height: constraints.maxHeight * 0.5,
+                            fit: BoxFit.contain,
+                            alignment: Alignment.bottomCenter,
+                          ),
+                        );
+                      }),
+                );
+              }),
+            ),
+          ),
+          Opacity(
+            opacity: 1.0,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: 4,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            stops: [0, 1],
+                            colors: [Color(0x00000000), Color(0x20000000)],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter),
+                      ),
                     ),
-                  ),
+                    Container(
+                      color: Colors.white,
+                      height: introBottom + headingHeight,
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: introBottom),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 28, left: 8.0, right: 8.0, bottom: 8.0),
+                          child: AnimatedBuilder(
+                              animation: _animationControllerHeading,
+                              builder: (context, child) {
+                                double direction = 1.0;
+                                if (!animatingForward) direction = -1.0;
+                                return Stack(
+                                  children: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: Transform.translate(
+                                        offset: Offset(
+                                            -_animationControllerHeading.value *
+                                                constraints.maxWidth *
+                                                direction,
+                                            0),
+                                        child: Text(
+                                          oldTitle,
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: Transform.translate(
+                                        offset: Offset(
+                                            (1.0 -
+                                                    _animationControllerHeading
+                                                        .value) *
+                                                constraints.maxWidth *
+                                                direction,
+                                            0),
+                                        child: Text(
+                                          newTitle,
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
           IntroductionScreen(
@@ -915,27 +930,31 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
             isProgressTap: false,
             globalBackgroundColor: Colors.transparent,
             rawPages: const [
-              IntroScreenColumn(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Hamfisted hilft dir, dich auf die Amateurfunkprüfung vorzubereiten. Eine smarte Lernmethode (Spaced Repetition) hilft dir dabei, deinen Fortschritt zu maximieren.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 15),
-                      ),
+              Stack(
+                children: [
+                  IntroScreenColumn(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "Hamfisted hilft dir, dich auf die Amateurfunkprüfung vorzubereiten. Eine smarte Lernmethode (Spaced Repetition) hilft dir dabei, deinen Fortschritt zu maximieren.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "Schau dir kurz an, wie es funktioniert.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Schau dir kurz an, wie es funktioniert.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               IntroScreenColumn(
                 child: Column(
@@ -1181,7 +1200,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                 child: const ListTile(
                   title: Text("Fortschritt löschen"),
                   visualDensity: VisualDensity.compact,
-                  leading: Icon(Icons.delete),
+                  leading: Icon(Icons.delete_outline),
                 ),
               ),
               if (kDebugMode)
@@ -1207,7 +1226,7 @@ class _OverviewState extends State<Overview> with TickerProviderStateMixin {
                 child: ListTile(
                   title: Text("Über diese App"),
                   visualDensity: VisualDensity.compact,
-                  leading: Icon(Icons.info),
+                  leading: Icon(Icons.info_outline),
                 ),
               ),
             ];
@@ -1394,27 +1413,20 @@ class IntroScreenColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      return Column(
-        children: [
-          Container(
-            color: Colors.transparent,
-            child: SizedBox(
-              height: constraints.maxHeight - INTRO_BOTTOM,
+      double introBottom = calculateIntroBottom(
+          constraints, MediaQuery.of(context).devicePixelRatio);
+
+      return Align(
+        alignment: Alignment.bottomCenter,
+        child: SizedBox(
+          height: introBottom,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+              child: SizedBox(width: double.maxFinite, child: child),
             ),
           ),
-          Container(
-            color: Colors.white,
-            child: SizedBox(
-              height: INTRO_BOTTOM,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                  child: SizedBox(width: double.maxFinite, child: child),
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       );
     });
   }

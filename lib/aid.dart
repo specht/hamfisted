@@ -141,14 +141,17 @@ class _AidState extends State<Aid>
       ),
       Opacity(
         opacity: svgOpacity,
-        child: FutureBuilder<ScalableImage>(
-            future: ScalableImage.fromSIAsset(
-                rootBundle, "assets/jovial/hilfsmittel-${index + 1}-scour.si"),
-            builder: (context, snapshot) {
-              return snapshot.hasData
-                  ? ScalableImageWidget(si: snapshot.data!)
-                  : Container();
-            }),
+        child: Image.asset(
+          "assets/hilfsmittel-${index + 1}-300.jpg",
+        ),
+        // FutureBuilder<ScalableImage>(
+        //     future: ScalableImage.fromSIAsset(
+        //         rootBundle, "assets/jovial/hilfsmittel-${index + 1}-scour.si"),
+        //     builder: (context, snapshot) {
+        //       return snapshot.hasData
+        //           ? ScalableImageWidget(si: snapshot.data!)
+        //           : Container();
+        //     }),
       ),
     ]);
   }
@@ -213,7 +216,7 @@ class _AidState extends State<Aid>
               MediaQuery.of(context).devicePixelRatio;
           return InteractiveViewer(
             transformationController: _transformationController,
-            maxScale: 8,
+            maxScale: 5,
             minScale: 1,
             panEnabled: true,
             constrained: false,

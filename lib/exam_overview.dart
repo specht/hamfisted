@@ -41,7 +41,7 @@ class _ExamOverviewState extends State<ExamOverview> {
         //       child: ListTile(
         //         title: Text("Alle gemerkten Fragen löschen"),
         //         visualDensity: VisualDensity.compact,
-        //         leading: Icon(Icons.delete),
+        //         leading: Icon(Icons.delete_outline),
         //       ),
         //     ),
         //   ];

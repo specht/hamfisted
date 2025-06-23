@@ -196,7 +196,7 @@ class _StarredState extends State<Starred> {
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.delete, color: Colors.black45),
+              child: Icon(Icons.delete_outline, color: Colors.black45),
             ),
           ),
           onDismissed: (direction) {
@@ -241,7 +241,7 @@ class _StarredState extends State<Starred> {
                 child: ListTile(
                   title: Text("Alle gemerkten Fragen löschen"),
                   visualDensity: VisualDensity.compact,
-                  leading: Icon(Icons.delete),
+                  leading: Icon(Icons.delete_outline),
                 ),
               ),
             ];

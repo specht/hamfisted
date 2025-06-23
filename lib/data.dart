@@ -20,7 +20,6 @@ const PRIMARY = Color(0xff1d5479);
 const GREY = Color(0xffe0e0e0);
 const double MAX_WIDTH = 400;
 
-const double INTRO_BOTTOM = 220;
 const String ROOT_HID = '2024';
 const ICON_SIZE = 28.0;
 

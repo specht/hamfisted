@@ -577,7 +577,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
               //   child: const ListTile(
               //     title: Text("Fortschritt löschen"),
               //     visualDensity: VisualDensity.compact,
-              //     leading: Icon(Icons.delete),
+              //     leading: Icon(Icons.delete_outline),
               //   ),
               // ),
             ];
