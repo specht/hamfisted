@@ -32,10 +32,10 @@ class Hamfisted extends StatelessWidget {
       title: 'Amateurfunkprüfung',
       debugShowCheckedModeBanner: false,
       // showPerformanceOverlay: true,
+      themeMode: ThemeMode.system,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: PRIMARY,
-        ),
+        brightness: Brightness.light,
+        colorScheme: ColorScheme.fromSeed(seedColor: PRIMARY, brightness: Brightness.light),
         textTheme: GoogleFonts.alegreyaSansTextTheme(textTheme),
       ),
       home: const Overview(),

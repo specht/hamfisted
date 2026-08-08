@@ -593,6 +593,7 @@ class _QuizState extends State<Quiz> with TickerProviderStateMixin {
               child: ListView(
                 children: cards,
               ),
+              
             ),
             if (solvedAll)
               Align(
